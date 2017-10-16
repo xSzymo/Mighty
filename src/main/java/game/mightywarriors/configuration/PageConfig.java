@@ -24,13 +24,13 @@ public class PageConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/resources/")
+                .addResourceLocations("classpath:/resources/")
                 .resourceChain(false)
                 .addResolver(new EmberBootResourceResolver());
     }
 
     private class EmberBootResourceResolver implements ResourceResolver {
-        private Resource index = new ClassPathResource("/META-INF/resources/index.html");
+        private Resource index = new ClassPathResource("/resources/index.html");
         private List<String> handledExtensions = Arrays.asList("html", "js", "json", "css", "eot",
                 "ttf", "woff", "appcache", "jpg", "jpeg", "gif", "ico");
         private List<String> ignoredPaths = Arrays.asList("api");
