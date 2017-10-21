@@ -17,6 +17,10 @@ public class Image {
     @Column(name = "file_type")
     private String fileType;
 
+    public Image() {
+
+    }
+
     public Image(String path, String name, String fileType) {
         this.name = name;
         this.path = path;

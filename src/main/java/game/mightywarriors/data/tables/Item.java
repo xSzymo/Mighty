@@ -1,5 +1,7 @@
 package game.mightywarriors.data.tables;
 
+import game.mightywarriors.data.enums.WeaponType;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,77 +12,78 @@ public class Item {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "strength")
-    private long strength;
-    @Column(name = "intelligence")
-    private long intelligence;
-    @Column(name = "vitality")
-    private long vitality;
-    @Column(name = "critic_chance")
-    private long criticChance;
-    @Column(name = "armor")
-    private long armor;
-    @Column(name = "megic_resist")
-    private long megicResist;
+    private String name;
+    private String description;
+    private WeaponType type_of_weapon;
+    private long level;
 
-    public Item(long strength, long intelligence, long vitality, long criticChance, long armor, long megicResist) {
-        this.strength = strength;
-        this.intelligence = intelligence;
-        this.vitality = vitality;
-        this.criticChance = criticChance;
-        this.armor = armor;
-        this.megicResist = megicResist;
+    @OneToOne
+    private Statistic statistic;
+
+    @OneToOne
+    private Image image;
+
+    public Item() {
+
+    }
+
+    public Item(String name, WeaponType type_of_weapon, Statistic statistic, long level) {
+        this.name = name;
+        this.type_of_weapon = type_of_weapon;
+        this.statistic = statistic;
+        this.level = level;
+    }
+
+    public Item(String name, String description, WeaponType type_of_weapon, Statistic statistic, Image image, long level) {
+        this.name = name;
+        this.description = description;
+        this.type_of_weapon = type_of_weapon;
+        this.statistic = statistic;
+        this.image = image;
+        this.level = level;
     }
 
     public Long getId() {
         return id;
     }
 
-    public long getStrength() {
-        return strength;
+    public String getName() {
+        return name;
     }
 
-    public void setStrength(long strength) {
-        this.strength = strength;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public long getIntelligence() {
-        return intelligence;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIntelligence(long intelligence) {
-        this.intelligence = intelligence;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public long getVitality() {
-        return vitality;
+    public WeaponType getType_of_weapon() {
+        return type_of_weapon;
     }
 
-    public void setVitality(long vitality) {
-        this.vitality = vitality;
+    public void setType_of_weapon(WeaponType type_of_weapon) {
+        this.type_of_weapon = type_of_weapon;
     }
 
-    public long getCriticChance() {
-        return criticChance;
+    public Statistic getStatistic() {
+        return statistic;
     }
 
-    public void setCriticChance(long criticChance) {
-        this.criticChance = criticChance;
+    public void setStatistic(Statistic statistic) {
+        this.statistic = statistic;
     }
 
-    public long getArmor() {
-        return armor;
+    public Image getImage() {
+        return image;
     }
 
-    public void setArmor(long armor) {
-        this.armor = armor;
-    }
-
-    public long getMegicResist() {
-        return megicResist;
-    }
-
-    public void setMegicResist(long megicResist) {
-        this.megicResist = megicResist;
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

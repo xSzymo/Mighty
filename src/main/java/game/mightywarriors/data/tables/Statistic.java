@@ -18,6 +18,15 @@ public class Statistic {
     private long armor;
     private long magicResist;
 
+    public Statistic() {
+        this.strength = 0;
+        this.intelligence = 0;
+        this.vitality = 0;
+        this.criticChance = 0;
+        this.armor = 0;
+        this.magicResist = 0;
+    }
+
     public Statistic(long strength, long intelligence, long vitality, long criticChance, long armor, long magicResist) {
         this.strength = strength;
         this.intelligence = intelligence;

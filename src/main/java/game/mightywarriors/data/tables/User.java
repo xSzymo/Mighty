@@ -17,12 +17,22 @@ public class User {
     private String password;
     @Column(name = "e_mail")
     private String eMail;
-    @Column(name = "cookie_code")
-    private String cookieCode;
 
     @OneToOne
-    @JoinColumn(name = "champion_id")
+    private Image image;
+
+    @OneToOne
+    private Statistic stats;
+
+    @OneToOne
     private Champion champion;
+
+    private long experience = 0;
+    private long level = 0;
+
+    public User() {
+
+    }
 
     public User(String login, String password, String eMail) {
         this.login = login;
@@ -30,11 +40,12 @@ public class User {
         this.eMail = eMail;
     }
 
-    public User(String login, String password, String eMail, String cookieCode, Champion champion) {
+    public User(String login, String password, String eMail, Image image, Statistic stats, Champion champion) {
         this.login = login;
         this.password = password;
         this.eMail = eMail;
-        this.cookieCode = cookieCode;
+        this.image = image;
+        this.stats = stats;
         this.champion = champion;
     }
 
@@ -66,12 +77,20 @@ public class User {
         this.eMail = eMail;
     }
 
-    public String getCookieCode() {
-        return cookieCode;
+    public Image getImage() {
+        return image;
     }
 
-    public void setCookieCode(String cookieCode) {
-        this.cookieCode = cookieCode;
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Statistic getStatistic() {
+        return stats;
+    }
+
+    public void setStatistic(Statistic stats) {
+        this.stats = stats;
     }
 
     public Champion getChampion() {
@@ -80,5 +99,17 @@ public class User {
 
     public void setChampion(Champion champion) {
         this.champion = champion;
+    }
+
+    public long getExperience() {
+        return experience;
+    }
+
+    public void setExperience(long experience) {
+        this.experience = experience;
+    }
+
+    public long getLevel() {
+        return level;
     }
 }
