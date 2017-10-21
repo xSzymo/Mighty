@@ -10,4 +10,5 @@ import java.util.LinkedList;
 public interface UserRepository extends CrudRepository<User, Long> {
     User findById(long id);
     LinkedList<User> findAll();
+    User findByLogin(String login);
 }
