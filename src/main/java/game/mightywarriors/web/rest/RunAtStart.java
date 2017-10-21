@@ -67,7 +67,7 @@ public class RunAtStart {
             Champion champion = new Champion(statistic, shop, equipment);
             championRepository.save(champion);
 
-            user.setImage(image);
+           // user.setImage(image);
             user.setChampion(champion);
             userRepository.save(user);
             if(i % 2 == 0) {
@@ -108,7 +108,7 @@ public class RunAtStart {
             Champion champion = new Champion(statistic, shop, equipment);
             championRepository.save(champion);
 
-            user.setImage(image);
+        //    user.setImage(image);
             user.setChampion(champion);
             userRepository.save(user);
             admin_role.getUsers().add(user);

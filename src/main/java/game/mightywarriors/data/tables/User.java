@@ -2,6 +2,8 @@ package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.LinkedList;
 
 @Entity
 @Table(name = "users")
@@ -19,8 +21,9 @@ public class User {
     @Column(name = "e_mail")
     private String eMail;
 
-    @OneToOne
-    private Image image;
+    @OneToMany
+    @JoinColumn(name="user_id", referencedColumnName="id")
+    private Collection<Image> image = new LinkedList<Image>();
 
     @OneToOne
     private Statistic stats;
@@ -45,7 +48,7 @@ public class User {
         this.eMail = eMail;
     }
 
-    public User(String login, String password, String eMail, Image image, Statistic stats, Champion champion) {
+    public User(String login, String password, String eMail, LinkedList<Image> image, Statistic stats, Champion champion) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
@@ -83,11 +86,11 @@ public class User {
         this.eMail = eMail;
     }
 
-    public Image getImage() {
+    public Collection<Image> getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(LinkedList<Image> image) {
         this.image = image;
     }
 
