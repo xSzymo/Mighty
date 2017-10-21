@@ -1,6 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "images")
@@ -17,11 +18,15 @@ public class Image {
     @Column(name = "file_type")
     private String fileType;
 
-    public Image() {
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
 
+    public Image() {
+        timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Image(String path, String name, String fileType) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.path = path;
         this.fileType = "." + fileType;
@@ -61,5 +66,9 @@ public class Image {
             this.fileType = "";
         if (fileType == null)
             this.fileType = "";
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 }

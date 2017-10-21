@@ -50,7 +50,7 @@ public class RunAtStart {
             itemRepository.save(item);
 
             User user = new User("loing_" + i, "password_" + i, "mail@" + i);
-            Image image = new Image("C:/folder/", "name"+ i, ".png");
+            Image image = new Image("C:/folder/", "name"+ i, "png");
             imageRepository.save(image);
 
             Statistic statistic = new Statistic();

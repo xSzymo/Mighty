@@ -3,6 +3,7 @@ package game.mightywarriors.data.tables;
 import game.mightywarriors.data.enums.WeaponType;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "items")
@@ -23,11 +24,15 @@ public class Item {
     @OneToOne
     private Image image;
 
-    public Item() {
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
 
+    public Item() {
+        timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name, WeaponType type_of_weapon, Statistic statistic, long level) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.type_of_weapon = type_of_weapon;
         this.statistic = statistic;
@@ -35,6 +40,7 @@ public class Item {
     }
 
     public Item(String name, String description, WeaponType type_of_weapon, Statistic statistic, Image image, long level) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
         this.type_of_weapon = type_of_weapon;
@@ -85,5 +91,9 @@ public class Item {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 }

@@ -1,6 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -16,11 +17,16 @@ public class UserRole {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id")
     private Collection<User> user = new LinkedHashSet<User>();
 
-    private UserRole() {}
+    private UserRole() {
+        timeStamp = new Timestamp(System.currentTimeMillis());
+    }
 
     public UserRole(String role) {
         this.role = role;
@@ -48,5 +54,9 @@ public class UserRole {
 
     public void setUsers(Collection<User> user) {
         this.user = user;
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 }

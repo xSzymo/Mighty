@@ -1,6 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "users")
@@ -27,20 +28,25 @@ public class User {
     @OneToOne
     private Champion champion;
 
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
+
     private long experience = 0;
     private long level = 0;
 
     public User() {
-
+        timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String login, String password, String eMail) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
     }
 
     public User(String login, String password, String eMail, Image image, Statistic stats, Champion champion) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
@@ -111,5 +117,9 @@ public class User {
 
     public long getLevel() {
         return level;
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 }
