@@ -1,5 +1,7 @@
 Będziesz królikiem doświadczalnym.
 
+niezależnie od wybranego kroku pamiętaj by ustawić swoję dane w application.properties w resources (potrzebujesz m.in mysql)
+
 1.Jeżeli chcesz uruchomić z konsoli :
 
 - zainstaluj java i ustaw JAVA_HOME + path
