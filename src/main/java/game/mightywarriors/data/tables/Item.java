@@ -96,4 +96,12 @@ public class Item {
     public Timestamp getTimeStamp() {
         return timeStamp;
     }
+
+    public long getLevel() {
+        return level;
+    }
+
+    public void setLevel(long level) {
+        this.level = level;
+    }
 }

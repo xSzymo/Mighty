@@ -1,9 +1,6 @@
 package game.mightywarriors.data.tables;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,11 +24,11 @@ public class User {
     private String eMail;
 
     @OneToMany
-    @JoinColumn(name="user_id", referencedColumnName="id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Collection<Image> image = new LinkedList<Image>();
 
     @ManyToOne
-    @JoinColumn(name="halo", referencedColumnName="id")
+    @JoinColumn(name = "halo", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
 

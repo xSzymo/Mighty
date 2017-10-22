@@ -14,9 +14,10 @@ public class Shop {
     private Long id;
 
     @OneToMany
-    private Collection<Item> items = new LinkedHashSet<Item>();
+    private Collection<Item> items;
 
     public Shop() {
+        items = new LinkedHashSet<>();
     }
 
     public Long getId() {
