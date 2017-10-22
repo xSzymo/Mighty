@@ -1,5 +1,10 @@
 package game.mightywarriors.data.tables;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -25,8 +30,10 @@ public class User {
     @JoinColumn(name="user_id", referencedColumnName="id")
     private Collection<Image> image = new LinkedList<Image>();
 
-    @OneToOne
-    private Statistic stats;
+    @ManyToOne
+    @JoinColumn(name="halo", referencedColumnName="id")
+    @JsonBackReference
+    private UserRole userRole;
 
     @OneToOne
     private Champion champion;
@@ -41,21 +48,33 @@ public class User {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public User(String login, String password, String eMail) {
+    public User(String login, String password, String eMail, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
+        this.userRole = userRole;
     }
 
-    public User(String login, String password, String eMail, LinkedList<Image> image, Statistic stats, Champion champion) {
+    public User(String login, String password, String eMail, LinkedList<Image> image, Statistic stats, Champion champion, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
         this.image = image;
-        this.stats = stats;
         this.champion = champion;
+        this.userRole = userRole;
+    }
+
+    public User(User user) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
+        this.id = user.id;
+        this.login = user.login;
+        this.password = user.password;
+        this.eMail = user.password;
+        this.image = user.image;
+        this.champion = user.champion;
+        this.userRole = user.userRole;
     }
 
     public Long getId() {
@@ -94,14 +113,6 @@ public class User {
         this.image = image;
     }
 
-    public Statistic getStatistic() {
-        return stats;
-    }
-
-    public void setStatistic(Statistic stats) {
-        this.stats = stats;
-    }
-
     public Champion getChampion() {
         return champion;
     }
@@ -120,6 +131,14 @@ public class User {
 
     public long getLevel() {
         return level;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public Timestamp getTimeStamp() {

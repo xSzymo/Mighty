@@ -33,11 +33,12 @@ public class RunAtStart {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
-
+    UserRole admin_role;
+    UserRole user_role;
     @PostConstruct
     public void halaso() {
-        UserRole admin_role = new UserRole("admin");
-        UserRole user_role = new UserRole("user");
+        admin_role = new UserRole("admin");
+        user_role = new UserRole("user");
 
         userRoleRepository.save(admin_role);
         userRoleRepository.save(user_role);
@@ -49,7 +50,13 @@ public class RunAtStart {
             Item item = new Item("sword" + i, WeaponType.WEAPON, statistic1, 1);
             itemRepository.save(item);
 
-            User user = new User("loing_" + i, "password_" + i, "mail@" + i);
+            User user;
+
+            if(i % 2 == 0) {
+                user = new User("loing_" + i, "password_" + i, "mail@" + i, user_role);
+            } else {
+                user = new User("loing_" + i, "password_" + i, "mail@" + i, admin_role);
+            }
             Image image = new Image("C:/folder/", "name"+ i, "png");
             imageRepository.save(image);
 
@@ -70,19 +77,12 @@ public class RunAtStart {
            // user.setImage(image);
             user.setChampion(champion);
             userRepository.save(user);
-            if(i % 2 == 0) {
-                user_role.getUsers().add(user);
-                userRoleRepository.save(user_role);
-            } else {
-                admin_role.getUsers().add(user);
-                userRoleRepository.save(admin_role);
-            }
         }
         halo();
     }
 
     public void halo() {
-        UserRole admin_role = new UserRole("admin");
+            userRoleRepository.save(admin_role);
 
             Statistic statistic1 = new Statistic();
             statisticRepository.save(statistic1);
@@ -90,7 +90,7 @@ public class RunAtStart {
             Item item = new Item("sworderino", WeaponType.WEAPON, statistic1, 1);
             itemRepository.save(item);
 
-            User user = new User("admin", "admin", "admin@");
+            User user = new User("admin", "admin", "admin@", admin_role);
             Image image = new Image("C:/folder/", "name01" , ".png");
             imageRepository.save(image);
 
@@ -110,8 +110,9 @@ public class RunAtStart {
 
         //    user.setImage(image);
             user.setChampion(champion);
+            user.setUserRole(admin_role);
             userRepository.save(user);
-            admin_role.getUsers().add(user);
-            userRoleRepository.save(admin_role);
+//            admin_role.getUsers().add(user);
+//            userRoleRepository.save(admin_role);
     }
 }

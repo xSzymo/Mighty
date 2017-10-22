@@ -1,5 +1,11 @@
 package game.mightywarriors.data.tables;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -11,7 +17,7 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
+    @Column(name = "id")
     private long id;
 
     @Column(name = "role")
@@ -20,8 +26,8 @@ public class UserRole {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role_id")
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JsonManagedReference
     private Collection<User> user = new LinkedHashSet<User>();
 
     private UserRole() {
@@ -29,6 +35,7 @@ public class UserRole {
     }
 
     public UserRole(String role) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.role = role;
     }
 
