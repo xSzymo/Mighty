@@ -15,12 +15,12 @@ public class Helo3 {
     @Autowired
     UserRoleRepository imageRepository;
 
-    @GetMapping("userRole")
+    @GetMapping("userRoles")
     public LinkedList<UserRole> halo() {
         return imageRepository.findAll();
     }
 
-    @GetMapping("userRole/{id}")
+    @GetMapping("userRoles/{id}")
     public UserRole halo1(@PathVariable("id") String id) {
         return imageRepository.findById(Long.parseLong(id));
     }

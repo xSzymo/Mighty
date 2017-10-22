@@ -15,12 +15,12 @@ public class Helo {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("user")
+    @GetMapping("users")
     public LinkedList<User> halo() {
         return userRepository.findAll();
     }
 
-    @GetMapping("user/{id}")
+    @GetMapping("users/{id}")
     public User halo1(@PathVariable("id") String id) {
         return userRepository.findById(Long.parseLong(id));
     }

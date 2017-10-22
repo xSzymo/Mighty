@@ -15,12 +15,12 @@ public class Helo2 {
     @Autowired
     ImageRepository imageRepository;
 
-    @GetMapping("image")
+    @GetMapping("images")
     public LinkedList<Image> halo() {
         return imageRepository.findAll();
     }
 
-    @GetMapping("image/{id}")
+    @GetMapping("images/{id}")
     public Image halo1(@PathVariable("id") String id) {
         return imageRepository.findById(Long.parseLong(id));
     }
