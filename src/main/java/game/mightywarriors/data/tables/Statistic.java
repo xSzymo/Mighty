@@ -3,7 +3,7 @@ package game.mightywarriors.data.tables;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "stats")
+@Table(name = "statistic")
 public class Statistic {
 
     @Id

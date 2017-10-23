@@ -28,7 +28,7 @@ public class User {
     private Collection<Image> image = new LinkedList<Image>();
 
     @ManyToOne
-    @JoinColumn(name = "user_role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
 

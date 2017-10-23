@@ -10,8 +10,6 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class RunAtStart {
-    UserRole admin_role;
-    UserRole user_role;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -29,6 +27,9 @@ public class RunAtStart {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    UserRole admin_role;
+    UserRole user_role;
+
     @PostConstruct
     public void halaso() {
         admin_role = new UserRole("admin");
@@ -42,6 +43,9 @@ public class RunAtStart {
             statisticRepository.save(statistic1);
 
             Item item = new Item("sword" + i, WeaponType.WEAPON, statistic1, 1);
+            Image ima = new Image("http://d20pfsrd.opengamingnetwork.com/wp-content/uploads/sites/12/2017/01/EXsword3.jpg");
+            imageRepository.save(ima);
+            item.setImage(ima);
             itemRepository.save(item);
 
             User user;
@@ -51,7 +55,9 @@ public class RunAtStart {
             } else {
                 user = new User("loing_" + i, "password_" + i, "mail@" + i, admin_role);
             }
-            Image image = new Image("C:/folder/", "name" + i, "png");
+            Image image = new Image("http://images81.fotosik.pl/231/29440c344295bb2amed.jpg");
+            if(i == 0)
+                image = new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg");
             imageRepository.save(image);
 
             Statistic statistic = new Statistic();
@@ -85,7 +91,7 @@ public class RunAtStart {
         itemRepository.save(item);
 
         User user = new User("admin", "admin", "admin@", admin_role);
-        Image image = new Image("C:/folder/", "name01", ".png");
+        Image image = new Image("C:/folde.png");
         imageRepository.save(image);
 
         Statistic statistic = new Statistic();
