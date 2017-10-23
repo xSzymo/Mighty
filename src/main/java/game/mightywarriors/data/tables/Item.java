@@ -9,13 +9,17 @@ import java.sql.Timestamp;
 @Table(name = "items")
 public class Item {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
-    private WeaponType type_of_weapon;
+    @Column(name = "type_of_weapon")
+    private WeaponType typeOfWeapon;
+    @Column(name = "level")
     private long level;
 
     @OneToOne
@@ -31,19 +35,19 @@ public class Item {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Item(String name, WeaponType type_of_weapon, Statistic statistic, long level) {
+    public Item(String name, WeaponType typeOfWeapon, Statistic statistic, long level) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
-        this.type_of_weapon = type_of_weapon;
+        this.typeOfWeapon = typeOfWeapon;
         this.statistic = statistic;
         this.level = level;
     }
 
-    public Item(String name, String description, WeaponType type_of_weapon, Statistic statistic, Image image, long level) {
+    public Item(String name, String description, WeaponType typeOfWeapon, Statistic statistic, Image image, long level) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
-        this.type_of_weapon = type_of_weapon;
+        this.typeOfWeapon = typeOfWeapon;
         this.statistic = statistic;
         this.image = image;
         this.level = level;
@@ -69,12 +73,12 @@ public class Item {
         this.description = description;
     }
 
-    public WeaponType getType_of_weapon() {
-        return type_of_weapon;
+    public WeaponType getTypeOfWeapon() {
+        return typeOfWeapon;
     }
 
-    public void setType_of_weapon(WeaponType type_of_weapon) {
-        this.type_of_weapon = type_of_weapon;
+    public void setTypeOfWeapon(WeaponType typeOfWeapon) {
+        this.typeOfWeapon = typeOfWeapon;
     }
 
     public Statistic getStatistic() {

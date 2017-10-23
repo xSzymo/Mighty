@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 public class Shop {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 

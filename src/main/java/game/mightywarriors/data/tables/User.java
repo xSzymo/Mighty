@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -28,7 +28,7 @@ public class User {
     private Collection<Image> image = new LinkedList<Image>();
 
     @ManyToOne
-    @JoinColumn(name = "halo", referencedColumnName = "id")
+    @JoinColumn(name = "user_role_id", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
 
@@ -38,7 +38,10 @@ public class User {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
+    @Column(name = "experience")
     private long experience = 0;
+
+    @Column(name = "level")
     private long level = 0;
 
     public User() {

@@ -7,16 +7,12 @@ import java.sql.Timestamp;
 @Table(name = "images")
 public class Image {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-    @Column(name = "path")
-    private String path;
-    @Column(name = "file_type")
-    private String fileType;
+    @Column(name = "url")
+    private String url;
 
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
@@ -25,50 +21,24 @@ public class Image {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Image(String path, String name, String fileType) {
+    public Image(String url) {
         timeStamp = new Timestamp(System.currentTimeMillis());
-        this.name = name;
-        this.path = path;
-        this.fileType = "." + fileType;
-        if (fileType.equals(""))
-            this.fileType = "";
-        if (fileType == null)
-            this.fileType = "";
+        this.url = url;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = "." + fileType;
-        if (fileType.equals(""))
-            this.fileType = "";
-        if (fileType == null)
-            this.fileType = "";
-    }
-
     public Timestamp getTimeStamp() {
         return timeStamp;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

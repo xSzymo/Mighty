@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Champion {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
