@@ -83,4 +83,8 @@ public class Statistic {
     public void setMagicResist(long magicResist) {
         this.magicResist = magicResist;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
