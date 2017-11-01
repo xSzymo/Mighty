@@ -25,15 +25,16 @@ public class User {
 
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Image> image = new LinkedList<Image>();
+    private Collection<Image> image = new LinkedList<>();
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
 
-    @OneToOne
-    private Champion champion;
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Collection<Champion> champions = new LinkedList<>();
 
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
@@ -50,13 +51,13 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(String login, String password, String eMail, LinkedList<Image> image, Statistic stats, Champion champion, UserRole userRole) {
+    public User(String login, String password, String eMail, LinkedList<Image> image, Champion champion, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
         this.image = image;
-        this.champion = champion;
+        this.champions.add(champion);
         this.userRole = userRole;
     }
 
@@ -67,7 +68,7 @@ public class User {
         this.password = user.password;
         this.eMail = user.password;
         this.image = user.image;
-        this.champion = user.champion;
+        this.champions = user.champions;
         this.userRole = user.userRole;
     }
 
@@ -107,14 +108,6 @@ public class User {
         this.image = image;
     }
 
-    public Champion getChampion() {
-        return champion;
-    }
-
-    public void setChampion(Champion champion) {
-        this.champion = champion;
-    }
-
 
     public UserRole getUserRole() {
         return userRole;
@@ -126,5 +119,18 @@ public class User {
 
     public Timestamp getTimeStamp() {
         return timeStamp;
+    }
+
+
+    public Collection<Champion> getChampions() {
+        return champions;
+    }
+
+    public void setChampions(LinkedList<Champion> champions) {
+        this.champions = champions;
+    }
+
+    public void addChampion(Champion champion) {
+        this.champions.add(champion);
     }
 }

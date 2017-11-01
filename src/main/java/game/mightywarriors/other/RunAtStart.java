@@ -75,7 +75,7 @@ public class RunAtStart {
             championRepository.save(champion);
 
             // user.setImage(image);
-            user.setChampion(champion);
+            user.addChampion(champion);
             userRepository.save(user);
         }
         halo();
@@ -109,7 +109,7 @@ public class RunAtStart {
         championRepository.save(champion);
 
         //    user.setImage(image);
-        user.setChampion(champion);
+        user.addChampion(champion);
         user.setUserRole(admin_role);
         userRepository.save(user);
 //            admin_role.getUsers().add(user);
