@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class RunAtStart {
+    UserRole admin_role;
+    UserRole user_role;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -26,9 +28,6 @@ public class RunAtStart {
     private StatisticRepository statisticRepository;
     @Autowired
     private UserRoleRepository userRoleRepository;
-
-    UserRole admin_role;
-    UserRole user_role;
 
     @PostConstruct
     public void halaso() {
@@ -56,7 +55,7 @@ public class RunAtStart {
                 user = new User("loing_" + i, "password_" + i, "mail@" + i, admin_role);
             }
             Image image = new Image("http://images81.fotosik.pl/231/29440c344295bb2amed.jpg");
-            if(i == 0)
+            if (i == 0)
                 image = new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg");
             imageRepository.save(image);
 
