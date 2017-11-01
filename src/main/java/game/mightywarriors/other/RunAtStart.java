@@ -71,10 +71,11 @@ public class RunAtStart {
             equipment.setWeapon(item);
             equipmentRepository.save(equipment);
 
-            Champion champion = new Champion(statistic, shop, equipment);
+            Champion champion = new Champion(statistic, equipment);
             championRepository.save(champion);
 
             // user.setImage(image);
+            user.setShop(shop);
             user.addChampion(champion);
             userRepository.save(user);
         }
@@ -105,7 +106,7 @@ public class RunAtStart {
         equipment.setWeapon(item);
         equipmentRepository.save(equipment);
 
-        Champion champion = new Champion(statistic, shop, equipment);
+        Champion champion = new Champion(statistic, equipment);
         championRepository.save(champion);
 
         //    user.setImage(image);

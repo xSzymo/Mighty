@@ -23,6 +23,9 @@ public class User {
     @Column(name = "e_mail")
     private String eMail;
 
+    @OneToOne
+    private Shop shop;
+
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Collection<Image> image = new LinkedList<>();
@@ -132,5 +135,13 @@ public class User {
 
     public void addChampion(Champion champion) {
         this.champions.add(champion);
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

@@ -21,18 +21,14 @@ public class Champion {
     private Statistic statistic;
 
     @OneToOne
-    private Shop shop;
-
-    @OneToOne
     private Equipment equipment;
 
     public Champion() {
 
     }
 
-    public Champion(Statistic statistic, Shop shop, Equipment equipment) {
+    public Champion(Statistic statistic, Equipment equipment) {
         this.statistic = statistic;
-        this.shop = shop;
         this.equipment = equipment;
     }
 
@@ -46,14 +42,6 @@ public class Champion {
 
     public void setStatistic(Statistic statistic) {
         this.statistic = statistic;
-    }
-
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
     }
 
     public Equipment getEquipment() {
