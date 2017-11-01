@@ -1,5 +1,7 @@
 package game.mightywarriors.data.tables;
 
+import game.mightywarriors.other.ChampionLevelManager;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,10 @@ public class Champion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+
+
+    @Column(name = "experience")
+    private long experience = 1;
 
     @OneToOne
     private Statistic statistic;
@@ -56,5 +62,18 @@ public class Champion {
 
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
+    }
+
+
+    public long getExperience() {
+        return experience;
+    }
+
+    public void setExperience(long experience) {
+        this.experience = experience;
+    }
+
+    public long getLevel() {
+        return ChampionLevelManager.getUserLevel(this);
     }
 }

@@ -38,12 +38,6 @@ public class User {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
-    @Column(name = "experience")
-    private long experience = 0;
-
-    @Column(name = "level")
-    private long level = 0;
-
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
@@ -121,17 +115,6 @@ public class User {
         this.champion = champion;
     }
 
-    public long getExperience() {
-        return experience;
-    }
-
-    public void setExperience(long experience) {
-        this.experience = experience;
-    }
-
-    public long getLevel() {
-        return level;
-    }
 
     public UserRole getUserRole() {
         return userRole;
