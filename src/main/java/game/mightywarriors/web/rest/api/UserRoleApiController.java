@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.web.rest.api;
 
 
 import game.mightywarriors.data.repositories.UserRoleRepository;
@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.LinkedList;
 
 @RestController
-public class Helo3 {
+public class UserRoleApiController {
     @Autowired
-    UserRoleRepository imageRepository;
+    UserRoleRepository userRoleRepository;
 
     @GetMapping("userRoles")
-    public LinkedList<UserRole> halo() {
-        return imageRepository.findAll();
+    public LinkedList<UserRole> getUserRoles() {
+        return userRoleRepository.findAll();
     }
 
     @GetMapping("userRoles/{id}")
-    public UserRole halo1(@PathVariable("id") String id) {
-        return imageRepository.findById(Long.parseLong(id));
+    public UserRole getUserRole(@PathVariable("id") String id) {
+        return userRoleRepository.findById(Long.parseLong(id));
     }
-
-
 }

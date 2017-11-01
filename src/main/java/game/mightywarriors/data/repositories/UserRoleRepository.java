@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 @Repository
 public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
-    @Override
     LinkedList<UserRole> findAll();
 
     UserRole findById(long id);

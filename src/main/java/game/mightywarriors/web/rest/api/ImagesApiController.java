@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.web.rest.api;
 
 
 import game.mightywarriors.data.repositories.ImageRepository;
@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.LinkedList;
 
 @RestController
-public class Helo2 {
+public class ImagesApiController {
     @Autowired
     ImageRepository imageRepository;
 
     @GetMapping("images")
-    public LinkedList<Image> halo() {
+    public LinkedList<Image> getImages() {
         return imageRepository.findAll();
     }
 
     @GetMapping("images/{id}")
-    public Image halo1(@PathVariable("id") String id) {
+    public Image getImage(@PathVariable("id") String id) {
         return imageRepository.findById(Long.parseLong(id));
     }
-
-
 }

@@ -1,26 +1,40 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.web.rest.api;
 
 
 import game.mightywarriors.data.repositories.UserRepository;
+import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedList;
+
 @RestController
-public class Helo4 {
+public class UserApiController {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+
+    @GetMapping("users")
+    public LinkedList<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    @GetMapping("users/{id}")
+    public User getUser(@PathVariable("id") String id) {
+        return userRepository.findById(Long.parseLong(id));
+    }
 
     @GetMapping("getPrincipal")
-    public Object halo() {
+    public Object getUserPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getPrincipal();
     }
 
     @GetMapping("getCurrentUser")
-    public Object halo1() {
+    public Object getCurrentUser() {
         return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

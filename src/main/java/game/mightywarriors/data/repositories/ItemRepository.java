@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
-    @Override
     LinkedList<Item> findAll();
 
     Item findById(long id);

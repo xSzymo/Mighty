@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.other;
 
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.repositories.*;

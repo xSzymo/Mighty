@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 @Repository
 public interface ImageRepository extends CrudRepository<Image, Long> {
-    @Override
     LinkedList<Image> findAll();
 
     Image findById(long id);

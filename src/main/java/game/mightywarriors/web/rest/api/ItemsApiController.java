@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.web.rest.api;
 
 
 import game.mightywarriors.data.repositories.ItemRepository;
@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.LinkedList;
 
 @RestController
-public class Helo1 {
+public class ItemsApiController {
     @Autowired
-    ItemRepository userRepository;
+    ItemRepository itemRepository;
 
     @GetMapping("items")
-    public LinkedList<Item> halo() {
-        return userRepository.findAll();
+    public LinkedList<Item> getItems() {
+        return itemRepository.findAll();
     }
 
     @GetMapping("items/{id}")
-    public Item halo1(@PathVariable("id") String id) {
-        return userRepository.findById(Long.parseLong(id));
+    public Item getItem(@PathVariable("id") String id) {
+        return itemRepository.findById(Long.parseLong(id));
     }
-
-
 }
