@@ -13,9 +13,10 @@ public class Champion {
     @Column(name = "id")
     private Long id;
 
-
     @Column(name = "experience")
     private long experience = 1;
+    @Column(name = "level")
+    private int level = 1;
 
     @OneToOne
     private Statistic statistic;
@@ -52,7 +53,6 @@ public class Champion {
         this.equipment = equipment;
     }
 
-
     public long getExperience() {
         return experience;
     }
@@ -63,5 +63,9 @@ public class Champion {
 
     public long getLevel() {
         return ChampionLevelManager.getUserLevel(this);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

@@ -9,11 +9,14 @@ public class ChampionLevelManager {
     }
 
     public static long getUserLevel(Champion champion) {
-        long championLevel = 0;
+        int championLevel = 0;
 
         for (Level level : Level.values())
             if (level.getLevel() < champion.getExperience())
                 championLevel++;
+
+        if(champion.getLevel() < championLevel)
+            champion.setLevel(championLevel);
 
         return championLevel;
     }

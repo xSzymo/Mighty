@@ -3,6 +3,7 @@ package game.mightywarriors.data.tables;
 import game.mightywarriors.data.enums.WeaponType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -21,6 +22,8 @@ public class Item {
     private WeaponType typeOfWeapon;
     @Column(name = "level")
     private long level;
+    @Column(name = "gold")
+    private BigDecimal gold = new BigDecimal("0");
 
     @OneToOne
     private Statistic statistic;
@@ -107,5 +110,13 @@ public class Item {
 
     public void setLevel(long level) {
         this.level = level;
+    }
+
+    public BigDecimal getGold() {
+        return gold;
+    }
+
+    public void setGold(BigDecimal gold) {
+        this.gold = gold;
     }
 }
