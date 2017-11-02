@@ -3,6 +3,7 @@ package game.mightywarriors.data.tables;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -22,13 +23,13 @@ public class User {
     private String password;
     @Column(name = "e_mail")
     private String eMail;
+    @Column(name = "gold")
+    private BigDecimal gold = new BigDecimal("0");
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
 
     @OneToOne
     private Shop shop;
-
-    @OneToMany
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Image> image = new LinkedList<>();
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -37,16 +38,40 @@ public class User {
 
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Champion> champions = new LinkedList<>();
+    private Collection<Image> image = new LinkedList<>();
 
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Collection<Mission> missions = new MissionCollection();
+
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Collection<Champion> champions = new ChampionCollection();
+
+    private class MissionCollection extends LinkedList<Mission> {
+        @Override
+        public final boolean add(Mission a) {
+            if(this.size() > 3)
+                return false;
+            return super.add(a);
+        }
+    }
+
+    private class ChampionCollection extends LinkedList<Champion> {
+        @Override
+        public final boolean add(Champion a) {
+            if(this.size() > 3)
+                return false;
+            return super.add(a);
+        }
+    }
 
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String login, String password, String eMail, UserRole userRole) {
+        missions.add(new Mission());
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
@@ -65,14 +90,27 @@ public class User {
     }
 
     public User(User user) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
         this.id = user.id;
         this.login = user.login;
         this.password = user.password;
-        this.eMail = user.password;
+        this.eMail = user.eMail;
+        this.shop = user.shop;
         this.image = user.image;
         this.champions = user.champions;
         this.userRole = user.userRole;
+        this.timeStamp = user.timeStamp;
+    }
+
+    public void setUser(User user) {
+        this.id = user.id;
+        this.login = user.login;
+        this.password = user.password;
+        this.eMail = user.eMail;
+        this.shop = user.shop;
+        this.image = user.image;
+        this.champions = user.champions;
+        this.userRole = user.userRole;
+        this.timeStamp = user.timeStamp;
     }
 
     public Long getId() {
@@ -111,7 +149,6 @@ public class User {
         this.image = image;
     }
 
-
     public UserRole getUserRole() {
         return userRole;
     }
@@ -143,5 +180,21 @@ public class User {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public BigDecimal getGold() {
+        return gold;
+    }
+
+    public void setGold(BigDecimal gold) {
+        this.gold = gold;
+    }
+
+    public Collection<Mission> getMissions() {
+        return missions;
+    }
+
+    public void setMissions(Collection<Mission> missions) {
+        this.missions = missions;
     }
 }
