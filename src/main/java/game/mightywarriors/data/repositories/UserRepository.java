@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     LinkedList<User> findAll();
 
     User findByLogin(String login);
+
+    User findByEMail(String email);
 }

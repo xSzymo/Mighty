@@ -26,15 +26,4 @@ public class UserApiController {
     public User getUser(@PathVariable("id") String id) {
         return userRepository.findById(Long.parseLong(id));
     }
-
-    @GetMapping("getPrincipal")
-    public Object getUserPrincipal() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getPrincipal();
-    }
-
-    @GetMapping("getCurrentUser")
-    public Object getCurrentUser() {
-        return userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-    }
 }
