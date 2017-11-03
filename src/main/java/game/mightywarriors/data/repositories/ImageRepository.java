@@ -11,4 +11,6 @@ public interface ImageRepository extends CrudRepository<Image, Long> {
     LinkedList<Image> findAll();
 
     Image findById(long id);
+
+    Image findByUrl(String url);
 }
