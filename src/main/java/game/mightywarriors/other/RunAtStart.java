@@ -29,7 +29,7 @@ public class RunAtStart {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @PostConstruct
+  //  @PostConstruct
     public void halaso() {
         admin_role = new UserRole("admin");
         user_role = new UserRole("user");
