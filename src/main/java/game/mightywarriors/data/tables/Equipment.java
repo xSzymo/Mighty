@@ -1,5 +1,8 @@
 package game.mightywarriors.data.tables;
 
+import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.exceptions.WrongTypeItemException;
+
 import javax.persistence.*;
 
 @Entity
@@ -58,7 +61,10 @@ public class Equipment {
         return weapon;
     }
 
-    public void setWeapon(Item weapon) {
+    public void setWeapon(Item weapon) throws WrongTypeItemException {
+        if (!weapon.getTypeOfWeapon().equals(WeaponType.WEAPON))
+            throw new WrongTypeItemException();
+
         this.weapon = weapon;
     }
 
@@ -66,7 +72,10 @@ public class Equipment {
         return offhand;
     }
 
-    public void setOffhand(Item offhand) {
+    public void setOffhand(Item offhand) throws WrongTypeItemException {
+        if (!offhand.getTypeOfWeapon().equals(WeaponType.OFFHAND))
+            throw new WrongTypeItemException();
+
         this.offhand = offhand;
     }
 
@@ -74,7 +83,10 @@ public class Equipment {
         return helmet;
     }
 
-    public void setHelmet(Item helmet) {
+    public void setHelmet(Item helmet) throws WrongTypeItemException {
+        if (!helmet.getTypeOfWeapon().equals(WeaponType.HELMET))
+            throw new WrongTypeItemException();
+
         this.helmet = helmet;
     }
 
@@ -82,7 +94,10 @@ public class Equipment {
         return armor;
     }
 
-    public void setArmor(Item armor) {
+    public void setArmor(Item armor) throws WrongTypeItemException {
+        if (!armor.getTypeOfWeapon().equals(WeaponType.ARMOR))
+            throw new WrongTypeItemException();
+
         this.armor = armor;
     }
 
@@ -90,7 +105,10 @@ public class Equipment {
         return gloves;
     }
 
-    public void setGloves(Item gloves) {
+    public void setGloves(Item gloves) throws WrongTypeItemException {
+        if (!gloves.getTypeOfWeapon().equals(WeaponType.GLOVES))
+            throw new WrongTypeItemException();
+
         this.gloves = gloves;
     }
 
@@ -98,7 +116,10 @@ public class Equipment {
         return legs;
     }
 
-    public void setLegs(Item legs) {
+    public void setLegs(Item legs) throws WrongTypeItemException {
+        if (!legs.getTypeOfWeapon().equals(WeaponType.LEGS))
+            throw new WrongTypeItemException();
+
         this.legs = legs;
     }
 
@@ -106,7 +127,10 @@ public class Equipment {
         return boots;
     }
 
-    public void setBoots(Item boots) {
+    public void setBoots(Item boots) throws WrongTypeItemException {
+        if (!boots.getTypeOfWeapon().equals(WeaponType.BOOTS))
+            throw new WrongTypeItemException();
+
         this.boots = boots;
     }
 
@@ -114,7 +138,10 @@ public class Equipment {
         return ring;
     }
 
-    public void setRing(Item ring) {
+    public void setRing(Item ring) throws WrongTypeItemException {
+        if (!ring.getTypeOfWeapon().equals(WeaponType.RING))
+            throw new WrongTypeItemException();
+
         this.ring = ring;
     }
 
@@ -122,7 +149,10 @@ public class Equipment {
         return bracelet;
     }
 
-    public void setBracelet(Item bracelet) {
+    public void setBracelet(Item bracelet) throws WrongTypeItemException {
+        if (!bracelet.getTypeOfWeapon().equals(WeaponType.BRACELET))
+            throw new WrongTypeItemException();
+
         this.bracelet = bracelet;
     }
 
@@ -130,7 +160,9 @@ public class Equipment {
         return necklace;
     }
 
-    public void setNecklace(Item necklace) {
+    public void setNecklace(Item necklace) throws WrongTypeItemException {
+        if (!necklace.getTypeOfWeapon().equals(WeaponType.NECKLACE))
+            throw new WrongTypeItemException();
         this.necklace = necklace;
     }
 }
