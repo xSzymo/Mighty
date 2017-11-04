@@ -44,6 +44,9 @@ public class StatisticServiceTest {
 
     @After
     public void afterEachTest() {
+        itemService.delete(item);
+        monsterService.delete(monster);
+        championService.delete(champion);
         statistics.forEach(objectUnderTest::delete);
     }
 
