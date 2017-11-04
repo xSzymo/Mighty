@@ -25,7 +25,7 @@ public class Item {
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Statistic statistic;
 
     @OneToOne
