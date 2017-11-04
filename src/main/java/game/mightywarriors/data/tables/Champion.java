@@ -22,6 +22,9 @@ public class Champion {
     private Statistic statistic;
 
     @OneToOne
+    private Image image;
+
+    @OneToOne
     private Equipment equipment;
 
     public Champion() {
@@ -67,5 +70,13 @@ public class Champion {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
