@@ -90,7 +90,7 @@ public class ImageService {
     private void deleteOperation(Image image) {
         try {
             pictureOperations.deletePicture(image);
-            repository.delete(image);
+            repository.deleteById(image.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }

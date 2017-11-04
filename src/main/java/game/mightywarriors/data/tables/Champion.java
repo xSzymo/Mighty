@@ -18,7 +18,7 @@ public class Champion {
     @Column(name = "level")
     private int level = 1;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Statistic statistic;
 
     @OneToOne

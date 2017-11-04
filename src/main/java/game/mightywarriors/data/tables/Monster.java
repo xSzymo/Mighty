@@ -12,7 +12,7 @@ public class Monster {
 
     private int level;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Statistic statistic;
 
     @OneToOne
