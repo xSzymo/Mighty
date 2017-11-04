@@ -11,4 +11,6 @@ public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
     LinkedList<Equipment> findAll();
 
     Equipment findById(long id);
+
+    void deleteById(long id);
 }

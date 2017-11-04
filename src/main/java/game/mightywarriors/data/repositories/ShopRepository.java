@@ -11,4 +11,6 @@ public interface ShopRepository extends CrudRepository<Shop, Long> {
     LinkedList<Shop> findAll();
 
     Shop findById(long id);
+
+    void deleteById(long id);
 }

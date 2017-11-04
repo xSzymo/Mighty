@@ -11,4 +11,6 @@ public interface ChampionRepository extends CrudRepository<Champion, Long> {
     LinkedList<Champion> findAll();
 
     Champion findById(long id);
+
+    void deleteById(long id);
 }

@@ -11,4 +11,6 @@ public interface MonsterRepository extends CrudRepository<Monster, Long> {
     Monster findById(long id);
 
     LinkedList<Monster> findAll();
+
+    void deleteById(long id);
 }

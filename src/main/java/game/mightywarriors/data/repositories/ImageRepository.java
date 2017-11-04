@@ -12,5 +12,7 @@ public interface ImageRepository extends CrudRepository<Image, Long> {
 
     Image findById(long id);
 
+    void deleteById(long id);
+
     Image findByUrl(String url);
 }

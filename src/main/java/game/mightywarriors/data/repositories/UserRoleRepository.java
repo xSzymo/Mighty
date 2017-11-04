@@ -11,4 +11,6 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
     LinkedList<UserRole> findAll();
 
     UserRole findById(long id);
+
+    void deleteById(long id);
 }

@@ -11,4 +11,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
     LinkedList<Item> findAll();
 
     Item findById(long id);
+
+    void deleteById(long id);
 }

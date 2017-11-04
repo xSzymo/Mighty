@@ -11,4 +11,6 @@ public interface MissionRepository extends CrudRepository<Mission, Long> {
     Mission findById(long id);
 
     LinkedList<Mission> findAll();
+
+    void deleteById(long id);
 }

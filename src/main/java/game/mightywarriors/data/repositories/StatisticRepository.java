@@ -11,4 +11,6 @@ public interface StatisticRepository extends CrudRepository<Statistic, Long> {
     LinkedList<Statistic> findAll();
 
     Statistic findById(long id);
+
+    void deleteById(long id);
 }
