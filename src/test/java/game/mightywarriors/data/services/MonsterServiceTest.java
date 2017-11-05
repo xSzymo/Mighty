@@ -162,8 +162,8 @@ public class MonsterServiceTest {
         objectUnderTest.delete(monster);
 
         assertNull(objectUnderTest.findOne(monster.getId()));
-        assertNull(statisticService.findOne(monster.getId()));
-        assertNull(imageService.findOne(monster.getId()));
+        assertNull(statisticService.findOne(monster.getStatistic().getId()));
+        assertNull(imageService.findOne(monster.getImage().getId()));
     }
 
     @Test
@@ -177,9 +177,9 @@ public class MonsterServiceTest {
 
         objectUnderTest.delete(monster);
 
-        assertNull(objectUnderTest.findOne(monster.getId()));
-        assertNull(statisticService.findOne(monster.getId()));
-        assertNull(imageService.findOne(monster.getId()));
+        assertNull(objectUnderTest.findOne(monster));
+        assertNull(statisticService.findOne(monster.getStatistic()));
+        assertNull(imageService.findOne(monster.getImage()));
         assertNull(missionService.findOne(mission.getId()).getMonster());
         assertNotNull(missionService.findOne(mission.getId()));
     }
