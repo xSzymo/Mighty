@@ -1,7 +1,5 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.data.repositories.ChampionRepository;
-import game.mightywarriors.data.repositories.MonsterRepository;
 import game.mightywarriors.data.repositories.StatisticRepository;
 import game.mightywarriors.data.tables.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,9 @@ public class StatisticService {
     @Autowired
     private StatisticRepository repository;
     @Autowired
-    private ChampionRepository championRepository;
+    private ChampionService championService;
     @Autowired
-    private MonsterRepository monsterRepository;
+    private MonsterService monsterService;
     @Autowired
     private ItemService itemService;
 
@@ -80,21 +78,21 @@ public class StatisticService {
         if (statistic.getId() == null || findOne(statistic.getId()) == null)
             return;
 
-        championRepository.findAll().forEach(
+        championService.findAll().forEach(
                 x -> {
                     if (x.getStatistic() != null)
                         if (x.getStatistic().getId().equals(statistic.getId())) {
                             x.setStatistic(null);
-                            championRepository.save(x);
+                            championService.save(x);
                         }
                 }
         );
-        monsterRepository.findAll().forEach(
+        monsterService.findAll().forEach(
                 x -> {
                     if (x.getStatistic() != null)
                         if (x.getStatistic().getId().equals(statistic.getId())) {
                             x.setStatistic(null);
-                            monsterRepository.save(x);
+                            monsterService.save(x);
                         }
                 }
         );
@@ -108,6 +106,6 @@ public class StatisticService {
                 }
         );
 
-        repository.delete(statistic);
+        repository.deleteById(statistic.getId());
     }
 }

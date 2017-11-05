@@ -142,7 +142,7 @@ public class StatisticServiceTest {
     @Test
     public void deleteFromItem() {
         Statistic statistic = statistics.getFirst();
-        item = new Item("a", WeaponType.OFFHAND, statistic, 1);
+        item = new Item("", WeaponType.OFFHAND, statistic, 1);
         itemService.save(item);
 
         objectUnderTest.delete(statistic);
