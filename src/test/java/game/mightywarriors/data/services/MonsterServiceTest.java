@@ -163,7 +163,7 @@ public class MonsterServiceTest {
 
         assertNull(objectUnderTest.findOne(monster.getId()));
         assertNull(statisticService.findOne(monster.getStatistic().getId()));
-        assertNull(imageService.findOne(monster.getImage().getId()));
+        assertNull(imageService.findOne(monster.getImage()));
     }
 
     @Test

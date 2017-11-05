@@ -40,7 +40,7 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Image> image = new LinkedList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Mission> missions = new MissionCollection();
 

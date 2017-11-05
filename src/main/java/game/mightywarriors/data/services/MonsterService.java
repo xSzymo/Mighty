@@ -1,7 +1,7 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.data.repositories.MissionRepository;
 import game.mightywarriors.data.repositories.MonsterRepository;
+import game.mightywarriors.data.tables.Image;
 import game.mightywarriors.data.tables.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class MonsterService {
     @Autowired
     private MonsterRepository repository;
     @Autowired
-    private MissionRepository missionRepository;
+    private MissionService missionRepository;
     @Autowired
     private StatisticService statisticService;
     @Autowired
@@ -104,10 +104,11 @@ public class MonsterService {
                 }
         );
 
+        Image image = monster.getImage();
         if (monster.getStatistic() != null)
             statisticService.delete(monster.getStatistic());
-        if (monster.getImage() != null)
-            imageService.delete(monster.getImage());
+        if (image != null)
+            imageService.delete(image);
 
         repository.deleteById(monster.getId());
     }
