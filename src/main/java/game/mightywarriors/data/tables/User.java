@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -38,15 +38,15 @@ public class User {
 
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Image> image = new LinkedList<>();
+    private List<Image> image = new LinkedList<>();
 
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Mission> missions = new MissionCollection();
+    private List<Mission> missions = new MissionCollection();
 
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Collection<Champion> champions = new ChampionCollection();
+    private List<Champion> champions = new ChampionCollection();
 
     private class MissionCollection extends LinkedList<Mission> {
         @Override
@@ -141,7 +141,7 @@ public class User {
         this.eMail = eMail;
     }
 
-    public Collection<Image> getImage() {
+    public List<Image> getImage() {
         return image;
     }
 
@@ -162,7 +162,7 @@ public class User {
     }
 
 
-    public Collection<Champion> getChampions() {
+    public List<Champion> getChampions() {
         return champions;
     }
 
@@ -190,11 +190,11 @@ public class User {
         this.gold = gold;
     }
 
-    public Collection<Mission> getMissions() {
+    public List<Mission> getMissions() {
         return missions;
     }
 
-    public void setMissions(Collection<Mission> missions) {
+    public void setMissions(LinkedList<Mission> missions) {
         this.missions = missions;
     }
 }

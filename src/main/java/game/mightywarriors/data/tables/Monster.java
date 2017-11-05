@@ -15,7 +15,7 @@ public class Monster {
     @OneToOne(fetch = FetchType.EAGER)
     private Statistic statistic;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Image image;
 
     public Monster() {

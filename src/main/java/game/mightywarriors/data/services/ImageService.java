@@ -57,6 +57,14 @@ public class ImageService {
         }
     }
 
+    public Image findByUrl(String url) {
+        try {
+            return repository.findByUrl(url);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public LinkedList<Image> findAll() {
         return repository.findAll();
     }
