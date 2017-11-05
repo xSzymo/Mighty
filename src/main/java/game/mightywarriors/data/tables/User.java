@@ -51,18 +51,14 @@ public class User {
     private class MissionCollection extends LinkedList<Mission> {
         @Override
         public final boolean add(Mission a) {
-            if(this.size() > 3)
-                return false;
-            return super.add(a);
+            return this.size() <= 3 && super.add(a);
         }
     }
 
     private class ChampionCollection extends LinkedList<Champion> {
         @Override
         public final boolean add(Champion a) {
-            if(this.size() > 3)
-                return false;
-            return super.add(a);
+            return this.size() <= 3 && super.add(a);
         }
     }
 
