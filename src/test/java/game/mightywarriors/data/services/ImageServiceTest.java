@@ -1,6 +1,9 @@
 package game.mightywarriors.data.services;
 
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Image;
+import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Monster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +21,18 @@ import static org.junit.Assert.*;
 public class ImageServiceTest {
     @Autowired
     private ImageService objectUnderTest;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private MonsterService monsterService;
+    @Autowired
+    private ChampionService championService;
 
     private LinkedList<Image> images;
     private String myWeirdURL = "https://avatars1.githubusercontent.com/u/15995737?s=460&v=4";
+    private Item item;
+    private Champion champion;
+    private Monster monster;
 
     @Before
     public void beforeEachTest() {
@@ -32,6 +44,12 @@ public class ImageServiceTest {
 
     @After
     public void afterEachTest() {
+        if(item != null)
+            itemService.delete(item);
+        if(champion != null)
+            championService.delete(champion);
+        if(monster != null)
+            monsterService.delete(monster);
         images.forEach(objectUnderTest::delete);
     }
 
@@ -140,5 +158,54 @@ public class ImageServiceTest {
 
         assertEquals(0, counter);
         images.clear();
+    }
+
+    @Test
+    public void deleteFromItem() {
+        item = new Item();
+        item.setImage(images.getFirst());
+
+        itemService.save(item);
+
+        assertNotNull(itemService.findOne(item));
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+
+        objectUnderTest.delete(images.getFirst());
+
+        assertNotNull(itemService.findOne(item));
+        assertNull(itemService.findOne(item).getImage());
+    }
+
+    @Test
+    public void deleteFromChampion() {
+        champion = new Champion();
+        champion.setImage(images.getFirst());
+
+        championService.save(champion);
+
+        assertNotNull(championService.findOne(champion));
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+
+        objectUnderTest.delete(images.getFirst());
+
+        assertNotNull(championService.findOne(champion));
+        assertNull(championService.findOne(champion).getImage());
+    }
+
+    @Test
+    public void deleteFromMonster() {
+        monster = new Monster();
+        monster.setImage(images.getFirst());
+
+        monsterService.save(monster);
+
+        assertNotNull(monsterService.findOne(monster));
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+
+        objectUnderTest.delete(images.getFirst());
+
+        assertNotNull(monsterService.findOne(monster));
+        assertNull(monsterService.findOne(monster).getImage());
+
     }
 }

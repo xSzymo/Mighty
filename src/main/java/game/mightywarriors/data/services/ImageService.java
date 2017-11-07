@@ -18,6 +18,12 @@ public class ImageService {
     private ImageRepository repository;
     @Autowired
     private PictureOperations pictureOperations;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private MonsterService monsterService;
+    @Autowired
+    private ChampionService championService;
 
 
     public void save(Image image) throws Exception {
@@ -31,8 +37,8 @@ public class ImageService {
         repository.save(image);
     }
 
-    public void save(LinkedList<Image> images) throws Exception {
-        for(Image image : images) {
+    public void save(Collection<Image> images) throws Exception {
+        for (Image image : images) {
             Image foundImage = repository.findByUrl(image.getUrl());
             if (foundImage != null)
                 throw new Exception("delete exist image before save!");
@@ -71,7 +77,9 @@ public class ImageService {
 
     public void delete(long id) {
         try {
-            deleteOperation(repository.findById(id));
+            Image image = repository.findById(id);
+            if (image != null)
+                deleteOperation(image);
         } catch (NullPointerException e) {
 
         } catch (EmptyResultDataAccessException e) {
@@ -97,6 +105,37 @@ public class ImageService {
 
     private void deleteOperation(Image image) {
         try {
+            itemService.findAll().forEach(
+                    x -> {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
+                                x.setImage(null);
+                                itemService.save(x);
+                            }
+                        }
+                    }
+            );
+            monsterService.findAll().forEach(
+                    x -> {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
+                                x.setImage(null);
+                                monsterService.save(x);
+                            }
+                        }
+                    }
+            );
+            championService.findAll().forEach(
+                    x -> {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
+                                x.setImage(null);
+                                championService.save(x);
+                            }
+                        }
+                    }
+            );
+
             pictureOperations.deletePicture(image);
             repository.deleteById(image.getId());
         } catch (Exception e) {
