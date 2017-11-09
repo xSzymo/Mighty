@@ -62,8 +62,9 @@ public class Equipment {
     }
 
     public void setWeapon(Item weapon) throws WrongTypeItemException {
-        if (!weapon.getTypeOfWeapon().equals(WeaponType.WEAPON))
-            throw new WrongTypeItemException();
+        if (weapon != null)
+            if (!weapon.getTypeOfWeapon().equals(WeaponType.WEAPON))
+                throw new WrongTypeItemException();
 
         this.weapon = weapon;
     }
@@ -73,8 +74,9 @@ public class Equipment {
     }
 
     public void setOffhand(Item offhand) throws WrongTypeItemException {
-        if (!offhand.getTypeOfWeapon().equals(WeaponType.OFFHAND))
-            throw new WrongTypeItemException();
+        if (offhand != null)
+            if (!offhand.getTypeOfWeapon().equals(WeaponType.OFFHAND))
+                throw new WrongTypeItemException();
 
         this.offhand = offhand;
     }
@@ -84,8 +86,9 @@ public class Equipment {
     }
 
     public void setHelmet(Item helmet) throws WrongTypeItemException {
-        if (!helmet.getTypeOfWeapon().equals(WeaponType.HELMET))
-            throw new WrongTypeItemException();
+        if (helmet != null)
+            if (!helmet.getTypeOfWeapon().equals(WeaponType.HELMET))
+                throw new WrongTypeItemException();
 
         this.helmet = helmet;
     }
@@ -95,8 +98,9 @@ public class Equipment {
     }
 
     public void setArmor(Item armor) throws WrongTypeItemException {
-        if (!armor.getTypeOfWeapon().equals(WeaponType.ARMOR))
-            throw new WrongTypeItemException();
+        if (armor != null)
+            if (!armor.getTypeOfWeapon().equals(WeaponType.ARMOR))
+                throw new WrongTypeItemException();
 
         this.armor = armor;
     }
@@ -106,8 +110,9 @@ public class Equipment {
     }
 
     public void setGloves(Item gloves) throws WrongTypeItemException {
-        if (!gloves.getTypeOfWeapon().equals(WeaponType.GLOVES))
-            throw new WrongTypeItemException();
+        if (gloves != null)
+            if (!gloves.getTypeOfWeapon().equals(WeaponType.GLOVES))
+                throw new WrongTypeItemException();
 
         this.gloves = gloves;
     }
@@ -117,8 +122,9 @@ public class Equipment {
     }
 
     public void setLegs(Item legs) throws WrongTypeItemException {
-        if (!legs.getTypeOfWeapon().equals(WeaponType.LEGS))
-            throw new WrongTypeItemException();
+        if (legs != null)
+            if (!legs.getTypeOfWeapon().equals(WeaponType.LEGS))
+                throw new WrongTypeItemException();
 
         this.legs = legs;
     }
@@ -128,8 +134,9 @@ public class Equipment {
     }
 
     public void setBoots(Item boots) throws WrongTypeItemException {
-        if (!boots.getTypeOfWeapon().equals(WeaponType.BOOTS))
-            throw new WrongTypeItemException();
+        if (boots != null)
+            if (!boots.getTypeOfWeapon().equals(WeaponType.BOOTS))
+                throw new WrongTypeItemException();
 
         this.boots = boots;
     }
@@ -139,8 +146,9 @@ public class Equipment {
     }
 
     public void setRing(Item ring) throws WrongTypeItemException {
-        if (!ring.getTypeOfWeapon().equals(WeaponType.RING))
-            throw new WrongTypeItemException();
+        if (ring != null)
+            if (!ring.getTypeOfWeapon().equals(WeaponType.RING))
+                throw new WrongTypeItemException();
 
         this.ring = ring;
     }
@@ -150,8 +158,9 @@ public class Equipment {
     }
 
     public void setBracelet(Item bracelet) throws WrongTypeItemException {
-        if (!bracelet.getTypeOfWeapon().equals(WeaponType.BRACELET))
-            throw new WrongTypeItemException();
+        if (bracelet != null)
+            if (!bracelet.getTypeOfWeapon().equals(WeaponType.BRACELET))
+                throw new WrongTypeItemException();
 
         this.bracelet = bracelet;
     }
@@ -161,8 +170,9 @@ public class Equipment {
     }
 
     public void setNecklace(Item necklace) throws WrongTypeItemException {
-        if (!necklace.getTypeOfWeapon().equals(WeaponType.NECKLACE))
-            throw new WrongTypeItemException();
+        if (necklace != null)
+            if (!necklace.getTypeOfWeapon().equals(WeaponType.NECKLACE))
+                throw new WrongTypeItemException();
         this.necklace = necklace;
     }
 }

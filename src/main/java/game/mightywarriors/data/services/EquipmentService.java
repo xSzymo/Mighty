@@ -1,9 +1,8 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.EquipmentRepository;
-import game.mightywarriors.data.repositories.ItemRepository;
-import game.mightywarriors.data.repositories.StatisticRepository;
 import game.mightywarriors.data.tables.Equipment;
+import game.mightywarriors.other.exceptions.WrongTypeItemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,32 +16,54 @@ public class EquipmentService {
     @Autowired
     private EquipmentRepository repository;
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemService itemService;
     @Autowired
-    private StatisticRepository statisticRepository;
+    private StatisticService statisticService;
+    @Autowired
+    private ChampionService championService;
 
     public void save(Equipment equipment) {
         if (equipment != null) {
-            statisticRepository.save(equipment.getArmor().getStatistic());
-            itemRepository.save(equipment.getArmor());
-            statisticRepository.save(equipment.getBoots().getStatistic());
-            itemRepository.save(equipment.getBoots());
-            statisticRepository.save(equipment.getBracelet().getStatistic());
-            itemRepository.save(equipment.getBracelet());
-            statisticRepository.save(equipment.getGloves().getStatistic());
-            itemRepository.save(equipment.getGloves());
-            statisticRepository.save(equipment.getHelmet().getStatistic());
-            itemRepository.save(equipment.getHelmet());
-            statisticRepository.save(equipment.getLegs().getStatistic());
-            itemRepository.save(equipment.getLegs());
-            statisticRepository.save(equipment.getNecklace().getStatistic());
-            itemRepository.save(equipment.getNecklace());
-            statisticRepository.save(equipment.getOffhand().getStatistic());
-            itemRepository.save(equipment.getOffhand());
-            statisticRepository.save(equipment.getRing().getStatistic());
-            itemRepository.save(equipment.getRing());
-            statisticRepository.save(equipment.getWeapon().getStatistic());
-            itemRepository.save(equipment.getWeapon());
+            if (equipment.getArmor() != null) {
+                statisticService.save(equipment.getArmor().getStatistic());
+                itemService.save(equipment.getArmor());
+            }
+            if (equipment.getBoots() != null) {
+                statisticService.save(equipment.getBoots().getStatistic());
+                itemService.save(equipment.getBoots());
+            }
+            if (equipment.getBracelet() != null) {
+                statisticService.save(equipment.getBracelet().getStatistic());
+                itemService.save(equipment.getBracelet());
+            }
+            if (equipment.getGloves() != null) {
+                statisticService.save(equipment.getGloves().getStatistic());
+                itemService.save(equipment.getGloves());
+            }
+            if (equipment.getHelmet() != null) {
+                statisticService.save(equipment.getHelmet().getStatistic());
+                itemService.save(equipment.getHelmet());
+            }
+            if (equipment.getLegs() != null) {
+                statisticService.save(equipment.getLegs().getStatistic());
+                itemService.save(equipment.getLegs());
+            }
+            if (equipment.getNecklace() != null) {
+                statisticService.save(equipment.getNecklace().getStatistic());
+                itemService.save(equipment.getNecklace());
+            }
+            if (equipment.getOffhand() != null) {
+                statisticService.save(equipment.getOffhand().getStatistic());
+                itemService.save(equipment.getOffhand());
+            }
+            if (equipment.getRing() != null) {
+                statisticService.save(equipment.getRing().getStatistic());
+                itemService.save(equipment.getRing());
+            }
+            if (equipment.getWeapon() != null) {
+                statisticService.save(equipment.getWeapon().getStatistic());
+                itemService.save(equipment.getWeapon());
+            }
             repository.save(equipment);
         }
     }
@@ -76,11 +97,14 @@ public class EquipmentService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        Equipment equipment = findOne(id);
+        if (equipment != null)
+            deleteOperation(equipment);
     }
 
     public void delete(Equipment equipment) {
-        deleteOperation(equipment);
+        if (equipment.getId() != null)
+            delete(equipment.getId());
     }
 
     public void delete(Collection<Equipment> equipments) {
@@ -93,18 +117,30 @@ public class EquipmentService {
 
     private void deleteOperation(Equipment equipment) {
         try {
-            itemRepository.delete(equipment.getArmor());
-            itemRepository.delete(equipment.getBoots());
-            itemRepository.delete(equipment.getBracelet());
-            itemRepository.delete(equipment.getGloves());
-            itemRepository.delete(equipment.getHelmet());
-            itemRepository.delete(equipment.getLegs());
-            itemRepository.delete(equipment.getNecklace());
-            itemRepository.delete(equipment.getOffhand());
-            itemRepository.delete(equipment.getRing());
-            itemRepository.delete(equipment.getWeapon());
-            repository.delete(equipment);
+            championService.findAll().forEach(
+                x -> {
+                    if (x.getEquipment() != null)
+                        if (x.getEquipment().getId().equals(equipment.getId())) {
+                            x.setEquipment(null);
+                            championService.save(x);
+                        }
+                }
+        );
+            equipment.setArmor(null);
+            equipment.setBoots(null);
+            equipment.setBracelet(null);
+            equipment.setGloves(null);
+            equipment.setHelmet(null);
+            equipment.setLegs(null);
+            equipment.setNecklace(null);
+            equipment.setOffhand(null);
+            equipment.setRing(null);
+            equipment.setWeapon(null);
+
+            repository.deleteById(equipment.getId());
         } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (WrongTypeItemException e) {
             e.printStackTrace();
         }
     }
