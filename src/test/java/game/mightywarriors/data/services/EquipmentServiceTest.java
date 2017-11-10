@@ -161,11 +161,6 @@ public class EquipmentServiceTest {
         assertNull(championService.findOne(champion).getEquipment());
     }
 
-    @Test
-    public void deleteItems() {
-
-    }
-
     private void checkSavedItemsAreNotNull(Equipment equipment) {
         assertNotNull(itemService.findOne(equipment.getArmor().getId()));
         assertNotNull(itemService.findOne(equipment.getBoots().getId()));
