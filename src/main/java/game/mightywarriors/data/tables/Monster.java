@@ -1,5 +1,8 @@
 package game.mightywarriors.data.tables;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +16,7 @@ public class Monster {
     private int level;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Statistic statistic;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

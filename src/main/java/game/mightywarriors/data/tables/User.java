@@ -1,10 +1,12 @@
 package game.mightywarriors.data.tables;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.LazyInitializationException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,11 +42,11 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Image> image = new LinkedList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Mission> missions = new MissionCollection();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Champion> champions = new ChampionCollection();
 
@@ -67,12 +69,18 @@ public class User {
     }
 
     public User(String login, String password, String eMail, UserRole userRole) {
-        missions.add(new Mission());
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
         this.userRole = userRole;
+    }
+
+    public User(String login, String password, String eMail) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
+        this.login = login;
+        this.password = password;
+        this.eMail = eMail;
     }
 
     public User(String login, String password, String eMail, LinkedList<Image> image, Champion champion, UserRole userRole) {
@@ -157,7 +165,6 @@ public class User {
         return timeStamp;
     }
 
-
     public List<Champion> getChampions() {
         return champions;
     }
@@ -187,7 +194,22 @@ public class User {
     }
 
     public List<Mission> getMissions() {
-        return missions;
+        try {
+            missions.isEmpty();
+            return missions;
+        } catch (LazyInitializationException e) {
+            missions = new ArrayList<>();
+            return missions;
+        }
+    }
+
+    public void addMission(Mission mission) {
+        try {
+            missions.add(mission);
+        } catch (LazyInitializationException e) {
+            missions = new ArrayList<>();
+            missions.add(mission);
+        }
     }
 
     public void setMissions(LinkedList<Mission> missions) {

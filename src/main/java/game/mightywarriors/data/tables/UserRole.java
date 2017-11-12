@@ -26,7 +26,7 @@ public class UserRole {
     @JsonManagedReference
     private Collection<User> user = new LinkedHashSet<User>();
 
-    private UserRole() {
+    public UserRole() {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
