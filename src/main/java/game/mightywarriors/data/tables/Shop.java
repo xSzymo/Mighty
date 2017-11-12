@@ -1,5 +1,7 @@
 package game.mightywarriors.data.tables;
 
+import org.hibernate.LazyInitializationException;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -24,11 +26,22 @@ public class Shop {
     }
 
     public void addItem(Item item) {
-        items.add(item);
+        try {
+            items.add(item);
+        } catch (LazyInitializationException e) {
+            items = new ArrayList<>();
+            items.add(item);
+        }
     }
 
     public List<Item> getItems() {
-        return items;
+        try {
+            items.isEmpty();
+            return items;
+        } catch (LazyInitializationException e) {
+            items = new ArrayList<>();
+            return items;
+        }
     }
 
     public void setItems(LinkedList<Item> items) {
