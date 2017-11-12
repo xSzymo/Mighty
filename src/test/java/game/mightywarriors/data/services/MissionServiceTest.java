@@ -54,7 +54,6 @@ public class MissionServiceTest {
         if (user != null)
             userService.delete(user);
         missions.forEach(objectUnderTest::delete);
-        System.out.println("");
     }
 
     @Test

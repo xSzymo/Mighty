@@ -44,11 +44,11 @@ public class ImageServiceTest {
 
     @After
     public void afterEachTest() {
-        if(item != null)
+        if (item != null)
             itemService.delete(item);
-        if(champion != null)
+        if (champion != null)
             championService.delete(champion);
-        if(monster != null)
+        if (monster != null)
             monsterService.delete(monster);
         images.forEach(objectUnderTest::delete);
     }

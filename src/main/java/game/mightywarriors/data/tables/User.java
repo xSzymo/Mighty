@@ -50,20 +50,6 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Champion> champions = new ChampionCollection();
 
-    private class MissionCollection extends LinkedList<Mission> {
-        @Override
-        public final boolean add(Mission a) {
-            return this.size() <= 3 && super.add(a);
-        }
-    }
-
-    private class ChampionCollection extends LinkedList<Champion> {
-        @Override
-        public final boolean add(Champion a) {
-            return this.size() <= 3 && super.add(a);
-        }
-    }
-
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
@@ -203,6 +189,10 @@ public class User {
         }
     }
 
+    public void setMissions(LinkedList<Mission> missions) {
+        this.missions = missions;
+    }
+
     public void addMission(Mission mission) {
         try {
             missions.add(mission);
@@ -212,7 +202,17 @@ public class User {
         }
     }
 
-    public void setMissions(LinkedList<Mission> missions) {
-        this.missions = missions;
+    private class MissionCollection extends LinkedList<Mission> {
+        @Override
+        public final boolean add(Mission a) {
+            return this.size() <= 3 && super.add(a);
+        }
+    }
+
+    private class ChampionCollection extends LinkedList<Champion> {
+        @Override
+        public final boolean add(Champion a) {
+            return this.size() <= 3 && super.add(a);
+        }
     }
 }

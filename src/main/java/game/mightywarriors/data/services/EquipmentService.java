@@ -118,14 +118,14 @@ public class EquipmentService {
     private void deleteOperation(Equipment equipment) {
         try {
             championService.findAll().forEach(
-                x -> {
-                    if (x.getEquipment() != null)
-                        if (x.getEquipment().getId().equals(equipment.getId())) {
-                            x.setEquipment(null);
-                            championService.save(x);
-                        }
-                }
-        );
+                    x -> {
+                        if (x.getEquipment() != null)
+                            if (x.getEquipment().getId().equals(equipment.getId())) {
+                                x.setEquipment(null);
+                                championService.save(x);
+                            }
+                    }
+            );
             equipment.setArmor(null);
             equipment.setBoots(null);
             equipment.setBracelet(null);

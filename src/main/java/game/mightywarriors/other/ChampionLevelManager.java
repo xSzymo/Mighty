@@ -15,7 +15,7 @@ public class ChampionLevelManager {
             if (level.getLevel() < champion.getExperience())
                 championLevel++;
 
-        if(champion.getLevel() < championLevel)
+        if (champion.getLevel() < championLevel)
             champion.setLevel(championLevel);
 
         return championLevel;

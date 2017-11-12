@@ -276,7 +276,7 @@ public class UserServiceTest {
             champions.add(new Champion(statistics.get(i), images.get(i)));
         }
 
-        for(int a = 0, b = 0, i = 0; i < 3; i++) {
+        for (int a = 0, b = 0, i = 0; i < 3; i++) {
             user = new User("login" + i, "password", "eMail");
             user.setShop(shops.get(i));
             user.addChampion(champions.get(a++));

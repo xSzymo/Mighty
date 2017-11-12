@@ -3,7 +3,9 @@ package game.mightywarriors.data.tables;
 import org.hibernate.LazyInitializationException;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "shop")
@@ -18,7 +20,7 @@ public class Shop {
     private List<Item> items;
 
     public Shop() {
-        items = new LinkedList<Item>();
+        items = new LinkedList<>();
     }
 
     public Long getId() {

@@ -1,12 +1,9 @@
 package game.mightywarriors.other;
 
-import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.repositories.*;
-import game.mightywarriors.data.tables.*;
+import game.mightywarriors.data.tables.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class RunAtStart {
@@ -29,7 +26,7 @@ public class RunAtStart {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-  //  @PostConstruct
+    //  @PostConstruct
 //    public void halaso() {
 //        admin_role = new UserRole("admin");
 //        user_role = new UserRole("user");
