@@ -1,9 +1,6 @@
-package game.mightywarriors.data.services.TODO;
+package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.enums.WeaponType;
-import game.mightywarriors.data.services.ItemService;
-import game.mightywarriors.data.services.ShopService;
-import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.Statistic;
