@@ -26,23 +26,15 @@ public class ImageService {
     private ChampionService championService;
 
 
-    public void save(Image image) throws Exception {
+    public void save(Image image) {
         if (image == null)
             return;
-
-        Image foundImage = repository.findByUrl(image.getUrl());
-        if (foundImage != null)
-            throw new Exception("delete exist image before save!");
 
         repository.save(image);
     }
 
-    public void save(Collection<Image> images) throws Exception {
+    public void save(Collection<Image> images) {
         for (Image image : images) {
-            Image foundImage = repository.findByUrl(image.getUrl());
-            if (foundImage != null)
-                throw new Exception("delete exist image before save!");
-
             repository.save(image);
         }
     }

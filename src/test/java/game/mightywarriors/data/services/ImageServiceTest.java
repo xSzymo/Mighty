@@ -71,23 +71,23 @@ public class ImageServiceTest {
         assertEquals(3, counter);
     }
 
-    @Test(expected = Exception.class)
-    public void saveWithSameURL() throws Exception {
-        objectUnderTest.save(images.getFirst());
-
-        long counter = objectUnderTest.findAll().stream().count();
-
-        assertEquals(1, counter);
-
-        objectUnderTest.save(new Image(myWeirdURL));
-    }
-
-    @Test(expected = Exception.class)
-    public void saveCollectionWithSameURL() throws Exception {
-        images.add(new Image(myWeirdURL));
-
-        objectUnderTest.save(images);
-    }
+//    @Test(expected = Exception.class)
+//    public void saveWithSameURL() throws Exception {
+//        objectUnderTest.save(images.getFirst());
+//
+//        long counter = objectUnderTest.findAll().stream().count();
+//
+//        assertEquals(1, counter);
+//
+//        objectUnderTest.save(new Image(myWeirdURL));
+//    }
+//
+//    @Test(expected = Exception.class)
+//    public void saveCollectionWithSameURL() throws Exception {
+//        images.add(new Image(myWeirdURL));
+//
+//        objectUnderTest.save(images);
+//    }
 
     @Test
     public void findOne() throws Exception {
