@@ -18,13 +18,13 @@ public class Champion {
     @Column(name = "level")
     private int level = 1;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Statistic statistic;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Equipment equipment;
 
     public Champion() {
@@ -34,6 +34,11 @@ public class Champion {
     public Champion(Statistic statistic, Equipment equipment) {
         this.statistic = statistic;
         this.equipment = equipment;
+    }
+
+    public Champion(Statistic statistic, Image image) {
+        this.statistic = statistic;
+        this.image = image;
     }
 
     public Long getId() {

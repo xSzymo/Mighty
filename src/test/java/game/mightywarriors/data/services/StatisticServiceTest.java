@@ -1,10 +1,7 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.enums.WeaponType;
-import game.mightywarriors.data.tables.Champion;
-import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.data.tables.Monster;
-import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.data.tables.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -168,7 +165,7 @@ public class StatisticServiceTest {
     @Test
     public void deleteFromChampion() {
         Statistic statistic = statistics.getFirst();
-        champion = new Champion(statistic, null);
+        champion = new Champion(statistic, (Equipment) null);
         championService.save(champion);
 
         objectUnderTest.delete(statistic);
