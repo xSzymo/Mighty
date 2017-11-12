@@ -40,10 +40,9 @@ public class MonsterService {
             statisticService.save(monster.getStatistic());
         if (monster.getImage() != null)
             try {
-                if (imageService.findByUrl(monster.getImage().getUrl()) == null)
+                if (monster.getImage() != null)
                     imageService.save(monster.getImage());
-                else
-                    monster.setImage(null);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -144,7 +144,6 @@ public class EquipmentServiceTest {
         assertEquals(0, counter);
     }
 
-
     @Test
     public void deleteFromChampion() {
         champion = new Champion();

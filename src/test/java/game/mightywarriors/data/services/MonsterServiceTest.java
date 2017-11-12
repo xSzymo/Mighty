@@ -64,18 +64,6 @@ public class MonsterServiceTest {
     }
 
     @Test
-    public void saveforSameUrl() throws Exception {
-        objectUnderTest.save(monsters.get(2));
-        Monster monster = monsters.getFirst();
-        monster.getImage().setUrl(monsters.get(2).getImage().getUrl());
-        objectUnderTest.save(monster);
-
-        monster = objectUnderTest.findOne(objectUnderTest.findOne(monster));
-
-        assertNull(monster.getImage());
-    }
-
-    @Test
     public void saveCollection() throws Exception {
         objectUnderTest.save(monsters);
 
