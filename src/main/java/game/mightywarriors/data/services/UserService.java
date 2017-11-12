@@ -1,6 +1,7 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.UserRepository;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class UserService {
     private ImageService imageService;
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private ChampionService championService;
 
     public void save(User user) {
         if (user != null)
@@ -38,6 +41,11 @@ public class UserService {
             missionService.save(user.getMissions());
         if (user.getShop() != null)
             shopService.save(user.getShop());
+        if (user.getChampions() != null)
+            for (Champion champion : user.getChampions())
+                if (champion != null)
+                    championService.save(champion);
+
         if (user.getImage() != null)
             try {
                 imageService.save((user.getImage()));

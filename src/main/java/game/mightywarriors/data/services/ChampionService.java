@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ChampionRepository;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.other.ChampionLevelManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,8 @@ public class ChampionService {
             statisticService.save(champion.getStatistic());
         if (champion.getEquipment() != null)
             equipmentService.save(champion.getEquipment());
+
+        champion.setLevel(ChampionLevelManager.getUserLevel(champion));
         repository.save(champion);
     }
 
