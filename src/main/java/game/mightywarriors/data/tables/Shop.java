@@ -1,8 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 @Entity
 @Table(name = "shop")
@@ -13,11 +12,11 @@ public class Shop {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany
-    private Collection<Item> items;
+    @ManyToMany
+    private List<Item> items;
 
     public Shop() {
-        items = new LinkedHashSet<>();
+        items = new LinkedList<Item>();
     }
 
     public Long getId() {
@@ -28,11 +27,11 @@ public class Shop {
         items.add(item);
     }
 
-    public Collection<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Collection<Item> items) {
+    public void setItems(LinkedList<Item> items) {
         this.items = items;
     }
 }
