@@ -2,6 +2,8 @@ package game.mightywarriors.web.rest.Authorization;
 
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.jsonObjects.JSONLoginObject;
+import game.mightywarriors.other.jsonObjects.JSONTokenObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,22 +21,21 @@ public class TokenController {
     private UserService userService;
 
     @PostMapping
-    public Token generate(@RequestBody User user) throws Exception {
-        User myUser = userService.findByLogin(user.getLogin());
+    public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
+        User myUser = userService.findByLogin(loginData.login);
         if (myUser == null)
             throw new Exception("Wrong login or password");
 
-        if (!myUser.getPassword().equals(user.getPassword()))
+        if (!myUser.getPassword().equals(loginData.password))
             throw new Exception("Wrong login or password");
 
-        return new Token(generateToken(myUser));
+        return new JSONTokenObject(generateToken(myUser));
     }
 
     public String generateToken(User user) {
         Claims claims = Jwts.claims()
                 .setSubject(user.getLogin());
         claims.put("userId", String.valueOf(user.getId()));
-        claims.put("login", String.valueOf(user.getLogin()));
         claims.put("role", user.getUserRole().getRole());
 
         return Jwts.builder()
@@ -42,5 +43,4 @@ public class TokenController {
                 .signWith(SignatureAlgorithm.HS512, "K00LINN3R")
                 .compact();
     }
-
 }

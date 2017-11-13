@@ -63,6 +63,14 @@ public class UserService {
         }
     }
 
+    public User findByLogin(String login) {
+        try {
+            return repository.findByLogin(login);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public User findOne(User user) {
         try {
             return findOne(user.getId());

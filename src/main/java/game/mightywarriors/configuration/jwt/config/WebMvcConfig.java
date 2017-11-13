@@ -1,4 +1,4 @@
-package game.mightywarriors.configuration;
+package game.mightywarriors.configuration.jwt.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

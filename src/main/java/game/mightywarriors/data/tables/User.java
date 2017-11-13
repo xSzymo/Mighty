@@ -1,6 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.LazyInitializationException;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
     @Column(name = "login")
     private String login;
     @Column(name = "password")
+    @JsonIgnore
     private String password;
     @Column(name = "e_mail")
     private String eMail;

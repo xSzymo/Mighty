@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest;
+package game.mightywarriors.web.rest.userSide;
 
 import game.mightywarriors.data.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
