@@ -17,12 +17,12 @@ public class MonstersApiController {
     @Autowired
     MonsterService monsterService;
 
-    @GetMapping("monsters")
+    @GetMapping("api/monsters")
     public LinkedList<Monster> getChampions() {
         return monsterService.findAll();
     }
 
-    @GetMapping("monsters/{id}")
+    @GetMapping("api/monsters/{id}")
     public Monster getChampion(@PathVariable("id") String id) {
         return monsterService.findOne(Long.parseLong(id));
     }

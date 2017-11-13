@@ -15,12 +15,12 @@ public class ShopApiController {
     @Autowired
     ShopRepository shopRepository;
 
-    @GetMapping("shops")
+    @GetMapping("api/shops")
     public LinkedList<Shop> getShops() {
         return shopRepository.findAll();
     }
 
-    @GetMapping("shops/{id}")
+    @GetMapping("api/shops/{id}")
     public Shop getShop(@PathVariable("id") String id) {
         return shopRepository.findById(Long.parseLong(id));
     }

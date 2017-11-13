@@ -15,12 +15,12 @@ public class ItemsApiController {
     @Autowired
     ItemRepository itemRepository;
 
-    @GetMapping("items")
+    @GetMapping("api/items")
     public LinkedList<Item> getItems() {
         return itemRepository.findAll();
     }
 
-    @GetMapping("items/{id}")
+    @GetMapping("api/items/{id}")
     public Item getItem(@PathVariable("id") String id) {
         return itemRepository.findById(Long.parseLong(id));
     }

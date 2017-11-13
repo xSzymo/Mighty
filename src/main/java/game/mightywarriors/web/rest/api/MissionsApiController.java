@@ -17,12 +17,12 @@ public class MissionsApiController {
     @Autowired
     MissionService missionService;
 
-    @GetMapping("missions")
+    @GetMapping("api/missions")
     public LinkedList<Mission> getChampions() {
         return missionService.findAll();
     }
 
-    @GetMapping("missions/{id}")
+    @GetMapping("api/missions/{id}")
     public Mission getChampion(@PathVariable("id") String id) {
         return missionService.findOne(Long.parseLong(id));
     }

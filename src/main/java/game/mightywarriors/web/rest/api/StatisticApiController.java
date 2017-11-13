@@ -15,12 +15,12 @@ public class StatisticApiController {
     @Autowired
     StatisticRepository statisticRepository;
 
-    @GetMapping("statistics")
+    @GetMapping("api/statistics")
     public LinkedList<Statistic> getStatistics() {
         return statisticRepository.findAll();
     }
 
-    @GetMapping("statistics/{id}")
+    @GetMapping("api/statistics/{id}")
     public Statistic getStatistic(@PathVariable("id") String id) {
         return statisticRepository.findById(Long.parseLong(id));
     }

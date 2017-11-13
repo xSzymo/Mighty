@@ -15,12 +15,12 @@ public class ChampionApiController {
     @Autowired
     ChampionRepository championRepository;
 
-    @GetMapping("champions")
+    @GetMapping("api/champions")
     public LinkedList<Champion> getChampions() {
         return championRepository.findAll();
     }
 
-    @GetMapping("champions/{id}")
+    @GetMapping("api/champions/{id}")
     public Champion getChampion(@PathVariable("id") String id) {
         return championRepository.findById(Long.parseLong(id));
     }
