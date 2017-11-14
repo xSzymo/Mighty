@@ -2,9 +2,8 @@ package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
-import game.mightywarriors.data.repositories.UserRepository;
+import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.data.tables.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
     @Autowired
-    private UserRepository userRepository;
-
+    private UserService userService;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -30,28 +29,27 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     }
 
     @Override
-    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
+    public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
-        if(!token.contains("Bearer "))
+        if (!token.contains("Bearer "))
             throw new RuntimeException("JWT Token is incorrect");
 
         token = token.replace("Bearer ", "");
 
-        User user = validate1(token);
+        User user = validate(token);
 
         if (user == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(user.getUserRole().getRole());
-        return new JwtUserDetails(user,
-                grantedAuthorities);
+        List<GrantedAuthority> grantedAuthorities = new LinkedList<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getUserRole().getRole()));
+        return new JwtUserDetails(user, grantedAuthorities);
     }
 
-    private User validate1(String token) {
+    private User validate(String token) {
         String secret = "K00LINN3R";
 
 
@@ -64,7 +62,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
             user = new User();
 
-            user = userRepository.findByLogin(body.getSubject());
+            user = userService.findByLogin(body.getSubject());
         } catch (Exception e) {
             System.out.println(e);
         }
