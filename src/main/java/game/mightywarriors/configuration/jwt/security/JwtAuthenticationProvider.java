@@ -39,7 +39,12 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         token = token.replace("Bearer ", "");
 
-        User user = validate(token);
+        User user;
+        try {
+            user = validate(token);
+        } catch (Exception e) {
+            throw new RuntimeException("JWT Token expired");
+        }
 
         if (user == null) {
             throw new RuntimeException("JWT Token is incorrect");
@@ -50,18 +55,13 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         return new JwtUserDetails(user, grantedAuthorities);
     }
 
-    private User validate(String token) {
-        User user = null;
-        try {
-            Claims body = Jwts.parser()
-                    .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                    .parseClaimsJws(token)
-                    .getBody();
+    private User validate(String token) throws Exception {
+        Claims body = Jwts.parser()
+                .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
 
-            user = verifyToken(token, body);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        User user = verifyToken(token, body);
 
         return user;
     }
@@ -74,6 +74,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         String code = body.get("code", String.class);
         if (!SystemVariablesManager.JWTTokenCollection.contains(SystemVariablesManager.DECODER_JSON.decode(code)))
             return null;
+
         String decode = SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode());
         if (!decode.equals(SystemVariablesManager.DECODER_JSON.decode(code)))
             return null;
