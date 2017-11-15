@@ -1,4 +1,4 @@
-package game.mightywarriors.configuration.jwt.security;
+package game.mightywarriors.configuration.jwt.handlers;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

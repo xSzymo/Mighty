@@ -2,7 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ImageRepository;
 import game.mightywarriors.data.tables.Image;
-import game.mightywarriors.other.PictureOperations;
+import game.mightywarriors.other.todo.PictureOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;

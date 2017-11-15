@@ -1,9 +1,9 @@
 package game.mightywarriors.configuration.jwt.config;
 
-import game.mightywarriors.configuration.jwt.security.JwtAuthenticationEntryPoint;
+import game.mightywarriors.configuration.jwt.handlers.JwtAuthenticationEntryPoint;
 import game.mightywarriors.configuration.jwt.security.JwtAuthenticationProvider;
 import game.mightywarriors.configuration.jwt.security.JwtAuthenticationTokenFilter;
-import game.mightywarriors.configuration.jwt.security.JwtSuccessHandler;
+import game.mightywarriors.configuration.jwt.handlers.JwtSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,6 @@ import java.util.Collections;
 @EnableWebSecurity
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
     @Autowired
     private JwtAuthenticationProvider authenticationProvider;
     @Autowired

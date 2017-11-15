@@ -2,7 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ChampionRepository;
 import game.mightywarriors.data.tables.Champion;
-import game.mightywarriors.other.ChampionLevelManager;
+import game.mightywarriors.other.managers.ChampionLevelManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
