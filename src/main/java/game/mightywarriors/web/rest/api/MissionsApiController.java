@@ -1,9 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.ChampionRepository;
 import game.mightywarriors.data.services.MissionService;
-import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Mission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -105,7 +105,7 @@ public class RunAtStart {
         }
 
         for (int a = 0, b = 0, i = 0; i < 4; i++) {
-            if(i%2 == 0)
+            if (i % 2 == 0)
                 user = new User("admin" + i, "admin", "email", admin_role);
             else
                 user = new User("user" + i, "user", "eMail", user_role);

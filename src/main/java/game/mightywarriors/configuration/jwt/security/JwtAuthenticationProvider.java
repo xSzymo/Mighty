@@ -5,8 +5,6 @@ import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.other.Base64.DecoderDB;
-import game.mightywarriors.other.Base64.DecoderJSON;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,6 @@ import java.util.List;
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
     @Autowired
     private UserService userService;
-    @Autowired
-    private DecoderJSON decoderJSON;
-    @Autowired
-    private DecoderDB decoderDB;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -76,12 +70,12 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         User user = userService.findByLogin(body.getSubject());
         if (user == null)
             return null;
-        //body.getExpiration()
+
         String code = body.get("code", String.class);
-        if (!SystemVariablesManager.JWTTokenCollection.contains(decoderJSON.decode(code)))
+        if (!SystemVariablesManager.JWTTokenCollection.contains(SystemVariablesManager.DECODER_JSON.decode(code)))
             return null;
-        String decode = decoderDB.decode(user.getTokenCode());
-        if (!decode.equals(decoderJSON.decode(code)))
+        String decode = SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode());
+        if (!decode.equals(SystemVariablesManager.DECODER_JSON.decode(code)))
             return null;
 
         return user;

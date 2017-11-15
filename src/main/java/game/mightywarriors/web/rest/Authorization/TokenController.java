@@ -3,8 +3,6 @@ package game.mightywarriors.web.rest.Authorization;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.other.Base64.EncoderDB;
-import game.mightywarriors.other.Base64.EncoderJSON;
 import game.mightywarriors.other.generators.RandomCodeFactory;
 import game.mightywarriors.other.jsonObjects.JSONLoginObject;
 import game.mightywarriors.other.jsonObjects.JSONTokenObject;
@@ -24,8 +22,6 @@ public class TokenController {
     private UserService userService;
     @Autowired
     private RandomCodeFactory randomCodeFactory;
-    @Autowired
-    private EncoderJSON encoderJSON;
 
     @PostMapping
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
@@ -44,7 +40,8 @@ public class TokenController {
         user.setTokenCode(uniqueCode);
         userService.save(user);
 
-        String code = encoderJSON.encode(uniqueCode);
+        String code = SystemVariablesManager.ENCODER_JSON.encode(uniqueCode);
+
         Claims claims = Jwts.claims()
                 .setSubject(user.getLogin());
         claims.put("userId", String.valueOf(user.getId()));
