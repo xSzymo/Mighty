@@ -1,5 +1,6 @@
 package game.mightywarriors.web.rest.Authorization;
 
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.jsonObjects.JSONLoginObject;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/token")
 public class TokenController {
-
     @Autowired
     private UserService userService;
 
@@ -40,7 +40,7 @@ public class TokenController {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, "K00LINN3R")
+                .signWith(SignatureAlgorithm.HS512, SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
                 .compact();
     }
 }

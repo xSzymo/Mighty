@@ -2,6 +2,7 @@ package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import io.jsonwebtoken.Claims;
@@ -50,13 +51,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     }
 
     private User validate(String token) {
-        String secret = "K00LINN3R";
-
-
         User user = null;
         try {
             Claims body = Jwts.parser()
-                    .setSigningKey(secret)
+                    .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
                     .parseClaimsJws(token)
                     .getBody();
 
