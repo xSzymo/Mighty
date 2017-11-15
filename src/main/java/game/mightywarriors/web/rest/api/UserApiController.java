@@ -15,12 +15,12 @@ public class UserApiController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("api/users")
+    @GetMapping("users")
     public LinkedList<User> getUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("api/users/{id}")
+    @GetMapping("users/{id}")
     public User getUser(@PathVariable("id") String id) {
         return userRepository.findById(Long.parseLong(id));
     }

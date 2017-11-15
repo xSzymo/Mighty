@@ -15,12 +15,12 @@ public class ImagesApiController {
     @Autowired
     ImageRepository imageRepository;
 
-    @GetMapping("api/images")
+    @GetMapping("images")
     public LinkedList<Image> getImages() {
         return imageRepository.findAll();
     }
 
-    @GetMapping("api/images/{id}")
+    @GetMapping("images/{id}")
     public Image getImage(@PathVariable("id") String id) {
         return imageRepository.findById(Long.parseLong(id));
     }

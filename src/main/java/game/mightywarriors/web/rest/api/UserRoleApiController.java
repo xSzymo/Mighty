@@ -15,12 +15,12 @@ public class UserRoleApiController {
     @Autowired
     UserRoleRepository userRoleRepository;
 
-    @GetMapping("api/userRoles")
+    @GetMapping("userRoles")
     public LinkedList<UserRole> getUserRoles() {
         return userRoleRepository.findAll();
     }
 
-    @GetMapping("api/userRoles/{id}")
+    @GetMapping("userRoles/{id}")
     public UserRole getUserRole(@PathVariable("id") String id) {
         return userRoleRepository.findById(Long.parseLong(id));
     }

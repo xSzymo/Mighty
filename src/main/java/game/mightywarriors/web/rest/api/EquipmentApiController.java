@@ -15,12 +15,12 @@ public class EquipmentApiController {
     @Autowired
     EquipmentRepository equipmentRepository;
 
-    @GetMapping("api/equipments")
+    @GetMapping("equipments")
     public LinkedList<Equipment> getEquipments() {
         return equipmentRepository.findAll();
     }
 
-    @GetMapping("api/equipments/{id}")
+    @GetMapping("equipments/{id}")
     public Equipment getEquipment(@PathVariable("id") String id) {
         return equipmentRepository.findById(Long.parseLong(id));
     }
