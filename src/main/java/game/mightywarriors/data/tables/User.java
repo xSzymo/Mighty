@@ -20,11 +20,15 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
     @Column(name = "password")
     @JsonIgnore
     private String password;
+    @Column(name = "token_code", unique = true)
+    @JsonIgnore
+    private String tokenCode;
+
     @Column(name = "e_mail")
     private String eMail;
     @Column(name = "gold")
@@ -89,13 +93,13 @@ public class User {
         this.shop = user.shop;
         this.image = user.image;
         this.champions = user.champions;
+        this.missions = user.missions;
         this.userRole = user.userRole;
         this.timeStamp = user.timeStamp;
+        this.tokenCode = user.tokenCode;
     }
 
     public void setUser(User user) {
-        this.id = user.id;
-        this.login = user.login;
         this.password = user.password;
         this.eMail = user.eMail;
         this.shop = user.shop;
@@ -202,6 +206,14 @@ public class User {
             missions = new ArrayList<>();
             missions.add(mission);
         }
+    }
+
+    public String getTokenCode() {
+        return tokenCode;
+    }
+
+    public void setTokenCode(String tokenCode) {
+        this.tokenCode = tokenCode;
     }
 
     private class MissionCollection extends LinkedList<Mission> {

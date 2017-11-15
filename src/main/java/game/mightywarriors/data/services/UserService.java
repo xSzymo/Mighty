@@ -3,6 +3,8 @@ package game.mightywarriors.data.services;
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.Base64.DecoderDB;
+import game.mightywarriors.other.Base64.EncoderDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,10 @@ public class UserService {
     private ShopService shopService;
     @Autowired
     private ChampionService championService;
+    @Autowired
+    private EncoderDB encoderDB;
+    @Autowired
+    private DecoderDB decoderDB;
 
     public void save(User user) {
         if (user != null)
@@ -52,6 +58,13 @@ public class UserService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+        if (user.getTokenCode() != null) {
+            String token = user.getTokenCode();
+            String tokenAfterEncode = encoderDB.encode(user.getTokenCode());
+            if (token.equals(decoderDB.decode(tokenAfterEncode)))
+                user.setTokenCode(tokenAfterEncode);
+        }
         repository.save(user);
     }
 

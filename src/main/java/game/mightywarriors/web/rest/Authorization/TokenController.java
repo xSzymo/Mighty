@@ -3,6 +3,9 @@ package game.mightywarriors.web.rest.Authorization;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.Base64.EncoderDB;
+import game.mightywarriors.other.Base64.EncoderJSON;
+import game.mightywarriors.other.generators.RandomCodeFactory;
 import game.mightywarriors.other.jsonObjects.JSONLoginObject;
 import game.mightywarriors.other.jsonObjects.JSONTokenObject;
 import io.jsonwebtoken.Claims;
@@ -19,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class TokenController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RandomCodeFactory randomCodeFactory;
+    @Autowired
+    private EncoderJSON encoderJSON;
 
     @PostMapping
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
@@ -32,11 +39,16 @@ public class TokenController {
         return new JSONTokenObject(generateToken(myUser));
     }
 
-    public String generateToken(User user) {
+    private String generateToken(User user) {
+        String uniqueCode = randomCodeFactory.getUniqueCode();
+        user.setTokenCode(uniqueCode);
+        userService.save(user);
+
+        String code = encoderJSON.encode(uniqueCode);
         Claims claims = Jwts.claims()
                 .setSubject(user.getLogin());
         claims.put("userId", String.valueOf(user.getId()));
-        claims.put("role", user.getUserRole().getRole());
+        claims.put("code", code);
 
         return Jwts.builder()
                 .setClaims(claims)
