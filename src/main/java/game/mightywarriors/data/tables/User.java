@@ -39,14 +39,13 @@ public class User {
     @OneToOne
     private Shop shop;
 
+    @OneToOne
+    private Image image;
+
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
-
-    @OneToMany
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private List<Image> image = new LinkedList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -75,7 +74,7 @@ public class User {
         this.eMail = eMail;
     }
 
-    public User(String login, String password, String eMail, LinkedList<Image> image, Champion champion, UserRole userRole) {
+    public User(String login, String password, String eMail, Image image, Champion champion, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
@@ -129,20 +128,20 @@ public class User {
         this.password = password;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public String geteMail() {
         return eMail;
     }
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }
-
-    public List<Image> getImage() {
-        return image;
-    }
-
-    public void setImage(LinkedList<Image> image) {
-        this.image = image;
     }
 
     public UserRole getUserRole() {
