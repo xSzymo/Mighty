@@ -109,6 +109,9 @@ public class RunAtStart {
                 user = new User("admin" + i, "admin", "email", admin_role);
             else
                 user = new User("user" + i, "user", "eMail", user_role);
+            Image image = new Image("https://www.reduceimages.com/img/image-after.jpg");
+            images.add(image);
+            user.setImage(image);
             user.setShop(shops.get(i));
             user.addChampion(champions.get(a++));
             user.addChampion(champions.get(a++));
