@@ -19,5 +19,4 @@ public class RandomCodeFactoryTest {
             assertEquals(i, SystemVariablesManager.JWTTokenCollection.size());
         }
     }
-
 }
