@@ -1,5 +1,6 @@
 package game.mightywarriors.data.services;
 
+import config.IntegrationTestsConfig;
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.tables.Equipment;
 import game.mightywarriors.data.tables.Item;
@@ -8,19 +9,14 @@ import game.mightywarriors.data.tables.Statistic;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ItemServiceTest {
+public class ItemServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ItemService objectUnderTest;
     @Autowired

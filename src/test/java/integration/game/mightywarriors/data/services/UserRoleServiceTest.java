@@ -1,22 +1,18 @@
 package game.mightywarriors.data.services;
 
+import config.IntegrationTestsConfig;
 import game.mightywarriors.data.tables.UserRole;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UserRoleServiceTest {
+public class UserRoleServiceTest extends IntegrationTestsConfig {
     @Autowired
     private UserRoleService objectUnderTest;
 

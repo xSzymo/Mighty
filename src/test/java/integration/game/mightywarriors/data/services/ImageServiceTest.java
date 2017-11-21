@@ -1,5 +1,6 @@
 package game.mightywarriors.data.services;
 
+import config.IntegrationTestsConfig;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Image;
 import game.mightywarriors.data.tables.Item;
@@ -7,18 +8,13 @@ import game.mightywarriors.data.tables.Monster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ImageServiceTest {
+public class ImageServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ImageService objectUnderTest;
     @Autowired

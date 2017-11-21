@@ -1,22 +1,18 @@
 package game.mightywarriors.data.services;
 
+import config.IntegrationTestsConfig;
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class StatisticServiceTest {
+public class StatisticServiceTest extends IntegrationTestsConfig {
     @Autowired
     private StatisticService objectUnderTest;
     @Autowired

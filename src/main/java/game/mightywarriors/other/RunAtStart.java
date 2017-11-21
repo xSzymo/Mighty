@@ -1,5 +1,6 @@
 package game.mightywarriors.other;
 
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
@@ -44,6 +45,9 @@ public class RunAtStart {
 
     @PostConstruct
     public void addExampleDataForTestAtStartApplication() throws Exception {
+        if(SystemVariablesManager.RUNNING_TESTS == true)
+            return;
+
         UserRole admin_role = new UserRole("admin");
         UserRole user_role = new UserRole("user");
         userRoleService.save(admin_role);
