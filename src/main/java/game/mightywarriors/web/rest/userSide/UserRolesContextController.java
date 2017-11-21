@@ -2,7 +2,7 @@ package game.mightywarriors.web.rest.userSide;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.security.JwtAuthenticationProvider;
-import game.mightywarriors.configuration.jwt.security.JwtAuthenticationTokenFilter;
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +16,9 @@ public class UserRolesContextController {
     UserRepository userRepository;
     @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @GetMapping("secure/getPrincipal")
-    public Object getPrincipal(@RequestHeader(value = "Authorization") String Authorization) throws Exception {
+    public Object getPrincipal(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String Authorization) throws Exception {
         if (Authorization == null || Authorization.equals(""))
             throw new Exception("Wrong token");
 
@@ -29,7 +27,7 @@ public class UserRolesContextController {
     }
 
     @GetMapping("secure/getCurrentUser")
-    public Object getCurrentUser(@RequestHeader(value = "Authorization") String Authorization) throws Exception {
+    public Object getCurrentUser(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String Authorization) throws Exception {
         if (Authorization == null || Authorization.equals(""))
             throw new Exception("Wrong token");
 

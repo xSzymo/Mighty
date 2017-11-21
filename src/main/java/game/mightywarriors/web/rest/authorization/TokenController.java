@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest.Authorization;
+package game.mightywarriors.web.rest.authorization;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
