@@ -30,6 +30,10 @@ public class Monster {
         this.image = image;
     }
 
+    public Monster(Statistic statistic) {
+        this.statistic = statistic;
+    }
+
     public Image getImage() {
         return image;
     }

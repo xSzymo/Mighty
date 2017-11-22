@@ -12,6 +12,7 @@ public class SystemVariablesManager {
     public static final String SPECIAL_JWT_SECRET_KEY = "K00LINN3R";
     public static final String NAME_OF_JWT_HEADER_TOKEN = "authorization";
     public static final int HOW_MANY_HOURS_BEETWEN_NEXT_DRAW_ITEMS = 1;
+    public static final double RATE = 0.1;
 
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
 

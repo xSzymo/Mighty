@@ -43,6 +43,13 @@ public class Item {
         this.typeOfWeapon = typeOfWeapon;
     }
 
+    public Item(WeaponType typeOfWeapon, Statistic statistic, long level) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
+        this.typeOfWeapon = typeOfWeapon;
+        this.statistic = statistic;
+        this.level = level;
+    }
+
     public Item(String name, WeaponType typeOfWeapon, Statistic statistic, long level) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.name = name;
