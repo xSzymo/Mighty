@@ -2,7 +2,7 @@ package game.mightywarriors.configuration.system;
 
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.ItemDrawer;
+import game.mightywarriors.services.backgroundTasks.ItemDrawer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

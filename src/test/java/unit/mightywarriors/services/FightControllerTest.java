@@ -2,7 +2,7 @@ package unit.mightywarriors.services;
 
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.services.FightReferee;
+import game.mightywarriors.services.fights.division.FightReferee;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
