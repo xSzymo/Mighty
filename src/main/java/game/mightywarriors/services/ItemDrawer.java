@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class DrawerItemService {
+public class ItemDrawer {
     @Autowired
     private UserService userService;
     @Autowired

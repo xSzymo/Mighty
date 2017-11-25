@@ -2,7 +2,7 @@ package game.mightywarriors.configuration.system;
 
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.DrawerItemService;
+import game.mightywarriors.services.ItemDrawer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +17,7 @@ public class SystemRunAtStart {
     @Autowired
     private UserService userService;
     @Autowired
-    private DrawerItemService drawerItemService;
+    private ItemDrawer itemDrawer;
 
     @PostConstruct
     public void runAtStart() {
@@ -27,7 +27,7 @@ public class SystemRunAtStart {
 
     private void drawingItemsForUserEveryDay() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> drawerItemService.drawItemsForUser() , 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
+        exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser() , 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
     }
 
     private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {

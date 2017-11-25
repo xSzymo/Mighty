@@ -1,11 +1,13 @@
-package game.mightywarriors.services;
+package game.mightywarriors.helpers;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StatisticCounter {
 
     public double countMonsterStatistic(Monster monster) {

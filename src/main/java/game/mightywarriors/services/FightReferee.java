@@ -2,6 +2,7 @@ package game.mightywarriors.services;
 
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.helpers.StatisticCounter;
 import org.springframework.stereotype.Service;
 
 @Service
