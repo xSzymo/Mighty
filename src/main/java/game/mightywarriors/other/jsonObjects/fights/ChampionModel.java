@@ -1,4 +1,4 @@
-package game.mightywarriors.data.tables;
+package game.mightywarriors.other.jsonObjects.fights;
 
 public class ChampionModel {
     private long id;
