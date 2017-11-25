@@ -53,39 +53,44 @@ public class Champion {
         return statistic;
     }
 
-    public void setStatistic(Statistic statistic) {
+    public Champion setStatistic(Statistic statistic) {
         this.statistic = statistic;
+        return this;
     }
 
     public Equipment getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(Equipment equipment) {
+    public Champion setEquipment(Equipment equipment) {
         this.equipment = equipment;
+        return this;
     }
 
     public long getExperience() {
         return experience;
     }
 
-    public void setExperience(long experience) {
+    public Champion setExperience(long experience) {
         this.experience = experience;
+        return this;
     }
 
     public long getLevel() {
         return level;
     }
 
-    public void setLevel(long level) {
+    public Champion setLevel(long level) {
         this.level = level;
+        return this;
     }
 
     public Image getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public Champion setImage(Image image) {
         this.image = image;
+        return this;
     }
 }
