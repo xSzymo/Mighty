@@ -27,7 +27,7 @@ public class SystemRunAtStart {
 
     private void drawingItemsForUserEveryDay() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> drawerItemService.drawItemsForUser() , 0, SystemVariablesManager.HOW_MANY_HOURS_BEETWEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
+        exec.scheduleAtFixedRate(() -> drawerItemService.drawItemsForUser() , 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
     }
 
     private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {

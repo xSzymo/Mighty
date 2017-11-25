@@ -1,7 +1,8 @@
-package game.mightywarriors.services;
+package unit.mightywarriors.services;
 
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.services.FightReferee;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -68,10 +69,10 @@ public class FightControllerTest {
         equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(2, 5, 7, 9, 10, 12), 1));
         equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(2, 5, 7, 9, 10, 12), 1));
 
-        user1.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
+        user1.getChampions().add(new Champion(new Statistic(1, 2, 3, 5, 5, 7), equipment));
 
 
-        assertEquals(null, fightReferee.checkWhoIsStronger(user, user1));
+        assertEquals(user, fightReferee.checkWhoIsStronger(user, user1));
     }
 
 
