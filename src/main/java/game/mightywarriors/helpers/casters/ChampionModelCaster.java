@@ -1,7 +1,8 @@
-package game.mightywarriors.helpers;
+package game.mightywarriors.helpers.casters;
 
 import game.mightywarriors.data.enums.StatisticType;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.helpers.counters.SpecificStatisticInFightsCounter;
 import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
 import org.springframework.stereotype.Service;
 

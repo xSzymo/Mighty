@@ -1,4 +1,4 @@
-package game.mightywarriors.helpers;
+package game.mightywarriors.helpers.counters;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.tables.Champion;
