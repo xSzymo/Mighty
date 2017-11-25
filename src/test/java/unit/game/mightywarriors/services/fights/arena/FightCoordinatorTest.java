@@ -1,4 +1,4 @@
-package unit.mightywarriors.services;
+package unit.game.mightywarriors.services.fights.arena;
 
 import game.mightywarriors.data.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
@@ -29,7 +29,7 @@ public class FightCoordinatorTest {
 
     @Test
     public void fightBetweenPlayerAndMonster() throws Exception {
-        FightResult fightResult = fightCoordinator.fightBetweenPlayerAndMonster(user1, user2);
+        FightResult fightResult = fightCoordinator.fightBetweenUsers(user1, user2);
 
         int i = 0;
         for (RoundProcess roundProcess : fightResult.getRounds()) {

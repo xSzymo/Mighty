@@ -15,7 +15,7 @@ public class FightCoordinator {
     private final RoundFightPerformer roundFightPerformer = new RoundFightPerformer();
     private final ChampionModelCaster championModelCaster = new ChampionModelCaster();
 
-    public FightResult fightBetweenPlayerAndMonster(User user, User opponent) {
+    public FightResult fightBetweenUsers(User user, User opponent) {
         FightResult fightResult = new FightResult();
         RoundProcess round;
 
