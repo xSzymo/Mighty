@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 
 @Service
-public class FightCoordinator {
+public class MonsterFightCoordinator {
     private final RoundFightPerformer roundFightPerformer = new RoundFightPerformer();
     private final ChampionModelCaster championModelCaster = new ChampionModelCaster();
     private final MonsterModelCaster monsterModelCaster = new MonsterModelCaster();

@@ -1,11 +1,11 @@
 package unit.game.mightywarriors.services.fights.dungeon;
 
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
 import game.mightywarriors.other.jsonObjects.fights.FightResult;
 import game.mightywarriors.other.jsonObjects.fights.RoundProcess;
-import game.mightywarriors.services.fights.dungeon.FightCoordinator;
+import game.mightywarriors.services.fights.dungeon.MonsterFightCoordinator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,14 +15,14 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-public class FightCoordinatorTest {
-    private FightCoordinator fightCoordinator;
+public class MonsterFightCoordinatorTest {
+    private MonsterFightCoordinator monsterFightCoordinator;
     private User user1;
     private Monster monster;
 
     @Before
     public void setUp() throws Exception {
-        fightCoordinator = new FightCoordinator();
+        monsterFightCoordinator = new MonsterFightCoordinator();
         user1 = setUpUser1();
         monster = setUpMonster();
     }
@@ -32,7 +32,7 @@ public class FightCoordinatorTest {
         LinkedList<Monster> monsters = new LinkedList<>();
         monsters.add(monster);
 
-        FightResult fightResult = fightCoordinator.fightBetweenPlayerAndMonster(user1, monsters);
+        FightResult fightResult = monsterFightCoordinator.fightBetweenPlayerAndMonster(user1, monsters);
 
         int i = 0;
         for (RoundProcess roundProcess : fightResult.getRounds()) {

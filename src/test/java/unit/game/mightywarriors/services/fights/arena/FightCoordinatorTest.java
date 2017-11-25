@@ -1,6 +1,6 @@
 package unit.game.mightywarriors.services.fights.arena;
 
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
 import game.mightywarriors.other.jsonObjects.fights.FightResult;

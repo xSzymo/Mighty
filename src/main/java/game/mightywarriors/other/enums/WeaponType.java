@@ -1,4 +1,4 @@
-package game.mightywarriors.data.enums;
+package game.mightywarriors.other.enums;
 
 public enum WeaponType {
     WEAPON("weapon"), OFFHAND("offhand"),

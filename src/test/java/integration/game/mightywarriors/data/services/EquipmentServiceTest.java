@@ -1,11 +1,14 @@
-package game.mightywarriors.data.services;
+package integration.game.mightywarriors.data.services;
 
-import config.IntegrationTestsConfig;
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.services.EquipmentService;
+import game.mightywarriors.data.services.ItemService;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Equipment;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Statistic;
+import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

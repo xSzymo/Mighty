@@ -1,7 +1,7 @@
 package game.mightywarriors.other;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import org.springframework.beans.factory.annotation.Autowired;

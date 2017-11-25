@@ -1,7 +1,10 @@
-package game.mightywarriors.data.services;
+package integration.game.mightywarriors.data.services;
 
-import config.IntegrationTestsConfig;
+import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.services.EquipmentService;
+import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
+import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

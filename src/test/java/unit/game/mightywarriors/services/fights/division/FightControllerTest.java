@@ -1,6 +1,6 @@
-package unit.mightywarriors.services;
+package unit.game.mightywarriors.services.fights.division;
 
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.fights.division.FightReferee;
 import org.junit.Test;

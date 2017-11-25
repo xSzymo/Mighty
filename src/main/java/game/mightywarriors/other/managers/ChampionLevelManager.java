@@ -1,6 +1,6 @@
 package game.mightywarriors.other.managers;
 
-import game.mightywarriors.data.enums.Level;
+import game.mightywarriors.other.enums.Level;
 import game.mightywarriors.data.tables.Champion;
 
 public class ChampionLevelManager {

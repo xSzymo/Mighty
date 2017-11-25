@@ -1,6 +1,6 @@
 package game.mightywarriors.services.backgroundTasks;
 
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;

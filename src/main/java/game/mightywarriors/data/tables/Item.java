@@ -1,6 +1,6 @@
 package game.mightywarriors.data.tables;
 
-import game.mightywarriors.data.enums.WeaponType;
+import game.mightywarriors.other.enums.WeaponType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
