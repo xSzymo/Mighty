@@ -1,4 +1,4 @@
-package game.mightywarriors.services.fights.security;
+package game.mightywarriors.services.security;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;

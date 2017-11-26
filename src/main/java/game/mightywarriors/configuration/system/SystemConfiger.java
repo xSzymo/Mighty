@@ -5,8 +5,8 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.League;
-import game.mightywarriors.services.backgroundTasks.DivisionAssinger;
-import game.mightywarriors.services.backgroundTasks.ItemDrawer;
+import game.mightywarriors.services.background.tasks.DivisionAssinger;
+import game.mightywarriors.services.background.tasks.ItemDrawer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

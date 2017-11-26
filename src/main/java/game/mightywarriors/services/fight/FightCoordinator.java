@@ -1,4 +1,4 @@
-package game.mightywarriors.services.fights.arena.and.dungeon.and.mission;
+package game.mightywarriors.services.fight;
 
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;

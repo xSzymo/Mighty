@@ -1,4 +1,4 @@
-package game.mightywarriors.services.fights.division;
+package game.mightywarriors.services.league;
 
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;

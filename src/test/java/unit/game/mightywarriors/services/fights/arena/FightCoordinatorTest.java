@@ -5,7 +5,7 @@ import game.mightywarriors.json.objects.fights.FightResult;
 import game.mightywarriors.json.objects.fights.Fighter;
 import game.mightywarriors.json.objects.fights.RoundProcess;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.services.fights.arena.and.dungeon.and.mission.FightCoordinator;
+import game.mightywarriors.services.fight.FightCoordinator;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.League;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.services.backgroundTasks.DivisionAssinger;
+import game.mightywarriors.services.background.tasks.DivisionAssinger;
 import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
