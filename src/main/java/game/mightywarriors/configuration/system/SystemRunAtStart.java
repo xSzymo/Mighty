@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.League;
+import game.mightywarriors.services.backgroundTasks.DivisionAssinger;
 import game.mightywarriors.services.backgroundTasks.ItemDrawer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -23,12 +24,31 @@ public class SystemRunAtStart {
     private ItemDrawer itemDrawer;
     @Autowired
     private DivisionService divisionService;
+    @Autowired
+    private DivisionAssinger divisionAssinger;
 
     @PostConstruct
     public void runAtStart() {
         createStandardDivisionsIfNotExist();
         addAllTokensFromDataBaseToCollectionInSystemVariableManager();
+
+        updateDivisionForUsers();
         drawingItemsForUserEveryDay();
+    }
+
+    private void updateDivisionForUsers() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> divisionAssinger.assignUsersDivisions(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_UPDAATE_DIVISIONS, TimeUnit.HOURS);
+    }
+
+    private void drawingItemsForUserEveryDay() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
+    }
+
+    private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {
+        LinkedList<User> all = userService.findAll();
+        all.forEach(x -> SystemVariablesManager.JWTTokenCollection.add(x.getTokenCode()));
     }
 
     private void createStandardDivisionsIfNotExist() {
@@ -41,16 +61,5 @@ public class SystemRunAtStart {
         divisionService.save(new Division(League.SILVER));
         divisionService.save(new Division(League.BRONZE));
         divisionService.save(new Division(League.WOOD));
-
-    }
-
-    private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {
-        LinkedList<User> all = userService.findAll();
-        all.forEach(x -> SystemVariablesManager.JWTTokenCollection.add(x.getTokenCode()));
-    }
-
-    private void drawingItemsForUserEveryDay() {
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
     }
 }
