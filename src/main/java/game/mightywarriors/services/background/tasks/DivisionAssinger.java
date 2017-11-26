@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.helpers.counters.division.StatisticCounter;
+import game.mightywarriors.services.helpers.counters.division.StatisticCounter;
 import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.League;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package game.mightywarriors.helpers.casters;
+package game.mightywarriors.services.helpers.casters;
 
-import game.mightywarriors.helpers.counters.fight.StatisticCounter;
+import game.mightywarriors.services.helpers.counters.fight.StatisticCounter;
 import game.mightywarriors.json.objects.fights.Fighter;
 import game.mightywarriors.other.enums.StatisticType;
 import org.springframework.stereotype.Service;

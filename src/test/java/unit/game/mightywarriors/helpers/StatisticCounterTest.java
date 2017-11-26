@@ -1,7 +1,7 @@
 package unit.game.mightywarriors.helpers;
 
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.helpers.counters.fight.StatisticCounter;
+import game.mightywarriors.services.helpers.counters.fight.StatisticCounter;
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.other.enums.WeaponType;
 import org.junit.Test;

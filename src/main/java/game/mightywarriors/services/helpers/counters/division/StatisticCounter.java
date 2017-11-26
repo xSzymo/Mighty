@@ -1,4 +1,4 @@
-package game.mightywarriors.helpers.counters.division;
+package game.mightywarriors.services.helpers.counters.division;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.interfaces.Fighter;

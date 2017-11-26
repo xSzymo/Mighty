@@ -2,8 +2,7 @@ package game.mightywarriors.services.fight;
 
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.helpers.casters.FighterModelCaster;
-import game.mightywarriors.helpers.fight.RoundFightPerformer;
+import game.mightywarriors.services.helpers.casters.FighterModelCaster;
 import game.mightywarriors.json.objects.fights.FightResult;
 import game.mightywarriors.json.objects.fights.Fighter;
 import game.mightywarriors.json.objects.fights.RoundProcess;
