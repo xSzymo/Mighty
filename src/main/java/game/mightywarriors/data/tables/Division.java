@@ -16,13 +16,11 @@ public class Division {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "division")
-    private int division;
-
     @Column(name = "league")
     private League league;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "league_id", referencedColumnName = "id")
     @JsonManagedReference
     private Collection<User> users = new LinkedHashSet<User>();
 
@@ -32,14 +30,6 @@ public class Division {
 
     public Division(League league) {
         this.league = league;
-    }
-
-    public int getDivision() {
-        return division;
-    }
-
-    public void setDivision(int division) {
-        this.division = division;
     }
 
     public League getLeague() {
@@ -64,5 +54,9 @@ public class Division {
 
     public void setUsers(Collection<User> user) {
         this.users = user;
+    }
+
+    public void clearUsers() {
+        this.users.clear();
     }
 }
