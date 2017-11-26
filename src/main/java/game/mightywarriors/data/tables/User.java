@@ -160,6 +160,16 @@ public class User {
         return champions;
     }
 
+    public long getUserChampiongHighestLevel() {
+        long highest = 0;
+
+        for (Champion champion : champions)
+            if(highest < champion.getLevel())
+                highest = champion.getLevel();
+
+        return  highest;
+    }
+
     public void setChampions(LinkedList<Champion> champions) {
         this.champions = champions;
     }
