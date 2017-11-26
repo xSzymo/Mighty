@@ -1,13 +1,13 @@
 package unit.game.mightywarriors.services.fights.arena;
 
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.json.objects.fights.ChampionModel;
 import game.mightywarriors.json.objects.fights.FightResult;
+import game.mightywarriors.json.objects.fights.Fighter;
 import game.mightywarriors.json.objects.fights.RoundProcess;
+import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.services.fights.arena.and.dungeon.and.mission.FightCoordinator;
 import org.junit.Before;
 import org.junit.Test;
-import game.mightywarriors.services.fights.arena.FightCoordinator;
 
 import java.util.LinkedList;
 
@@ -29,41 +29,41 @@ public class FightCoordinatorTest {
 
     @Test
     public void fightBetweenPlayerAndMonster() throws Exception {
-        FightResult fightResult = fightCoordinator.fightBetweenUsers(user1, user2);
+        FightResult fightResult = fightCoordinator.fight(user1, user2);
 
         int i = 0;
         for (RoundProcess roundProcess : fightResult.getRounds()) {
             i++;
-            LinkedList<ChampionModel> championModels = roundProcess.getUserChampions();
-            LinkedList<ChampionModel> opponentChampions = roundProcess.getOpponentChampions();
+            LinkedList<Fighter> fighters = roundProcess.getUserChampions();
+            LinkedList<Fighter> opponentChampions = roundProcess.getOpponentChampions();
 
 //            if(i == 1) {
-//                assertEquals(50, championModels.get(0).getHp());
-//                assertEquals(50, championModels.get(1).getHp());
-//                assertEquals(50, championModels.get(2).getHp());
+//                assertEquals(50, fighters.get(0).getHp());
+//                assertEquals(50, fighters.get(1).getHp());
+//                assertEquals(50, fighters.get(2).getHp());
 //                assertEquals(30, opponentChampions.get(0).getHp());
 //                assertEquals(50, opponentChampions.get(1).getHp());
 //                assertEquals(30, opponentChampions.get(2).getHp());
 //
-//                assertEquals(40, championModels.get(0).getDmg());
-//                assertEquals(50, championModels.get(1).getDmg());
-//                assertEquals(50, championModels.get(2).getDmg());
+//                assertEquals(40, fighters.get(0).getDmg());
+//                assertEquals(50, fighters.get(1).getDmg());
+//                assertEquals(50, fighters.get(2).getDmg());
 //                assertEquals(50, opponentChampions.get(0).getDmg());
 //                assertEquals(50, opponentChampions.get(1).getDmg());
 //                assertEquals(30, opponentChampions.get(2).getDmg());
 //            }
 //
 //            if(i == 2) {
-//                assertEquals(50, championModels.get(0).getHp());
-//                assertEquals(50, championModels.get(1).getHp());
-//                assertEquals(50, championModels.get(2).getHp());
+//                assertEquals(50, fighters.get(0).getHp());
+//                assertEquals(50, fighters.get(1).getHp());
+//                assertEquals(50, fighters.get(2).getHp());
 //                assertEquals(30, opponentChampions.get(0).getHp());
 //                assertEquals(50, opponentChampions.get(1).getHp());
 //                assertEquals(30, opponentChampions.get(2).getHp());
 //
-//                assertEquals(40, championModels.get(0).getDmg());
-//                assertEquals(50, championModels.get(1).getDmg());
-//                assertEquals(50, championModels.get(2).getDmg());
+//                assertEquals(40, fighters.get(0).getDmg());
+//                assertEquals(50, fighters.get(1).getDmg());
+//                assertEquals(50, fighters.get(2).getDmg());
 //                assertEquals(50, opponentChampions.get(0).getDmg());
 //                assertEquals(50, opponentChampions.get(1).getDmg());
 //                assertEquals(30, opponentChampions.get(2).getDmg());
@@ -93,6 +93,7 @@ public class FightCoordinatorTest {
 
         return user;
     }
+
     private User setUpUser2() throws Exception {
         User user = new User("user", "user", "user");
 

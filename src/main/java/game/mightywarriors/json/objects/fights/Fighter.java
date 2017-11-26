@@ -1,6 +1,6 @@
 package game.mightywarriors.json.objects.fights;
 
-public class ChampionModel {
+public class Fighter {
     private long id;
     private double dmg;
     private long level;
@@ -11,23 +11,23 @@ public class ChampionModel {
     private double armor;
     private double magicResist;
 
-    public ChampionModel() {
+    public Fighter() {
 
     }
 
-    public ChampionModel(ChampionModel championModel) {
-        this.id = championModel.id;
-        this.dmg = championModel.dmg;
-        this.level = championModel.level;
-        this.strength = championModel.strength;
-        this.intelligence = championModel.intelligence;
-        this.hp = championModel.hp;
-        this.criticChance = championModel.criticChance;
-        this.armor = championModel.armor;
-        this.magicResist = championModel.magicResist;
+    public Fighter(Fighter fighter) {
+        this.id = fighter.id;
+        this.dmg = fighter.dmg;
+        this.level = fighter.level;
+        this.strength = fighter.strength;
+        this.intelligence = fighter.intelligence;
+        this.hp = fighter.hp;
+        this.criticChance = fighter.criticChance;
+        this.armor = fighter.armor;
+        this.magicResist = fighter.magicResist;
     }
 
-    public ChampionModel build() {
+    public Fighter build() {
         return this;
     }
 
@@ -35,7 +35,7 @@ public class ChampionModel {
         return dmg;
     }
 
-    public ChampionModel setDmg(double dmg) {
+    public Fighter setDmg(double dmg) {
         this.dmg = dmg;
         return this;
     }
@@ -44,7 +44,7 @@ public class ChampionModel {
         return strength;
     }
 
-    public ChampionModel setStrength(double strength) {
+    public Fighter setStrength(double strength) {
         this.strength = strength;
         return this;
     }
@@ -53,7 +53,7 @@ public class ChampionModel {
         return intelligence;
     }
 
-    public ChampionModel setIntelligence(double intelligence) {
+    public Fighter setIntelligence(double intelligence) {
         this.intelligence = intelligence;
         return this;
     }
@@ -62,7 +62,7 @@ public class ChampionModel {
         return criticChance;
     }
 
-    public ChampionModel setCriticChance(double criticChance) {
+    public Fighter setCriticChance(double criticChance) {
         this.criticChance = criticChance;
         return this;
     }
@@ -71,7 +71,7 @@ public class ChampionModel {
         return armor;
     }
 
-    public ChampionModel setArmor(double armor) {
+    public Fighter setArmor(double armor) {
         this.armor = armor;
         return this;
     }
@@ -80,7 +80,7 @@ public class ChampionModel {
         return magicResist;
     }
 
-    public ChampionModel setMagicResist(double magicResist) {
+    public Fighter setMagicResist(double magicResist) {
         this.magicResist = magicResist;
         return this;
     }
@@ -89,7 +89,7 @@ public class ChampionModel {
         return level;
     }
 
-    public ChampionModel setLevel(long level) {
+    public Fighter setLevel(long level) {
         this.level = level;
         return this;
     }
@@ -98,7 +98,7 @@ public class ChampionModel {
         return hp;
     }
 
-    public ChampionModel setHp(double hp) {
+    public Fighter setHp(double hp) {
         this.hp = hp;
         return this;
     }
@@ -107,7 +107,7 @@ public class ChampionModel {
         return id;
     }
 
-    public ChampionModel setId(long id) {
+    public Fighter setId(long id) {
         this.id = id;
         return this;
     }

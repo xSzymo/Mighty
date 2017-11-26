@@ -1,5 +1,6 @@
 package game.mightywarriors.data.tables;
 
+import game.mightywarriors.data.interfaces.Fighter;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -7,13 +8,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "monsters")
-public class Monster {
+public class Monster implements Fighter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    private int level;
+    private long level;
 
     @OneToOne(fetch = FetchType.EAGER)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -42,6 +43,7 @@ public class Monster {
         this.image = image;
     }
 
+    @Override
     public Statistic getStatistic() {
         return statistic;
     }
@@ -54,7 +56,7 @@ public class Monster {
         return id;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 

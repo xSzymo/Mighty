@@ -26,11 +26,11 @@ public class FightResult {
         this.looser = looser;
     }
 
-    public void setWinner(User winner) {
-        this.winner = winner;
-    }
-
     public User getWinner() {
         return winner;
+    }
+
+    public void setWinner(User winner) {
+        this.winner = winner;
     }
 }

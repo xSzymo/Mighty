@@ -1,10 +1,12 @@
 package game.mightywarriors.data.tables;
 
+import game.mightywarriors.data.interfaces.Fighter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "champions")
-public class Champion {
+public class Champion implements Fighter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +51,7 @@ public class Champion {
         return id;
     }
 
+    @Override
     public Statistic getStatistic() {
         return statistic;
     }

@@ -8,19 +8,29 @@ import game.mightywarriors.other.Base64.EncoderJSON;
 import java.util.LinkedList;
 
 public final class SystemVariablesManager {
-    SystemVariablesManager() {
-    }
-
-    ;
-
     public static final String SPECIAL_JWT_SECRET_KEY = "K00LINN3R";
     public static final String NAME_OF_JWT_HEADER_TOKEN = "authorization";
-    public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
-    public static final int HOW_MANY_HOURS_BETWEEN_UPDAATE_DIVISIONS = 1;
+
+    public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
+
     public static final double RATE = 0.1;
     public static final int HP_RATE = 3;
 
-    public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
+    public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
+    public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
+
+    public static final int NUMBER_OF_FIRST_CHAR_TO_DELETE = 6;
+    public static final int NUMBER_OF_SECOND_CHAR_TO_DELETE = 14;
+    public static final int NUMBER_OF_THIRD_CHAR_TO_DELETE = 16;
+    public static final int NUMBER_OF_FOURTH_CHAR_TO_DELETE = 26;
+    public static final int SECONDS_FOR_TOKEN_EXPIRED = 48 * 60 * 60;
+
+    public static final DecoderDB DECO4DER_DB = new DecoderDB();
+    public static final EncoderDB ENCODER_DB = new EncoderDB();
+    public static final EncoderJSON ENCODER_JSON = new EncoderJSON();
+    public static final DecoderJSON DECODER_JSON = new DecoderJSON();
+
+    public static boolean RUNNING_TESTS = false;
 
     public static final long MAX_PLAYERS_IN_CHALLENGER = 2;
     public static final long MAX_PLAYERS_IN_DIAMOND = 5;
@@ -43,18 +53,8 @@ public final class SystemVariablesManager {
     public static final long MIN_POINTS_FOR_BRONZE = 50;
     public static final long MIN_POINTS_FOR_WOOD = 10;
 
-    public static final int NUMBER_OF_FIRST_CHAR_TO_DELETE = 6;
-    public static final int NUMBER_OF_SECOND_CHAR_TO_DELETE = 14;
-    public static final int NUMBER_OF_THIRD_CHAR_TO_DELETE = 16;
-    public static final int NUMBER_OF_FOURTH_CHAR_TO_DELETE = 26;
-    public static final int SECONDS_FOR_TOKEN_EXPIRED = 48 * 60 * 60;
-
-    public static final DecoderDB DECO4DER_DB = new DecoderDB();
-    public static final EncoderDB ENCODER_DB = new EncoderDB();
-    public static final EncoderJSON ENCODER_JSON = new EncoderJSON();
-    public static final DecoderJSON DECODER_JSON = new DecoderJSON();
-
-    public static boolean RUNNING_TESTS = false;
+    private SystemVariablesManager() {
+    }
 
     public final class Levels {
         public static final long ONE = 10;

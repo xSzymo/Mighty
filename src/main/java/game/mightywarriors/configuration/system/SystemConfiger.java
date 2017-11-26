@@ -38,7 +38,7 @@ public class SystemConfiger {
 
     private void updateDivisionForUsers() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> divisionAssinger.assignUsersDivisions(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_UPDAATE_DIVISIONS, TimeUnit.HOURS);
+        exec.scheduleAtFixedRate(() -> divisionAssinger.assignUsersDivisions(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS, TimeUnit.HOURS);
     }
 
     private void drawingItemsForUserEveryDay() {

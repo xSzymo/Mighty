@@ -1,10 +1,10 @@
 package game.mightywarriors.services.backgroundTasks;
 
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.enums.WeaponType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

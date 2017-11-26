@@ -4,8 +4,8 @@ import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.MonsterService;
 import game.mightywarriors.data.services.StatisticService;
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.WeaponType;
 import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -51,7 +51,7 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void save() throws Exception {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
     }
@@ -60,7 +60,7 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void saveCollection() throws Exception {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
     }
@@ -83,7 +83,7 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void findAll() throws Exception {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
     }
@@ -92,13 +92,13 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete() throws Exception {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(statistics.getFirst());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
         statistics.clear();
@@ -108,13 +108,13 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete1() throws Exception {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(statistics.getFirst().getId());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
         statistics.clear();
@@ -124,13 +124,13 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete2() throws Exception {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
 
         objectUnderTest.delete(statistics);
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
         statistics.clear();

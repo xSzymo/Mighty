@@ -2,8 +2,8 @@ package integration.game.mightywarriors.data.services;
 
 
 import game.mightywarriors.data.services.*;
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.WeaponType;
 import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -83,7 +83,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void save() throws Exception {
         objectUnderTest.save(users.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
     }
@@ -92,7 +92,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void saveCollection() throws Exception {
         objectUnderTest.save(users);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
     }
@@ -115,7 +115,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void findAll() throws Exception {
         objectUnderTest.save(users);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
     }
@@ -124,13 +124,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void delete() throws Exception {
         objectUnderTest.save(users.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(users.getFirst());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
     }
@@ -139,13 +139,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void delete1() throws Exception {
         objectUnderTest.save(users.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(users.getFirst().getId());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
     }
@@ -154,13 +154,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void delete2() throws Exception {
         objectUnderTest.save(users);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(3, counter);
 
         objectUnderTest.delete(users);
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         assertEquals(0, counter);
     }

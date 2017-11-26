@@ -1,9 +1,9 @@
 package game.mightywarriors.other;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.WeaponType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class RunAtStart {
 
     @PostConstruct
     public void addExampleDataForTestAtStartApplication() throws Exception {
-        if(SystemVariablesManager.RUNNING_TESTS == true)
+        if (SystemVariablesManager.RUNNING_TESTS)
             return;
 
         UserRole admin_role = new UserRole("admin");
@@ -60,7 +60,7 @@ public class RunAtStart {
         User user;
         Equipment equipment;
 
-        for (int a = 0, i = 3; i < 15; i++) {
+        for (int a, i = 3; i < 15; i++) {
             itemService.save(new Item("weapon " + i, WeaponType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
             itemService.save(new Item("weapon " + i, WeaponType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
             itemService.save(new Item("weapon " + i, WeaponType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
@@ -98,7 +98,7 @@ public class RunAtStart {
             equipment.setLegs(myItems.get(a++));
             equipment.setNecklace(myItems.get(a++));
             equipment.setOffhand(myItems.get(a++));
-            equipment.setRing(myItems.get(a++));
+            equipment.setRing(myItems.get(a));
             equipments.add(equipment);
 
             items.addAll(myItems);

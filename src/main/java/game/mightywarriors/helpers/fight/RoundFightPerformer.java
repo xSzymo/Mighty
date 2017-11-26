@@ -1,6 +1,6 @@
 package game.mightywarriors.helpers.fight;
 
-import game.mightywarriors.json.objects.fights.ChampionModel;
+import game.mightywarriors.json.objects.fights.Fighter;
 import game.mightywarriors.json.objects.fights.RoundProcess;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +8,10 @@ import java.util.LinkedList;
 
 @Service
 public class RoundFightPerformer {
+
     public RoundProcess performSingleRound(RoundProcess round, int userTurn, int opponentTurn, boolean isUserTurn) {
-        LinkedList<ChampionModel> userChampions = round.getUserChampions();
-        LinkedList<ChampionModel> opponentChampions = round.getOpponentChampions();
+        LinkedList<Fighter> userChampions = round.getUserChampions();
+        LinkedList<Fighter> opponentChampions = round.getOpponentChampions();
 
         if (isUserTurn)
             round.setOpponentChampions(championAttack(opponentChampions, userChampions.get(userTurn)));
@@ -20,22 +21,22 @@ public class RoundFightPerformer {
         return round;
     }
 
-    private LinkedList<ChampionModel> championAttack(LinkedList<ChampionModel> champions, ChampionModel championModel) {
-        for (ChampionModel champion : champions) {
-            double hp = new Double(champion.getHp());
+    private LinkedList<Fighter> championAttack(LinkedList<Fighter> champions, Fighter fighter) {
+        for (Fighter champion : champions) {
+            double hp = champion.getHp();
 
             if (hp <= 0)
                 continue;
 
-            if ((Math.random() * (100 - 0)) + 0 <= champion.getCriticChance()) {
-                hp -= (championModel.getStrength() / champion.getArmor()) * 2;
-                hp -= (championModel.getIntelligence() / champion.getMagicResist()) * 2;
+            if (Math.random() * 100 <= champion.getCriticChance()) {
+                hp -= (fighter.getStrength() / champion.getArmor()) * 2;
+                hp -= (fighter.getIntelligence() / champion.getMagicResist()) * 2;
             } else {
-                hp -= (championModel.getStrength() / champion.getArmor());
-                hp -= (championModel.getIntelligence() / champion.getMagicResist());
+                hp -= (fighter.getStrength() / champion.getArmor());
+                hp -= (fighter.getIntelligence() / champion.getMagicResist());
             }
 
-            championModel.setDmg(champion.getHp() - hp);
+            fighter.setDmg(champion.getHp() - hp);
             champion.setHp(hp);
 
             return champions;

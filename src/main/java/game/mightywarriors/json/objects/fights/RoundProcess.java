@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 public class RoundProcess {
     private int roundNr;
-    private LinkedList<ChampionModel> userChampions;
-    private LinkedList<ChampionModel> opponentChampions;
+    private LinkedList<Fighter> userChampions;
+    private LinkedList<Fighter> opponentChampions;
 
     public int getRoundNr() {
         return roundNr;
@@ -16,21 +16,21 @@ public class RoundProcess {
         this.roundNr = roundNr;
     }
 
-    public LinkedList<ChampionModel> getUserChampions() {
+    public LinkedList<Fighter> getUserChampions() {
         return new LinkedList<>(userChampions);
     }
 
-    public void setUserChampions(LinkedList<ChampionModel> userChampions) {
+    public void setUserChampions(LinkedList<Fighter> userChampions) {
         this.userChampions = userChampions;
-        userChampions.sort(Comparator.comparing(ChampionModel::getLevel));
+        userChampions.sort(Comparator.comparing(Fighter::getLevel));
     }
 
-    public LinkedList<ChampionModel> getOpponentChampions() {
+    public LinkedList<Fighter> getOpponentChampions() {
         return new LinkedList<>(opponentChampions);
     }
 
-    public void setOpponentChampions(LinkedList<ChampionModel> opponentChampions) {
+    public void setOpponentChampions(LinkedList<Fighter> opponentChampions) {
         this.opponentChampions = opponentChampions;
-        opponentChampions.sort(Comparator.comparing(ChampionModel::getLevel));
+        opponentChampions.sort(Comparator.comparing(Fighter::getLevel));
     }
 }

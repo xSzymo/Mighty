@@ -1,44 +1,38 @@
-package unit.game.mightywarriors.services.fights.dungeon;
+package unit.game.mightywarriors.services.fights.arena;
 
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.json.objects.fights.ChampionModel;
 import game.mightywarriors.json.objects.fights.FightResult;
 import game.mightywarriors.json.objects.fights.RoundProcess;
-import game.mightywarriors.services.fights.dungeon.MonsterFightCoordinator;
+import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.services.fights.arena.and.dungeon.and.mission.FightCoordinator;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
 public class MonsterFightCoordinatorTest {
-    private MonsterFightCoordinator monsterFightCoordinator;
+    private FightCoordinator fightCoordinator;
     private User user1;
     private Monster monster;
 
     @Before
     public void setUp() throws Exception {
-        monsterFightCoordinator = new MonsterFightCoordinator();
+        fightCoordinator = new FightCoordinator();
         user1 = setUpUser1();
         monster = setUpMonster();
     }
 
     @Test
     public void fightBetweenPlayerAndMonster() throws Exception {
-        LinkedList<Monster> monsters = new LinkedList<>();
-        monsters.add(monster);
-
-        FightResult fightResult = monsterFightCoordinator.fightBetweenPlayerAndMonster(user1, monsters);
+        FightResult fightResult = fightCoordinator.fight(user1, monster);
 
         int i = 0;
         for (RoundProcess roundProcess : fightResult.getRounds()) {
             i++;
-            LinkedList<ChampionModel> championModels = roundProcess.getUserChampions();
-            LinkedList<ChampionModel> opponentChampions = roundProcess.getOpponentChampions();
+//            LinkedList<ChampionModel> championModels = roundProcess.getUserChampions();
+//            LinkedList<ChampionModel> opponentChampions = roundProcess.getOpponentChampions();
 
 //            if(i == 1) {
 //                assertEquals(50, championModels.get(0).getHp());
@@ -95,6 +89,7 @@ public class MonsterFightCoordinatorTest {
 
         return user;
     }
+
     private Monster setUpMonster() throws Exception {
         Monster monster = new Monster(new Statistic(20, 20, 20, 20, 20, 20));
         monster.setLevel(2);

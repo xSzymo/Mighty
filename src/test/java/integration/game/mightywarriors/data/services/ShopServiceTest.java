@@ -3,11 +3,11 @@ package integration.game.mightywarriors.data.services;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.ShopService;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.Statistic;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.enums.WeaponType;
 import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Assert;
@@ -63,7 +63,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     @Test
     public void saveCollection() throws Exception {
         objectUnderTest.save(shops);
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         shops.forEach(this::checkSavedItemsAreNotNull);
         assertEquals(4, counter);
@@ -89,7 +89,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void findAll() throws Exception {
         objectUnderTest.save(shops);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         shops.forEach(this::checkSavedItemsAreNotNull);
         assertEquals(4, counter);
@@ -99,13 +99,13 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void delete() throws Exception {
         objectUnderTest.save(shops.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(shops.getFirst());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         checkSavedItemsAreNotNull(shops.getFirst());
         assertEquals(0, counter);
@@ -115,13 +115,13 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void delete1() throws Exception {
         objectUnderTest.save(shops.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
         objectUnderTest.delete(shops.getFirst().getId());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         checkSavedItemsAreNotNull(shops.getFirst());
         assertEquals(0, counter);
@@ -131,13 +131,13 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void delete2() throws Exception {
         objectUnderTest.save(shops);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
         assertEquals(4, counter);
 
         objectUnderTest.delete(shops);
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
         shops.forEach(this::checkSavedItemsAreNotNull);
         assertEquals(0, counter);

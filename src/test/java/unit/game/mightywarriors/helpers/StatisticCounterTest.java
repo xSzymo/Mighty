@@ -1,15 +1,15 @@
 package unit.game.mightywarriors.helpers;
 
+import game.mightywarriors.data.tables.*;
+import game.mightywarriors.helpers.counters.fight.StatisticCounter;
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.data.tables.*;
-import game.mightywarriors.helpers.counters.SpecificStatisticInFightsCounter;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class SpecificStatisticInFightsCounterTest {
-    private SpecificStatisticInFightsCounter specificStatisticInFightsCounter = new SpecificStatisticInFightsCounter();
+public class StatisticCounterTest {
+    private StatisticCounter statisticCounter = new StatisticCounter();
 
     @Test
     public void test_fightBetweenPlayerAndMonster() throws Exception {
@@ -29,12 +29,11 @@ public class SpecificStatisticInFightsCounterTest {
 
         user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
 
-        assertEquals(5.2, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.INTELLIGENCE));
-        assertEquals(10.5, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.ARMOR));
-        assertEquals(9.5, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.CRITIC_CHANCE));
-        assertEquals(12.7, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.MAGIC_RESIST));
-        assertEquals(2.19, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.STRENGTH));
-        assertEquals(21.9, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.VITALITY));
+        assertEquals(5.2, statisticCounter.getPointsForSpecificType(user, StatisticType.INTELLIGENCE));
+        assertEquals(10.5, statisticCounter.getPointsForSpecificType(user, StatisticType.ARMOR));
+        assertEquals(9.5, statisticCounter.getPointsForSpecificType(user, StatisticType.CRITIC_CHANCE));
+        assertEquals(12.7, statisticCounter.getPointsForSpecificType(user, StatisticType.MAGIC_RESIST));
+        assertEquals(2.19, statisticCounter.getPointsForSpecificType(user, StatisticType.STRENGTH));
+        assertEquals(21.9, statisticCounter.getPointsForSpecificType(user, StatisticType.VITALITY));
     }
-
 }

@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.helpers.counters.StatisticCounter;
+import game.mightywarriors.helpers.counters.division.StatisticCounter;
 import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.League;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,11 @@ import java.util.LinkedList;
 
 @Service
 public class DivisionAssinger {
+    private final StatisticCounter statisticCounter = new StatisticCounter();
     @Autowired
     private DivisionService divisionService;
     @Autowired
     private UserService userService;
-
-    private final StatisticCounter statisticCounter = new StatisticCounter();
 
     @Transactional
     public void assignUsersDivisions() {
@@ -48,7 +47,7 @@ public class DivisionAssinger {
 
             if (level < 30)
                 continue;
-            double points = statisticCounter.countStatistic(user);
+            double points = statisticCounter.getPointsOfFighterPower(user);
 
 
             if (challenger.getUsers().size() < SystemVariablesManager.MAX_PLAYERS_IN_CHALLENGER)

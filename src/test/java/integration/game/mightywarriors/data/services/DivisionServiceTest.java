@@ -37,18 +37,18 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     public void save() throws Exception {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(1, counter);
+        assertEquals(7, counter);
     }
 
     @Test
     public void saveCollection() throws Exception {
         objectUnderTest.save(userRoles);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(3, counter);
+        assertEquals(9, counter);
     }
 
     @Test
@@ -69,24 +69,24 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     public void findAll() throws Exception {
         objectUnderTest.save(userRoles);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(3, counter);
+        assertEquals(9, counter);
     }
 
     @Test
     public void delete() throws Exception {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(1, counter);
+        assertEquals(7, counter);
 
         objectUnderTest.delete(userRoles.getFirst());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
-        assertEquals(0, counter);
+        assertEquals(6, counter);
         userRoles.clear();
     }
 
@@ -94,15 +94,15 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     public void delete1() throws Exception {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(1, counter);
+        assertEquals(7, counter);
 
         objectUnderTest.delete(userRoles.getFirst().getId());
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
-        assertEquals(0, counter);
+        assertEquals(6, counter);
         userRoles.clear();
     }
 
@@ -110,15 +110,15 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     public void delete2() throws Exception {
         objectUnderTest.save(userRoles);
 
-        long counter = objectUnderTest.findAll().stream().count();
+        long counter = objectUnderTest.findAll().size();
 
-        assertEquals(3, counter);
+        assertEquals(9, counter);
 
         objectUnderTest.delete(userRoles);
 
-        counter = objectUnderTest.findAll().stream().count();
+        counter = objectUnderTest.findAll().size();
 
-        assertEquals(0, counter);
+        assertEquals(6, counter);
         userRoles.clear();
     }
 }
