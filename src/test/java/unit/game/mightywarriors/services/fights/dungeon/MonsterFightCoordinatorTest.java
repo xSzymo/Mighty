@@ -2,9 +2,9 @@ package unit.game.mightywarriors.services.fights.dungeon;
 
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
-import game.mightywarriors.other.jsonObjects.fights.FightResult;
-import game.mightywarriors.other.jsonObjects.fights.RoundProcess;
+import game.mightywarriors.json.objects.fights.ChampionModel;
+import game.mightywarriors.json.objects.fights.FightResult;
+import game.mightywarriors.json.objects.fights.RoundProcess;
 import game.mightywarriors.services.fights.dungeon.MonsterFightCoordinator;
 import org.junit.Before;
 import org.junit.Test;

@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class SystemRunAtStart {
+public class SystemConfiger {
     @Autowired
     private UserService userService;
     @Autowired
@@ -28,7 +28,7 @@ public class SystemRunAtStart {
     private DivisionAssinger divisionAssinger;
 
     @PostConstruct
-    public void runAtStart() {
+    public void configSystemAtStartApp() {
         createStandardDivisionsIfNotExist();
         addAllTokensFromDataBaseToCollectionInSystemVariableManager();
 

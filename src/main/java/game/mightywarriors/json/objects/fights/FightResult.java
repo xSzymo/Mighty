@@ -1,4 +1,4 @@
-package game.mightywarriors.other.jsonObjects.fights;
+package game.mightywarriors.json.objects.fights;
 
 import game.mightywarriors.data.tables.User;
 

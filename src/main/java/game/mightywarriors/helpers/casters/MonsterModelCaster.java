@@ -3,7 +3,7 @@ package game.mightywarriors.helpers.casters;
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.helpers.counters.SpecificStatisticInFightsCounter;
-import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
+import game.mightywarriors.json.objects.fights.ChampionModel;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

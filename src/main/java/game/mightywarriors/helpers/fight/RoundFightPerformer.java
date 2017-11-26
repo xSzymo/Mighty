@@ -1,7 +1,7 @@
 package game.mightywarriors.helpers.fight;
 
-import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
-import game.mightywarriors.other.jsonObjects.fights.RoundProcess;
+import game.mightywarriors.json.objects.fights.ChampionModel;
+import game.mightywarriors.json.objects.fights.RoundProcess;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

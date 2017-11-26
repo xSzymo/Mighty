@@ -1,4 +1,4 @@
-package game.mightywarriors.other.jsonObjects.fights;
+package game.mightywarriors.json.objects.fights;
 
 import java.util.Comparator;
 import java.util.LinkedList;

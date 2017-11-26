@@ -1,8 +1,8 @@
 package game.mightywarriors.services.fights.arena;
 
-import game.mightywarriors.other.jsonObjects.fights.ChampionModel;
-import game.mightywarriors.other.jsonObjects.fights.FightResult;
-import game.mightywarriors.other.jsonObjects.fights.RoundProcess;
+import game.mightywarriors.json.objects.fights.ChampionModel;
+import game.mightywarriors.json.objects.fights.FightResult;
+import game.mightywarriors.json.objects.fights.RoundProcess;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.helpers.casters.ChampionModelCaster;
 import game.mightywarriors.helpers.fight.RoundFightPerformer;

@@ -1,4 +1,4 @@
-package game.mightywarriors.other.jsonObjects;
+package game.mightywarriors.json.objects.security;
 
 public class JSONLoginObject {
     public String login;
