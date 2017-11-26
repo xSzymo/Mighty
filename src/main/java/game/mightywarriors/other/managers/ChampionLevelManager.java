@@ -1,23 +1,22 @@
 package game.mightywarriors.other.managers;
 
-import game.mightywarriors.other.enums.Level;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.other.enums.Level;
 
 public class ChampionLevelManager {
 
     private ChampionLevelManager() {
     }
 
-    public static long getUserLevel(Champion champion) {
-        int championLevel = 0;
+    public static Champion getUserLevel(Champion champion) {
+        Level[] levels = Level.values();
+        for (int i = 0; i < levels.length; i++)
+            if (champion.getLevel() == levels[i].getLevel())
+                if (champion.getExperience() >= levels[i].getExperience()) {
+                    champion.setExperience(champion.getExperience() - levels[i].getExperience());
+                    champion.setLevel(champion.getLevel() + 1);
+                }
 
-        for (Level level : Level.values())
-            if (level.getLevel() < champion.getExperience())
-                championLevel++;
-
-        if (champion.getLevel() < championLevel)
-            champion.setLevel(championLevel);
-
-        return championLevel;
+        return champion;
     }
 }

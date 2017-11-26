@@ -49,7 +49,7 @@ public class ChampionService {
         if (champion.getEquipment() != null)
             equipmentService.save(champion.getEquipment());
 
-        champion.setLevel(ChampionLevelManager.getUserLevel(champion));
+        champion = ChampionLevelManager.getUserLevel(champion);
         repository.save(champion);
     }
 
