@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StatisticCounter {
 
-    public double countMonsterStatistic(Monster monster) {
+    public double countStatistic(Monster monster) {
         double points = 0;
 
         double rate = monster.getLevel() * SystemVariablesManager.RATE;
@@ -25,7 +25,7 @@ public class StatisticCounter {
         return points;
     }
 
-    public double countUserStatistic(User user) {
+    public double countStatistic(User user) {
         double points = 0;
 
         for (Champion x : user.getChampions()) {

@@ -1,4 +1,4 @@
-package game.mightywarriors.helpers.comparators;
+package game.mightywarriors.other.comparators;
 
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.helpers.counters.StatisticCounter;
@@ -11,7 +11,6 @@ public class UsersDivisionComparator implements Comparator<User> {
 
     @Override
     public int compare(User o1, User o2) {
-        return statisticCounter.countUserStatistic(o1) < statisticCounter.countUserStatistic(o2) ? -1 :
-                statisticCounter.countUserStatistic(o1) == statisticCounter.countUserStatistic(o2) ? 0 : 1;
+        return Double.compare(statisticCounter.countStatistic(o1), statisticCounter.countStatistic(o2));
     }
 }

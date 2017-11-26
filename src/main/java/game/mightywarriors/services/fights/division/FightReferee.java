@@ -10,15 +10,15 @@ public class FightReferee {
     private final StatisticCounter statisticCounter = new StatisticCounter();
 
     public boolean checkIsUserStrongerThanMonster(User user, Monster monster) {
-        double userPoints = statisticCounter.countUserStatistic(user);
-        double monsterPoints = statisticCounter.countMonsterStatistic(monster);
+        double userPoints = statisticCounter.countStatistic(user);
+        double monsterPoints = statisticCounter.countStatistic(monster);
 
-        return userPoints > monsterPoints ? true : false;
+        return userPoints > monsterPoints;
     }
 
     public User checkWhoIsStronger(User user, User opponent) {
-        double userPoints = statisticCounter.countUserStatistic(user);
-        double opponentPoints = statisticCounter.countUserStatistic(opponent);
+        double userPoints = statisticCounter.countStatistic(user);
+        double opponentPoints = statisticCounter.countStatistic(opponent);
 
         if(userPoints == opponentPoints)
             return null;

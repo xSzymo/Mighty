@@ -9,7 +9,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
 public class SpecificStatisticInFightsCounterTest {
-    SpecificStatisticInFightsCounter specificStatisticInFightsCounter = new SpecificStatisticInFightsCounter();
+    private SpecificStatisticInFightsCounter specificStatisticInFightsCounter = new SpecificStatisticInFightsCounter();
 
     @Test
     public void test_fightBetweenPlayerAndMonster() throws Exception {
@@ -29,12 +29,12 @@ public class SpecificStatisticInFightsCounterTest {
 
         user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
 
-        assertEquals(5.2, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.INTELLIGENCE));
-        assertEquals(10.5, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.ARMOR));
-        assertEquals(9.5, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.CRITIC_CHANCE));
-        assertEquals(12.7, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.MAGIC_RESIST));
-        assertEquals(2.19, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.STRENGTH));
-        assertEquals(21.9, specificStatisticInFightsCounter.countUserStatistic(user, StatisticType.VITALITY));
+        assertEquals(5.2, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.INTELLIGENCE));
+        assertEquals(10.5, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.ARMOR));
+        assertEquals(9.5, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.CRITIC_CHANCE));
+        assertEquals(12.7, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.MAGIC_RESIST));
+        assertEquals(2.19, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.STRENGTH));
+        assertEquals(21.9, specificStatisticInFightsCounter.countStatisticForSpecificType(user, StatisticType.VITALITY));
     }
 
 }

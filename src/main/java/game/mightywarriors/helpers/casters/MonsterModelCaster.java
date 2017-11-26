@@ -1,9 +1,9 @@
 package game.mightywarriors.helpers.casters;
 
-import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.helpers.counters.SpecificStatisticInFightsCounter;
 import game.mightywarriors.json.objects.fights.ChampionModel;
+import game.mightywarriors.other.enums.StatisticType;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -16,12 +16,12 @@ public class MonsterModelCaster {
     public ChampionModel castChampionToChampionModel(Monster monster) {
         ChampionModel championModel = new ChampionModel();
         championModel.build()
-                .setHp(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.VITALITY))
-                .setArmor(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.ARMOR))
-                .setMagicResist(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.MAGIC_RESIST))
-                .setStrength(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.STRENGTH))
-                .setIntelligence(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.INTELLIGENCE))
-                .setCriticChance(specificStatisticInFightsCounter.countMonsterStatistic(monster, StatisticType.CRITIC_CHANCE))
+                .setHp(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.VITALITY))
+                .setArmor(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.ARMOR))
+                .setMagicResist(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.MAGIC_RESIST))
+                .setStrength(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.STRENGTH))
+                .setIntelligence(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.INTELLIGENCE))
+                .setCriticChance(specificStatisticInFightsCounter.countStatisticForSpecificType(monster, StatisticType.CRITIC_CHANCE))
                 .setLevel(monster.getLevel());
 
         if (monster.getId() != null)

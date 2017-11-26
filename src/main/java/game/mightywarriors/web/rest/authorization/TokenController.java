@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.json.objects.security.JSONLoginObject;
 import game.mightywarriors.json.objects.security.JSONTokenObject;
-import game.mightywarriors.services.GenerateTokenService;
+import game.mightywarriors.services.fights.security.GenerateTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;

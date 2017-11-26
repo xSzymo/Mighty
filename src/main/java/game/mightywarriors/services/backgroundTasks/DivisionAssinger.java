@@ -5,8 +5,8 @@ import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.helpers.comparators.UsersDivisionComparator;
 import game.mightywarriors.helpers.counters.StatisticCounter;
+import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.League;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class DivisionAssinger {
 
             if (level < 30)
                 continue;
-            double points = statisticCounter.countUserStatistic(user);
+            double points = statisticCounter.countStatistic(user);
 
 
             if (challenger.getUsers().size() < SystemVariablesManager.MAX_PLAYERS_IN_CHALLENGER)
@@ -82,10 +82,9 @@ public class DivisionAssinger {
                 }
 
             if (wood.getUsers().size() < (long) users.size() * (SystemVariablesManager.MAX_PERCENT_PLAYERS_IN_WOOD * 0.1))
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_WOOD && points > SystemVariablesManager.MIN_POINTS_FOR_WOOD) {
+                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_WOOD && points > SystemVariablesManager.MIN_POINTS_FOR_WOOD)
                     wood.getUsers().add(user);
-                    continue;
-                }
+
         }
 
         divisionService.save(challenger);
