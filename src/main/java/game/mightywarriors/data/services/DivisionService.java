@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.DivisionRepository;
 import game.mightywarriors.data.tables.Division;
+import game.mightywarriors.other.enums.League;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,14 @@ public class DivisionService {
     public Division findOne(Division division) {
         try {
             return findOne(division.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Division findByLeague(League league) {
+        try {
+            return repository.findByLeague(league);
         } catch (NullPointerException e) {
             return null;
         }
