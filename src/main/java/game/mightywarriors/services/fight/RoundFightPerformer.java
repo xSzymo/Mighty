@@ -1,7 +1,7 @@
 package game.mightywarriors.services.fight;
 
-import game.mightywarriors.json.objects.fights.Fighter;
-import game.mightywarriors.json.objects.fights.RoundProcess;
+import game.mightywarriors.web.json.objects.fights.Fighter;
+import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

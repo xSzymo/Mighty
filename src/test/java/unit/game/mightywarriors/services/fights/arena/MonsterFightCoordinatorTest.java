@@ -1,8 +1,8 @@
 package unit.game.mightywarriors.services.fights.arena;
 
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.json.objects.fights.FightResult;
-import game.mightywarriors.json.objects.fights.RoundProcess;
+import game.mightywarriors.web.json.objects.fights.FightResult;
+import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.fight.FightCoordinator;
 import org.junit.Before;
