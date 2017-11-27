@@ -12,25 +12,31 @@ public class RoundProcess {
         return roundNr;
     }
 
-    public void setRoundNr(int roundNr) {
+    public RoundProcess setRoundNr(int roundNr) {
         this.roundNr = roundNr;
+
+        return this;
     }
 
     public LinkedList<Fighter> getUserChampions() {
         return new LinkedList<>(userChampions);
     }
 
-    public void setUserChampions(LinkedList<Fighter> userChampions) {
+    public RoundProcess setUserChampions(LinkedList<Fighter> userChampions) {
         this.userChampions = userChampions;
         userChampions.sort(Comparator.comparing(Fighter::getLevel));
+
+        return this;
     }
 
     public LinkedList<Fighter> getOpponentChampions() {
         return new LinkedList<>(opponentChampions);
     }
 
-    public void setOpponentChampions(LinkedList<Fighter> opponentChampions) {
+    public RoundProcess setOpponentChampions(LinkedList<Fighter> opponentChampions) {
         this.opponentChampions = opponentChampions;
         opponentChampions.sort(Comparator.comparing(Fighter::getLevel));
+
+        return this;
     }
 }

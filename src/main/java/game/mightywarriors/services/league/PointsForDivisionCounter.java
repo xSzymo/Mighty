@@ -1,4 +1,4 @@
-package game.mightywarriors.services.helpers.counters.division;
+package game.mightywarriors.services.league;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.interfaces.Fighter;
@@ -6,7 +6,7 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 
-public class StatisticCounter {
+public class PointsForDivisionCounter {
 
     public double getPointsOfFighterPower(Fighter fighter) {
         double points = 0;

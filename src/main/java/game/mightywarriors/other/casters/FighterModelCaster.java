@@ -1,6 +1,6 @@
-package game.mightywarriors.services.helpers.casters;
+package game.mightywarriors.other.casters;
 
-import game.mightywarriors.services.helpers.counters.fight.StatisticCounter;
+import game.mightywarriors.services.combat.PointsInFightCounter;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.other.enums.StatisticType;
 import org.springframework.stereotype.Service;
@@ -10,17 +10,17 @@ import java.util.List;
 
 @Service
 public class FighterModelCaster {
-    private final StatisticCounter statisticCounter = new StatisticCounter();
+    private final PointsInFightCounter pointsInFightCounter = new PointsInFightCounter();
 
     public Fighter castChampionToChampionModel(game.mightywarriors.data.interfaces.Fighter fighter) {
         Fighter championModel = new Fighter();
         championModel.build()
-                .setHp(statisticCounter.getPointsForSpecificType(fighter, StatisticType.VITALITY))
-                .setArmor(statisticCounter.getPointsForSpecificType(fighter, StatisticType.ARMOR))
-                .setMagicResist(statisticCounter.getPointsForSpecificType(fighter, StatisticType.MAGIC_RESIST))
-                .setStrength(statisticCounter.getPointsForSpecificType(fighter, StatisticType.STRENGTH))
-                .setIntelligence(statisticCounter.getPointsForSpecificType(fighter, StatisticType.INTELLIGENCE))
-                .setCriticChance(statisticCounter.getPointsForSpecificType(fighter, StatisticType.CRITIC_CHANCE))
+                .setHp(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.VITALITY))
+                .setArmor(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.ARMOR))
+                .setMagicResist(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.MAGIC_RESIST))
+                .setStrength(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.STRENGTH))
+                .setIntelligence(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.INTELLIGENCE))
+                .setCriticChance(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.CRITIC_CHANCE))
                 .setLevel(fighter.getLevel());
 
         if (fighter.getId() != null)

@@ -1,4 +1,4 @@
-package game.mightywarriors.services.helpers.counters.fight;
+package game.mightywarriors.services.combat;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.interfaces.Fighter;
@@ -7,7 +7,7 @@ import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.StatisticType;
 
-public class StatisticCounter {
+public class PointsInFightCounter {
 
     public double getPointsForSpecificType(User user, StatisticType statisticType) {
         double points = 0;

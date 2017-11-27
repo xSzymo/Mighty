@@ -1,4 +1,4 @@
-package game.mightywarriors.services.fight;
+package game.mightywarriors.services.combat;
 
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.web.json.objects.fights.RoundProcess;

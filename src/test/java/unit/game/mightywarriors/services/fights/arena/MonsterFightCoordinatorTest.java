@@ -4,7 +4,7 @@ import game.mightywarriors.data.tables.*;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.services.fight.FightCoordinator;
+import game.mightywarriors.services.combat.FightCoordinator;
 import org.junit.Before;
 import org.junit.Test;
 

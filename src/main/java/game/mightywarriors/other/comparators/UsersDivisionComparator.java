@@ -1,16 +1,16 @@
 package game.mightywarriors.other.comparators;
 
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.helpers.counters.division.StatisticCounter;
+import game.mightywarriors.services.league.PointsForDivisionCounter;
 
 import java.util.Comparator;
 
 public class UsersDivisionComparator implements Comparator<User> {
 
-    private final StatisticCounter statisticCounter = new StatisticCounter();
+    private final PointsForDivisionCounter pointsForDivisionCounter = new PointsForDivisionCounter();
 
     @Override
     public int compare(User o1, User o2) {
-        return Double.compare(statisticCounter.getPointsOfFighterPower(o1), statisticCounter.getPointsOfFighterPower(o2));
+        return Double.compare(pointsForDivisionCounter.getPointsOfFighterPower(o1), pointsForDivisionCounter.getPointsOfFighterPower(o2));
     }
 }
