@@ -40,6 +40,9 @@ public class User {
     private Shop shop;
 
     @OneToOne
+    private Inventory inventory;
+
+    @OneToOne
     private Image image;
 
     @ManyToOne
@@ -223,6 +226,14 @@ public class User {
 
     public void setTokenCode(String tokenCode) {
         this.tokenCode = tokenCode;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     private class MissionCollection extends LinkedList<Mission> {

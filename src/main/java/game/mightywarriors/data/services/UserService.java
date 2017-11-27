@@ -23,6 +23,8 @@ public class UserService {
     private ShopService shopService;
     @Autowired
     private ChampionService championService;
+    @Autowired
+    private InventoryService inventoryService;
 
     public void save(User user) {
         if (user != null)
@@ -42,6 +44,8 @@ public class UserService {
             missionService.save(user.getMissions());
         if (user.getShop() != null)
             shopService.save(user.getShop());
+        if (user.getInventory() != null)
+            inventoryService.save(user.getInventory());
         if (user.getChampions() != null)
             for (Champion champion : user.getChampions())
                 if (champion != null)
