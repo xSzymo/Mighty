@@ -14,13 +14,21 @@ import static java.lang.Math.random;
 public class RoundFightPerformer {
 
     public RoundProcess performSingleRound(RoundProcess round, int userTurn, int opponentTurn, boolean isUserTurn) {
-        LinkedList<Fighter> userChampions = round.getUserChampions();
-        LinkedList<Fighter> opponentChampions = round.getOpponentChampions();
+        LinkedList<Fighter> fighters;
 
-        if (isUserTurn)
-            round.setOpponentChampions(championAttack(opponentChampions, userChampions.get(userTurn)));
-        else
-            round.setUserChampions(championAttack(userChampions, opponentChampions.get(opponentTurn)));
+        if (isUserTurn) {
+            fighters = championAttack(round.getOpponentChampions(), round.getUserChampions().get(userTurn));
+            if (fighters == null)
+                return null;
+
+            round.setOpponentChampions(fighters);
+        } else {
+            fighters = championAttack(round.getUserChampions(), round.getOpponentChampions().get(opponentTurn));
+            if (fighters == null)
+                return null;
+
+            round.setUserChampions(fighters);
+        }
 
         return round;
     }

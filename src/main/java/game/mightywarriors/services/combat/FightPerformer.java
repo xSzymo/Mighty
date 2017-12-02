@@ -36,9 +36,7 @@ public class FightPerformer {
 
             round = (roundNr == 1) ? setUpRound(round, user, opponent) : setUpRound(round, fightResult, roundNr);
             round = roundFightPerformer.performSingleRound(round, userChampionTurn, opponentChampionTurn, isUserTurn);
-            fightResult = checkChampionsCurrentHealth(fightResult, round, user, opponent);
-
-            fightResult.getRounds().add(round);
+            fightResult = endFightIfAllFightersFromAnyTeamsAreDead(fightResult, round, user, opponent);
         }
 
         return fightResult;
@@ -97,8 +95,12 @@ public class FightPerformer {
         return round;
     }
 
-    private FightResult checkChampionsCurrentHealth(FightResult fightResult, RoundProcess round, User user, Object opponent) {
+    private FightResult endFightIfAllFightersFromAnyTeamsAreDead(FightResult fightResult, RoundProcess round, User user, Object opponent) {
+        if (round == null)
+            throw new RuntimeException("Something went wrong");
+
         boolean endFight = true;
+
         for (Fighter fighter : round.getOpponentChampions())
             if (fighter.getHp() > 0)
                 endFight = false;
@@ -107,19 +109,21 @@ public class FightPerformer {
             fightResult.setWinner(user);
             if (opponent instanceof User)
                 fightResult.setLooser((User) opponent);
-            return fightResult;
+        } else {
+            endFight = true;
+
+            for (Fighter fighter : round.getUserChampions())
+                if (fighter.getHp() > 0)
+                    endFight = false;
+
+            if (endFight) {
+                fightResult.setLooser(user);
+                if (opponent instanceof User)
+                    fightResult.setWinner((User) opponent);
+            }
         }
 
-        for (Fighter fighter : round.getUserChampions())
-            if (fighter.getHp() > 0)
-                endFight = false;
-
-        if (endFight) {
-            fightResult.setLooser(user);
-            if (opponent instanceof User)
-                fightResult.setWinner((User) opponent);
-        }
-
+        fightResult.getRounds().add(round);
         return fightResult;
     }
 }
