@@ -4,7 +4,11 @@ import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
+
+import static java.lang.Math.random;
 
 @Service
 public class RoundFightPerformer {
@@ -28,19 +32,28 @@ public class RoundFightPerformer {
             if (hp <= 0)
                 continue;
 
-            if (Math.random() * 100 <= champion.getCriticChance()) {
-                hp -= (fighter.getStrength() / champion.getArmor()) * 2;
-                hp -= (fighter.getIntelligence() / champion.getMagicResist()) * 2;
+            double AD = round(fighter.getStrength() / champion.getArmor());
+            double AP = round(fighter.getIntelligence() / champion.getMagicResist());
+
+            if (random() * 100 <= champion.getCriticChance()) {
+                hp -= (AD * 2);
+                hp -= (AP * 2);
             } else {
-                hp -= (fighter.getStrength() / champion.getArmor());
-                hp -= (fighter.getIntelligence() / champion.getMagicResist());
+                hp -= AD;
+                hp -= AP;
             }
 
-            fighter.setDmg(champion.getHp() - hp);
-            champion.setHp(hp);
+            fighter.setDmg(round(champion.getHp() - hp));
+            champion.setHp(round(hp));
 
             return champions;
         }
         return null;
+    }
+
+    private double round(double value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

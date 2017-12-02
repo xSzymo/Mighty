@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class FightCoordinatorTest {
@@ -31,11 +32,29 @@ public class FightCoordinatorTest {
     public void fightBetweenPlayerAndMonster() throws Exception {
         FightResult fightResult = fightCoordinator.fight(user1, user2);
 
-        int i = 0;
-        for (RoundProcess roundProcess : fightResult.getRounds()) {
-            i++;
-            LinkedList<Fighter> fighters = roundProcess.getUserChampions();
-            LinkedList<Fighter> opponentChampions = roundProcess.getOpponentChampions();
+
+//        System.out.println(fightResult.getRounds().get(0).getOpponentChampions().get(0).getHp());
+//        assertTrue(fightResult.getRounds().get(0).getOpponentChampions().get(0).getHp() < 0);
+//        System.out.println(fightResult.getRounds().get(2).getOpponentChampions().get(1).getHp());
+//        assertTrue(fightResult.getRounds().get(2).getOpponentChampions().get(1).getHp() < 0);
+//        System.out.println(fightResult.getRounds().get(4).getOpponentChampions().get(2).getHp());
+//        assertTrue(fightResult.getRounds().get(4).getOpponentChampions().get(2).getHp() < 0);
+
+//        int i = 0;
+//        for (RoundProcess roundProcess : fightResult.getRounds()) {
+//            for (Fighter fighter : roundProcess.getOpponentChampions()) {
+//                System.out.println(fighter.getDmg());
+//                System.out.println(fighter.getHp());
+//            }
+//            for (Fighter fighter : roundProcess.getUserChampions()) {
+//                System.out.println(fighter.getDmg());
+//                System.out.println(fighter.getHp());
+//            }
+//
+//        }
+//            i++;
+//            LinkedList<Fighter> fighters = roundProcess.getUserChampions();
+//            LinkedList<Fighter> opponentChampions = roundProcess.getOpponentChampions();
 
 //            if(i == 1) {
 //                assertEquals(50, fighters.get(0).getHp());
@@ -68,7 +87,7 @@ public class FightCoordinatorTest {
 //                assertEquals(50, opponentChampions.get(1).getDmg());
 //                assertEquals(30, opponentChampions.get(2).getDmg());
 //            }
-        }
+//        }
         assertNotEquals(fightResult.getRounds().get(0).getUserChampions().get(0).getHp(), fightResult.getRounds().get(1).getUserChampions().get(0).getHp());
         assertEquals(user1, fightResult.getWinner());
         assertEquals(user2, fightResult.getLooser());
@@ -89,6 +108,8 @@ public class FightCoordinatorTest {
         equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(0, 0, 0, 0, 0, 0), 1));
         equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(0, 0, 0, 0, 0, 0), 1));
 
+        user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(3));
+        user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(2));
         user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(2));
 
         return user;
@@ -109,7 +130,9 @@ public class FightCoordinatorTest {
         equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(0, 0, 0, 0, 0, 0), 1));
         equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(0, 0, 0, 0, 0, 0), 1));
 
+        user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(3));
         user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(2));
+        user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(1));
 
         return user;
     }

@@ -98,19 +98,23 @@ public class FightPerformer {
     }
 
     private FightResult checkChampionsCurrentHealth(FightResult fightResult, RoundProcess round, User user, Object opponent) {
-        for (Fighter fighter : round.getOpponentChampions()) {
+        boolean endFight = true;
+        for (Fighter fighter : round.getOpponentChampions())
             if (fighter.getHp() > 0)
-                continue;
+                endFight = false;
 
+        if (endFight) {
             fightResult.setWinner(user);
             if (opponent instanceof User)
                 fightResult.setLooser((User) opponent);
+            return fightResult;
         }
 
-        for (Fighter fighter : round.getUserChampions()) {
+        for (Fighter fighter : round.getUserChampions())
             if (fighter.getHp() > 0)
-                continue;
+                endFight = false;
 
+        if (endFight) {
             fightResult.setLooser(user);
             if (opponent instanceof User)
                 fightResult.setWinner((User) opponent);
