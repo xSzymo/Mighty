@@ -1,6 +1,6 @@
 package game.mightywarriors.services.background.tasks;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
@@ -50,38 +50,38 @@ public class DivisionAssinger {
             double points = pointsForDivisionCounter.getPointsOfFighterPower(user);
 
 
-            if (challenger.getUsers().size() < SystemVariablesManager.MAX_PLAYERS_IN_CHALLENGER)
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_CHALLENGER && points > SystemVariablesManager.MIN_POINTS_FOR_CHALLENGER) {
+            if (challenger.getUsers().size() < SystemFightsVariablesManager.MAX_PLAYERS_IN_CHALLENGER)
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER && points > SystemFightsVariablesManager.MIN_POINTS_FOR_CHALLENGER) {
                     challenger.getUsers().add(user);
                     continue;
                 }
 
-            if (diamond.getUsers().size() < SystemVariablesManager.MAX_PLAYERS_IN_DIAMOND)
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_DIAMOND && points >= SystemVariablesManager.MIN_POINTS_FOR_DIAMOND) {
+            if (diamond.getUsers().size() < SystemFightsVariablesManager.MAX_PLAYERS_IN_DIAMOND)
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_DIAMOND && points >= SystemFightsVariablesManager.MIN_POINTS_FOR_DIAMOND) {
                     diamond.getUsers().add(user);
                     continue;
                 }
 
-            if (gold.getUsers().size() < (long) users.size() * (SystemVariablesManager.MAX_PERCENT_PLAYERS_IN_GOLD * 0.1))
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_GOLD && points > SystemVariablesManager.MIN_POINTS_FOR_GOLD) {
+            if (gold.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_GOLD * 0.1))
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_GOLD && points > SystemFightsVariablesManager.MIN_POINTS_FOR_GOLD) {
                     gold.getUsers().add(user);
                     continue;
                 }
 
-            if (silver.getUsers().size() < (long) users.size() * (SystemVariablesManager.MAX_PERCENT_PLAYERS_IN_SILVER * 0.1))
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_SILVER && points > SystemVariablesManager.MIN_POINTS_FOR_SILVER) {
+            if (silver.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_SILVER * 0.1))
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_SILVER && points > SystemFightsVariablesManager.MIN_POINTS_FOR_SILVER) {
                     silver.getUsers().add(user);
                     continue;
                 }
 
-            if (bronze.getUsers().size() < (long) users.size() * (SystemVariablesManager.MAX_PERCENT_PLAYERS_IN_BRONZE * 0.1))
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_BRONZE && points > SystemVariablesManager.MIN_POINTS_FOR_BRONZE) {
+            if (bronze.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_BRONZE * 0.1))
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_BRONZE && points > SystemFightsVariablesManager.MIN_POINTS_FOR_BRONZE) {
                     bronze.getUsers().add(user);
                     continue;
                 }
 
-            if (wood.getUsers().size() < (long) users.size() * (SystemVariablesManager.MAX_PERCENT_PLAYERS_IN_WOOD * 0.1))
-                if (level >= SystemVariablesManager.MIN_LEVEL_FOR_WOOD && points > SystemVariablesManager.MIN_POINTS_FOR_WOOD)
+            if (wood.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_WOOD * 0.1))
+                if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_WOOD && points > SystemFightsVariablesManager.MIN_POINTS_FOR_WOOD)
                     wood.getUsers().add(user);
 
         }
