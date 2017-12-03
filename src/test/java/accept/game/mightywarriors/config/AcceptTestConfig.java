@@ -1,7 +1,6 @@
-package integration.game.mightywarriors.config;
+package accept.game.mightywarriors.config;
 
 import game.mightywarriors.MightyWarriorsApplication;
-import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -16,7 +15,7 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MightyWarriorsApplication.class)
 @TestPropertySource("classpath:application.properties")
-public abstract class IntegrationTestsConfig {
+public abstract class AcceptTestConfig {
     private static UserService userService;
     private static ChampionService championService;
     private static DivisionService divisionService;
@@ -32,7 +31,7 @@ public abstract class IntegrationTestsConfig {
 
     @BeforeClass
     public static void setUpBefore() {
-        SystemVariablesManager.RUNNING_TESTS = true;
+
     }
 
     @AfterClass
@@ -64,61 +63,61 @@ public abstract class IntegrationTestsConfig {
 
     @Autowired
     public void setUserService(UserService userService) {
-        IntegrationTestsConfig.userService = userService;
+        AcceptTestConfig.userService = userService;
     }
 
     @Autowired
     public void setMonsterService(MonsterService monsterService) {
-        IntegrationTestsConfig.monsterService = monsterService;
+        AcceptTestConfig.monsterService = monsterService;
     }
 
     @Autowired
     public void setEquipmentService(EquipmentService equipmentService) {
-        IntegrationTestsConfig.equipmentService = equipmentService;
+        AcceptTestConfig.equipmentService = equipmentService;
     }
 
     @Autowired
     public void setChampionService(ChampionService championService) {
-        IntegrationTestsConfig.championService = championService;
+        AcceptTestConfig.championService = championService;
     }
 
     @Autowired
     public void setDivisionService(DivisionService divisionService) {
-        IntegrationTestsConfig.divisionService = divisionService;
+        AcceptTestConfig.divisionService = divisionService;
     }
 
     @Autowired
     public void setImageService(ImageService imageService) {
-        IntegrationTestsConfig.imageService = imageService;
+        AcceptTestConfig.imageService = imageService;
     }
 
     @Autowired
     public void setInventoryService(InventoryService inventoryService) {
-        IntegrationTestsConfig.inventoryService = inventoryService;
+        AcceptTestConfig.inventoryService = inventoryService;
     }
 
     @Autowired
     public void setItemService(ItemService itemService) {
-        IntegrationTestsConfig.itemService = itemService;
+        AcceptTestConfig.itemService = itemService;
     }
 
     @Autowired
     public void setMissionService(MissionService missionService) {
-        IntegrationTestsConfig.missionService = missionService;
+        AcceptTestConfig.missionService = missionService;
     }
 
     @Autowired
     public void setShopService(ShopService shopService) {
-        IntegrationTestsConfig.shopService = shopService;
+        AcceptTestConfig.shopService = shopService;
     }
 
     @Autowired
     public void setStatisticService(StatisticService statisticService) {
-        IntegrationTestsConfig.statisticService = statisticService;
+        AcceptTestConfig.statisticService = statisticService;
     }
 
     @Autowired
     public void setUserService(UserRoleService userRoleService) {
-        IntegrationTestsConfig.userRoleService = userRoleService;
+        AcceptTestConfig.userRoleService = userRoleService;
     }
 }
