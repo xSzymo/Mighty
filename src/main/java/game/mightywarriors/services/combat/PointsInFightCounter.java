@@ -37,16 +37,28 @@ public class PointsInFightCounter {
             points += (fighter.getStatistic().getVitality() * rate) * SystemVariablesManager.HP_RATE;
 
         if (fighter instanceof Champion) {
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getArmor(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getBoots(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getBracelet(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getGloves(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getHelmet(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getLegs(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getNecklace(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getOffhand(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getRing(), statisticType) * rate;
-            points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getWeapon(), statisticType) * rate;
+            if(((Champion) fighter).getEquipment() != null) {
+                if(((Champion) fighter).getEquipment().getArmor() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getArmor(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getBoots() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getBoots(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getBracelet() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getBracelet(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getGloves() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getGloves(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getHelmet() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getHelmet(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getLegs() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getLegs(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getNecklace() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getNecklace(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getOffhand() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getOffhand(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getRing() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getRing(), statisticType) * rate;
+                if(((Champion) fighter).getEquipment().getWeapon() != null)
+                points += getPointsForSpecificItem(((Champion) fighter).getEquipment().getWeapon(), statisticType) * rate;
+            }
         }
 
         return Math.floor(points * 100) / 100;

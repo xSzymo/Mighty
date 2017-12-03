@@ -36,7 +36,7 @@ public class TokenController {
     }
 
     @PostMapping("secure/refresh")
-    public JSONTokenObject refresh(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public JSONTokenObject refresh(HttpServletRequest httpServletRequest) throws Exception {
         String token = httpServletRequest.getHeader(SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN);
         Claims body = Jwts.parser()
                 .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)

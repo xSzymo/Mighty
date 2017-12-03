@@ -1,6 +1,6 @@
 package game.mightywarriors.data.tables;
 
-import game.mightywarriors.data.interfaces.Fighter;
+import game.mightywarriors.data.interfaces.IFighter;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "monsters")
-public class Monster implements Fighter {
+public class Monster implements IFighter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -24,23 +24,27 @@ public class Monster implements Fighter {
     private Image image;
 
     public Monster() {
+        this.level = 1;
     }
 
     public Monster(Statistic statistic, Image image) {
         this.statistic = statistic;
         this.image = image;
+        this.level = 1;
     }
 
     public Monster(Statistic statistic) {
         this.statistic = statistic;
+        this.level = 1;
     }
 
     public Image getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public Monster setImage(Image image) {
         this.image = image;
+        return this;
     }
 
     @Override
@@ -48,8 +52,9 @@ public class Monster implements Fighter {
         return statistic;
     }
 
-    public void setStatistic(Statistic statistic) {
+    public Monster setStatistic(Statistic statistic) {
         this.statistic = statistic;
+        return this;
     }
 
     public Long getId() {
@@ -60,7 +65,8 @@ public class Monster implements Fighter {
         return level;
     }
 
-    public void setLevel(int level) {
+    public Monster setLevel(int level) {
         this.level = level;
+        return this;
     }
 }
