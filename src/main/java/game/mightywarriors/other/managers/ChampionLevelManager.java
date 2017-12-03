@@ -8,12 +8,12 @@ public class ChampionLevelManager {
     private ChampionLevelManager() {
     }
 
-    public static Champion getUserLevel(Champion champion) {
+    public static Champion getChampionRealLevel(Champion champion) {
         Level[] levels = Level.values();
         for (int i = 0; i < levels.length; i++)
             if (champion.getLevel() == levels[i].getLevel())
-                if (champion.getExperience() >= levels[i].getExperience()) {
-                    champion.setExperience(champion.getExperience() - levels[i].getExperience());
+                if (champion.getExperience() >= levels[i+1].getExperience()) {
+                    champion.setExperience(champion.getExperience() - levels[i+1].getExperience());
                     champion.setLevel(champion.getLevel() + 1);
                 }
 
