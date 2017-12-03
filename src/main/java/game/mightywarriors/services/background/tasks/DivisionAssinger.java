@@ -5,9 +5,9 @@ import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.league.PointsForDivisionCounter;
 import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.League;
+import game.mightywarriors.services.league.PointsForDivisionCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,8 @@ public class DivisionAssinger {
     private DivisionService divisionService;
     @Autowired
     private UserService userService;
+
+    private static final double PERCENT = 0.01;
 
     @Transactional
     public void assignUsersDivisions() {
@@ -62,25 +64,25 @@ public class DivisionAssinger {
                     continue;
                 }
 
-            if (gold.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_GOLD * 0.1))
+            if (gold.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_GOLD * PERCENT))
                 if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_GOLD && points > SystemFightsVariablesManager.MIN_POINTS_FOR_GOLD) {
                     gold.getUsers().add(user);
                     continue;
                 }
 
-            if (silver.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_SILVER * 0.1))
+            if (silver.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_SILVER * PERCENT))
                 if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_SILVER && points > SystemFightsVariablesManager.MIN_POINTS_FOR_SILVER) {
                     silver.getUsers().add(user);
                     continue;
                 }
 
-            if (bronze.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_BRONZE * 0.1))
+            if (bronze.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_BRONZE * PERCENT))
                 if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_BRONZE && points > SystemFightsVariablesManager.MIN_POINTS_FOR_BRONZE) {
                     bronze.getUsers().add(user);
                     continue;
                 }
 
-            if (wood.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_WOOD * 0.1))
+            if (wood.getUsers().size() < (long) users.size() * (SystemFightsVariablesManager.MAX_PERCENT_PLAYERS_IN_WOOD * PERCENT))
                 if (level >= SystemFightsVariablesManager.MIN_LEVEL_FOR_WOOD && points > SystemFightsVariablesManager.MIN_POINTS_FOR_WOOD)
                     wood.getUsers().add(user);
 

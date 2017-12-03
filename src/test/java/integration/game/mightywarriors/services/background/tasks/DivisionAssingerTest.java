@@ -1,5 +1,6 @@
 package integration.game.mightywarriors.services.background.tasks;
 
+import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
@@ -10,6 +11,8 @@ import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,22 +26,32 @@ public class DivisionAssingerTest extends IntegrationTestsConfig {
 
     @Before
     public void setUp() throws Exception {
-        userService.save(setUpUser1());
-        userService.save(setUpUser2());
+        userService.save(setUpUser1("boss1"));
+        for (int i = 2; i < 10; i++)
+            userService.save(setUpUser1("boss" + i));
+        for (int i = 2; i < 10; i++)
+            userService.save(setUpUser2("low" + i));
         userService.save(setUpUser3());
     }
 
     @Test
-    public void assignUsersDivisions() throws Exception {
+    @Transactional
+    public void assignUsersDivisions() {
         divisionAssinger.assignUsersDivisions();
 
-        assertEquals(1, divisionService.findByLeague(League.CHALLENGER).getUsers().size());
-        assertEquals(1, divisionService.findByLeague(League.DIAMOND).getUsers().size());
-        assertEquals(1, divisionService.findByLeague(League.BRONZE).getUsers().size());
+        assertEquals(2, divisionService.findByLeague(League.CHALLENGER).getUsers().size());
+        assertEquals(5, divisionService.findByLeague(League.DIAMOND).getUsers().size());
+        assertEquals(2, divisionService.findByLeague(League.GOLD).getUsers().size());
+        assertEquals(4, divisionService.findByLeague(League.SILVER).getUsers().size());
+        assertEquals(5, divisionService.findByLeague(League.BRONZE).getUsers().size());
+        assertEquals(0, divisionService.findByLeague(League.WOOD).getUsers().size());
+
+        assertEquals(0, divisionService.findByLeague(League.CHALLENGER).getUsers().stream().
+                filter(x -> userService.findByLogin(x.getLogin()).getUserChampiongHighestLevel() < SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER).count());
     }
 
-    private User setUpUser1() throws Exception {
-        User user = new User("boss", "boss", "boss");
+    private User setUpUser1(String login) throws Exception {
+        User user = new User(login, "boss", "boss");
 
         Equipment equipment = new Equipment();
         equipment.setWeapon(new Item(WeaponType.WEAPON, new Statistic(2, 5, 7, 9, 10, 12), 1));
@@ -59,8 +72,8 @@ public class DivisionAssingerTest extends IntegrationTestsConfig {
         return user;
     }
 
-    private User setUpUser2() throws Exception {
-        User user = new User("example", "example", "example");
+    private User setUpUser2(String login) throws Exception {
+        User user = new User(login, "example", "example");
 
         Equipment equipment = new Equipment();
         equipment.setWeapon(new Item(WeaponType.WEAPON, new Statistic(0, 0, 0, 0, 0, 0), 1));
@@ -74,7 +87,7 @@ public class DivisionAssingerTest extends IntegrationTestsConfig {
         equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(0, 0, 0, 0, 0, 0), 1));
         equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(0, 0, 0, 0, 0, 0), 1));
 
-        user.getChampions().add(new Champion(new Statistic(1, 1, 60, 0, 1, 1), equipment).setLevel(30));
+        user.getChampions().add(new Champion(new Statistic(1, 1, 60, 0, 1, 1), equipment).setLevel(45));
 
         return user;
     }
