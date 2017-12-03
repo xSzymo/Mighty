@@ -18,8 +18,8 @@ public class ChampionLevelManagerTest extends IntegrationTestsConfig {
         champion = new Champion().setLevel(1).setExperience(250);
         championService.save(champion);
         champion = championService.findOne(champion);
-        assertEquals(7, champion.getLevel());
-        assertEquals(40, champion.getExperience());
+        assertEquals(6, champion.getLevel());
+        assertEquals(50, champion.getExperience());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class ChampionLevelManagerTest extends IntegrationTestsConfig {
         championService.save(champion);
         champion = championService.findOne(champion);
         assertEquals(5, champion.getLevel());
-        assertEquals(20, champion.getExperience());
+        assertEquals(0, champion.getExperience());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ChampionLevelManagerTest extends IntegrationTestsConfig {
         championService.save(champion);
         champion = championService.findOne(champion);
         assertEquals(19, champion.getLevel());
-        assertEquals(680, champion.getExperience());
+        assertEquals(610, champion.getExperience());
     }
 
     @Test
@@ -46,6 +46,6 @@ public class ChampionLevelManagerTest extends IntegrationTestsConfig {
         championService.save(champion);
         champion = championService.findOne(champion);
         assertEquals(19, champion.getLevel());
-        assertEquals(1710, champion.getExperience());
+        assertEquals(1650, champion.getExperience());
     }
 }

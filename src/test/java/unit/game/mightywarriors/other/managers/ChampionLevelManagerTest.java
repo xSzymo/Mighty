@@ -27,14 +27,14 @@ public class ChampionLevelManagerTest {
 
     @Test
     public void getChampionRealLevel_unreal() {
-        checker(getChampionRealLevel(new Champion().setLevel(1).setExperience(250)), 7, 40);
-        checker(getChampionRealLevel(new Champion().setLevel(2).setExperience(400)), 9, 50);
-        checker(getChampionRealLevel(new Champion().setLevel(4).setExperience(500)), 11, 10);
-        checker(getChampionRealLevel(new Champion().setLevel(5).setExperience(600)), 12, 50);
-        checker(getChampionRealLevel(new Champion().setLevel(6).setExperience(700)), 14, 0);
-        checker(getChampionRealLevel(new Champion().setLevel(7).setExperience(800)), 15, 60);
-        checker(getChampionRealLevel(new Champion().setLevel(8).setExperience(800)), 16, 30);
-        checker(getChampionRealLevel(new Champion().setLevel(9).setExperience(800)), 17, 10);
+        checker(getChampionRealLevel(new Champion().setLevel(1).setExperience(250)), 6, 50);
+        checker(getChampionRealLevel(new Champion().setLevel(2).setExperience(400)), 8, 70);
+        checker(getChampionRealLevel(new Champion().setLevel(4).setExperience(500)), 10, 50);
+        checker(getChampionRealLevel(new Champion().setLevel(5).setExperience(600)), 12, 0);
+        checker(getChampionRealLevel(new Champion().setLevel(6).setExperience(700)), 13, 60);
+        checker(getChampionRealLevel(new Champion().setLevel(7).setExperience(800)), 15, 30);
+        checker(getChampionRealLevel(new Champion().setLevel(8).setExperience(800)), 16, 10);
+        checker(getChampionRealLevel(new Champion().setLevel(9).setExperience(800)), 17, 0);
         checker(getChampionRealLevel(new Champion().setLevel(10).setExperience(800)), 18, 0);
     }
 
