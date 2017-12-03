@@ -1,12 +1,12 @@
 package game.mightywarriors.data.tables;
 
-import game.mightywarriors.data.interfaces.Fighter;
+import game.mightywarriors.data.interfaces.IFighter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "champions")
-public class Champion implements Fighter {
+public class Champion implements IFighter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

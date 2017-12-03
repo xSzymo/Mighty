@@ -2,7 +2,7 @@ package game.mightywarriors.data.interfaces;
 
 import game.mightywarriors.data.tables.Statistic;
 
-public interface Fighter {
+public interface IFighter {
     Statistic getStatistic();
 
     long getLevel();

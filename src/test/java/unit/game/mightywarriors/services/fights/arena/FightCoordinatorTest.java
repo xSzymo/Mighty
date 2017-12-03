@@ -42,19 +42,19 @@ public class FightCoordinatorTest {
 
 //        int i = 0;
 //        for (RoundProcess roundProcess : fightResult.getRounds()) {
-//            for (Fighter fighter : roundProcess.getOpponentChampions()) {
+//            for (IFighter fighter : roundProcess.getOpponentChampions()) {
 //                System.out.println(fighter.getDmg());
 //                System.out.println(fighter.getHp());
 //            }
-//            for (Fighter fighter : roundProcess.getUserChampions()) {
+//            for (IFighter fighter : roundProcess.getUserChampions()) {
 //                System.out.println(fighter.getDmg());
 //                System.out.println(fighter.getHp());
 //            }
 //
 //        }
 //            i++;
-//            LinkedList<Fighter> fighters = roundProcess.getUserChampions();
-//            LinkedList<Fighter> opponentChampions = roundProcess.getOpponentChampions();
+//            LinkedList<IFighter> fighters = roundProcess.getUserChampions();
+//            LinkedList<IFighter> opponentChampions = roundProcess.getOpponentChampions();
 
 //            if(i == 1) {
 //                assertEquals(50, fighters.get(0).getHp());

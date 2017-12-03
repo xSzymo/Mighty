@@ -1,14 +1,14 @@
 package game.mightywarriors.services.league;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.data.interfaces.Fighter;
+import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 
 public class PointsForDivisionCounter {
 
-    public double getPointsOfFighterPower(Fighter fighter) {
+    public double getPointsOfFighterPower(IFighter fighter) {
         double points = 0;
 
         double rate = fighter.getLevel() * SystemVariablesManager.RATE;

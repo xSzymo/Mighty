@@ -1,7 +1,7 @@
 package game.mightywarriors.services.combat;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.data.interfaces.Fighter;
+import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
@@ -18,7 +18,7 @@ public class PointsInFightCounter {
         return Math.floor(points * 100) / 100;
     }
 
-    public double getPointsForSpecificType(Fighter fighter, StatisticType statisticType) {
+    public double getPointsForSpecificType(IFighter fighter, StatisticType statisticType) {
         double points = 0;
 
         double rate = fighter.getLevel() * SystemVariablesManager.RATE;

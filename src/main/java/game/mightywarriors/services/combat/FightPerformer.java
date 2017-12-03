@@ -1,5 +1,6 @@
 package game.mightywarriors.services.combat;
 
+import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.casters.FighterModelCaster;
@@ -62,7 +63,7 @@ public class FightPerformer {
     }
 
     private RoundProcess setUpRound(RoundProcess round, User user, Object opponent) {
-        LinkedList<game.mightywarriors.data.interfaces.Fighter> fighters = new LinkedList<>();
+        LinkedList<IFighter> fighters = new LinkedList<>();
         fighters.addAll(user.getChampions());
         round.setUserChampions(fighterModelCaster.castChampionToChampionModel(fighters));
 

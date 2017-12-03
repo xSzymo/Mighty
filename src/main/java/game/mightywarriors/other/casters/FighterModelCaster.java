@@ -1,5 +1,6 @@
 package game.mightywarriors.other.casters;
 
+import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.services.combat.PointsInFightCounter;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.other.enums.StatisticType;
@@ -12,7 +13,7 @@ import java.util.List;
 public class FighterModelCaster {
     private final PointsInFightCounter pointsInFightCounter = new PointsInFightCounter();
 
-    public Fighter castChampionToChampionModel(game.mightywarriors.data.interfaces.Fighter fighter) {
+    public Fighter castChampionToChampionModel(IFighter fighter) {
         Fighter championModel = new Fighter();
         championModel.build()
                 .setHp(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.VITALITY))
@@ -29,9 +30,9 @@ public class FighterModelCaster {
         return championModel;
     }
 
-    public LinkedList<Fighter> castChampionToChampionModel(List<game.mightywarriors.data.interfaces.Fighter> champions) {
+    public LinkedList<Fighter> castChampionToChampionModel(List<IFighter> champions) {
         LinkedList<Fighter> championModels1 = new LinkedList<>();
-        for (game.mightywarriors.data.interfaces.Fighter fighter : champions)
+        for (IFighter fighter : champions)
             championModels1.add(castChampionToChampionModel(fighter));
 
         return championModels1;
