@@ -1,9 +1,10 @@
-package game.mightywarriors.other.casters;
+package unit.game.mightywarriors.other.casters;
 
 import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.other.casters.FighterModelCaster;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertEquals;
-
 
 public class FighterModelCasterTest {
     private FighterModelCaster objectUnderTest;
@@ -37,7 +37,7 @@ public class FighterModelCasterTest {
     public void castChampionToChampionModel1_champs() {
         LinkedList<IFighter> fighters = new LinkedList<>();
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             champion = new Champion().setStatistic(new Statistic(4, 4, 4, 4, 4, 4));
             fighters.add(champion);
         }
@@ -48,7 +48,7 @@ public class FighterModelCasterTest {
     public void castChampionToChampionModel1_monsters() {
         LinkedList<IFighter> fighters = new LinkedList<>();
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             monster = new Monster().setStatistic(new Statistic(4, 4, 4, 4, 4, 4));
             fighters.add(monster);
         }

@@ -1,4 +1,4 @@
-package integration.game.mightywarriors.services.backgroundTasks;
+package integration.game.mightywarriors.services.background.tasks;
 
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;

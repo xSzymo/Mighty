@@ -1,9 +1,9 @@
 package unit.game.mightywarriors.helpers;
 
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.services.combat.PointsInFightCounter;
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.services.combat.PointsInFightCounter;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

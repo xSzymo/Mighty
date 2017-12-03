@@ -13,23 +13,10 @@ import java.util.LinkedList;
 
 @Component
 public class RunAtStart {
-
-    private UserRole admin_role;
-    private UserRole user_role;
     @Autowired
     private UserService userService;
     @Autowired
-    private ChampionService championService;
-    @Autowired
-    private EquipmentService equipmentService;
-    @Autowired
-    private ImageService imageService;
-    @Autowired
     private ItemService itemService;
-    @Autowired
-    private ShopService shopService;
-    @Autowired
-    private StatisticService statisticService;
     @Autowired
     private UserRoleService userRoleService;
 

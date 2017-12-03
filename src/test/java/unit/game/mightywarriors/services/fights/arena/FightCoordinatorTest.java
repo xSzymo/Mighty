@@ -1,19 +1,14 @@
 package unit.game.mightywarriors.services.fights.arena;
 
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.json.objects.fights.Fighter;
-import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.combat.FightCoordinator;
+import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedList;
-
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 
 public class FightCoordinatorTest {
