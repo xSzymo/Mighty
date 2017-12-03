@@ -85,6 +85,10 @@ public class ItemService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Item item) {
 
         LinkedList<Item> items = new LinkedList<Item>();

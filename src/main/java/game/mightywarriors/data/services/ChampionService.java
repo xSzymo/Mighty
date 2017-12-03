@@ -93,6 +93,10 @@ public class ChampionService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Champion champion) {
         if (champion.getId() == null || findOne(champion.getId()) == null)
             return;

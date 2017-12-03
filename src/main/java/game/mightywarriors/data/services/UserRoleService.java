@@ -61,6 +61,10 @@ public class UserRoleService {
         }
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     public void delete(Collection<UserRole> addresses) {
         addresses.forEach(
                 x -> {

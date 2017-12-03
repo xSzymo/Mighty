@@ -95,6 +95,10 @@ public class ImageService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Image image) {
         try {
             itemService.findAll().forEach(

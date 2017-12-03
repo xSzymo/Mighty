@@ -3,6 +3,7 @@ package game.mightywarriors.data.services;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,14 +43,28 @@ public class UserService {
     private void saveOperation(User user) {
         if (user.getMissions() != null)
             missionService.save(user.getMissions());
-        if (user.getShop() != null)
-            shopService.save(user.getShop());
+
         if (user.getInventory() != null)
             inventoryService.save(user.getInventory());
+
         if (user.getChampions() != null)
-            for (Champion champion : user.getChampions())
-                if (champion != null)
-                    championService.save(champion);
+            if (user.getChampions().size() == 0) {
+                Champion champion = new Champion();
+                user.addChampion(champion);
+                championService.save(champion);
+            } else {
+                for (Champion champion : user.getChampions())
+                    if (champion != null)
+                        championService.save(champion);
+            }
+
+        if (user.getShop() != null)
+            shopService.save(user.getShop());
+        else {
+            Shop shop = new Shop();
+            user.setShop(shop);
+            shopService.save(shop);
+        }
 
         if (user.getImage() != null)
             try {
@@ -64,6 +79,7 @@ public class UserService {
             if (token.equals(SystemVariablesManager.DECO4DER_DB.decode(tokenAfterEncode)))
                 user.setTokenCode(tokenAfterEncode);
         }
+
         repository.save(user);
     }
 
@@ -96,7 +112,6 @@ public class UserService {
     }
 
     public void delete(long id) {
-
         deleteOperation(findOne(id));
     }
 
@@ -116,14 +131,20 @@ public class UserService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(User user) {
         if (user.getId() == null || findOne(user.getId()) == null)
             return;
 
         user.getMissions().clear();
         user.getMissions().forEach(missionService::delete);
-        if (user.getShop() != null)
-            shopService.delete(user.getShop());
+//        if (user.getShop() != null)
+//            shopService.delete(user.getShop());
+//        if (user.getInventory() != null)
+//            inventoryService.delete(user.getInventory());
         repository.deleteById(user.getId());
     }
 }

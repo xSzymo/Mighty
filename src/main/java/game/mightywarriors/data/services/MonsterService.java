@@ -89,6 +89,10 @@ public class MonsterService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Monster monster) {
         if (monster.getId() == null || findOne(monster.getId()) == null)
             return;

@@ -79,6 +79,10 @@ public class MissionService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Mission mission) {
         if (mission.getId() == null || findOne(mission.getId()) == null)
             return;

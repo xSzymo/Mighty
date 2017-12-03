@@ -70,6 +70,10 @@ public class DivisionService {
         }
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     public void delete(Collection<Division> divisions) {
         divisions.forEach(
                 x -> {

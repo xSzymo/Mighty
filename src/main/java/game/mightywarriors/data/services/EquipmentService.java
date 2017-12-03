@@ -115,6 +115,10 @@ public class EquipmentService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Equipment equipment) {
         try {
             championService.findAll().forEach(

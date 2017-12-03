@@ -74,6 +74,10 @@ public class StatisticService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Statistic statistic) {
         if (statistic.getId() == null || findOne(statistic.getId()) == null)
             return;

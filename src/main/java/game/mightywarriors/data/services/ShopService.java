@@ -89,6 +89,10 @@ public class ShopService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Shop shop) {
         userService.findAll().forEach(
                 x -> {

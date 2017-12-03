@@ -89,6 +89,10 @@ public class InventoryService {
                 });
     }
 
+    public void deleteAll() {
+        delete(findAll());
+    }
+
     private void deleteOperation(Inventory inventory) {
         userService.findAll().forEach(
                 x -> {
