@@ -36,10 +36,10 @@ public class User {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Shop shop;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Inventory inventory;
 
     @OneToOne
@@ -177,8 +177,9 @@ public class User {
         return highest;
     }
 
-    public void addChampion(Champion champion) {
+    public User addChampion(Champion champion) {
         this.champions.add(champion);
+        return this;
     }
 
     public Shop getShop() {

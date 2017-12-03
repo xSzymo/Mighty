@@ -41,7 +41,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @After
-    public void afterEachTest() throws Exception {
+    public void afterEachTest() {
         for (Item item : items) {
             itemService.delete(item);
         }
@@ -51,7 +51,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void save() throws Exception {
+    public void save() {
         objectUnderTest.save(shops.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -61,7 +61,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void saveCollection() throws Exception {
+    public void saveCollection() {
         objectUnderTest.save(shops);
         long counter = objectUnderTest.findAll().size();
 
@@ -70,7 +70,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findOne() throws Exception {
+    public void findOne() {
         objectUnderTest.save(shops.getFirst());
 
         checkSavedItemsAreNotNull(shops.getFirst());
@@ -78,7 +78,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findOne1() throws Exception {
+    public void findOne1() {
         objectUnderTest.save(shops.getFirst());
 
         checkSavedItemsAreNotNull(shops.getFirst());
@@ -86,7 +86,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll() {
         objectUnderTest.save(shops);
 
         long counter = objectUnderTest.findAll().size();
@@ -96,7 +96,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         objectUnderTest.save(shops.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -112,7 +112,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete1() throws Exception {
+    public void delete1() {
         objectUnderTest.save(shops.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -128,7 +128,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete2() throws Exception {
+    public void delete2() {
         objectUnderTest.save(shops);
 
         long counter = objectUnderTest.findAll().size();
@@ -143,7 +143,6 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         assertEquals(0, counter);
     }
 
-
     @Test
     public void deleteFromUser() {
         user = new User();
@@ -157,7 +156,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(shops.getFirst());
 
         assertNotNull(userService.findOne(user.getId()));
-        assertNull(userService.findOne(user.getId()).getShop());
+        assertNotEquals(shops.getFirst(), userService.findOne(user.getId()).getShop());
         assertNull(objectUnderTest.findOne(shops.getFirst()));
     }
 
@@ -165,7 +164,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         shop.getItems().forEach(Assert::assertNotNull);
     }
 
-    private void addExampleDataToEquipments() throws Exception {
+    private void addExampleDataToEquipments() {
         Statistic statistic;
         Shop shop;
         LinkedList<Item> myItems = new LinkedList<>();

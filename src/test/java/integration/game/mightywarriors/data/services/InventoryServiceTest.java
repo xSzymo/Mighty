@@ -41,7 +41,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @After
-    public void afterEachTest() throws Exception {
+    public void afterEachTest() {
         for (Item item : items) {
             itemService.delete(item);
         }
@@ -51,7 +51,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void save() throws Exception {
+    public void save() {
         objectUnderTest.save(inventories.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -61,7 +61,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void saveCollection() throws Exception {
+    public void saveCollection() {
         objectUnderTest.save(inventories);
         long counter = objectUnderTest.findAll().size();
 
@@ -70,7 +70,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findOne() throws Exception {
+    public void findOne() {
         objectUnderTest.save(inventories.getFirst());
 
         checkSavedItemsAreNotNull(inventories.getFirst());
@@ -78,7 +78,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findOne1() throws Exception {
+    public void findOne1() {
         objectUnderTest.save(inventories.getFirst());
 
         checkSavedItemsAreNotNull(inventories.getFirst());
@@ -86,7 +86,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll() {
         objectUnderTest.save(inventories);
 
         long counter = objectUnderTest.findAll().size();
@@ -96,7 +96,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         objectUnderTest.save(inventories.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -112,7 +112,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete1() throws Exception {
+    public void delete1() {
         objectUnderTest.save(inventories.getFirst());
 
         long counter = objectUnderTest.findAll().size();
@@ -128,7 +128,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void delete2() throws Exception {
+    public void delete2() {
         objectUnderTest.save(inventories);
 
         long counter = objectUnderTest.findAll().size();
@@ -157,7 +157,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(inventories.getFirst());
 
         assertNotNull(userService.findOne(user.getId()));
-        assertNull(userService.findOne(user.getId()).getShop());
+        assertNull(userService.findOne(user.getId()).getInventory());
         assertNull(objectUnderTest.findOne(inventories.getFirst()));
     }
 
@@ -165,7 +165,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
         inventory.getItems().forEach(Assert::assertNotNull);
     }
 
-    private void addExampleDataToEquipments() throws Exception {
+    private void addExampleDataToEquipments() {
         Statistic statistic;
         Inventory inventory;
         LinkedList<Item> myItems = new LinkedList<>();

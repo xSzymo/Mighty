@@ -24,8 +24,17 @@ public class ItemDrawer {
         LinkedList<User> users = userService.findAll();
         LinkedList<Item> items = itemService.findAll();
 
+        if(items.size() == 0)
+            throw new RuntimeException("restart system");
+
         users.forEach(user -> {
+            if(user.getChampions().size() == 0)
+                throw new RuntimeException("restart system");
+
             List<Item> oldItemsInShop = new LinkedList<>(user.getShop().getItems());
+            if(oldItemsInShop.size() == 0)
+                oldItemsInShop = new LinkedList<>();
+
             user.getShop().getItems().clear();
             int random = 0;
             while (user.getShop().getItems().size() < 10) {
@@ -33,7 +42,7 @@ public class ItemDrawer {
 
                 try {
                     Item item = items.get(random);
-                    if (item.getLevel() > user.getChampions().get(0).getLevel())
+                    if (item.getLevel() > user.getUserChampiongHighestLevel())
                         continue;
 
                     user = addItemForSpecificType(oldItemsInShop, user, item, WeaponType.WEAPON);
