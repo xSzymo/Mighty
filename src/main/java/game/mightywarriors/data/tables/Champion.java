@@ -31,6 +31,10 @@ public class Champion implements IFighter {
 
     }
 
+    public Champion(Statistic statistic) {
+        this.statistic = statistic;
+    }
+
     public Champion(Statistic statistic, Equipment equipment) {
         this.statistic = statistic;
         this.equipment = equipment;
