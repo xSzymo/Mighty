@@ -1,4 +1,4 @@
-package unit.game.mightywarriors.services.fights.division;
+package unit.game.mightywarriors.services.league;
 
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FightControllerTest {
+public class FightRefereeTest {
 
     private FightReferee fightReferee = new FightReferee();
 
