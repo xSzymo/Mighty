@@ -19,12 +19,15 @@ public class FightPerformer {
 
     public FightResult fightBetweenUsers(User user, Object opponent) {
         FightResult fightResult = new FightResult();
-        RoundProcess round;
+        RoundProcess round = new RoundProcess();
+        RoundProcess firstRound;
 
         int opponentChampionTurn = -1;
         int userChampionTurn = -1;
         int roundNr = 0;
         boolean isUserTurn;
+
+        firstRound = setUpRound(round, user, opponent).setRoundNr(roundNr);
 
         while (fightResult.getWinner() == null && fightResult.getLooser() == null) {
             round = new RoundProcess().setRoundNr(++roundNr);
@@ -37,7 +40,7 @@ public class FightPerformer {
 
             round = (roundNr == 1) ? setUpRound(round, user, opponent) : setUpRound(round, fightResult, roundNr);
             round = roundFightPerformer.performSingleRound(round, userChampionTurn, opponentChampionTurn, isUserTurn);
-            fightResult = endFightIfAllFightersFromAnyTeamsAreDead(fightResult, round, user, opponent);
+            fightResult = endFightIfAllFightersFromAnyTeamsAreDead(fightResult, round, user, opponent, firstRound);
         }
 
         return fightResult;
@@ -96,7 +99,7 @@ public class FightPerformer {
         return round;
     }
 
-    private FightResult endFightIfAllFightersFromAnyTeamsAreDead(FightResult fightResult, RoundProcess round, User user, Object opponent) {
+    private FightResult endFightIfAllFightersFromAnyTeamsAreDead(FightResult fightResult, RoundProcess round, User user, Object opponent, RoundProcess firstRound) {
         if (round == null)
             throw new RuntimeException("Something went wrong");
 
@@ -123,6 +126,8 @@ public class FightPerformer {
                     fightResult.setWinner((User) opponent);
             }
         }
+        if (endFight)
+            ((LinkedList) fightResult.getRounds()).addFirst(firstRound);
 
         fightResult.getRounds().add(round);
         return fightResult;
