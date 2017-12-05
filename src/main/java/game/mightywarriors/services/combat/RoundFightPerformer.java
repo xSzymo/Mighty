@@ -15,15 +15,23 @@ public class RoundFightPerformer {
 
     public RoundProcess performSingleRound(RoundProcess round, int userTurn, int opponentTurn, boolean isUserTurn) {
         LinkedList<Fighter> fighters;
+        LinkedList<Fighter> userChampions = round.getUserChampions();
+        LinkedList<Fighter> opponentChampions = round.getOpponentChampions();
 
         if (isUserTurn) {
-            fighters = championAttack(round.getOpponentChampions(), round.getUserChampions().get(userTurn));
+            while (userChampions.get(userTurn).getHp() <= 0)
+                userTurn++;
+
+            fighters = championAttack(opponentChampions, userChampions.get(userTurn));
             if (fighters == null)
                 return null;
 
             round.setOpponentChampions(fighters);
         } else {
-            fighters = championAttack(round.getUserChampions(), round.getOpponentChampions().get(opponentTurn));
+            while (opponentChampions.get(opponentTurn).getHp() <= 0)
+                opponentTurn++;
+
+            fighters = championAttack(userChampions, opponentChampions.get(opponentTurn));
             if (fighters == null)
                 return null;
 
