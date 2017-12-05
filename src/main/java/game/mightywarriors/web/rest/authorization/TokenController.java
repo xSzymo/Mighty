@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.json.objects.security.JSONTokenObject;
-import game.mightywarriors.services.security.GenerateTokenService;
+import game.mightywarriors.services.security.TokenGenerator;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class TokenController {
     @Autowired
     private UserService userService;
     @Autowired
-    private GenerateTokenService generateTokenService;
+    private TokenGenerator tokenGenerator;
 
     @PostMapping("token")
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
@@ -32,7 +31,7 @@ public class TokenController {
         if (!myUser.getPassword().equals(loginData.password))
             throw new Exception("Wrong login or password");
 
-        return new JSONTokenObject(generateTokenService.generateToken(myUser));
+        return new JSONTokenObject(tokenGenerator.generateToken(myUser));
     }
 
     @PostMapping("secure/refresh")
@@ -43,6 +42,6 @@ public class TokenController {
                 .parseClaimsJws(token.substring(7))
                 .getBody();
 
-        return new JSONTokenObject(generateTokenService.generateToken(userService.findByLogin(body.getSubject())));
+        return new JSONTokenObject(tokenGenerator.generateToken(userService.findByLogin(body.getSubject())));
     }
 }

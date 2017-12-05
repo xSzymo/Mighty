@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 
 @Service
-public class GenerateTokenService {
+public class TokenGenerator {
     @Autowired
     private UserService userService;
     @Autowired
