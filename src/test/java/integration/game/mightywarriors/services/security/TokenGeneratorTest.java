@@ -27,7 +27,8 @@ public class TokenGeneratorTest extends IntegrationTestsConfig {
 
     @Test
     public void generateToken() {
-        User user = new User("", "", "");
+        User user = new User("example", "", "");
+        userService.save(user);
 
         String token = tokenService.generateToken(user);
 

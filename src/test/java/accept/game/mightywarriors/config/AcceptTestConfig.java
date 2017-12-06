@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MightyWarriorsApplication.class)
+@SpringBootTest(classes = MightyWarriorsApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application.properties")
 public abstract class AcceptTestConfig {
     private static UserService userService;

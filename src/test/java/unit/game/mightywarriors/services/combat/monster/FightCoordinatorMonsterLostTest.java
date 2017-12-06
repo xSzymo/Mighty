@@ -118,6 +118,6 @@ public class FightCoordinatorMonsterLostTest {
     }
 
     private Monster setUpMonster() {
-        return new Monster(new Statistic(50, 50, 100, 20, 20, 20)).setLevel(2);
+        return new Monster(new Statistic(50, 50, 100, 0, 20, 20)).setLevel(2);
     }
 }
