@@ -2,11 +2,8 @@ package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
-import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import game.mightywarriors.services.security.TokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
@@ -22,7 +19,7 @@ import java.util.List;
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
     @Autowired
-    private UserService userService;
+    private TokenVerifier tokenVerifier;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -41,7 +38,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         User user;
         try {
-            user = validate(token);
+            user = tokenVerifier.validate(token);
         } catch (Exception e) {
             throw new RuntimeException("JWT Token expired");
         }
@@ -53,33 +50,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         List<GrantedAuthority> grantedAuthorities = new LinkedList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getUserRole().getRole()));
         return new JwtUserDetails(user, grantedAuthorities);
-    }
-
-    private User validate(String token) throws Exception {
-        Claims body = Jwts.parser()
-                .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
-
-        User user = verifyToken(token, body);
-
-        return user;
-    }
-
-    private User verifyToken(String token, Claims body) {
-        User user = userService.findByLogin(body.getSubject());
-        if (user == null)
-            return null;
-
-        String code = body.get("code", String.class);
-        if (!SystemVariablesManager.JWTTokenCollection.contains(SystemVariablesManager.DECODER_JSON.decode(code)))
-            return null;
-
-        String decode = SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode());
-        if (!decode.equals(SystemVariablesManager.DECODER_JSON.decode(code)))
-            return null;
-
-        return user;
     }
 
     @Override
