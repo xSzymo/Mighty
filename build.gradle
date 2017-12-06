@@ -50,23 +50,24 @@ dependencies {
 }
 
 sourceSets {
-    androidTest.java.srcDirs += 'src/test/groovy'
+    test {
+        groovy {
+            srcDir 'src/test/groovy'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
 }
 
 task unit(type: Test) {
-    useJUnit {
-        includeCategories 'unit.game.mightywarriors.config.Unit'
-    }
+    include 'unit/**'
 }
 
 task integration(type: Test) {
-    useJUnit {
-        includeCategories 'integration.game.mightywarriors.config.Integration'
-    }
+    include 'integration/**'
 }
 
 task acceptance(type: Test) {
-    useJUnit {
-        includeCategories 'accept.game.mightywarriors.config.Acceptance'
-    }
+    include 'acceptance/**'
 }
