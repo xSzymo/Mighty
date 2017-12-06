@@ -49,16 +49,6 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
 }
 
-sourceSets {
-    test {
-        groovy {
-            srcDir 'src/test/groovy'
-        }
-        resources {
-            srcDir 'src/test/resources'
-        }
-    }
-}
 
 task unit(type: Test) {
     include 'unit/**'
