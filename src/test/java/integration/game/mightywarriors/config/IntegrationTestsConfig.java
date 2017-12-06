@@ -5,6 +5,7 @@ import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MightyWarriorsApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource("classpath:application.properties")
+@SpringBootTest(classes = MightyWarriorsApplication.class, webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestPropertySource("classpath:accept.properties")
+@Category(Integration.class)
 public abstract class IntegrationTestsConfig {
     private static UserService userService;
     private static ChampionService championService;
@@ -32,11 +34,13 @@ public abstract class IntegrationTestsConfig {
 
     @BeforeClass
     public static void setUpBefore() {
+        SystemVariablesManager.JWTTokenCollection.clear();
         SystemVariablesManager.RUNNING_TESTS = true;
     }
 
     @AfterClass
     public static void CleanUpAfter() {
+        SystemVariablesManager.JWTTokenCollection.clear();
         userService.deleteAll();
         championService.deleteAll();
         equipmentService.deleteAll();

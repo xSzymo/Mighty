@@ -3,10 +3,13 @@ package unit.game.mightywarriors.other.managers;
 import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
 import game.mightywarriors.data.tables.Champion;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import static game.mightywarriors.other.managers.ChampionLevelManager.getChampionRealLevel;
 import static junit.framework.TestCase.assertEquals;
 
+@Category(Unit.class)
 public class ChampionLevelManagerTest {
     private Champion champion;
 

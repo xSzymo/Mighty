@@ -8,11 +8,14 @@ import game.mightywarriors.other.casters.FighterModelCaster;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertEquals;
 
+@Category(Unit.class)
 public class FighterModelCasterTest {
     private FighterModelCaster objectUnderTest;
     private Champion champion;

@@ -5,9 +5,12 @@ import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.WeaponType;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import static org.junit.Assert.assertEquals;
 
+@Category(Unit.class)
 public class UsersDivisionComparatorTest {
     private UsersDivisionComparator objectUnderTest;
 

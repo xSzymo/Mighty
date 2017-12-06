@@ -4,10 +4,13 @@ import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.league.FightReferee;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Category(Unit.class)
 public class FightRefereeTest {
 
     private FightReferee fightReferee = new FightReferee();

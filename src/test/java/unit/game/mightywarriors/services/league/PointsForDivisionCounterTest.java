@@ -6,10 +6,12 @@ import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.league.PointsForDivisionCounter;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import static junit.framework.TestCase.assertEquals;
 
-
+@Category(Unit.class)
 public class PointsForDivisionCounterTest {
 
     private PointsForDivisionCounter pointsForDivisionCounter;

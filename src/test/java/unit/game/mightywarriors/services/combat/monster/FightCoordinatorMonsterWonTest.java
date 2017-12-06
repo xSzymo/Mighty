@@ -8,11 +8,14 @@ import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import unit.game.mightywarriors.config.Unit;
 
 import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertEquals;
 
+@Category(Unit.class)
 public class FightCoordinatorMonsterWonTest {
     private FightCoordinator fightCoordinator;
     private User user1;

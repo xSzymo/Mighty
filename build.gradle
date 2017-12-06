@@ -13,6 +13,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -36,11 +37,36 @@ dependencies {
 
     compile 'mysql:mysql-connector-java'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.5.7.RELEASE'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.4'
+
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
 
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.4'
+    testCompile('junit:junit:4.12')
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
+}
+
+sourceSets {
+    androidTest.java.srcDirs += 'src/test/groovy'
+}
+
+task unit(type: Test) {
+    useJUnit {
+        includeCategories 'unit.game.mightywarriors.config.Unit'
+    }
+}
+
+task integration(type: Test) {
+    useJUnit {
+        includeCategories 'integration.game.mightywarriors.config.Integration'
+    }
+}
+
+task acceptance(type: Test) {
+    useJUnit {
+        includeCategories 'accept.game.mightywarriors.config.Acceptance'
+    }
 }
