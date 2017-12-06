@@ -20,7 +20,7 @@ public class TokenGenerator {
     private RandomCodeFactory randomCodeFactory;
 
     public String generateToken(User user) {
-        String tokenCode = user.getTokenCode();
+        String tokenCode = userService.findOne(user).getTokenCode();
         if (tokenCode != null)
             if (SystemVariablesManager.JWTTokenCollection.contains(SystemVariablesManager.DECO4DER_DB.decode(tokenCode)))
                 SystemVariablesManager.JWTTokenCollection.remove(SystemVariablesManager.DECO4DER_DB.decode(tokenCode));

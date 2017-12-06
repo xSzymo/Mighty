@@ -6,17 +6,24 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.TokenGenerator;
 import integration.game.mightywarriors.config.IntegrationTestsConfig;
 import io.jsonwebtoken.Jwts;
+import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TokenGeneratorTest extends IntegrationTestsConfig {
     @Autowired
     private TokenGenerator tokenService;
     @Autowired
     private UserService userService;
+
+    @After
+    public void cleanUp() {
+        SystemVariablesManager.JWTTokenCollection.clear();
+    }
 
     @Test
     public void generateToken() {
@@ -35,6 +42,7 @@ public class TokenGeneratorTest extends IntegrationTestsConfig {
         token = tokenService.generateToken(user);
 
         assertFalse(SystemVariablesManager.JWTTokenCollection.contains(myToken));
+        assertNotEquals(myToken, token);
 
         myToken = SystemVariablesManager.JWTTokenCollection.get(0);
         assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
