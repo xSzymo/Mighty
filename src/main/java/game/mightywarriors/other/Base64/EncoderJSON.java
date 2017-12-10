@@ -13,10 +13,10 @@ public class EncoderJSON {
     }
 
     public String encode(String text) {
-        insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_FIRST_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
-        insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_SECOND_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
-        insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_THIRD_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
-        insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_FOURTH_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
+        text = insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_FIRST_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
+        text = insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_SECOND_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
+        text = insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_THIRD_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
+        text = insertCharIntoSpecificPosition(text, SystemVariablesManager.NUMBER_OF_FOURTH_CHAR_TO_DELETE, randomCodeFactory.getUniqueChar());
 
         return Base64.encodeBase64String(StringUtils.getBytesUtf8(text));
     }

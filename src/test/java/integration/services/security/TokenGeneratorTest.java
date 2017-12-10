@@ -7,6 +7,7 @@ import game.mightywarriors.services.security.TokenGenerator;
 import integration.config.IntegrationTestsConfig;
 import io.jsonwebtoken.Jwts;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,9 +17,16 @@ import static org.junit.Assert.assertNotEquals;
 
 public class TokenGeneratorTest extends IntegrationTestsConfig {
     @Autowired
-    private TokenGenerator tokenService;
+    private TokenGenerator objectUnderTest;
     @Autowired
     private UserService userService;
+    private User user;
+
+    @Before
+    public void setUp() {
+        user = new User("example", "", "");
+        userService.save(user);
+    }
 
     @After
     public void cleanUp() {
@@ -27,30 +35,30 @@ public class TokenGeneratorTest extends IntegrationTestsConfig {
 
     @Test
     public void generateToken() {
-        User user = new User("example", "", "");
-        userService.save(user);
+        String token = objectUnderTest.generateToken(user);
 
-        String token = tokenService.generateToken(user);
+        String myToken = checker(user, token);
 
-        String myToken = SystemVariablesManager.JWTTokenCollection.get(0);
-        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
-        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(userService.findOne(user).getTokenCode()));
-        assertEquals(myToken, SystemVariablesManager.DECODER_JSON.decode(Jwts.parser()
-                .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody().get("code", String.class)));
-
-        token = tokenService.generateToken(user);
+        token = objectUnderTest.generateToken(user);
 
         assertFalse(SystemVariablesManager.JWTTokenCollection.contains(myToken));
         assertNotEquals(myToken, token);
+        checker(user, token);
+    }
 
-        myToken = SystemVariablesManager.JWTTokenCollection.get(0);
-        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
-        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(userService.findOne(user).getTokenCode()));
-        assertEquals(myToken, SystemVariablesManager.DECODER_JSON.decode(Jwts.parser()
+    private String checker(User user, String token) {
+        String myToken = SystemVariablesManager.JWTTokenCollection.get(0);
+        String parsedToken = SystemVariablesManager.DECODER_JSON.decode(Jwts.parser()
                 .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
                 .parseClaimsJws(token)
-                .getBody().get("code", String.class)));
+                .getBody().get("code", String.class));
+
+        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
+        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(userService.findOne(user).getTokenCode()));
+        assertNotEquals(token, user.getTokenCode());
+        assertEquals(myToken, parsedToken);
+        assertNotEquals(token, parsedToken);
+
+        return myToken;
     }
 }
