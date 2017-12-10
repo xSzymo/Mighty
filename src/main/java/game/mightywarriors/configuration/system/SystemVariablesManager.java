@@ -28,6 +28,8 @@ public final class SystemVariablesManager {
     public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
 
+    public static final int NUMBER_ABOVE_ITEM = 5;
+
     public static final int NUMBER_OF_FIRST_CHAR_TO_DELETE = 6;
     public static final int NUMBER_OF_SECOND_CHAR_TO_DELETE = 14;
     public static final int NUMBER_OF_THIRD_CHAR_TO_DELETE = 16;

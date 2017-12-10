@@ -1,5 +1,6 @@
 package game.mightywarriors.services.background.tasks;
 
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemDrawer {
@@ -19,29 +20,44 @@ public class ItemDrawer {
     @Autowired
     private ItemService itemService;
 
+    private static Random rand;
+    private Map map;
+
+    public ItemDrawer() {
+        rand = new Random();
+    }
+
     @Transactional
     public void drawItemsForUser() {
         LinkedList<User> users = userService.findAll();
         LinkedList<Item> items = itemService.findAll();
+        map = new HashMap();
 
-        if(items.size() == 0)
+        if (items.size() == 0)
             throw new RuntimeException("restart system");
 
+        draw(users, items, false);
+
+        userService.save(users);
+    }
+
+    private LinkedList<User> draw(LinkedList<User> users, LinkedList<Item> items, boolean firstDraw) {
         users.forEach(user -> {
-            if(user.getChampions().size() == 0)
+            if (user.getChampions().size() == 0)
                 throw new RuntimeException("restart system");
 
             List<Item> oldItemsInShop = new LinkedList<>(user.getShop().getItems());
-            if(oldItemsInShop.size() == 0)
+            if (oldItemsInShop.size() == 0)
                 oldItemsInShop = new LinkedList<>();
 
-            user.getShop().getItems().clear();
-            int random = 0;
-            while (user.getShop().getItems().size() < 10) {
-                random++;
-
+            if (firstDraw)
+                user.getShop().getItems().clear();
+            List<Item> itemsForSpecificLevel = new LinkedList<>(getAllItemsForSpecificLevel(items, user.getUserChampiongHighestLevel()));
+            while (user.getShop().getItems().size() < 10 && itemsForSpecificLevel.size() > 0) {
+                Item item = null;
                 try {
-                    Item item = items.get(random);
+                    item = itemsForSpecificLevel.get(rand.nextInt(itemsForSpecificLevel.size() > 0 ? itemsForSpecificLevel.size() : 1));
+
                     if (item.getLevel() > user.getUserChampiongHighestLevel())
                         continue;
 
@@ -57,10 +73,20 @@ public class ItemDrawer {
                     user = addItemForSpecificType(oldItemsInShop, user, item, WeaponType.RING);
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    itemsForSpecificLevel.remove(item);
                 }
             }
         });
-        userService.save(users);
+
+        return users;
+    }
+
+    private List<Item> getAllItemsForSpecificLevel(LinkedList<Item> items, long level) {
+        if (map.get(level) == null)
+            map.put(level, items.stream().filter(x -> x.getLevel() <= level && x.getLevel() >= level - SystemVariablesManager.NUMBER_ABOVE_ITEM).collect(Collectors.toList()));
+
+        return (List<Item>) map.get(level);
     }
 
     private User addItemForSpecificType(List<Item> oldItemsInShop, User user, Item item, WeaponType weaponType) {
