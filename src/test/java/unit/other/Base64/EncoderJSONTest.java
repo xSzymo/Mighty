@@ -1,4 +1,4 @@
-package game.mightywarriors.other.Base64;
+package unit.other.Base64;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.other.generators.RandomCodeFactory;
