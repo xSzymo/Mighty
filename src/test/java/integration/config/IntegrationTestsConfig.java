@@ -37,7 +37,7 @@ public abstract class IntegrationTestsConfig {
     }
 
     @AfterClass
-    public static void CleanUpAfter() {
+    public static void cleanUpAfter() {
         SystemVariablesManager.JWTTokenCollection.clear();
         userService.deleteAll();
         championService.deleteAll();

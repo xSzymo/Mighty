@@ -12,12 +12,10 @@ import static junit.framework.TestCase.assertEquals;
 public class PointsForDivisionCounterTest {
 
     private PointsForDivisionCounter pointsForDivisionCounter;
-    private FighterModelCaster caster;
 
     @Before
     public void setUp() {
         pointsForDivisionCounter = new PointsForDivisionCounter();
-        caster = new FighterModelCaster();
     }
 
     @Test

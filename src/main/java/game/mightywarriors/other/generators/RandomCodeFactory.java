@@ -7,13 +7,12 @@ import java.util.Random;
 public class RandomCodeFactory {
     private static String coder() {
         String[] tab = tab();
-        String code = new String();
-        code = "";
+        StringBuilder code = new StringBuilder();
 
         for (int i = 0; i < tab.length; i++)
-            code += tab[i];
+            code.append(tab[i]);
 
-        return code;
+        return code.toString();
     }
 
     private static String[] tab() {

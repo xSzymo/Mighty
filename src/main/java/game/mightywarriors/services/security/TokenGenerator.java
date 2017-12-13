@@ -31,8 +31,10 @@ public class TokenGenerator {
 
         String code = SystemVariablesManager.ENCODER_JSON.encode(uniqueCode);
 
-        Claims claims = Jwts.claims().setExpiration(new Timestamp(System.currentTimeMillis() + SystemVariablesManager.SECONDS_FOR_TOKEN_EXPIRED * 1000))
+        Claims claims = Jwts.claims()
+                .setExpiration(new Timestamp(System.currentTimeMillis() + SystemVariablesManager.SECONDS_FOR_TOKEN_EXPIRED * 1000))
                 .setSubject(user.getLogin());
+
         claims.put("code", code);
 
         return Jwts.builder()
