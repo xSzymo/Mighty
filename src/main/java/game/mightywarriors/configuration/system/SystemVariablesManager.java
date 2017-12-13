@@ -10,6 +10,7 @@ import java.util.LinkedList;
 public final class SystemVariablesManager {
     public static final String SPECIAL_JWT_SECRET_KEY = "K00LINN3R";
     public static final String NAME_OF_JWT_HEADER_TOKEN = "authorization";
+    public static final String NAME_OF_SPECIAL_SHIT = "Bearer ";
 
     public static final String EMAIL_HOST = "smtp.gmail.com";
     public static final int EMAIL_PORT = 587;

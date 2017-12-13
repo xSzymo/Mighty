@@ -39,7 +39,7 @@ public class TokenController {
         String token = httpServletRequest.getHeader(SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN);
         Claims body = Jwts.parser()
                 .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                .parseClaimsJws(token.substring(7))
+                .parseClaimsJws(token.substring(SystemVariablesManager.NAME_OF_SPECIAL_SHIT.length()))
                 .getBody();
 
         return new JSONTokenObject(tokenGenerator.generateToken(userService.findByLogin(body.getSubject())));

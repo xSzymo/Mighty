@@ -2,6 +2,7 @@ package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.TokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
-        if (!token.contains("Bearer "))
+        if (!token.contains(SystemVariablesManager.NAME_OF_SPECIAL_SHIT))
             throw new RuntimeException("JWT Token is incorrect");
 
-        token = token.replace("Bearer ", "");
+        token = token.replace(SystemVariablesManager.NAME_OF_SPECIAL_SHIT, "");
 
         User user;
         try {
