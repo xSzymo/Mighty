@@ -1,13 +1,11 @@
 package game.mightywarriors.web.rest.authorization;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.services.security.TokenGenerator;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.json.objects.security.JSONTokenObject;
-import game.mightywarriors.services.security.TokenGenerator;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +19,8 @@ public class TokenController {
     private UserService userService;
     @Autowired
     private TokenGenerator tokenGenerator;
+    @Autowired
+    private UsersRetriever usersRetriever;
 
     @PostMapping("token")
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
@@ -36,12 +36,6 @@ public class TokenController {
 
     @PostMapping("secure/refresh")
     public JSONTokenObject refresh(HttpServletRequest httpServletRequest) throws Exception {
-        String token = httpServletRequest.getHeader(SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN);
-        Claims body = Jwts.parser()
-                .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                .parseClaimsJws(token.substring(SystemVariablesManager.NAME_OF_SPECIAL_SHIT.length()))
-                .getBody();
-
-        return new JSONTokenObject(tokenGenerator.generateToken(userService.findByLogin(body.getSubject())));
+        return new JSONTokenObject(tokenGenerator.generateToken(usersRetriever.retrieveUser(httpServletRequest)));
     }
 }
