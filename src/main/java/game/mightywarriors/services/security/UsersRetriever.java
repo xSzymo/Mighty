@@ -1,27 +1,33 @@
 package game.mightywarriors.services.security;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
+import game.mightywarriors.configuration.jwt.security.JwtAuthenticationProvider;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UsersRetriever {
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtAuthenticationProvider jwtAuthenticationProvider;
 
-    public User retrieveUser(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader(SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN);
-        Claims body = Jwts.parser()
-                .setSigningKey(SystemVariablesManager.SPECIAL_JWT_SECRET_KEY)
-                .parseClaimsJws(token.substring(SystemVariablesManager.NAME_OF_SPECIAL_SHIT.length()))
-                .getBody();
+    public User retrieveUser(String authorization) throws Exception {
+        if (authorization == null || authorization.equals(""))
+            throw new Exception("Wrong token");
 
-        return userService.findByLogin(body.getSubject());
+        UserDetails userDetails = jwtAuthenticationProvider.retrieveUser("NONE_PROVIDED", new JwtAuthenticationToken(authorization));
+        return userService.findByLogin(userDetails.getName());
+    }
+
+    public UserDetails retrieveUserDetails(String authorization) throws Exception {
+        if (authorization == null || authorization.equals(""))
+            throw new Exception("Wrong token");
+
+        UserDetails userDetails = jwtAuthenticationProvider.retrieveUser("NONE_PROVIDED", new JwtAuthenticationToken(authorization));
+        return userDetails;
     }
 }
