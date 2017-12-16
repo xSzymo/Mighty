@@ -32,10 +32,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
-        if (!token.contains(SystemVariablesManager.NAME_OF_SPECIAL_SHIT))
+        if (!token.contains(SystemVariablesManager.NAME_OF_SECRET_WORD_BEFORE_TOKEN))
             throw new RuntimeException("JWT Token is incorrect");
 
-        token = token.replace(SystemVariablesManager.NAME_OF_SPECIAL_SHIT, "");
+        token = token.replace(SystemVariablesManager.NAME_OF_SECRET_WORD_BEFORE_TOKEN, "");
 
         User user;
         try {
