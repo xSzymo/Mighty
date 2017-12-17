@@ -62,6 +62,11 @@ public class User {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
+    public User(String login) {
+        this.login = login;
+        timeStamp = new Timestamp(System.currentTimeMillis());
+    }
+
     public User(String login, String password, String eMail, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
