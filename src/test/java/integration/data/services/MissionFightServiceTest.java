@@ -1,0 +1,208 @@
+package integration.data.services;
+
+import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.services.MissionFightService;
+import game.mightywarriors.data.services.MissionService;
+import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.Mission;
+import game.mightywarriors.data.tables.MissionFight;
+import integration.config.IntegrationTestsConfig;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Timestamp;
+import java.util.LinkedList;
+
+import static org.junit.Assert.*;
+
+public class MissionFightServiceTest extends IntegrationTestsConfig {
+    @Autowired
+    private MissionFightService objectUnderTest;
+    @Autowired
+    private ChampionService championService;
+    @Autowired
+    private MissionService missionService;
+
+    private LinkedList<MissionFight> missionFights;
+    private Champion champion;
+    private Mission mission;
+
+    @Before
+    public void beforeEachTest() {
+        missionFights = new LinkedList<>();
+        champion = new Champion();
+        mission = new Mission();
+
+        setUp();
+    }
+
+    @After
+    public void afterEachTest() {
+        objectUnderTest.delete(missionFights);
+        championService.delete(champion);
+        missionService.delete(mission);
+    }
+
+    @Test
+    public void save() {
+        objectUnderTest.save(missionFights.getFirst());
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(1, counter);
+    }
+
+    @Test
+    public void saveCollection() {
+        objectUnderTest.save(missionFights);
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(3, counter);
+    }
+
+    @Test
+    public void findOne() {
+        objectUnderTest.save(missionFights.getFirst());
+
+        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
+    }
+
+    @Test
+    public void findOne1() {
+        objectUnderTest.save(missionFights.getFirst());
+
+        assertNotNull(objectUnderTest.findOne(missionFights.getFirst().getId()));
+    }
+
+    @Test
+    public void findAll() {
+        objectUnderTest.save(missionFights);
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(3, counter);
+    }
+
+    @Test
+    public void delete() {
+        objectUnderTest.save(missionFights.getFirst());
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(1, counter);
+
+        objectUnderTest.delete(missionFights.getFirst());
+
+        counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(0, counter);
+    }
+
+    @Test
+    public void delete1() {
+        objectUnderTest.save(missionFights.getFirst());
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(1, counter);
+
+        objectUnderTest.delete(missionFights.getFirst().getId());
+
+        counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(0, counter);
+    }
+
+    @Test
+    public void delete2() {
+        objectUnderTest.save(missionFights);
+
+        long counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(3, counter);
+
+        objectUnderTest.delete(missionFights);
+
+        counter = (long) objectUnderTest.findAll().size();
+
+        assertEquals(0, counter);
+    }
+
+    @Test
+    public void findOneByChampionId() {
+        MissionFight missionFight = new MissionFight();
+        champion = new Champion();
+        mission = new Mission();
+        championService.save(champion);
+        missionService.save(mission);
+
+        missionFight.setChampion(champion);
+        missionFight.setMission(mission);
+        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis()));
+        missionFights.add(missionFight);
+
+        objectUnderTest.save(missionFights);
+
+        MissionFight secondMissionFight = new MissionFight();
+        secondMissionFight.setChampion(champion);
+        secondMissionFight.setMission(mission);
+        secondMissionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 1000));
+        missionFights.add(secondMissionFight);
+
+        objectUnderTest.save(missionFights);
+
+        MissionFight found = objectUnderTest.findLatestByChampionId(champion);
+
+        assertTrue(secondMissionFight.getBlockDate().after(missionFight.getBlockDate()));
+        assertEquals(secondMissionFight.getId(), found.getId());
+    }
+
+    @Test
+    public void deleteFromChampionAndMission() {
+        MissionFight missionFight = new MissionFight();
+        champion = new Champion();
+        mission = new Mission();
+
+        championService.save(champion);
+        missionService.save(mission);
+
+        missionFight.setChampion(champion);
+        missionFight.setMission(mission);
+        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (30 * 1000)));
+        missionFights.add(missionFight);
+
+        objectUnderTest.save(missionFights);
+
+        assertNotNull(objectUnderTest.findOne(missionFight));
+        assertNotNull(championService.findOne(champion));
+        assertNotNull(missionService.findOne(mission));
+
+        objectUnderTest.delete(missionFight);
+
+        assertNull(objectUnderTest.findOne(missionFight));
+        assertNotNull(championService.findOne(champion));
+        assertNotNull(missionService.findOne(mission));
+    }
+
+    private void setUp() {
+        MissionFight missionFight;
+
+        for (int i = 0; i < 3; i++) {
+            missionFight = new MissionFight();
+            champion = new Champion();
+            mission = new Mission();
+
+            championService.save(champion);
+            missionService.save(mission);
+
+            missionFight.setChampion(champion);
+            missionFight.setMission(mission);
+            missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (30 * 1000)));
+
+            missionFights.add(missionFight);
+        }
+    }
+}

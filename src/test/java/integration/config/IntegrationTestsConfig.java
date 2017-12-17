@@ -29,6 +29,7 @@ public abstract class IntegrationTestsConfig {
     private static ShopService shopService;
     private static StatisticService statisticService;
     private static UserRoleService userRoleService;
+    private static MissionFightService missionFightService;
 
     @BeforeClass
     public static void setUpBefore() {
@@ -39,6 +40,7 @@ public abstract class IntegrationTestsConfig {
     @AfterClass
     public static void cleanUpAfter() {
         SystemVariablesManager.JWTTokenCollection.clear();
+        missionFightService.deleteAll();
         userService.deleteAll();
         championService.deleteAll();
         equipmentService.deleteAll();
@@ -52,6 +54,7 @@ public abstract class IntegrationTestsConfig {
         userRoleService.deleteAll();
 
         assertEquals(0, userService.findAll().size());
+        assertEquals(0, missionFightService.findAll().size());
         assertEquals(0, championService.findAll().size());
         assertEquals(6, divisionService.findAll().size());
         assertEquals(0, equipmentService.findAll().size());
@@ -122,5 +125,10 @@ public abstract class IntegrationTestsConfig {
     @Autowired
     public void setUserService(UserRoleService userRoleService) {
         IntegrationTestsConfig.userRoleService = userRoleService;
+    }
+
+    @Autowired
+    public void setPreparedFightService(MissionFightService missionFightService) {
+        IntegrationTestsConfig.missionFightService = missionFightService;
     }
 }
