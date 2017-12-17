@@ -26,6 +26,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     private MissionService missionService;
 
     private LinkedList<MissionFight> missionFights;
+    private LinkedList<Champion> champions;
     private Champion champion;
     private Mission mission;
 
@@ -42,6 +43,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     public void afterEachTest() {
         objectUnderTest.delete(missionFights);
         championService.delete(champion);
+        championService.delete(champions);
         missionService.delete(mission);
     }
 
@@ -134,22 +136,23 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     @Test
     public void findOneByChampionId() {
         MissionFight missionFight = new MissionFight();
-        champion = new Champion();
+        LinkedList<Champion> champions = new LinkedList<>();
+        champions.add(champion);
         mission = new Mission();
         championService.save(champion);
         missionService.save(mission);
 
-        missionFight.setChampion(champion);
+        missionFight.setChampion(champions);
         missionFight.setMission(mission);
-        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis()));
+        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 4000));
         missionFights.add(missionFight);
 
         objectUnderTest.save(missionFights);
 
         MissionFight secondMissionFight = new MissionFight();
-        secondMissionFight.setChampion(champion);
+        secondMissionFight.setChampion(champions);
         secondMissionFight.setMission(mission);
-        secondMissionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 1000));
+        secondMissionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 5000));
         missionFights.add(secondMissionFight);
 
         objectUnderTest.save(missionFights);
@@ -163,15 +166,16 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromChampionAndMission() {
         MissionFight missionFight = new MissionFight();
-        champion = new Champion();
+        champions = new LinkedList<>();
+        champions.add(champion);
         mission = new Mission();
 
         championService.save(champion);
         missionService.save(mission);
 
-        missionFight.setChampion(champion);
+        missionFight.setChampion(champions);
         missionFight.setMission(mission);
-        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (30 * 1000)));
+        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (1 * 1000)));
         missionFights.add(missionFight);
 
         objectUnderTest.save(missionFights);
@@ -192,15 +196,16 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
 
         for (int i = 0; i < 3; i++) {
             missionFight = new MissionFight();
-            champion = new Champion();
+            champions = new LinkedList<>();
+            champions.add(champion);
             mission = new Mission();
 
             championService.save(champion);
             missionService.save(mission);
 
-            missionFight.setChampion(champion);
+            missionFight.setChampion(champions);
             missionFight.setMission(mission);
-            missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (30 * 1000)));
+            missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (i * 1000)));
 
             missionFights.add(missionFight);
         }

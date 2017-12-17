@@ -54,7 +54,7 @@ public class MissionFightService {
 
     public MissionFight findLatestByChampionId(Champion champion) {
         try {
-            LinkedList<MissionFight> missionFights = repository.findByChampion(champion);
+            LinkedList<MissionFight> missionFights = repository.findByChampionId(champion.getId());
             MissionFight missionFight = missionFights.getFirst();
 
             for (MissionFight fight : missionFights)
@@ -62,7 +62,22 @@ public class MissionFightService {
                     missionFight = fight;
 
             return missionFight;
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public MissionFight findLatestByChampionId(long id) {
+        try {
+            LinkedList<MissionFight> missionFights = repository.findByChampionId(id);
+            MissionFight missionFight = missionFights.getFirst();
+
+            for (MissionFight fight : missionFights)
+                if (missionFight.getBlockDate().before(fight.getBlockDate()))
+                    missionFight = fight;
+
+            return missionFight;
+        } catch (Exception e) {
             return null;
         }
     }

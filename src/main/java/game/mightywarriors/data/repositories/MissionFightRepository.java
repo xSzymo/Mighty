@@ -13,7 +13,7 @@ public interface MissionFightRepository extends CrudRepository<MissionFight, Lon
 
     MissionFight findById(long id);
 
-    LinkedList<MissionFight> findByChampion(Champion champion);
+    LinkedList<MissionFight> findByChampionId(long id);
 
     void deleteById(long id);
 }
