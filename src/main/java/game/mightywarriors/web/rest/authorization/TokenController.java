@@ -1,17 +1,17 @@
 package game.mightywarriors.web.rest.authorization;
 
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.services.security.TokenGenerator;
+import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.json.objects.security.JSONTokenObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class TokenController {
@@ -35,7 +35,7 @@ public class TokenController {
     }
 
     @PostMapping("secure/refresh")
-    public JSONTokenObject refresh(HttpServletRequest httpServletRequest) throws Exception {
-        return new JSONTokenObject(tokenGenerator.generateToken(usersRetriever.retrieveUser(httpServletRequest)));
+    public JSONTokenObject refresh(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+        return new JSONTokenObject(tokenGenerator.generateToken(usersRetriever.retrieveUser(authorization)));
     }
 }
