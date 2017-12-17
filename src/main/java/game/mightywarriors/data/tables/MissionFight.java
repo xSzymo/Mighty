@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 
 @Entity
 @Table(name = "mission_fight")
@@ -13,13 +14,14 @@ public class MissionFight {
 
     @Column(name = "block_time")
     private Timestamp blockTime;
+    @Column(name = "complete")
+    private boolean complete;
 
     @OneToOne
     private Mission mission;
 
     @OneToOne
-    private Champion champion;
-
+    private LinkedList<Champion> champion;
 
     public Long getId() {
         return id;
@@ -33,11 +35,11 @@ public class MissionFight {
         this.mission = mission;
     }
 
-    public Champion getChampion() {
+    public LinkedList<Champion> getChampion() {
         return champion;
     }
 
-    public void setChampion(Champion champion) {
+    public void setChampion(LinkedList<Champion> champion) {
         this.champion = champion;
     }
 
@@ -47,5 +49,13 @@ public class MissionFight {
 
     public void setBlockTime(Timestamp blockTime) {
         this.blockTime = blockTime;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }
