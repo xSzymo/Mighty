@@ -16,6 +16,8 @@ public class Mission {
     private long experience = 1;
     @Column(name = "description")
     private String description;
+    @Column(name = "time_duration")
+    private long timeDuration;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
@@ -67,5 +69,14 @@ public class Mission {
 
     public void setMonster(Monster monster) {
         this.monster = monster;
+    }
+
+    public long getTimeDuration() {
+        return timeDuration;
+    }
+
+    public Mission setTimeDuration(long timeDuration) {
+        this.timeDuration = timeDuration;
+        return this;
     }
 }

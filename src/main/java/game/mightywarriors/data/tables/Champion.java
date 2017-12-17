@@ -3,6 +3,7 @@ package game.mightywarriors.data.tables;
 import game.mightywarriors.data.interfaces.IFighter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "champions")
@@ -17,6 +18,8 @@ public class Champion implements IFighter {
     private long experience = 1;
     @Column(name = "level")
     private long level = 1;
+    @Column(name = "block_date")
+    private Timestamp blockDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Statistic statistic;
@@ -99,5 +102,13 @@ public class Champion implements IFighter {
     public Champion setImage(Image image) {
         this.image = image;
         return this;
+    }
+
+    public Timestamp getBlockDate() {
+        return blockDate;
+    }
+
+    public void setBlockTime(Timestamp blockDate) {
+        this.blockDate = blockDate;
     }
 }
