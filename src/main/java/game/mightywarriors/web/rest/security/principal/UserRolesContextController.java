@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest.userSide;
+package game.mightywarriors.web.rest.security.principal;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.services.security.UsersRetriever;
