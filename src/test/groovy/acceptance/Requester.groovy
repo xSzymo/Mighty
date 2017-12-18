@@ -21,4 +21,16 @@ class Requester {
 
         return post
     }
+
+    def static request(address, token, method, json) {
+        def post = new URL(address).openConnection()
+        post.setDoOutput(true)
+        post.setRequestMethod(method)
+        post.setRequestProperty("authorization", "Bearer " + token)
+        post.setRequestProperty("Content-Type", "application/json")
+        post.outputStream.write json.getBytes("UTF-8")
+        post.getResponseCode()
+
+        return post
+    }
 }
