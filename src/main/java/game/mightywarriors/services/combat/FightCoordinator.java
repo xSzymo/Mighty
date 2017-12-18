@@ -27,20 +27,23 @@ public class FightCoordinator {
         return fightPerformer.fightBetweenUsers(user, monsters);
     }
 
-    public FightResult fight(User user, Monster monster, long championId) throws Exception {
+    public FightResult fight(User user1, Monster monster, long championId) throws Exception {
+        User user = new User(user1);
         long[] championsId = {championId};
 
         return fight(user, monster, championsId);
     }
 
-    public FightResult fight(User user, User opponent, long championId, long opponentId) throws Exception {
+    public FightResult fight(User user1, User opponent, long championId, long opponentId) throws Exception {
+        User user = new User(user1);
         long[] championsId = {championId};
         long[] opponentsId = {opponentId};
 
         return fight(user, opponent, championsId, opponentsId);
     }
 
-    public FightResult fight(User user, Monster monster, long[] championsId) throws Exception {
+    public FightResult fight(User user1, Monster monster, long[] championsId) throws Exception {
+        User user = new User(user1);
         LinkedList<Champion> champions = new LinkedList<>();
 
         for (Champion champion : user.getChampions())
@@ -56,7 +59,8 @@ public class FightCoordinator {
         return fight(user, monster);
     }
 
-    public FightResult fight(User user, User opponent, long[] championsId, long[] opponentsId) throws Exception {
+    public FightResult fight(User user1, User opponent, long[] championsId, long[] opponentsId) throws Exception {
+        User user = new User(user1);
         LinkedList<Champion> champions = new LinkedList<>();
 
         for (Champion champion : user.getChampions())
