@@ -39,7 +39,7 @@ public class MissionChampionSender {
             throw new BusyChampionException("Someone is already busy");
 
         FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), missionFightInformer.championId);
-        senderManager.getThingsDoneAtTheEndOfFight(user, missionFight, champions, fight.getWinner().getLogin().equals(user.getLogin()));
+        senderManager.getThingsDoneAfterFight(user, missionFight, champions, fight.getWinner().getLogin().equals(user.getLogin()));
 
         return fight;
     }

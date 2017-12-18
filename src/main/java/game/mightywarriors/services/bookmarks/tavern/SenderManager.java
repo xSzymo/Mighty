@@ -40,7 +40,7 @@ public class SenderManager {
         return missionFight;
     }
 
-    public void getThingsDoneAtTheEndOfFight(User user, MissionFight missionFight, List<Champion> champions, boolean wonFight) {
+    public void getThingsDoneAfterFight(User user, MissionFight missionFight, List<Champion> champions, boolean wonFight) {
         if (wonFight) {
             long exp = missionFight.getMission().getExperience() / champions.size();
             champions.forEach(x -> x.addExperience(exp));
