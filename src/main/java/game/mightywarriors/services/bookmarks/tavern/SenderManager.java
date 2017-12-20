@@ -7,9 +7,11 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,11 +42,17 @@ public class SenderManager {
         return missionFight;
     }
 
-    public void getThingsDoneAfterFight(User user, MissionFight missionFight, List<Champion> champions, boolean wonFight) {
+    public void getThingsDoneAfterFight(User user, MissionFight missionFight, List<Champion> champions, FightResult fight, boolean wonFight) {
         if (wonFight) {
-            long exp = missionFight.getMission().getExperience() / champions.size();
+            long missionExperience = missionFight.getMission().getExperience();
+            BigDecimal missionGold = missionFight.getMission().getGold();
+
+            long exp = missionExperience / champions.size();
             champions.forEach(x -> x.addExperience(exp));
-            user.addGold(missionFight.getMission().getGold());
+            user.addGold(missionGold);
+
+            fight.setExperience(missionExperience);
+            fight.setGold(missionGold);
         }
 
         champions.forEach(x -> x.setBlockTime(null));
