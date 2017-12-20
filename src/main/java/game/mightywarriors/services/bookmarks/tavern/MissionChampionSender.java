@@ -32,13 +32,13 @@ public class MissionChampionSender {
     public FightResult performFight(String authorization, MissionFightInformer missionFightInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight missionFight = missionFightService.findOne(missionFightInformer.missionFightId);
+        MissionFight missionFight = missionFightService.findOne(missionFightInformer.id);
 
         List<Champion> champions = missionFight.getChampion();
         if (helper.isChampionOnMission(new LinkedList<>(champions), false))
             throw new BusyChampionException("Someone is already busy");
 
-        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), missionFightInformer.championId);
+        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), getChampionsId(missionFight.getChampion()));
         senderManager.getThingsDoneAfterFight(user, missionFight, champions, fight.getWinner().getLogin().equals(user.getLogin()));
 
         return fight;
@@ -54,5 +54,13 @@ public class MissionChampionSender {
             throw new BusyChampionException("Someone is already busy");
 
         return senderManager.prepareNewMissionFight(champions, mission);
+    }
+
+    private long[] getChampionsId(List<Champion> champions) {
+        long[] ids = new long[champions.size()];
+        for(int i = 0; i < champions.size(); i++)
+            ids[i] = champions.get(0).getId();
+
+        return ids;
     }
 }
