@@ -28,19 +28,29 @@ public class UserService {
     private InventoryService inventoryService;
 
     public void save(User user) {
-        if (user != null)
-            saveOperation(user);
+        if (user != null) {
+            try {
+                saveOperation(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void save(LinkedList<User> users) {
         users.forEach(
                 x -> {
-                    if (x != null)
-                        saveOperation(x);
+                    if (x != null) {
+                        try {
+                            saveOperation(x);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 });
     }
 
-    private void saveOperation(User user) {
+    private void saveOperation(User user) throws Exception {
         if (user.getMissions() != null)
             missionService.save(user.getMissions());
 
@@ -73,13 +83,32 @@ public class UserService {
                 e.printStackTrace();
             }
 
-        if (user.getTokenCode() != null) {
+        if (user.isNewToken()) {
             String token = user.getTokenCode();
-            String tokenAfterEncode = SystemVariablesManager.ENCODER_DB.encode(user.getTokenCode());
-            if (token.equals(SystemVariablesManager.DECO4DER_DB.decode(tokenAfterEncode)))
-                user.setTokenCode(tokenAfterEncode);
-        }
+            String tokenAfterEncode = SystemVariablesManager.ENCODER_DB.encode(token);
 
+            user.setTokenCode(tokenAfterEncode);
+
+        } else if (user.getTokenCode() != null) {
+            User found = findByLogin(user.getLogin());
+            if (found != null) {
+                String foundUserToken = SystemVariablesManager.DECO4DER_DB.decode(found.getTokenCode());
+                String token = user.getTokenCode();
+                String tokenAfterDBEncode = SystemVariablesManager.DECO4DER_DB.decode(token);
+                String tokenAfterJSONEncode = SystemVariablesManager.DECODER_JSON.decode(token);
+                if (!token.equals(foundUserToken)) {
+                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
+                } else if (!tokenAfterDBEncode.equals(foundUserToken)) {
+                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
+                } else if (!tokenAfterJSONEncode.equals(foundUserToken)) {
+                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
+                } else
+                    throw new Exception("oh no");
+            }
+        } else {
+            System.out.println("BE CAREFUL EMPTY TOKEN");
+            user.setTokenCode(null);
+        }
         repository.save(user);
     }
 

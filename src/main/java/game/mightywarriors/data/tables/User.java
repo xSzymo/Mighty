@@ -58,6 +58,10 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Champion> champions = new ChampionCollection();
 
+    @JsonIgnore
+    @Transient
+    private boolean newToken;
+
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
@@ -99,11 +103,15 @@ public class User {
         this.eMail = user.eMail;
         this.shop = user.shop;
         this.image = user.image;
+        this.tokenCode = user.tokenCode;
+        this.gold = user.gold;
         this.champions = user.champions;
         this.missions = user.missions;
         this.userRole = user.userRole;
         this.timeStamp = user.timeStamp;
         this.tokenCode = user.tokenCode;
+        this.inventory = user.inventory;
+        this.newToken = user.newToken;
     }
 
     public void setUser(User user) {
@@ -111,9 +119,15 @@ public class User {
         this.eMail = user.eMail;
         this.shop = user.shop;
         this.image = user.image;
+        this.tokenCode = user.tokenCode;
+        this.gold = user.gold;
         this.champions = user.champions;
+        this.missions = user.missions;
         this.userRole = user.userRole;
         this.timeStamp = user.timeStamp;
+        this.tokenCode = user.tokenCode;
+        this.inventory = user.inventory;
+        this.newToken = user.newToken;
     }
 
     public Long getId() {
@@ -200,7 +214,7 @@ public class User {
     }
 
     public User addGold(BigDecimal gold) {
-        this.gold.add(gold);
+        this.gold = this.gold.add(gold);
         return this;
     }
 
@@ -246,6 +260,15 @@ public class User {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
+
+    public boolean isNewToken() {
+        return newToken;
+    }
+
+    public void setNewToken(boolean newToken) {
+        this.newToken = newToken;
+    }
+
 
     private class MissionCollection extends LinkedList<Mission> {
         @Override
