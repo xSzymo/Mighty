@@ -1,7 +1,7 @@
 package game.mightywarriors.other.comparators;
 
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.league.PointsForDivisionCounter;
+import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
 
 import java.util.Comparator;
 

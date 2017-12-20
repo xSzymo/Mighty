@@ -1,4 +1,4 @@
-package game.mightywarriors.services.league;
+package game.mightywarriors.services.bookmarks.league;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.interfaces.IFighter;

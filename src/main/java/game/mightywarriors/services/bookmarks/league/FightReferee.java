@@ -1,4 +1,4 @@
-package game.mightywarriors.services.league;
+package game.mightywarriors.services.bookmarks.league;
 
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;

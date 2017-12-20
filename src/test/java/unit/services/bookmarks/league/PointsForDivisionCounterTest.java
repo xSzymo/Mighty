@@ -1,16 +1,21 @@
-package unit.services.league;
+package unit.services.bookmarks.league;
 
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.services.league.FightReferee;
+import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 
-public class FightRefereeTest {
+public class PointsForDivisionCounterTest {
 
-    private FightReferee fightReferee = new FightReferee();
+    private PointsForDivisionCounter pointsForDivisionCounter;
+
+    @Before
+    public void setUp() {
+        pointsForDivisionCounter = new PointsForDivisionCounter();
+    }
 
     @Test
     public void checkIsUserStrongerThanMonster() throws Exception {
@@ -30,10 +35,7 @@ public class FightRefereeTest {
 
         user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
 
-        Monster monster = new Monster(new Statistic(25, 10, 20, 5, 15, 15));
-        monster.setLevel(5);
-
-        assertTrue(fightReferee.checkIsUserStrongerThanMonster(user, monster));
+        assertEquals(47.4, pointsForDivisionCounter.getPointsOfFighterPower(user));
     }
 
     @Test
@@ -54,37 +56,6 @@ public class FightRefereeTest {
 
         user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
 
-
-        User user1 = new User("admin", "admin", "admin");
-
-        equipment = new Equipment();
-        equipment.setWeapon(new Item(WeaponType.WEAPON, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setArmor(new Item(WeaponType.ARMOR, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setRing(new Item(WeaponType.RING, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setOffhand(new Item(WeaponType.OFFHAND, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setNecklace(new Item(WeaponType.NECKLACE, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setLegs(new Item(WeaponType.LEGS, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setHelmet(new Item(WeaponType.HELMET, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setGloves(new Item(WeaponType.GLOVES, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(2, 5, 7, 9, 10, 12), 1));
-        equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(2, 5, 7, 9, 10, 12), 1));
-
-        user1.getChampions().add(new Champion(new Statistic(1, 2, 3, 5, 5, 7), equipment));
-
-
-        assertEquals(user, fightReferee.checkWhoIsStronger(user, user1));
-    }
-
-
-    @Test
-    public void checkUsersWithSameStrength() {
-        User user = new User("admin", "admin", "admin");
-        user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), new Equipment()));
-
-        User user1 = new User("admin", "admin", "admin");
-        user1.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), new Equipment()));
-
-
-        assertEquals(null, fightReferee.checkWhoIsStronger(user, user1));
+        assertEquals(47.4, pointsForDivisionCounter.getPointsOfFighterPower(user.getChampions().get(0)));
     }
 }
