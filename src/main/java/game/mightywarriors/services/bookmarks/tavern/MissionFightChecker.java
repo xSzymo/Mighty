@@ -28,7 +28,7 @@ public class MissionFightChecker {
     public long checkLeftTimeForMissionFight(String authorization, MissionFightInformer missionFightInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight one = missionFightService.findOne(missionFightInformer.missionFightId);
+        MissionFight one = missionFightService.findOne(missionFightInformer.id);
 
         if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
             throw new Exception("Something went wrong");

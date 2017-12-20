@@ -96,7 +96,7 @@ public class FightCoordinatorSpecificChampionTest {
         }
 
         assertNull(fightResult.getWinner());
-        assertEquals(user1, fightResult.getLooser());
+        assertEquals(user1.getLogin(), fightResult.getLooser().getLogin());
     }
 
     private User setUpUser1() throws Exception {

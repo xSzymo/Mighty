@@ -141,8 +141,8 @@ public class FightCoordinatorUserMultipleSpecifyChampionsTest {
         }
 
         assertEquals(7, fightResult.getRounds().size());
-        assertEquals(user1, fightResult.getLooser());
-        assertEquals(user2, fightResult.getWinner());
+        assertEquals(user1.getLogin(), fightResult.getLooser().getLogin());
+        assertEquals(user2.getLogin(), fightResult.getWinner().getLogin());
     }
 
     private User setUpUser1() throws Exception {

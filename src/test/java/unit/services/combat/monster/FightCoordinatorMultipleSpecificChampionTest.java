@@ -74,7 +74,7 @@ public class FightCoordinatorMultipleSpecificChampionTest {
         }
         assertEquals(2, fightResult.getRounds().get(0).getUserChampions().size());
         assertEquals(1, fightResult.getRounds().get(0).getOpponentChampions().size());
-        assertEquals(user1, fightResult.getWinner());
+        assertEquals(user1.getLogin(), fightResult.getWinner().getLogin());
     }
 
     private User setUpUser1() throws Exception {
