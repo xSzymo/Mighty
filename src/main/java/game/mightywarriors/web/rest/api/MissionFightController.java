@@ -24,12 +24,12 @@ public class MissionFightController {
     @Autowired
     private UsersRetriever retriever;
 
-    @GetMapping("missionFight")
+    @GetMapping("missionFights")
     public LinkedList<MissionFight> getChampions() {
         return service.findAll();
     }
 
-    @GetMapping("missionFight/{id}")
+    @GetMapping("missionFights/{id}")
     public MissionFight getChampion(@PathVariable("id") String id) {
         return service.findOne(Long.parseLong(id));
     }
