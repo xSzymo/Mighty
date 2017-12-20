@@ -7,7 +7,8 @@ class Requester {
         post.setDoOutput(true)
         post.setRequestProperty("Content-Type", "application/json")
         post.outputStream.write message.getBytes("UTF-8")
-        post.getResponseCode()
+        if(post.getResponseCode() != 200)
+            println "RESPONSE RETURNED EXCEPTION"
 
         return post
     }
@@ -17,7 +18,8 @@ class Requester {
         post.setDoOutput(true)
         post.setRequestMethod(method)
         post.setRequestProperty("authorization", "Bearer " + token)
-        post.getResponseCode()
+        if(post.getResponseCode() != 200)
+            println "RESPONSE RETURNED EXCEPTION"
 
         return post
     }
@@ -29,7 +31,8 @@ class Requester {
         post.setRequestProperty("authorization", "Bearer " + token)
         post.setRequestProperty("Content-Type", "application/json")
         post.outputStream.write json.getBytes("UTF-8")
-        post.getResponseCode()
+        if(post.getResponseCode() != 200)
+            println "RESPONSE RETURNED EXCEPTION"
 
         return post
     }
