@@ -5,8 +5,9 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.League;
-import game.mightywarriors.services.background.tasks.DivisionAssinger;
+import game.mightywarriors.services.background.tasks.DivisionAssigner;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
+import game.mightywarriors.services.background.tasks.MissionPointsRefresher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +26,9 @@ public class SystemConfiger {
     @Autowired
     private DivisionService divisionService;
     @Autowired
-    private DivisionAssinger divisionAssinger;
+    private DivisionAssigner divisionAssigner;
+    @Autowired
+    private MissionPointsRefresher missionPointsRefresher;
 
     @PostConstruct
     public void configSystemAtStartApp() {
@@ -33,12 +36,18 @@ public class SystemConfiger {
         addAllTokensFromDataBaseToCollectionInSystemVariableManager();
 
         updateDivisionForUsers();
+        refreshMissionPoints();
         drawingItemsForUserEveryDay();
     }
 
     private void updateDivisionForUsers() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> divisionAssinger.assignUsersDivisions(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS, TimeUnit.HOURS);
+        exec.scheduleAtFixedRate(() -> divisionAssigner.assignUsersDivisions(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS, TimeUnit.HOURS);
+    }
+
+    private void refreshMissionPoints() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> missionPointsRefresher.refreshMissionPointsForAllMission(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS, TimeUnit.HOURS);
     }
 
     private void drawingItemsForUserEveryDay() {
