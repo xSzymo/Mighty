@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 import java.util.LinkedList;
 
 @Service
-public class DivisionAssinger {
+public class DivisionAssigner {
     private final PointsForDivisionCounter pointsForDivisionCounter = new PointsForDivisionCounter();
     @Autowired
     private DivisionService divisionService;

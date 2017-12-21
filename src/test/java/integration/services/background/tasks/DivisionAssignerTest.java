@@ -6,7 +6,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.League;
 import game.mightywarriors.other.enums.WeaponType;
-import game.mightywarriors.services.background.tasks.DivisionAssinger;
+import game.mightywarriors.services.background.tasks.DivisionAssigner;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +16,9 @@ import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
-public class DivisionAssingerTest extends IntegrationTestsConfig {
+public class DivisionAssignerTest extends IntegrationTestsConfig {
     @Autowired
-    private DivisionAssinger divisionAssinger;
+    private DivisionAssigner divisionAssigner;
     @Autowired
     private UserService userService;
     @Autowired
@@ -37,7 +37,7 @@ public class DivisionAssingerTest extends IntegrationTestsConfig {
     @Test
     @Transactional
     public void assignUsersDivisions() {
-        divisionAssinger.assignUsersDivisions();
+        divisionAssigner.assignUsersDivisions();
 
         assertEquals(2, divisionService.findByLeague(League.CHALLENGER).getUsers().size());
         assertEquals(5, divisionService.findByLeague(League.DIAMOND).getUsers().size());
