@@ -165,7 +165,7 @@ public class UserService {
     }
 
     private void deleteOperation(User user) {
-        if (user.getId() == null || findOne(user.getId()) == null)
+        if (user.getId() == 0 || findOne(user.getId()) == null)
             return;
 
         user.getMissions().clear();
