@@ -36,12 +36,13 @@ public class ItemDrawer {
         if (items.size() == 0)
             throw new RuntimeException("restart system");
 
+        draw(users, items, true);
         draw(users, items, false);
 
         userService.save(users);
     }
 
-    private LinkedList<User> draw(LinkedList<User> users, LinkedList<Item> items, boolean firstDraw) {
+    private LinkedList<User> draw(LinkedList<User> users, LinkedList<Item> items, boolean clear) {
         users.forEach(user -> {
             if (user.getChampions().size() == 0)
                 throw new RuntimeException("restart system");
@@ -50,8 +51,9 @@ public class ItemDrawer {
             if (oldItemsInShop.size() == 0)
                 oldItemsInShop = new LinkedList<>();
 
-            if (firstDraw)
+            if (clear)
                 user.getShop().getItems().clear();
+
             List<Item> itemsForSpecificLevel = new LinkedList<>(getAllItemsForSpecificLevel(items, user.getUserChampiongHighestLevel()));
             while (user.getShop().getItems().size() < 10 && itemsForSpecificLevel.size() > 0) {
                 Item item = null;
@@ -101,5 +103,4 @@ public class ItemDrawer {
                         user.getShop().addItem(item);
         return user;
     }
-
 }
