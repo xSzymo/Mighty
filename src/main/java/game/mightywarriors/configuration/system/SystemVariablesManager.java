@@ -1,9 +1,9 @@
 package game.mightywarriors.configuration.system;
 
-import game.mightywarriors.other.Base64.DecoderDB;
-import game.mightywarriors.other.Base64.DecoderJSON;
-import game.mightywarriors.other.Base64.EncoderDB;
-import game.mightywarriors.other.Base64.EncoderJSON;
+import game.mightywarriors.other.base64.DecoderDB;
+import game.mightywarriors.other.base64.DecoderJSON;
+import game.mightywarriors.other.base64.EncoderDB;
+import game.mightywarriors.other.base64.EncoderJSON;
 
 import java.util.LinkedList;
 

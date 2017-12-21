@@ -1,4 +1,4 @@
-package game.mightywarriors.other.Base64;
+package game.mightywarriors.other.base64;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import org.apache.tomcat.util.codec.binary.Base64;
