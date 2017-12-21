@@ -9,7 +9,7 @@ import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.json.objects.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +46,9 @@ public class MissionChampionSender {
 
     public MissionFight sendChampionOnMission(String authorization, MissionFightInformer missionFightInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
+
+        if(user.getMissionPoints() < 1)
+            throw new Exception("Mission points already used");
 
         LinkedList<Champion> champions = helper.getChampions(user, missionFightInformer.championId);
         Mission mission = helper.getMission(user, missionFightInformer.missionId);

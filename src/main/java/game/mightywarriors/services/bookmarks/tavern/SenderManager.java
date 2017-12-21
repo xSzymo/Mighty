@@ -7,6 +7,7 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.background.tasks.MissionAssigner;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class SenderManager {
     private ChampionService championService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MissionAssigner missionAssigner;
 
     protected static final int ONE_SECOND = 1000;
 
@@ -55,9 +58,13 @@ public class SenderManager {
             fight.setGold(missionGold);
         }
 
+        user.setMissionPoints(user.getMissionPoints() - 1);
         champions.forEach(x -> x.setBlockTime(null));
+
         missionFightService.delete(missionFight);
         championService.save(new LinkedList<>(champions));
         userService.save(user);
+
+        missionAssigner.assignNewMissionForUsers(user.getId());
     }
 }
