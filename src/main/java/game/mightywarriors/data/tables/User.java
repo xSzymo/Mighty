@@ -18,7 +18,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
+
+    @JsonIgnore
+    @Transient
+    private boolean newToken;
 
     @Column(name = "login", unique = true)
     private String login;
@@ -28,22 +32,27 @@ public class User {
     @Column(name = "token_code", unique = true)
     @JsonIgnore
     private String tokenCode;
-
-    @Column(name = "e_mail")
-    private String eMail;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
+    @Column(name = "e_mail")
+    private String eMail;
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
+    @Column(name = "ranking")
+    private long ranking;
+    @Column(name = "arena_points")
+    private int arenaPoints;
+    @Column(name = "mission_points")
+    private int missionPoints;
+
+    @OneToOne
+    private Image image;
 
     @OneToOne(cascade = CascadeType.REMOVE)
     private Shop shop;
 
     @OneToOne(cascade = CascadeType.REMOVE)
     private Inventory inventory;
-
-    @OneToOne
-    private Image image;
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -58,9 +67,6 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Champion> champions = new ChampionCollection();
 
-    @JsonIgnore
-    @Transient
-    private boolean newToken;
 
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
@@ -112,6 +118,9 @@ public class User {
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
         this.newToken = user.newToken;
+        this.ranking = user.ranking;
+        this.missionPoints = user.missionPoints;
+        this.arenaPoints = user.arenaPoints;
     }
 
     public void setUser(User user) {
@@ -128,9 +137,11 @@ public class User {
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
         this.newToken = user.newToken;
+        this.ranking = user.ranking;
+        this.missionPoints = user.missionPoints;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -267,6 +278,30 @@ public class User {
 
     public void setNewToken(boolean newToken) {
         this.newToken = newToken;
+    }
+
+    public long getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(long ranking) {
+        this.ranking = ranking;
+    }
+
+    public int getArenaPoints() {
+        return arenaPoints;
+    }
+
+    public void setArenaPoints(int arenaPoints) {
+        this.arenaPoints = arenaPoints;
+    }
+
+    public int getMissionPoints() {
+        return missionPoints;
+    }
+
+    public void setMissionPoints(int missionPoints) {
+        this.missionPoints = missionPoints;
     }
 
 
