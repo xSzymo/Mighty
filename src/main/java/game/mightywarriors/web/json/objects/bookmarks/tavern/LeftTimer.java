@@ -1,4 +1,4 @@
-package game.mightywarriors.web.json.objects.tavern;
+package game.mightywarriors.web.json.objects.bookmarks.tavern;
 
 public class LeftTimer {
     public long leftTime;

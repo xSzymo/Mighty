@@ -4,7 +4,7 @@ import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

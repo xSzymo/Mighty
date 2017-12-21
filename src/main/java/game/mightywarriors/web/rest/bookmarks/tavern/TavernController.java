@@ -5,7 +5,7 @@ import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.services.bookmarks.tavern.MissionChampionSender;
 import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;
 import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.json.objects.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
