@@ -38,8 +38,6 @@ public class User {
     private String eMail;
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
-    @Column(name = "ranking")
-    private long ranking;
     @Column(name = "arena_points")
     private int arenaPoints;
     @Column(name = "mission_points")
@@ -118,7 +116,6 @@ public class User {
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
         this.newToken = user.newToken;
-        this.ranking = user.ranking;
         this.missionPoints = user.missionPoints;
         this.arenaPoints = user.arenaPoints;
     }
@@ -137,7 +134,6 @@ public class User {
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
         this.newToken = user.newToken;
-        this.ranking = user.ranking;
         this.missionPoints = user.missionPoints;
     }
 
@@ -280,14 +276,6 @@ public class User {
         this.newToken = newToken;
     }
 
-    public long getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(long ranking) {
-        this.ranking = ranking;
-    }
-
     public int getArenaPoints() {
         return arenaPoints;
     }
@@ -303,7 +291,6 @@ public class User {
     public void setMissionPoints(int missionPoints) {
         this.missionPoints = missionPoints;
     }
-
 
     private class MissionCollection extends LinkedList<Mission> {
         @Override
