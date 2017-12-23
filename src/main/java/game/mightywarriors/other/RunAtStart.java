@@ -122,6 +122,7 @@ public class RunAtStart {
             user.getMissions().add(missions.get(b++));
             user.getMissions().add(missions.get(b++));
             user.setMissionPoints(5);
+            user.setArenaPoints(2);
 
             users.add(user);
         }
