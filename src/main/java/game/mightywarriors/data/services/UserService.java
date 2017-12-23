@@ -3,6 +3,7 @@ package game.mightywarriors.data.services;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.Ranking;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class UserService {
     private ChampionService championService;
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private RankingService rankingService;
 
     public void save(User user) {
         if (user != null) {
@@ -109,6 +112,12 @@ public class UserService {
             System.out.println("BE CAREFUL EMPTY TOKEN");
             user.setTokenCode(null);
         }
+
+        if (findByLogin(user.getLogin()) == null) {
+            Ranking ranking = new Ranking(user.getLogin());
+            rankingService.save(ranking);
+        }
+
         repository.save(user);
     }
 
@@ -174,6 +183,7 @@ public class UserService {
 //            shopService.delete(user.getShop());
 //        if (user.getInventory() != null)
 //            inventoryService.delete(user.getInventory());
+        rankingService.delete(user.getLogin());
         repository.deleteById(user.getId());
     }
 }
