@@ -31,12 +31,6 @@ public class TavernController {
         return missionChampionSender.sendChampionOnMission(authorization, missionFightInformer);
     }
 
-    @PostMapping("secure/tavern/check/champion")
-    public long checkChampionBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer missionFightInformer) throws Exception {
-
-        return missionFightChecker.checkBiggestLeftTimeForChampions(authorization, missionFightInformer);
-    }
-
     @PostMapping("secure/tavern/check/mission")
     public long checkMissionFightBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer missionFightInformer) throws Exception {
 
