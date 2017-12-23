@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,8 +43,9 @@ public class Helper {
 
         long time = 0;
         for (Champion champion : collect) {
-            if (champion.getBlockDate().getTime() > time)
-                time = champion.getBlockDate().getTime();
+            if (champion.getBlockDate() != null)
+                if (champion.getBlockDate().getTime() > time)
+                    time = champion.getBlockDate().getTime();
         }
 
         return (time - new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND;
@@ -61,5 +63,13 @@ public class Helper {
 
     public Mission getMission(User user, long missionId) {
         return user.getMissions().stream().filter(x -> x.getId().equals(missionId)).findFirst().get();
+    }
+
+    public long[] getChampionsId(List<Champion> champions) {
+        long[] ids = new long[champions.size()];
+        for (int i = 0; i < champions.size(); i++)
+            ids[i] = champions.get(0).getId();
+
+        return ids;
     }
 }
