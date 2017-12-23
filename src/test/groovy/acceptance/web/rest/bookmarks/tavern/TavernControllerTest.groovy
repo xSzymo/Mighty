@@ -12,7 +12,7 @@ class TavernControllerTest extends GroovyTestCase {
     private String baseURL = "http://localhost:8080"
     private String tokenURL = baseURL + "/token"
     private String sendURL = baseURL + "/secure/tavern/send"
-    private String checkChampionURL = baseURL + "/secure/tavern/check/champion"
+    private String checkChampionURL = baseURL + "/secure/check/champion"
     private String getMissionFightsURL = baseURL + "/secure/getMissionFights"
     private String fightURL = baseURL + "/secure/tavern/fight"
     private String currentUserURL = baseURL + "/secure/getCurrentUser"
@@ -49,13 +49,15 @@ class TavernControllerTest extends GroovyTestCase {
         def usersMissionFight = getMissionFights()
         def checkLeftTimeResponseFirst = checkChampion(myJson)
 
-        sleep((Integer.parseInt(checkLeftTimeResponseFirst) * ONE_SECOND) + ONE_SECOND)
+        if(parser(checkLeftTimeResponseFirst).leftTime > 0)
+        sleep(parser(checkLeftTimeResponseFirst).leftTime * ONE_SECOND + ONE_SECOND)
+
         def checkLeftTimeResponseSecond = checkChampion(myJson)
 
         myJson = 'set up json to fight requesst'(sendChampionResponse)
         String fightJSON = fight(myJson).getInputStream().getText()
 
-        assertTrue(Integer.parseInt(checkLeftTimeResponseSecond) <= 0)
+        assertTrue(parser(checkLeftTimeResponseSecond).leftTime <= 0)
         assertEquals(parser(usersMissionFight).champion[0].size(), howManyChampions)
         assertEquals(parser(usersMissionFight).id[0], parser(sendChampionResponse).id)
         for (def x : parser(sendChampionResponse).champion)
