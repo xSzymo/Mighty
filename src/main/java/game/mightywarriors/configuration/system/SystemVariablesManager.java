@@ -30,19 +30,21 @@ public final class SystemVariablesManager {
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS = 1;
 
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_1_AND_10 = 15;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_11_AND_20 = 14;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_21_AND_30 = 13;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_31_AND_40 = 12;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_41_AND_50 = 11;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_51_AND_60 = 10;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_61_AND_70 = 9;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_71_AND_80 = 8;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_81_AND_90 = 7;
-    public static final int HOW_MANY_HOURS_MISSIONS_BETWEEN_LEVEL_91_AND_100 = 6;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10 = 15;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_11_AND_20 = 14;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_21_AND_30 = 13;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_31_AND_40 = 12;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_41_AND_50 = 11;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_51_AND_60 = 10;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_61_AND_70 = 9;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_71_AND_80 = 8;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_81_AND_90 = 7;
+    public static final int HOW_MANY_POINTS_MISSIONS_BETWEEN_LEVEL_91_AND_100 = 6;
 
     public static final int NUMBER_ABOVE_ITEM = 5;
     public static final int MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL = 3;
+
+    public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
 
     public static final int NUMBER_OF_FIRST_CHAR_TO_DELETE = 6;
     public static final int NUMBER_OF_SECOND_CHAR_TO_DELETE = 14;
