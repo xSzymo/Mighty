@@ -146,7 +146,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromUser() {
-        user = new User();
+        user = new User("simple login" + System.currentTimeMillis());
         user.setInventory(inventories.getFirst());
 
         userService.save(user);

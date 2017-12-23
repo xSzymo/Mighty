@@ -145,7 +145,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromUser() {
-        user = new User();
+        user = new User("simple login");
         user.setShop(shops.getFirst());
 
         userService.save(user);

@@ -186,7 +186,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromChampion() {
         champion = new Champion();
-        User user = new User();
+        User user = new User("simple login" + System.currentTimeMillis());
         user.addChampion(champion);
 
         objectUnderTest.save(user);
@@ -203,7 +203,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromMission() {
         mission = new Mission();
-        User user = new User();
+        User user = new User("simple login" + System.currentTimeMillis());
         user.addMission(mission);
 
         objectUnderTest.save(user);
@@ -222,7 +222,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
         UserRole userRole = new UserRole("Admino");
         userRoleService.save(userRole);
 
-        User user = new User();
+        User user = new User("simple login" + System.currentTimeMillis());
         user.setUserRole(userRole);
         objectUnderTest.save(user);
 

@@ -156,7 +156,7 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromUser() {
         Champion champion = champions.getFirst();
-        user = new User();
+        user = new User("simple login" + System.currentTimeMillis());
         user.addChampion(champion);
 
         userService.save(user);
