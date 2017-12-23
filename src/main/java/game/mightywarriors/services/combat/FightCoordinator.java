@@ -7,6 +7,7 @@ import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class FightCoordinator {
@@ -34,8 +35,24 @@ public class FightCoordinator {
         return fight(user, monster, championsId);
     }
 
-    public FightResult fight(User user1, User opponent, long championId, long opponentId) throws Exception {
+    public FightResult fight(User user1, User opponent1, long championId) throws Exception {
         User user = new User(user1);
+        User opponent = new User(opponent1);
+        long[] championsId = {championId};
+
+        return fight(user, opponent, championsId, getChampionsId(opponent1.getChampions()));
+    }
+
+    public FightResult fight(User user1, User opponent1, long[] championId) throws Exception {
+        User user = new User(user1);
+        User opponent = new User(opponent1);
+
+        return fight(user, opponent, championId, getChampionsId(opponent1.getChampions()));
+    }
+
+    public FightResult fight(User user1, User opponent1, long championId, long opponentId) throws Exception {
+        User user = new User(user1);
+        User opponent = new User(opponent1);
         long[] championsId = {championId};
         long[] opponentsId = {opponentId};
 
@@ -59,8 +76,9 @@ public class FightCoordinator {
         return fight(user, monster);
     }
 
-    public FightResult fight(User user1, User opponent, long[] championsId, long[] opponentsId) throws Exception {
+    public FightResult fight(User user1, User opponent1, long[] championsId, long[] opponentsId) throws Exception {
         User user = new User(user1);
+        User opponent = new User(opponent1);
         LinkedList<Champion> champions = new LinkedList<>();
 
         for (Champion champion : user.getChampions())
@@ -87,5 +105,11 @@ public class FightCoordinator {
         return fight(user, opponent);
     }
 
+    private long[] getChampionsId(List<Champion> champions) {
+        long[] ids = new long[champions.size()];
+        for(int i = 0; i < champions.size(); i++)
+            ids[i] = champions.get(0).getId();
 
+        return ids;
+    }
 }
