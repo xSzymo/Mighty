@@ -24,7 +24,7 @@ public class Champion implements IFighter {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Statistic statistic;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Image image;
 
     @OneToOne(cascade = CascadeType.ALL)
