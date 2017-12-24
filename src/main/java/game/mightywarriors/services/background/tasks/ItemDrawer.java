@@ -30,6 +30,19 @@ public class ItemDrawer {
     @Transactional
     public void drawItemsForUser() {
         LinkedList<User> users = userService.findAll();
+        drawItems(users);
+    }
+
+    @Transactional
+    public void drawItemsForUser(long id) {
+        User one = userService.findOne(id);
+        LinkedList<User> users = new LinkedList<>();
+        users.add(one);
+
+        drawItems(users);
+    }
+
+    private void drawItems(LinkedList<User> users) {
         LinkedList<Item> items = itemService.findAll();
         map = new HashMap();
 
