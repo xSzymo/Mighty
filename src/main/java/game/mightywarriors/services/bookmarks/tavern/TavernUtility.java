@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class SenderManager {
+public class TavernUtility {
     protected static final int ONE_SECOND = 1000;
 
     @Autowired

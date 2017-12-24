@@ -1,4 +1,4 @@
-package game.mightywarriors.services.bookmarks.tavern;
+package game.mightywarriors.services.bookmarks.utilities.arena.and.tavern;
 
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.Champion;

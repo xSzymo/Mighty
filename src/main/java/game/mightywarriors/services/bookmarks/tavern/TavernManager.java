@@ -6,6 +6,7 @@ import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.BusyChampionException;
+import game.mightywarriors.services.bookmarks.utilities.arena.and.tavern.Helper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
@@ -17,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class MissionChampionSender {
+public class TavernManager {
     @Autowired
     private UsersRetriever usersRetriever;
     @Autowired
@@ -25,7 +26,7 @@ public class MissionChampionSender {
     @Autowired
     private FightCoordinator fightCoordinator;
     @Autowired
-    private SenderManager senderManager;
+    private TavernUtility tavernUtility;
     @Autowired
     private Helper helper;
 
@@ -39,7 +40,7 @@ public class MissionChampionSender {
             throw new BusyChampionException("Someone is already busy");
 
         FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampion()));
-        senderManager.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
+        tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
 
         return fight;
     }
@@ -56,6 +57,6 @@ public class MissionChampionSender {
         if (helper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
             throw new BusyChampionException("Someone is already busy");
 
-        return senderManager.prepareNewMissionFight(champions, mission);
+        return tavernUtility.prepareNewMissionFight(champions, mission);
     }
 }
