@@ -45,7 +45,9 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
         for (Item item : items) {
             itemService.delete(item);
         }
+
         inventories.forEach(objectUnderTest::delete);
+
         if (user != null)
             userService.delete(user);
     }
@@ -54,19 +56,18 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(inventories.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
         checkSavedItemsAreNotNull(inventories.getFirst());
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(inventories);
-        long counter = objectUnderTest.findAll().size();
 
         inventories.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findOne(inventories.get(0)));
+        assertNotNull(objectUnderTest.findOne(inventories.get(1)));
+        assertNotNull(objectUnderTest.findOne(inventories.get(2)));
     }
 
     @Test
@@ -89,58 +90,51 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(inventories);
 
-        long counter = objectUnderTest.findAll().size();
-
         inventories.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(2).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(3).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(inventories.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
 
         objectUnderTest.delete(inventories.getFirst());
 
-        counter = objectUnderTest.findAll().size();
-
+        assertNull(objectUnderTest.findOne(inventories.getFirst()));
         checkSavedItemsAreNotNull(inventories.getFirst());
-        assertEquals(0, counter);
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(inventories.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
 
         objectUnderTest.delete(inventories.getFirst().getId());
 
-        counter = objectUnderTest.findAll().size();
-
+        assertNull(objectUnderTest.findOne(inventories.getFirst()));
         checkSavedItemsAreNotNull(inventories.getFirst());
-        assertEquals(0, counter);
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(inventories);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findOne(inventories.get(0)));
+        assertNotNull(objectUnderTest.findOne(inventories.get(1)));
+        assertNotNull(objectUnderTest.findOne(inventories.get(2)));
 
         objectUnderTest.delete(inventories);
 
-        counter = objectUnderTest.findAll().size();
-
+        assertNull(objectUnderTest.findOne(inventories.get(0)));
+        assertNull(objectUnderTest.findOne(inventories.get(1)));
+        assertNull(objectUnderTest.findOne(inventories.get(2)));
         inventories.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(0, counter);
     }
 
 
@@ -170,7 +164,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
         Inventory inventory;
         LinkedList<Item> myItems = new LinkedList<>();
 
-        for (int a = 0, i = 3; i < 7; i++) {
+        for (int i = 3; i < 7; i++) {
             myItems.clear();
             inventory = new Inventory();
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);

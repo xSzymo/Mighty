@@ -111,7 +111,7 @@ public class MonsterService {
         if (monster.getStatistic() != null)
             statisticService.delete(monster.getStatistic());
         if (image != null)
-            imageService.delete(image);
+            imageService.delete(image.getId());
 
         repository.deleteById(monster.getId());
     }

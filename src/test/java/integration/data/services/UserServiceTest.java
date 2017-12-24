@@ -1,6 +1,7 @@
 package integration.data.services;
 
 
+import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
@@ -10,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 
@@ -42,6 +44,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     private LinkedList<Shop> shops;
     private LinkedList<Item> items;
     private Shop shop;
+    private User user;
     private Champion champion;
     private Mission mission;
 
@@ -55,6 +58,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
         monsters = new LinkedList<>();
         shops = new LinkedList<>();
         items = new LinkedList<>();
+
         addExampleDataToEquipments();
     }
 
@@ -62,6 +66,8 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void afterEachTest() {
         if (shop != null)
             shopService.delete(shop);
+        if (user != null)
+            objectUnderTest.delete(user);
         if (champion != null)
             championService.delete(champion);
         if (mission != null)
@@ -72,10 +78,6 @@ public class UserServiceTest extends IntegrationTestsConfig {
         missions.forEach(missionService::delete);
         users.forEach(objectUnderTest::delete);
 
-        assertEquals(0, monsterService.findAll().size());
-        assertEquals(0, itemService.findAll().size());
-        assertEquals(0, missionService.findAll().size());
-        assertEquals(0, monsterService.findAll().size());
         assertEquals(0, objectUnderTest.findAll().size());
     }
 
@@ -234,6 +236,43 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertNotNull(userRoleService.findOne(userRole));
     }
 
+    @Test
+    @Transactional
+    public void save_check_basic_variables() {
+        if(userRoleService.findOne("user") == null)
+            userRoleService.save(new UserRole("user"));
+
+        user = new User("halu", "halu", "halu@gmail.com");
+
+        objectUnderTest.save(user);
+        User one = objectUnderTest.findOne(user);
+
+        assertEquals(SystemVariablesManager.ARENA_POINTS, one.getArenaPoints());
+        assertEquals(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10, one.getMissionPoints());
+
+        assertEquals(1, one.getChampions().size());
+        assertEquals(1, one.getChampions().get(0).getLevel());
+        assertEquals(1, one.getChampions().get(0).getExperience());
+        assertEquals(null, one.getChampions().get(0).getBlockDate());
+        assertNotNull(one.getChampions().get(0).getEquipment());
+        assertNotNull(one.getChampions().get(0).getStatistic());
+
+        assertEquals(new BigDecimal("0"), one.getGold());
+        assertNull(null, one.getImage());
+
+        assertNotNull(one.getInventory());
+        assertEquals(0, one.getInventory().getItems().size());
+
+        assertNotNull(one.getMissions());
+        assertEquals(3, one.getMissions().size());
+
+        assertNotNull(one.getShop());
+        assertEquals(10, one.getShop().getItems().size());
+
+        assertEquals("user", one.getUserRole().getRole());
+    }
+
+
     private void addExampleDataToEquipments() {
         Statistic statistic;
         Shop shop;
@@ -287,4 +326,6 @@ public class UserServiceTest extends IntegrationTestsConfig {
             users.add(user);
         }
     }
+
+
 }

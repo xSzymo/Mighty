@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class RankingServiceTest extends IntegrationTestsConfig {
     @Autowired
@@ -44,18 +43,16 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(rankings.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(rankings.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(rankings);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(rankings.get(0)));
+        assertNotNull(objectUnderTest.findOne(rankings.get(1)));
+        assertNotNull(objectUnderTest.findOne(rankings.get(2)));
     }
 
     @Test
@@ -76,24 +73,23 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(rankings);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getNickname().equals(rankings.get(0).getNickname())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getNickname().equals(rankings.get(1).getNickname())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getNickname().equals(rankings.get(2).getNickname())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(rankings.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
+        Ranking one = objectUnderTest.findOne(rankings.getFirst());
 
-        assertEquals(1, counter);
+        assertNotNull(one);
 
         objectUnderTest.delete(rankings.getFirst());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        one = objectUnderTest.findOne(rankings.getFirst());
+        assertNull(one);
         rankings.clear();
     }
 
@@ -101,15 +97,14 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(rankings.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
+        Ranking one = objectUnderTest.findOne(rankings.getFirst());
 
-        assertEquals(1, counter);
+        assertNotNull(one);
 
         objectUnderTest.delete(rankings.getFirst().getNickname());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        one = objectUnderTest.findOne(rankings.getFirst());
+        assertNull(one);
         rankings.clear();
     }
 
@@ -117,15 +112,15 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(rankings);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(rankings.get(0)));
+        assertNotNull(objectUnderTest.findOne(rankings.get(1)));
+        assertNotNull(objectUnderTest.findOne(rankings.get(2)));
 
         objectUnderTest.delete(rankings);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(rankings.get(0)));
+        assertNull(objectUnderTest.findOne(rankings.get(1)));
+        assertNull(objectUnderTest.findOne(rankings.get(2)));
         rankings.clear();
     }
 

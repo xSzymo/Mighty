@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class MissionServiceTest extends IntegrationTestsConfig {
     @Autowired
@@ -66,11 +67,9 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void saveCollection() {
         objectUnderTest.save(missions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
-
-        objectUnderTest.findAll().forEach(this::checker);
+        assertNotNull(objectUnderTest.findOne(missions.get(0)));
+        assertNotNull(objectUnderTest.findOne(missions.get(1)));
+        assertNotNull(objectUnderTest.findOne(missions.get(2)));
     }
 
     @Test
@@ -91,25 +90,19 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(missions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missions.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missions.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missions.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(missions.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
         checker(objectUnderTest.findOne(missions.getFirst()));
 
         objectUnderTest.delete(missions.getFirst());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
         checkerNulls(missions.getFirst());
     }
 
@@ -117,16 +110,10 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(missions.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
         checker(objectUnderTest.findOne(missions.getFirst()));
 
         objectUnderTest.delete(missions.getFirst().getId());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
         checkerNulls(missions.getFirst());
     }
 
@@ -134,16 +121,10 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(missions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
         missions.forEach(this::checker);
 
         objectUnderTest.delete(missions);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
         missions.forEach(this::checkerNulls);
     }
 
@@ -154,6 +135,8 @@ public class MissionServiceTest extends IntegrationTestsConfig {
         user.setPassword("");
         user.seteMail("");
         user.getMissions().add(missions.getFirst());
+        user.getMissions().add(missions.getFirst());
+        user.getMissions().add(missions.getFirst());
 
         userService.save(user);
 
@@ -163,10 +146,10 @@ public class MissionServiceTest extends IntegrationTestsConfig {
         assertNotNull(mission);
         assertNotNull(user);
 
-        objectUnderTest.delete(mission);
+        objectUnderTest.delete(missions.getFirst());
 
         assertNotNull(user);
-        checkerNulls(user.getMissions().get(0));
+        assertNull(objectUnderTest.findOne(mission));
     }
 
     private void checker(Mission mission) {

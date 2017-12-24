@@ -51,18 +51,16 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(missionFights.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(missionFights);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(missionFights.get(0)));
+        assertNotNull(objectUnderTest.findOne(missionFights.get(1)));
+        assertNotNull(objectUnderTest.findOne(missionFights.get(2)));
     }
 
     @Test
@@ -83,54 +81,46 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(missionFights);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(missionFights.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
 
         objectUnderTest.delete(missionFights.getFirst());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(missionFights.getFirst()));
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(missionFights.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
 
         objectUnderTest.delete(missionFights.getFirst().getId());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(missionFights.getFirst()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(missionFights);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(missionFights.get(0)));
+        assertNotNull(objectUnderTest.findOne(missionFights.get(1)));
+        assertNotNull(objectUnderTest.findOne(missionFights.get(2)));
 
         objectUnderTest.delete(missionFights);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(missionFights.get(0)));
+        assertNull(objectUnderTest.findOne(missionFights.get(1)));
+        assertNull(objectUnderTest.findOne(missionFights.get(2)));
     }
 
     @Test

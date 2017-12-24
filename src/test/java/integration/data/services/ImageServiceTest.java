@@ -51,6 +51,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
             championService.delete(champion);
         if (monster != null)
             monsterService.delete(monster);
+
         images.forEach(objectUnderTest::delete);
     }
 
@@ -58,18 +59,16 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(images.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(images);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(images.get(0)));
+        assertNotNull(objectUnderTest.findOne(images.get(1)));
+        assertNotNull(objectUnderTest.findOne(images.get(2)));
     }
 
 //    @Test(expected = Exception.class)
@@ -108,24 +107,20 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(images);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(images.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
 
         objectUnderTest.delete(images.getFirst());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(images.getFirst()));
         images.clear();
     }
 
@@ -133,15 +128,11 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(images.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
+        assertNotNull(objectUnderTest.findOne(images.getFirst()));
 
-        assertEquals(1, counter);
+        objectUnderTest.delete(images.getFirst());
 
-        objectUnderTest.delete(images.getFirst().getId());
-
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(images.getFirst()));
         images.clear();
     }
 
@@ -149,16 +140,15 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(images);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(images.get(0)));
+        assertNotNull(objectUnderTest.findOne(images.get(1)));
+        assertNotNull(objectUnderTest.findOne(images.get(2)));
 
         objectUnderTest.delete(images);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
-        images.clear();
+        assertNull(objectUnderTest.findOne(images.get(0)));
+        assertNull(objectUnderTest.findOne(images.get(1)));
+        assertNull(objectUnderTest.findOne(images.get(2)));
     }
 
     @Test

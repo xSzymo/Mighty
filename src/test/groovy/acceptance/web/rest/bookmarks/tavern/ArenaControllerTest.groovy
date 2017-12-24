@@ -45,7 +45,7 @@ class ArenaControllerTest extends GroovyTestCase {
         String fightJSON = fight(myJson).getInputStream().getText()
 
         assertEquals(opponentRanking, parser(getRanking(parser(loginJSON).login)).ranking)
-        assertEquals(1, parser('log in and set champion & mission id'(loginJSON)).arenaPoints)
+        assertEquals(2, parser('log in and set champion & mission id'(loginJSON)).arenaPoints)
     }
 
     private def 'log in and set champion & mission id'(String loginJSON) {

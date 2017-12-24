@@ -12,6 +12,7 @@ import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class UserRoleServiceTest extends IntegrationTestsConfig {
     @Autowired
@@ -36,18 +37,16 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(userRoles);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(userRoles.get(0)));
+        assertNotNull(objectUnderTest.findOne(userRoles.get(1)));
+        assertNotNull(objectUnderTest.findOne(userRoles.get(2)));
     }
 
     @Test
@@ -68,24 +67,20 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(userRoles);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(userRoles.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(userRoles.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(userRoles.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
 
         objectUnderTest.delete(userRoles.getFirst());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(userRoles.getFirst()));
         userRoles.clear();
     }
 
@@ -93,15 +88,11 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(userRoles.getFirst());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
 
         objectUnderTest.delete(userRoles.getFirst().getId());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(userRoles.getFirst()));
         userRoles.clear();
     }
 
@@ -109,15 +100,15 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(userRoles);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(userRoles.get(0)));
+        assertNotNull(objectUnderTest.findOne(userRoles.get(1)));
+        assertNotNull(objectUnderTest.findOne(userRoles.get(2)));
 
         objectUnderTest.delete(userRoles);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(userRoles.get(0)));
+        assertNull(objectUnderTest.findOne(userRoles.get(1)));
+        assertNull(objectUnderTest.findOne(userRoles.get(2)));
         userRoles.clear();
     }
 }

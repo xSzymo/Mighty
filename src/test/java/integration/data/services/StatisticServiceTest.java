@@ -51,18 +51,16 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(statistics.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(statistics.get(0)));
+        assertNotNull(objectUnderTest.findOne(statistics.get(1)));
+        assertNotNull(objectUnderTest.findOne(statistics.get(2)));
     }
 
     @Test
@@ -83,24 +81,20 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(statistics.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(statistics.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(statistics.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(statistics.getFirst()));
 
         objectUnderTest.delete(statistics.getFirst());
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(statistics.getFirst()));
         statistics.clear();
     }
 
@@ -108,15 +102,11 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(statistics.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(statistics.getFirst()));
 
         objectUnderTest.delete(statistics.getFirst().getId());
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(statistics.getFirst()));
         statistics.clear();
     }
 
@@ -124,15 +114,15 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(statistics);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        assertNotNull(objectUnderTest.findOne(statistics.get(0)));
+        assertNotNull(objectUnderTest.findOne(statistics.get(1)));
+        assertNotNull(objectUnderTest.findOne(statistics.get(2)));
 
         objectUnderTest.delete(statistics);
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(statistics.get(0)));
+        assertNull(objectUnderTest.findOne(statistics.get(1)));
+        assertNull(objectUnderTest.findOne(statistics.get(2)));
         statistics.clear();
     }
 

@@ -54,19 +54,20 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(shops.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
 
         checkSavedItemsAreNotNull(shops.getFirst());
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(shops);
-        long counter = objectUnderTest.findAll().size();
 
         shops.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findOne(shops.get(0)));
+        assertNotNull(objectUnderTest.findOne(shops.get(1)));
+        assertNotNull(objectUnderTest.findOne(shops.get(2)));
+        assertNotNull(objectUnderTest.findOne(shops.get(3)));
     }
 
     @Test
@@ -89,58 +90,52 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(shops);
 
-        long counter = objectUnderTest.findAll().size();
-
         shops.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(2).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(3).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(shops.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
 
         objectUnderTest.delete(shops.getFirst());
 
-        counter = objectUnderTest.findAll().size();
-
         checkSavedItemsAreNotNull(shops.getFirst());
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(shops.getFirst()));
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(shops.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
 
         objectUnderTest.delete(shops.getFirst().getId());
 
-        counter = objectUnderTest.findAll().size();
 
         checkSavedItemsAreNotNull(shops.getFirst());
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(shops.getFirst()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(shops);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(4, counter);
+        assertNotNull(objectUnderTest.findOne(shops.get(0)));
+        assertNotNull(objectUnderTest.findOne(shops.get(1)));
+        assertNotNull(objectUnderTest.findOne(shops.get(2)));
 
         objectUnderTest.delete(shops);
 
-        counter = objectUnderTest.findAll().size();
-
+        assertNull(objectUnderTest.findOne(shops.get(0)));
+        assertNull(objectUnderTest.findOne(shops.get(1)));
+        assertNull(objectUnderTest.findOne(shops.get(2)));
         shops.forEach(this::checkSavedItemsAreNotNull);
-        assertEquals(0, counter);
     }
 
     @Test

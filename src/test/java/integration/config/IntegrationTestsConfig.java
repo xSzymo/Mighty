@@ -3,13 +3,21 @@ package integration.config;
 import game.mightywarriors.MightyWarriorsApplication;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
+import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Mission;
+import game.mightywarriors.data.tables.Monster;
+import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.other.enums.WeaponType;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -30,6 +38,30 @@ public abstract class IntegrationTestsConfig {
     private static StatisticService statisticService;
     private static UserRoleService userRoleService;
     private static MissionFightService missionFightService;
+
+    @Before
+    public void halo() {
+        Monster monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+
+        itemService.save(new Item("name" + 1, WeaponType.WEAPON, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 2, WeaponType.ARMOR, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 3, WeaponType.BOOTS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 4, WeaponType.BRACELET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 5, WeaponType.GLOVES, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 6, WeaponType.HELMET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 7, WeaponType.LEGS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 8, WeaponType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 9, WeaponType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 10, WeaponType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
+    }
 
     @BeforeClass
     public static void setUpBefore() {

@@ -52,18 +52,16 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(items.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(items.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(items);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(10, counter);
+        assertNotNull(objectUnderTest.findOne(items.get(0)));
+        assertNotNull(objectUnderTest.findOne(items.get(1)));
+        assertNotNull(objectUnderTest.findOne(items.get(2)));
     }
 
     @Test
@@ -84,54 +82,47 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     public void findAll() {
         objectUnderTest.save(items);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(10, counter);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(2).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(3).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
         objectUnderTest.save(items.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(items.getFirst()));
 
         objectUnderTest.delete(items.getFirst());
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(items.getFirst()));
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(items.getFirst());
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(items.getFirst()));
 
         objectUnderTest.delete(items.getFirst().getId());
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(items.getFirst()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(items);
 
-        long counter = objectUnderTest.findAll().size();
-
-        assertEquals(10, counter);
+        assertNotNull(objectUnderTest.findOne(items.get(0)));
+        assertNotNull(objectUnderTest.findOne(items.get(1)));
+        assertNotNull(objectUnderTest.findOne(items.get(2)));
 
         objectUnderTest.delete(items);
 
-        counter = objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(items.get(0)));
+        assertNull(objectUnderTest.findOne(items.get(1)));
+        assertNull(objectUnderTest.findOne(items.get(2)));
     }
 
     @Test
