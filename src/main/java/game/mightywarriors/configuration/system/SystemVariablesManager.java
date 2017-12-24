@@ -29,6 +29,7 @@ public final class SystemVariablesManager {
     public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS = 1;
+    public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_ARENA_POINTS = 1;
 
     public static final int ARENA_POINTS = 3;
 
