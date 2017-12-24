@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.League;
+import game.mightywarriors.services.background.tasks.ArenaPointsRefresher;
 import game.mightywarriors.services.background.tasks.DivisionAssigner;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
 import game.mightywarriors.services.background.tasks.MissionPointsRefresher;
@@ -29,6 +30,8 @@ public class SystemConfiger {
     private DivisionAssigner divisionAssigner;
     @Autowired
     private MissionPointsRefresher missionPointsRefresher;
+    @Autowired
+    private ArenaPointsRefresher arenaPointsRefresher;
 
     @PostConstruct
     public void configSystemAtStartApp() {
@@ -37,6 +40,7 @@ public class SystemConfiger {
 
         updateDivisionForUsers();
         refreshMissionPoints();
+        refreshArenaPoints();
         drawingItemsForUserEveryDay();
     }
 
@@ -48,6 +52,11 @@ public class SystemConfiger {
     private void refreshMissionPoints() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         exec.scheduleAtFixedRate(() -> missionPointsRefresher.refreshMissionPointsForAllMission(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS, TimeUnit.HOURS);
+    }
+
+    private void refreshArenaPoints() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> arenaPointsRefresher.refreshArenaPointsForAllUsers(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_REFRESH_ARENA_POINTS, TimeUnit.HOURS);
     }
 
     private void drawingItemsForUserEveryDay() {
