@@ -1,11 +1,10 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.repositories.UserRepository;
-import game.mightywarriors.data.tables.Champion;
-import game.mightywarriors.data.tables.Ranking;
-import game.mightywarriors.data.tables.Shop;
+import game.mightywarriors.data.services.utilities.UserServiceUtility;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.background.tasks.ItemDrawer;
+import game.mightywarriors.services.background.tasks.MissionAssigner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +19,13 @@ public class UserService {
     @Autowired
     private MissionService missionService;
     @Autowired
-    private ImageService imageService;
-    @Autowired
-    private ShopService shopService;
-    @Autowired
-    private ChampionService championService;
-    @Autowired
-    private InventoryService inventoryService;
-    @Autowired
     private RankingService rankingService;
+    @Autowired
+    private UserServiceUtility userServiceUtility;
+    @Autowired
+    private MissionAssigner missionAssigner;
+    @Autowired
+    private ItemDrawer itemDrawer;
 
     public void save(User user) {
         if (user != null) {
@@ -41,84 +38,27 @@ public class UserService {
     }
 
     public void save(LinkedList<User> users) {
-        users.forEach(
-                x -> {
-                    if (x != null) {
-                        try {
-                            saveOperation(x);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        users.stream().filter(x -> x != null).forEach(this::saveOperation);
     }
 
-    private void saveOperation(User user) throws Exception {
-        if (user.getMissions() != null)
-            missionService.save(user.getMissions());
+    private void saveOperation(User user) {
+        User foundUserWithSameLogin = findByLogin(user.getLogin());
 
-        if (user.getInventory() != null)
-            inventoryService.save(user.getInventory());
-
-        if (user.getChampions() != null)
-            if (user.getChampions().size() == 0) {
-                Champion champion = new Champion();
-                user.addChampion(champion);
-                championService.save(champion);
-            } else {
-                for (Champion champion : user.getChampions())
-                    if (champion != null)
-                        championService.save(champion);
-            }
-
-        if (user.getShop() != null)
-            shopService.save(user.getShop());
-        else {
-            Shop shop = new Shop();
-            user.setShop(shop);
-            shopService.save(shop);
-        }
-
-        if (user.getImage() != null)
-            try {
-                imageService.save((user.getImage()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        if (user.isNewToken()) {
-            String token = user.getTokenCode();
-            String tokenAfterEncode = SystemVariablesManager.ENCODER_DB.encode(token);
-
-            user.setTokenCode(tokenAfterEncode);
-
-        } else if (user.getTokenCode() != null) {
-            User found = findByLogin(user.getLogin());
-            if (found != null) {
-                String foundUserToken = SystemVariablesManager.DECO4DER_DB.decode(found.getTokenCode());
-                String token = user.getTokenCode();
-                String tokenAfterDBEncode = SystemVariablesManager.DECO4DER_DB.decode(token);
-                String tokenAfterJSONEncode = SystemVariablesManager.DECODER_JSON.decode(token);
-                if (!token.equals(foundUserToken)) {
-                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
-                } else if (!tokenAfterDBEncode.equals(foundUserToken)) {
-                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
-                } else if (!tokenAfterJSONEncode.equals(foundUserToken)) {
-                    user.setTokenCode(SystemVariablesManager.ENCODER_DB.encode(foundUserToken));
-                } else
-                    throw new Exception("oh no");
-            }
-        } else {
-            System.out.println("BE CAREFUL EMPTY TOKEN");
-            user.setTokenCode(null);
-        }
-
-        if (findByLogin(user.getLogin()) == null) {
-            Ranking ranking = new Ranking(user.getLogin());
-            rankingService.save(ranking);
+        try {
+            user = userServiceUtility.updateObjectsFromRelations(user);
+            user = userServiceUtility.setToken(user, foundUserWithSameLogin);
+            user = userServiceUtility.initializeBasicVariablesForNewUser(user, foundUserWithSameLogin);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         repository.save(user);
+
+        if (foundUserWithSameLogin == null)
+            if (user.getMissions().size() < 3) {
+                missionAssigner.assignNewMissionForUsers(user.getId());
+                itemDrawer.drawItemsForUser(user.getId());
+            }
     }
 
     public User findOne(long id) {
