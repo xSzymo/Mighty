@@ -31,11 +31,13 @@ public class TokenController {
         if (!myUser.getPassword().equals(loginData.password))
             throw new Exception("Wrong login or password");
 
-        return new JSONTokenObject(tokenGenerator.generateToken(myUser));
+        return new JSONTokenObject(tokenGenerator.generateToken(myUser), myUser.getId());
     }
 
     @PostMapping("secure/refresh")
     public JSONTokenObject refresh(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
-        return new JSONTokenObject(tokenGenerator.generateToken(usersRetriever.retrieveUser(authorization)));
+        User user = usersRetriever.retrieveUser(authorization);
+
+        return new JSONTokenObject(tokenGenerator.generateToken(user), user.getId());
     }
 }
