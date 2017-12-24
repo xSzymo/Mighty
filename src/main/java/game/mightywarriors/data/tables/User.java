@@ -186,7 +186,13 @@ public class User {
     }
 
     public List<Champion> getChampions() {
-        return champions;
+        try {
+            champions.isEmpty();
+            return champions;
+        } catch(Exception e) {
+            champions = new ChampionCollection();
+            return champions;
+        }
     }
 
     public void setChampions(LinkedList<Champion> champions) {
@@ -196,7 +202,7 @@ public class User {
     public long getUserChampiongHighestLevel() {
         long highest = 0;
 
-        for (Champion champion : champions)
+        for (Champion champion : getChampions())
             if (highest < champion.getLevel())
                 highest = champion.getLevel();
 
