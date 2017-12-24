@@ -45,8 +45,8 @@ public class MissionAssigner {
         if (missions.size() == 0)
             throw new RuntimeException("restart system");
 
-        draw(users, missions, false);
         draw(users, missions, true);
+        draw(users, missions, false);
 
         userService.save(users);
     }
