@@ -54,11 +54,13 @@ public class UserService {
 
         repository.save(user);
 
-        if (foundUserWithSameLogin == null)
+        if (foundUserWithSameLogin == null) {
             if (user.getMissions().size() < 3) {
                 missionAssigner.assignNewMissionForUsers(user.getId());
-                itemDrawer.drawItemsForUser(user.getId());
             }
+
+            itemDrawer.drawItemsForUser(user.getId());
+        }
     }
 
     public User findOne(long id) {

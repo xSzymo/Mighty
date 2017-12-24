@@ -49,7 +49,7 @@ public class UserServiceUtility {
                 } else
                     throw new Exception("oh no");
             }
-        } else {
+        } else if (foundUser == null) {
             System.out.println("BE CAREFUL EMPTY TOKEN");
             user.setTokenCode(null);
         }
