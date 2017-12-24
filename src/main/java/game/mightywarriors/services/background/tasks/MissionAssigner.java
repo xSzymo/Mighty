@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class MissionAssigner {
+    private static Random rand;
+
     @Autowired
     private UserService userService;
     @Autowired
     private MissionService missionService;
-
-    private static Random rand;
     private Map map;
 
     public MissionAssigner() {

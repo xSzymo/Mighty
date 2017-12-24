@@ -85,6 +85,7 @@ public class Champion implements IFighter {
         this.experience = experience;
         return this;
     }
+
     public Champion addExperience(long experience) {
         this.experience += experience;
         return this;

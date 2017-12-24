@@ -220,13 +220,13 @@ public class User {
         return gold;
     }
 
+    public void setGold(BigDecimal gold) {
+        this.gold = gold;
+    }
+
     public User addGold(BigDecimal gold) {
         this.gold = this.gold.add(gold);
         return this;
-    }
-
-    public void setGold(BigDecimal gold) {
-        this.gold = gold;
     }
 
     public List<Mission> getMissions() {

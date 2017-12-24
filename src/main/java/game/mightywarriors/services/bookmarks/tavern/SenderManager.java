@@ -19,6 +19,8 @@ import java.util.List;
 
 @Service
 public class SenderManager {
+    protected static final int ONE_SECOND = 1000;
+
     @Autowired
     private MissionFightService missionFightService;
     @Autowired
@@ -27,8 +29,6 @@ public class SenderManager {
     private UserService userService;
     @Autowired
     private MissionAssigner missionAssigner;
-
-    protected static final int ONE_SECOND = 1000;
 
     public MissionFight prepareNewMissionFight(LinkedList<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();

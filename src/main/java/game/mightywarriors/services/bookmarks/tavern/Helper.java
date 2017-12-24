@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class Helper {
+    protected static final int ONE_SECOND = 1000;
+
     @Autowired
     private MissionFightService missionFightService;
-
-    protected static final int ONE_SECOND = 1000;
 
     public boolean isChampionOnMission(LinkedList<Champion> champions, boolean mustBeNull) {
         for (Champion champion : champions) {

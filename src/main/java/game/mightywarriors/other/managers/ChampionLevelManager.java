@@ -10,10 +10,10 @@ public class ChampionLevelManager {
 
     public static Champion getChampionRealLevel(Champion champion) {
         Level[] levels = Level.values();
-        for (int i = 0; i < levels.length-1; i++)
+        for (int i = 0; i < levels.length - 1; i++)
             if (champion.getLevel() == levels[i].getLevel())
-                if (champion.getExperience() >= levels[i+1].getExperience()) {
-                    champion.setExperience(champion.getExperience() - levels[i+1].getExperience());
+                if (champion.getExperience() >= levels[i + 1].getExperience()) {
+                    champion.setExperience(champion.getExperience() - levels[i + 1].getExperience());
                     champion.setLevel(champion.getLevel() + 1);
                 }
 

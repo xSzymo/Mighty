@@ -1,7 +1,9 @@
 package game.mightywarriors.other;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
-import game.mightywarriors.data.services.*;
+import game.mightywarriors.data.services.ItemService;
+import game.mightywarriors.data.services.UserRoleService;
+import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +96,10 @@ public class RunAtStart {
         }
 
         for (int i = 0; i < 12; i++) {
-            statistics.add(new Statistic(2, 2, 5,  0, 2, 2));
+            statistics.add(new Statistic(2, 2, 5, 0, 2, 2));
             images.add(new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
-            missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setTimeDuration(2+i));
+            missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setTimeDuration(2 + i));
         }
 
         for (int i = 0; i < 12; i++) {

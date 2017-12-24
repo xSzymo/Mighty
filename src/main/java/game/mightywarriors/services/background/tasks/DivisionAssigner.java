@@ -16,13 +16,13 @@ import java.util.LinkedList;
 
 @Service
 public class DivisionAssigner {
+    private static final double PERCENT = 0.01;
     private final PointsForDivisionCounter pointsForDivisionCounter = new PointsForDivisionCounter();
+
     @Autowired
     private DivisionService divisionService;
     @Autowired
     private UserService userService;
-
-    private static final double PERCENT = 0.01;
 
     @Transactional
     public void assignUsersDivisions() {
