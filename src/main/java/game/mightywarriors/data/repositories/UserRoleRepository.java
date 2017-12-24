@@ -12,5 +12,7 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
 
     UserRole findById(long id);
 
+    UserRole findByRole(String role);
+
     void deleteById(long id);
 }

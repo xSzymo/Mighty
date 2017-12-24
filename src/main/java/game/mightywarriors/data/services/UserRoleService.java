@@ -36,6 +36,14 @@ public class UserRoleService {
         }
     }
 
+    public UserRole findOne(String role) {
+        try {
+            return repository.findByRole(role);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public UserRole findOne(UserRole image) {
         try {
             return findOne(image.getId());
