@@ -112,7 +112,7 @@ public class RunAtStart {
             if (i % 2 == 0)
                 user = new User("admin" + i, "admin", "email", admin_role);
             else
-                user = new User("user" + i, "user", "eMail", user_role);
+                user = new User("user" + i, "user", "eMail");
             Image image = new Image("https://www.reduceimages.com/img/image-after.jpg");
             images.add(image);
             user.setImage(image);
@@ -123,8 +123,6 @@ public class RunAtStart {
             user.getMissions().add(missions.get(b++));
             user.getMissions().add(missions.get(b++));
             user.getMissions().add(missions.get(b++));
-            user.setMissionPoints(5);
-            user.setArenaPoints(2);
 
             users.add(user);
         }
