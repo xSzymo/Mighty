@@ -12,7 +12,7 @@ import java.util.LinkedHashSet;
 public class Division {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 

@@ -9,10 +9,11 @@ import java.util.LinkedHashSet;
 
 @Entity
 @Table(name = "user_roles")
+//NOP
 public class UserRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
