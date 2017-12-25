@@ -10,7 +10,7 @@ import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.other.exceptions.IllegalFightException;
 import game.mightywarriors.other.exceptions.NotProperlyChampionsException;
 import game.mightywarriors.other.exceptions.UsedPointsException;
-import game.mightywarriors.services.bookmarks.utilities.arena.and.tavern.Helper;
+import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;

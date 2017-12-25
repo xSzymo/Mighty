@@ -1,8 +1,9 @@
-package game.mightywarriors.services.bookmarks.utilities.arena.and.tavern;
+package game.mightywarriors.services.bookmarks.tavern;
 
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 
 @Service
 public class MissionFightChecker {
+    private static final int ONE_SECOND = 1000;
     @Autowired
     private UsersRetriever usersRetriever;
     @Autowired
@@ -33,6 +35,6 @@ public class MissionFightChecker {
         if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
             throw new Exception("Something went wrong");
 
-        return (one.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / Helper.ONE_SECOND);
+        return (one.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }
 }

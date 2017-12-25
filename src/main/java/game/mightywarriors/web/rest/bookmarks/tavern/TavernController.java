@@ -3,7 +3,7 @@ package game.mightywarriors.web.rest.bookmarks.tavern;
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.services.bookmarks.tavern.TavernManager;
-import game.mightywarriors.services.bookmarks.utilities.arena.and.tavern.MissionFightChecker;
+import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
