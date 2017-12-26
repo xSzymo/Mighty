@@ -95,7 +95,7 @@ public class WorkServiceTest extends IntegrationTestsConfig {
 
         assertNotNull(one);
 
-        objectUnderTest.delete(rankings.getFirst().getNickname());
+        objectUnderTest.delete(rankings.getFirst().getId());
 
         one = objectUnderTest.findOne(rankings.getFirst());
         assertNull(one);
