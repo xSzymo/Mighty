@@ -38,6 +38,8 @@ public final class SystemVariablesManager {
 
     public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
 
+    public static final int GOLD_FROM_WORK = 10;
+
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10 = 15;
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_11_AND_20 = 14;
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_21_AND_30 = 13;

@@ -3,6 +3,12 @@ package game.mightywarriors.web.json.objects.bookmarks.tavern;
 public class MissionFightInformer {
 
     /**
+     * Work
+     * hours : how many hours to work
+     */
+    public int hours;
+
+    /**
      * Mission
      * id : MissionFight id
      * missionId : mission id
@@ -21,7 +27,7 @@ public class MissionFightInformer {
     public String opponentName;
 
     /**
-     * Both
+     * All of above
      * championId : table of user's champions ids
      */
     public long[] championId;
