@@ -64,6 +64,6 @@ public class FighterModelCasterTest {
         assertEquals(0.4, fighter.getMagicResist());
         assertEquals(0.4, fighter.getIntelligence());
         assertEquals(0.4, fighter.getStrength());
-        assertEquals(0.4, fighter.getCriticChance());
+        assertEquals(0.4, fighter.getCriticalChance());
     }
 }

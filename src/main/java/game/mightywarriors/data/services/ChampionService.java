@@ -63,7 +63,7 @@ public class ChampionService {
 
             if (champion.getStatistic() == null) {
                 Statistic statistic = new Statistic(SystemVariablesManager.DEFAULT_STRENGTH_FOR_NEW_CHAMPION, SystemVariablesManager.DEFAULT_INTELLIGENCE_FOR_NEW_CHAMPION,
-                        SystemVariablesManager.DEFAULT_VITALITY_FOR_NEW_CHAMPION, SystemVariablesManager.DEFAULT_CRITIC_CHANCE_FOR_NEW_CHAMPION,
+                        SystemVariablesManager.DEFAULT_VITALITY_FOR_NEW_CHAMPION, SystemVariablesManager.DEFAULT_CRITICAL_CHANCE_FOR_NEW_CHAMPION,
                         SystemVariablesManager.DEFAULT_ARMOR_FOR_NEW_CHAMPION, SystemVariablesManager.DEFAULT_MAGIC_RESIST_FOR_NEW_CHAMPION);
                 statisticService.save(statistic);
                 champion.setStatistic(statistic);

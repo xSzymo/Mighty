@@ -14,7 +14,7 @@ public class PointsForDivisionCounter {
         double rate = fighter.getLevel() * SystemVariablesManager.RATE;
 
         points += fighter.getStatistic().getArmor() * rate;
-        points += fighter.getStatistic().getCriticChance() * rate;
+        points += fighter.getStatistic().getCriticalChance() * rate;
         points += fighter.getStatistic().getIntelligence() * rate;
         points += fighter.getStatistic().getMagicResist() * rate;
         points += fighter.getStatistic().getStrength() * rate;
@@ -52,7 +52,7 @@ public class PointsForDivisionCounter {
         double points = 0;
 
         points += item.getStatistic().getArmor();
-        points += item.getStatistic().getCriticChance();
+        points += item.getStatistic().getCriticalChance();
         points += item.getStatistic().getIntelligence();
         points += item.getStatistic().getMagicResist();
         points += item.getStatistic().getStrength();

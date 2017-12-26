@@ -25,8 +25,8 @@ public class PointsInFightCounter {
 
         if (statisticType.getType().equals(StatisticType.ARMOR.getType()))
             points += fighter.getStatistic().getArmor() * rate;
-        if (statisticType.getType().equals(StatisticType.CRITIC_CHANCE.getType()))
-            points += fighter.getStatistic().getCriticChance() * rate;
+        if (statisticType.getType().equals(StatisticType.CRITICAL_CHANCE.getType()))
+            points += fighter.getStatistic().getCriticalChance() * rate;
         if (statisticType.getType().equals(StatisticType.INTELLIGENCE.getType()))
             points += fighter.getStatistic().getIntelligence() * rate;
         if (statisticType.getType().equals(StatisticType.MAGIC_RESIST.getType()))
@@ -72,8 +72,8 @@ public class PointsInFightCounter {
 
         if (statisticType.getType().equals(StatisticType.ARMOR.getType()))
             points += item.getStatistic().getArmor();
-        if (statisticType.getType().equals(StatisticType.CRITIC_CHANCE.getType()))
-            points += item.getStatistic().getCriticChance();
+        if (statisticType.getType().equals(StatisticType.CRITICAL_CHANCE.getType()))
+            points += item.getStatistic().getCriticalChance();
         if (statisticType.getType().equals(StatisticType.INTELLIGENCE.getType()))
             points += item.getStatistic().getIntelligence();
         if (statisticType.getType().equals(StatisticType.MAGIC_RESIST.getType()))

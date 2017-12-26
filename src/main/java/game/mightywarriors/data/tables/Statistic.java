@@ -14,7 +14,7 @@ public class Statistic {
     private long strength;
     private long intelligence;
     private long vitality;
-    private long criticChance;
+    private long criticalChance;
     private long armor;
     private long magicResist;
 
@@ -22,16 +22,16 @@ public class Statistic {
         this.strength = 0;
         this.intelligence = 0;
         this.vitality = 0;
-        this.criticChance = 0;
+        this.criticalChance = 0;
         this.armor = 0;
         this.magicResist = 0;
     }
 
-    public Statistic(long strength, long intelligence, long vitality, long criticChance, long armor, long magicResist) {
+    public Statistic(long strength, long intelligence, long vitality, long criticalChance, long armor, long magicResist) {
         this.strength = strength;
         this.intelligence = intelligence;
         this.vitality = vitality;
-        this.criticChance = criticChance;
+        this.criticalChance = criticalChance;
         this.armor = armor;
         this.magicResist = magicResist;
     }
@@ -60,12 +60,12 @@ public class Statistic {
         this.vitality = vitality;
     }
 
-    public long getCriticChance() {
-        return criticChance;
+    public long getCriticalChance() {
+        return criticalChance;
     }
 
-    public void setCriticChance(long criticChance) {
-        this.criticChance = criticChance;
+    public void setCriticalChance(long criticalChance) {
+        this.criticalChance = criticalChance;
     }
 
     public long getArmor() {

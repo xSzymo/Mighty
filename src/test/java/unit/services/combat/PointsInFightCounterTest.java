@@ -37,7 +37,7 @@ public class PointsInFightCounterTest {
 
         assertEquals(5.2, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.INTELLIGENCE));
         assertEquals(10.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.ARMOR));
-        assertEquals(9.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.CRITIC_CHANCE));
+        assertEquals(9.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.CRITICAL_CHANCE));
         assertEquals(12.7, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.MAGIC_RESIST));
         assertEquals(2.19, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.STRENGTH));
         assertEquals(21.9, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.VITALITY));
@@ -63,7 +63,7 @@ public class PointsInFightCounterTest {
 
         assertEquals(26.0, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.INTELLIGENCE));
         assertEquals(52.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.ARMOR));
-        assertEquals(47.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.CRITIC_CHANCE));
+        assertEquals(47.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.CRITICAL_CHANCE));
         assertEquals(63.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.MAGIC_RESIST));
         assertEquals(11.0, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.STRENGTH));
         assertEquals(109.5, pointsInFightCounter.getPointsForSpecificType(user, StatisticType.VITALITY));

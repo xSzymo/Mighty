@@ -21,7 +21,7 @@ public class FighterModelCaster {
                 .setMagicResist(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.MAGIC_RESIST))
                 .setStrength(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.STRENGTH))
                 .setIntelligence(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.INTELLIGENCE))
-                .setCriticChance(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.CRITIC_CHANCE))
+                .setCriticalChance(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.CRITICAL_CHANCE))
                 .setLevel(fighter.getLevel());
 
         if (fighter.getId() != null)

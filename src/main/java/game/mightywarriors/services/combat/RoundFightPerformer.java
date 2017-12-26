@@ -51,7 +51,7 @@ public class RoundFightPerformer {
             double AD = round(fighter.getStrength() / champion.getArmor());
             double AP = round(fighter.getIntelligence() / champion.getMagicResist());
 
-            if (random() * 100 <= champion.getCriticChance()) {
+            if (random() * 100 <= champion.getCriticalChance()) {
                 hp -= (AD * 2);
                 hp -= (AP * 2);
             } else {

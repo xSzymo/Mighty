@@ -7,7 +7,7 @@ public class Fighter {
     private double strength;
     private double intelligence;
     private double hp;
-    private double criticChance;
+    private double criticalChance;
     private double armor;
     private double magicResist;
 
@@ -22,7 +22,7 @@ public class Fighter {
         this.strength = fighter.strength;
         this.intelligence = fighter.intelligence;
         this.hp = fighter.hp;
-        this.criticChance = fighter.criticChance;
+        this.criticalChance = fighter.criticalChance;
         this.armor = fighter.armor;
         this.magicResist = fighter.magicResist;
     }
@@ -58,12 +58,12 @@ public class Fighter {
         return this;
     }
 
-    public double getCriticChance() {
-        return criticChance;
+    public double getCriticalChance() {
+        return criticalChance;
     }
 
-    public Fighter setCriticChance(double criticChance) {
-        this.criticChance = criticChance;
+    public Fighter setCriticalChance(double criticalChance) {
+        this.criticalChance = criticalChance;
         return this;
     }
 
