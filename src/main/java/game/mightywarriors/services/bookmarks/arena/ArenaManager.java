@@ -13,7 +13,7 @@ import game.mightywarriors.other.exceptions.UsedPointsException;
 import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class ArenaManager {
     private int ONE_MINUTE = 60 * ONE_SECOND;
 
     @Transactional
-    public FightResult fightUser(String authorization, MissionFightInformer userFightInformer) throws Exception {
+    public FightResult fightUser(String authorization, Informer userFightInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User opponent;
         if (userFightInformer.opponentId != 0)

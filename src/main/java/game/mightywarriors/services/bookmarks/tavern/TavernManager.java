@@ -9,7 +9,7 @@ import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +30,10 @@ public class TavernManager {
     @Autowired
     private Helper helper;
 
-    public FightResult performFight(String authorization, MissionFightInformer missionFightInformer) throws Exception {
+    public FightResult performFight(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight missionFight = missionFightService.findOne(missionFightInformer.id);
+        MissionFight missionFight = missionFightService.findOne(informer.id);
 
         List<Champion> champions = missionFight.getChampion();
         if (helper.isChampionOnMission(new LinkedList<>(champions), false))
@@ -45,14 +45,14 @@ public class TavernManager {
         return fight;
     }
 
-    public MissionFight sendChampionOnMission(String authorization, MissionFightInformer missionFightInformer) throws Exception {
+    public MissionFight sendChampionOnMission(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         if (user.getMissionPoints() < 1)
             throw new Exception("Mission points already used");
 
-        LinkedList<Champion> champions = helper.getChampions(user, missionFightInformer.championId);
-        Mission mission = helper.getMission(user, missionFightInformer.missionId);
+        LinkedList<Champion> champions = helper.getChampions(user, informer.championId);
+        Mission mission = helper.getMission(user, informer.missionId);
 
         if (helper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
             throw new BusyChampionException("Someone is already busy");

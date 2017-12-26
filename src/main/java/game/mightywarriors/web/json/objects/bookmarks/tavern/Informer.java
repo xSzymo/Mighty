@@ -1,6 +1,6 @@
 package game.mightywarriors.web.json.objects.bookmarks.tavern;
 
-public class MissionFightInformer {
+public class Informer {
 
     /**
      * Work

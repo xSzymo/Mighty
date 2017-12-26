@@ -7,7 +7,7 @@ import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class WorkerManager {
     @Autowired
     private WorkerUtility workerUtility;
 
-    public void setWorkForUser(String authorization, MissionFightInformer workJSON) throws Exception {
+    public void setWorkForUser(String authorization, Informer workJSON) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         if (helper.getBiggestBlockTimeForEnteredChampions(user, helper.getChampionsId(user.getChampions())) > 0)
@@ -45,13 +45,13 @@ public class WorkerManager {
                 workerUtility.getPayment(user, work);
     }
 
-    public void cancelWork(String authorization, MissionFightInformer missionFightInformer) throws Exception {
+    public void cancelWork(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         List<Work> works = workService.findOne(user.getLogin());
 
         for (Work work : works)
-            if (work.getChampion().size() == missionFightInformer.championId.length)
-                if (workerUtility.checkContains(work.getChampion(), helper.getChampions(user, missionFightInformer.championId))) {
+            if (work.getChampion().size() == informer.championId.length)
+                if (workerUtility.checkContains(work.getChampion(), helper.getChampions(user, informer.championId))) {
                     user = workerUtility.setDate(user, work.getChampion(), null);
 
                     workService.delete(work);

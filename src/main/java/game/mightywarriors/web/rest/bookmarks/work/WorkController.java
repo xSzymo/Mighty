@@ -2,7 +2,7 @@ package game.mightywarriors.web.rest.bookmarks.work;
 
 import game.mightywarriors.configuration.system.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.work.WorkerManager;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +15,7 @@ public class WorkController {
     private WorkerManager workerManager;
 
     @PostMapping("secure/work")
-    public void fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer work) throws Exception {
+    public void fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer work) throws Exception {
         workerManager.setWorkForUser(authorization, work);
     }
 
@@ -25,7 +25,7 @@ public class WorkController {
     }
 
     @PostMapping("secure/work/cancel")
-    public void cancel(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer work) throws Exception {
+    public void cancel(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer work) throws Exception {
         workerManager.cancelWork(authorization, work);
     }
 }

@@ -5,7 +5,7 @@ import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +21,16 @@ public class MissionFightChecker {
     @Autowired
     private Helper helper;
 
-    public long checkBiggestLeftTimeForChampions(String authorization, MissionFightInformer missionFightInformer) throws Exception {
+    public long checkBiggestLeftTimeForChampions(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        return helper.getBiggestBlockTimeForEnteredChampions(user, missionFightInformer.championId);
+        return helper.getBiggestBlockTimeForEnteredChampions(user, informer.championId);
     }
 
-    public long checkLeftTimeForMissionFight(String authorization, MissionFightInformer missionFightInformer) throws Exception {
+    public long checkLeftTimeForMissionFight(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight one = missionFightService.findOne(missionFightInformer.id);
+        MissionFight one = missionFightService.findOne(informer.id);
 
         if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
             throw new Exception("Something went wrong");
