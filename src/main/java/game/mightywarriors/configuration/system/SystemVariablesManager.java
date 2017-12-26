@@ -26,19 +26,16 @@ public final class SystemVariablesManager {
     public static final double RATE = 0.1;
     public static final int HP_RATE = 3;
 
+    public static final int NUMBER_ABOVE_ITEM = 5;
+    public static final int MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL = 3;
+    public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
+    public static final int ARENA_POINTS = 3;
+    public static final int GOLD_FROM_WORK = 10;
+
     public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_ARENA_POINTS = 1;
-
-    public static final int ARENA_POINTS = 3;
-
-    public static final int NUMBER_ABOVE_ITEM = 5;
-    public static final int MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL = 3;
-
-    public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
-
-    public static final int GOLD_FROM_WORK = 10;
 
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10 = 15;
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_11_AND_20 = 14;
@@ -54,7 +51,7 @@ public final class SystemVariablesManager {
     public static final int DEFAULT_STRENGTH_FOR_NEW_CHAMPION = 1;
     public static final int DEFAULT_INTELLIGENCE_FOR_NEW_CHAMPION = 1;
     public static final int DEFAULT_VITALITY_FOR_NEW_CHAMPION = 3;
-    public static final int DEFAULT_CRITIC_CHANCE_FOR_NEW_CHAMPION = 0;
+    public static final int DEFAULT_CRITICAL_CHANCE_FOR_NEW_CHAMPION = 0;
     public static final int DEFAULT_ARMOR_FOR_NEW_CHAMPION = 1;
     public static final int DEFAULT_MAGIC_RESIST_FOR_NEW_CHAMPION = 1;
 
