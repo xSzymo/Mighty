@@ -16,6 +16,8 @@ public class Champion implements IFighter {
 
     @Column(name = "experience")
     private long experience = 1;
+    @Column(name = "name")
+    private String name;
     @Column(name = "level")
     private long level = 1;
     @Column(name = "block_date")
@@ -115,5 +117,13 @@ public class Champion implements IFighter {
 
     public void setBlockTime(Timestamp blockDate) {
         this.blockDate = blockDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
