@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,7 +37,7 @@ public class WorkService {
         }
     }
 
-    public Work findOne(String nickname) {
+    public List<Work> findOne(String nickname) {
         try {
             return repository.findByNickname(nickname);
         } catch (NullPointerException e) {
@@ -46,7 +47,15 @@ public class WorkService {
 
     public Work findOne(Work work) {
         try {
-            return findOne(work.getNickname());
+            return repository.findById((long) work.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Work findOne(long id) {
+        try {
+            return repository.findById(id);
         } catch (NullPointerException e) {
             return null;
         }
@@ -56,14 +65,13 @@ public class WorkService {
         return repository.findAll();
     }
 
-    public void delete(String nickname) {
-        if (repository.findByNickname(nickname) != null)
-            repository.deleteById(nickname);
+    public void delete(long id) {
+        repository.deleteById(id);
     }
 
     public void delete(Work work) {
         try {
-            delete(work.getNickname());
+            delete(work.getId());
         } catch (NullPointerException e) {
 
         }
