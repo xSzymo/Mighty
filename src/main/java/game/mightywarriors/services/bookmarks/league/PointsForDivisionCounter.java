@@ -1,6 +1,6 @@
 package game.mightywarriors.services.bookmarks.league;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;

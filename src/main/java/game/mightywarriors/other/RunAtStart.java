@@ -1,6 +1,6 @@
 package game.mightywarriors.other;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.services.UserService;

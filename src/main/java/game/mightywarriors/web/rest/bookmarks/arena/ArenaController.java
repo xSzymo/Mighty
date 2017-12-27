@@ -1,6 +1,6 @@
 package game.mightywarriors.web.rest.bookmarks.arena;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.arena.ArenaManager;
 import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.LeftTimer;

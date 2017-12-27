@@ -1,6 +1,6 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.repositories.ChampionRepository;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Equipment;

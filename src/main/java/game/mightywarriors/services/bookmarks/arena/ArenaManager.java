@@ -1,6 +1,6 @@
 package game.mightywarriors.services.bookmarks.arena;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.RankingService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;

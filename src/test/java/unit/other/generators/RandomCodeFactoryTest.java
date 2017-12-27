@@ -1,6 +1,6 @@
 package unit.other.generators;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.other.generators.RandomCodeFactory;
 import org.junit.Test;
 

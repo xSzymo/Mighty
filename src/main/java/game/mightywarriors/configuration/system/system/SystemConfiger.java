@@ -1,5 +1,6 @@
-package game.mightywarriors.configuration.system;
+package game.mightywarriors.configuration.system.system;
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;

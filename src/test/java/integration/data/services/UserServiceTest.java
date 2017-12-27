@@ -1,7 +1,7 @@
 package integration.data.services;
 
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;

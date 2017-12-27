@@ -1,5 +1,6 @@
-package game.mightywarriors.configuration.system;
+package game.mightywarriors.configuration.system.system;
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.other.generators.RandomCodeFactory;
 import game.mightywarriors.other.todo.PictureOperations;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
 package integration.config;
 
 import game.mightywarriors.MightyWarriorsApplication;
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Mission;

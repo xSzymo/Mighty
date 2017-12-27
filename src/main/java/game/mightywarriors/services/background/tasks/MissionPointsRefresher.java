@@ -1,6 +1,6 @@
 package game.mightywarriors.services.background.tasks;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;

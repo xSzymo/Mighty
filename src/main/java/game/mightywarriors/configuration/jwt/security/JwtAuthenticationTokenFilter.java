@@ -1,7 +1,7 @@
 package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;

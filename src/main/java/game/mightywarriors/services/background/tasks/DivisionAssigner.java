@@ -1,6 +1,6 @@
 package game.mightywarriors.services.background.tasks;
 
-import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemFightsVariablesManager;
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;

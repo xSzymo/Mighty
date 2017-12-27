@@ -1,4 +1,4 @@
-package game.mightywarriors.configuration.system;
+package game.mightywarriors.configuration.system.variables;
 
 import game.mightywarriors.other.base64.DecoderDB;
 import game.mightywarriors.other.base64.DecoderJSON;

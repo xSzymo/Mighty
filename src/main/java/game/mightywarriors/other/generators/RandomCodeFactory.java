@@ -1,6 +1,6 @@
 package game.mightywarriors.other.generators;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 
 import java.util.Random;
 

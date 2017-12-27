@@ -1,6 +1,6 @@
 package game.mightywarriors.other.enums;
 
-import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemFightsVariablesManager;
 
 public enum Level {
     ONE(SystemFightsVariablesManager.Levels.ONE, 1), TWO(SystemFightsVariablesManager.Levels.TWO, 2), THREE(SystemFightsVariablesManager.Levels.THREE, 3),

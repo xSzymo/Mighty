@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.WorkService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.data.tables.Work;

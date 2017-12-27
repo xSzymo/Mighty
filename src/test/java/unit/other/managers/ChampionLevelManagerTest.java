@@ -1,6 +1,6 @@
 package unit.other.managers;
 
-import game.mightywarriors.configuration.system.SystemFightsVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemFightsVariablesManager;
 import game.mightywarriors.data.tables.Champion;
 import org.junit.Test;
 

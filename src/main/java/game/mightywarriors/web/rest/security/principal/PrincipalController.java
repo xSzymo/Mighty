@@ -1,6 +1,6 @@
 package game.mightywarriors.web.rest.security.principal;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.security.PrincipalJSON;

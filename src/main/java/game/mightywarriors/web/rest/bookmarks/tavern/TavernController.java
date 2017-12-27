@@ -1,6 +1,6 @@
 package game.mightywarriors.web.rest.bookmarks.tavern;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;

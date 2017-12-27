@@ -1,4 +1,4 @@
-package game.mightywarriors.configuration.system;
+package game.mightywarriors.configuration.system.variables;
 
 public final class SystemFightsVariablesManager {
 

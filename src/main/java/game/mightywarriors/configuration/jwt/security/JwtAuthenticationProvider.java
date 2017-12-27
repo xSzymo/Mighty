@@ -2,7 +2,7 @@ package game.mightywarriors.configuration.jwt.security;
 
 import game.mightywarriors.configuration.jwt.model.JwtAuthenticationToken;
 import game.mightywarriors.configuration.jwt.model.JwtUserDetails;
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.TokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;

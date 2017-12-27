@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.MissionFight;

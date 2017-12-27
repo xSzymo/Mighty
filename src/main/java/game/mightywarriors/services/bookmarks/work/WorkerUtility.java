@@ -1,6 +1,6 @@
 package game.mightywarriors.services.bookmarks.work;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.services.WorkService;
 import game.mightywarriors.data.tables.Champion;

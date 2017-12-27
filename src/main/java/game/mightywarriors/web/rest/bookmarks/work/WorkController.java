@@ -1,6 +1,6 @@
 package game.mightywarriors.web.rest.bookmarks.work;
 
-import game.mightywarriors.configuration.system.SystemVariablesManager;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.work.WorkerManager;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
