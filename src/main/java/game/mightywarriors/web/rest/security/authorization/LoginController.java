@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TokenController {
+public class LoginController {
     @Autowired
     private UserService userService;
     @Autowired

@@ -4,7 +4,7 @@ import acceptance.Requester
 import groovy.json.JsonSlurper
 import spock.lang.Specification
 
-class TokenControllerRefreshTest extends Specification {
+class LoginControllerRefreshTest extends Specification {
     private String url = "http://localhost:8080"
     private String tokenURL = url + "/token"
     private String refreshTokenURL = url + "/secure/refresh"
