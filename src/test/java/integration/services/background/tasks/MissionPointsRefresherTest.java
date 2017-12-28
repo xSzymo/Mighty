@@ -2,12 +2,15 @@ package integration.services.background.tasks;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.background.tasks.MissionPointsRefresher;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.transaction.Transactional;
 
 import java.util.LinkedList;
 
@@ -21,15 +24,21 @@ public class MissionPointsRefresherTest extends IntegrationTestsConfig {
 
     @Before
     public void setUp() {
-        for (int i = 0; i < 10; i++) {
-            userService.save(new User("" + i, "", ""));
+        int level = 10;
+        for (int i = 2; i < 100; i += 2) {
+            if (i == level)
+                level += 10;
+
+            User user = new User("" + i, "", "").addChampion(new Champion().setLevel(level));
+            userService.save(user);
         }
     }
 
     @Test
+    @Transactional
     public void refreshMissionPointsForAllMission() {
         LinkedList<User> users = userService.findAll();
-        users.forEach(x -> x.setMissionPoints(213));
+        users.forEach(x -> x.setMissionPoints(2));
         userService.save(users);
 
         missionPointsRefresher.refreshMissionPointsForAllMission();
