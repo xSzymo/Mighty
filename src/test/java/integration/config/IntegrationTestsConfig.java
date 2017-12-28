@@ -40,7 +40,7 @@ public abstract class IntegrationTestsConfig {
     private static MissionFightService missionFightService;
 
     @Before
-    public void halo() {
+    public void createMonstersAndItems() {
         Monster monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
         missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
 
