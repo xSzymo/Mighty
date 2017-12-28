@@ -26,6 +26,7 @@ public class DivisionAssignerTest extends IntegrationTestsConfig {
 
     @Before
     public void setUp() throws Exception {
+        userService.save(new User("example", "", "").addChampion(new Champion().setLevel(5)));
         userService.save(setUpUser1("boss1"));
         for (int i = 2; i < 10; i++)
             userService.save(setUpUser1("boss" + i));
