@@ -61,9 +61,17 @@ public class RankingService {
         }
     }
 
+    public List<Ranking> findAllAboveRanking(long ranking) {
+        try {
+            return repository.findAllAbove(ranking);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public List<Ranking> findAllBelowRanking(long ranking) {
         try {
-            return findAll().stream().filter(x -> x.getRanking() >= ranking).collect(Collectors.toList());
+            return repository.findAllBelow(ranking);
         } catch (NullPointerException e) {
             return null;
         }

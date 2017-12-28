@@ -65,7 +65,7 @@ public class ArenaManager {
             long ranking = rankingService.findOne(opponent.getLogin()).getRanking();
             rankingService.delete(user.getLogin());
 
-            List<Ranking> allBelowRanking = rankingService.findAllBelowRanking(ranking);
+            List<Ranking> allBelowRanking = rankingService.findAllAboveRanking(ranking);
 
             allBelowRanking.forEach(x -> x.setRanking(x.getRanking() + 1));
             Ranking userRanking = new Ranking(user.getLogin());
