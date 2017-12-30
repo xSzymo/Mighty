@@ -66,5 +66,5 @@ public final class SystemVariablesManager {
     public static final EncoderJSON ENCODER_JSON = new EncoderJSON();
     public static final DecoderJSON DECODER_JSON = new DecoderJSON();
 
-    public static boolean RUNNING_TESTS = false;
+    public static boolean INSERT_EXAMPLE_DATA = false;
 }

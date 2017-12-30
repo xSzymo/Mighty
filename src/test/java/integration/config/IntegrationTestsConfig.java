@@ -66,7 +66,7 @@ public abstract class IntegrationTestsConfig {
     @BeforeClass
     public static void setUpBefore() {
         SystemVariablesManager.JWTTokenCollection.clear();
-        SystemVariablesManager.RUNNING_TESTS = true;
+        SystemVariablesManager.INSERT_EXAMPLE_DATA = true;
     }
 
     @AfterClass
