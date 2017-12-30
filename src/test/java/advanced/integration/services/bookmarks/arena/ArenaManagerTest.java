@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ArenaManagerTest extends AuthorizationConfiguration {
     @Autowired
-    private ArenaManager arenaManager;
+    private ArenaManager objectUnderTest;
     @Autowired
     private UsersRetriever retriever;
     @Autowired
@@ -77,7 +77,7 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
         int arenaPoints = user.getArenaPoints();
         long oldOpponentRanking = rankingService.findOne(informer.opponentName).getRanking();
 
-        arenaManager.fightUser(token, informer);
+        objectUnderTest.fightUser(token, informer);
 
         user = userService.findOne(user.getId());
         assertEquals(arenaPoints - 1, user.getArenaPoints());
@@ -93,14 +93,14 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     public void fightUser_opponentWithLowerRanking() throws Exception {
         informer.opponentName = opponentWithLowerRanking.getLogin();
 
-        arenaManager.fightUser(token, informer);
+        objectUnderTest.fightUser(token, informer);
     }
 
     @Test(expected = NotProperlyChampionsException.class)
     public void fightUser_wrong_champions_id() throws Exception {
         informer.championId = new long[]{abstractComicalNumber};
 
-        arenaManager.fightUser(token, informer);
+        objectUnderTest.fightUser(token, informer);
     }
 
     public User getOpponentWithHigherRanking(List<Ranking> allBelowRanking) {
