@@ -2,6 +2,7 @@ package game.mightywarriors.services.bookmarks.work;
 
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.services.WorkService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.exceptions.BusyChampionException;
@@ -13,19 +14,25 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class WorkerManager {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UsersRetriever usersRetriever;
-    @Autowired
-    private WorkService workService;
-    @Autowired
     private Helper helper;
-    @Autowired
+    private UserService userService;
+    private WorkService workService;
     private WorkerUtility workerUtility;
+    private UsersRetriever usersRetriever;
+
+    @Autowired
+    public WorkerManager(UserService userService, UsersRetriever usersRetriever, WorkService workService, Helper helper, WorkerUtility workerUtility) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+        this.workService = workService;
+        this.helper = helper;
+        this.workerUtility = workerUtility;
+    }
 
     public void setWorkForUser(String authorization, Informer workJSON) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
@@ -49,13 +56,15 @@ public class WorkerManager {
         User user = usersRetriever.retrieveUser(authorization);
         List<Work> works = workService.findOne(user.getLogin());
 
-        for (Work work : works)
-            if (work.getChampion().size() == informer.championId.length)
-                if (workerUtility.checkContains(work.getChampion(), helper.getChampions(user, informer.championId))) {
-                    user = workerUtility.setDate(user, work.getChampion(), null);
+        for (Work work : works) {
+            for (Champion champion : helper.getChampions(user, informer.championId)) {
+                if (work.getChampion().getId().equals(champion.getId())) {
+                    user = workerUtility.setDate(user, Stream.of(work.getChampion()).collect(Collectors.toList()), null);
 
                     workService.delete(work);
                     userService.save(user);
                 }
+            }
+        }
     }
 }

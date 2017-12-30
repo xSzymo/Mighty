@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class WorkerUtility {
@@ -23,36 +25,27 @@ public class WorkerUtility {
 
     public void createWork(User user, int hours, LinkedList<Champion> champions) {
         Timestamp blockTime = new Timestamp(System.currentTimeMillis() + getHours(hours));
+        LinkedList<Work> works = new LinkedList<>();
 
-        Work work = new Work().build()
-                .setNickname(user.getLogin())
-                .setBlockTime(blockTime)
-                .setTime(hours)
-                .setChampion(champions);
+        for (Champion x : champions)
+            works.add(new Work().build()
+                    .setNickname(user.getLogin())
+                    .setBlockTime(blockTime)
+                    .setTime(hours)
+                    .setChampion(x));
 
         user = setDate(user, champions, blockTime);
 
-        workService.save(work);
+        workService.save(works);
         userService.save(user);
     }
 
     public void getPayment(User user, Work work) {
-        for (Champion x : work.getChampion())
-            user.addGold(new BigDecimal(work.getTime() * SystemVariablesManager.GOLD_FROM_WORK * x.getLevel()));
-        user = setDate(user, work.getChampion(), null);
+            user.addGold(new BigDecimal(work.getTime() * SystemVariablesManager.GOLD_FROM_WORK * work.getChampion().getLevel()));
+        user = setDate(user, Stream.of(work.getChampion()).collect(Collectors.toList()), null);
 
         workService.delete(work);
         userService.save(user);
-    }
-
-    public boolean checkContains(List<Champion> workChampions, LinkedList<Champion> champions) {
-        boolean same = true;
-
-        for (Champion champion : champions)
-            if (!workChampions.contains(champion))
-                same = false;
-
-        return same;
     }
 
     public User setDate(User user, List<Champion> champions, Timestamp date) {
@@ -66,7 +59,7 @@ public class WorkerUtility {
         return user;
     }
 
-    private long getHours(int hours) {
+    public long getHours(int hours) {
         return hours * 60 * 60 * 1000;
     }
 }
