@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,11 +22,7 @@ public class RankingService {
     }
 
     public void save(Collection<Ranking> rankings) {
-        rankings.forEach(
-                x -> {
-                    if (x != null)
-                        saveOperation(x);
-                });
+        rankings.stream().filter(x -> x != null).forEach(this::saveOperation);
     }
 
     private void saveOperation(Ranking ranking) {
@@ -40,6 +35,14 @@ public class RankingService {
     public Ranking findOne(String nickname) {
         try {
             return repository.findByNickname(nickname);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Ranking findOne(long ranking) {
+        try {
+            return repository.findByRanking(ranking);
         } catch (NullPointerException e) {
             return null;
         }
@@ -72,6 +75,37 @@ public class RankingService {
     public List<Ranking> findAllBelowRanking(long ranking) {
         try {
             return repository.findAllBelow(ranking);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+
+    public List<Ranking> findAllAboveAndEqualRanking(long ranking) {
+        try {
+            return repository.findAllAboveAndEqual(ranking);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public List<Ranking> findAllBetween(long ranking) {
+        try {
+            return repository.findAllBelowAndEqual(ranking);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param low  - higher number ( lower ranking )
+     * @param high - lower number  ( higher ranking )
+     *             for example low - 13 & high - 3
+     *             for functionality : all between low and high will be increment
+     */
+    public List<Ranking> findAllBetween(long low, long high) {
+        try {
+            return repository.findAllBetween(low, high);
         } catch (NullPointerException e) {
             return null;
         }
