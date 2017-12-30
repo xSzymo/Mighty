@@ -3,6 +3,8 @@ package game.mightywarriors.data.tables;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.LazyInitializationException;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -63,6 +65,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Champion> champions = new ChampionCollection();
 
 
@@ -189,7 +192,7 @@ public class User {
         try {
             champions.isEmpty();
             return champions;
-        } catch(Exception e) {
+        } catch (Exception e) {
             champions = new ChampionCollection();
             return champions;
         }

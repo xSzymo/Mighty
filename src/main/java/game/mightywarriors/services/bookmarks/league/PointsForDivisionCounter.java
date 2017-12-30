@@ -5,7 +5,9 @@ import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PointsForDivisionCounter {
 
     public double getPointsOfFighterPower(IFighter fighter) {

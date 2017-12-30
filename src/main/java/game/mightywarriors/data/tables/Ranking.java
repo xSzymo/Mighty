@@ -13,7 +13,7 @@ public class Ranking {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "ranking")
+    @Column(name = "ranking", unique = true)
     private long ranking;
 
     public Ranking() {
@@ -38,5 +38,10 @@ public class Ranking {
 
     public void setRanking(long ranking) {
         this.ranking = ranking;
+    }
+
+    public Ranking incrementRanking() {
+        ranking++;
+        return this;
     }
 }
