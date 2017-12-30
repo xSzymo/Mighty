@@ -43,6 +43,7 @@ public class ArenaManager {
     public FightResult fightUser(String authorization, Informer userFightInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User opponent;
+
         if (userFightInformer.opponentId != 0)
             opponent = userService.findOne(userFightInformer.opponentId);
         else if (userFightInformer.opponentName != null)
@@ -51,7 +52,6 @@ public class ArenaManager {
             throw new NotProperlyChampionsException("Wrong champions id");
 
         LinkedList<Champion> champions = helper.getChampions(user, userFightInformer.championId);
-
         check(user, opponent, champions);
 
         FightResult fight = fightCoordinator.fight(user, opponent, helper.getChampionsId(champions));
@@ -62,19 +62,19 @@ public class ArenaManager {
 
     private void getThingsDoneAfterFight(User user, User opponent, FightResult fight, LinkedList<Champion> champions) {
         if (fight.getWinner().getLogin().equals(user.getLogin())) {
-            long ranking = rankingService.findOne(opponent.getLogin()).getRanking();
+            long HigherRank = rankingService.findOne(opponent.getLogin()).getRanking();
+            long lowerRank = rankingService.findOne(user.getLogin()).getRanking();
             rankingService.delete(user.getLogin());
 
-            List<Ranking> allBelowRanking = rankingService.findAllAboveRanking(ranking);
+            List<Ranking> allBelowRanking = rankingService.findAllBetween(lowerRank, HigherRank);
+            for (int i = allBelowRanking.size() - 1; i >= 0; i--)
+                rankingService.save(allBelowRanking.get(i).incrementRanking());
 
-            allBelowRanking.forEach(x -> x.setRanking(x.getRanking() + 1));
             Ranking userRanking = new Ranking(user.getLogin());
             rankingService.save(userRanking);
 
-            userRanking.setRanking(ranking);
-
-            allBelowRanking.add(0, userRanking);
-            rankingService.save(allBelowRanking);
+            userRanking.setRanking(HigherRank);
+            rankingService.save(userRanking);
         }
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * ONE_MINUTE));
@@ -88,7 +88,7 @@ public class ArenaManager {
         if (rankingService.findOne(user.getLogin()).getRanking() < rankingService.findOne(opponent.getLogin()).getRanking())
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
-            throw new UsedPointsException("Mission points already used");
+            throw new UsedPointsException("Arena points already used");
         if (helper.isChampionOnMission(new LinkedList<>(champions), true))
             throw new BusyChampionException("Someone is already busy");
         if (opponent == null)
