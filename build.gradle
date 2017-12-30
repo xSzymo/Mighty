@@ -60,6 +60,10 @@ task integration(type: Test) {
     include 'integration/**'
 }
 
+task adIntegration(type: Test) {
+    include 'advanced/**'
+}
+
 task acceptance(type: Test) {
     include 'acceptance/**'
 }
