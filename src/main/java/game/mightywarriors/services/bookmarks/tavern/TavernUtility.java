@@ -8,6 +8,7 @@ import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
+import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 public class TavernUtility {
-    protected static final int ONE_SECOND = 1000;
+    private static final int ONE_SECOND = 1000;
 
     @Autowired
     private MissionFightService missionFightService;
@@ -29,6 +30,8 @@ public class TavernUtility {
     private UserService userService;
     @Autowired
     private MissionAssigner missionAssigner;
+    @Autowired
+    private Helper helper;
 
     public MissionFight prepareNewMissionFight(LinkedList<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();
@@ -50,6 +53,8 @@ public class TavernUtility {
             long missionExperience = missionFight.getMission().getExperience();
             BigDecimal missionGold = missionFight.getMission().getGold();
 
+            champions = helper.getChampions(user, helper.getChampionsId(champions));
+
             long exp = missionExperience / champions.size();
             champions.forEach(x -> x.addExperience(exp));
             user.addGold(missionGold);
@@ -62,7 +67,6 @@ public class TavernUtility {
         champions.forEach(x -> x.setBlockTime(null));
 
         missionFightService.delete(missionFight);
-        championService.save(new LinkedList<>(champions));
         userService.save(user);
 
         missionAssigner.assignNewMissionForUsers(user.getId());
