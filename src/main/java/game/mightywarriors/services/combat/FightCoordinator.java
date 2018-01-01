@@ -108,7 +108,7 @@ public class FightCoordinator {
     private long[] getChampionsId(List<Champion> champions) {
         long[] ids = new long[champions.size()];
         for (int i = 0; i < champions.size(); i++)
-            ids[i] = champions.get(0).getId();
+            ids[i] = champions.get(i).getId();
 
         return ids;
     }
