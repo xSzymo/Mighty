@@ -1,5 +1,8 @@
 package game.mightywarriors.data.tables;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,6 +22,7 @@ public class MissionFight {
     private Mission mission;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Champion> champion;
 
     public Long getId() {
