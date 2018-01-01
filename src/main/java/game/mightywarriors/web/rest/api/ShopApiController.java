@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class ShopApiController {
@@ -16,7 +17,7 @@ public class ShopApiController {
     ShopRepository shopRepository;
 
     @GetMapping("shops")
-    public LinkedList<Shop> getShops() {
+    public Set<Shop> getShops() {
         return shopRepository.findAll();
     }
 

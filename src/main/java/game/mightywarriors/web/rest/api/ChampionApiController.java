@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class ChampionApiController {
@@ -16,7 +16,7 @@ public class ChampionApiController {
     ChampionRepository championRepository;
 
     @GetMapping("champions")
-    public LinkedList<Champion> getChampions() {
+    public Set<Champion> getChampions() {
         return championRepository.findAll();
     }
 

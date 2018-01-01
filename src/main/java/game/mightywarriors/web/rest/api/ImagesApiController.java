@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class ImagesApiController {
@@ -16,7 +17,7 @@ public class ImagesApiController {
     ImageRepository imageRepository;
 
     @GetMapping("images")
-    public LinkedList<Image> getImages() {
+    public Set<Image> getImages() {
         return imageRepository.findAll();
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class MonstersApiController {
@@ -16,7 +17,7 @@ public class MonstersApiController {
     MonsterService monsterService;
 
     @GetMapping("monsters")
-    public LinkedList<Monster> getChampions() {
+    public Set<Monster> getChampions() {
         return monsterService.findAll();
     }
 

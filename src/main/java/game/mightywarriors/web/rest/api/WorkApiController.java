@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class WorkApiController {
@@ -23,7 +25,7 @@ public class WorkApiController {
     private UsersRetriever retriever;
 
     @GetMapping("works")
-    public LinkedList<Work> getChampions() {
+    public HashSet<Work> getChampions() {
         return service.findAll();
     }
 
@@ -33,7 +35,7 @@ public class WorkApiController {
     }
 
     @GetMapping("secure/works")
-    public List<Work> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+    public Set<Work> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);
         return service.findOne(user.getLogin());
     }

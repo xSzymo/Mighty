@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Service;
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class ItemsApiController {
@@ -16,7 +18,7 @@ public class ItemsApiController {
     ItemRepository itemRepository;
 
     @GetMapping("items")
-    public LinkedList<Item> getItems() {
+    public Set<Item> getItems() {
         return itemRepository.findAll();
     }
 

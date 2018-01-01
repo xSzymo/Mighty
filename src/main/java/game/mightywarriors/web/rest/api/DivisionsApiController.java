@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 
 @RestController
@@ -16,7 +17,7 @@ public class DivisionsApiController {
     private DivisionService divisionService;
 
     @GetMapping("divisions")
-    public LinkedList<Division> getUserRoles() {
+    public HashSet<Division> getUserRoles() {
         return divisionService.findAll();
     }
 

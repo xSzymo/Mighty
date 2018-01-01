@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class StatisticApiController {
@@ -16,7 +17,7 @@ public class StatisticApiController {
     StatisticRepository statisticRepository;
 
     @GetMapping("statistics")
-    public LinkedList<Statistic> getStatistics() {
+    public Set<Statistic> getStatistics() {
         return statisticRepository.findAll();
     }
 

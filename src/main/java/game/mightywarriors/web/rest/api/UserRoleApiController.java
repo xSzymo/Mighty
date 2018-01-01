@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class UserRoleApiController {
@@ -16,7 +17,7 @@ public class UserRoleApiController {
     UserRoleRepository userRoleRepository;
 
     @GetMapping("userRoles")
-    public LinkedList<UserRole> getUserRoles() {
+    public Set<UserRole> getUserRoles() {
         return userRoleRepository.findAll();
     }
 
