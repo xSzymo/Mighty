@@ -10,7 +10,9 @@ import game.mightywarriors.web.json.objects.fights.RoundProcess;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 @Service
 public class FightPerformer {
@@ -59,7 +61,7 @@ public class FightPerformer {
                 opponentChampionTurn = 0;
 
         if (opponent instanceof Collection<?>)
-            if (opponentChampionTurn >= ((LinkedList<Monster>) opponent).size())
+            if (opponentChampionTurn >= ((HashSet<Monster>) opponent).size())
                 opponentChampionTurn = 0;
 
         return opponentChampionTurn;
@@ -74,7 +76,7 @@ public class FightPerformer {
         if (opponent instanceof User)
             fighters.addAll(((User) opponent).getChampions());
         if (opponent instanceof Collection<?>)
-            fighters.addAll((LinkedList<Monster>) opponent);
+            fighters.addAll((HashSet<Monster>) opponent);
         round.setOpponentChampions(fighterModelCaster.castChampionToChampionModel(fighters));
 
         return round;

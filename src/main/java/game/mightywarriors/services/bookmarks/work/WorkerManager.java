@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,7 +46,7 @@ public class WorkerManager {
 
     public void getPayment(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        List<Work> works = workService.findOne(user.getLogin());
+        Set<Work> works = workService.findOne(user.getLogin());
 
         for (Work work : works)
             if (work != null && !work.getBlockDate().after(new Timestamp(System.currentTimeMillis())))
@@ -54,12 +55,12 @@ public class WorkerManager {
 
     public void cancelWork(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        List<Work> works = workService.findOne(user.getLogin());
+        Set<Work> works = workService.findOne(user.getLogin());
 
         for (Work work : works) {
             for (Champion champion : helper.getChampions(user, informer.championId)) {
                 if (work.getChampion().getId().equals(champion.getId())) {
-                    user = workerUtility.setDate(user, Stream.of(work.getChampion()).collect(Collectors.toList()), null);
+                    user = workerUtility.setDate(user, Stream.of(work.getChampion()).collect(Collectors.toSet()), null);
 
                     workService.delete(work);
                     userService.save(user);

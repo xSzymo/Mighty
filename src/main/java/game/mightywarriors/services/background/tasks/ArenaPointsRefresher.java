@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 @Service
@@ -16,7 +17,7 @@ public class ArenaPointsRefresher {
 
     @Transactional
     public void refreshArenaPointsForAllUsers() {
-        LinkedList<User> users = userService.findAll();
+        HashSet<User> users = userService.findAll();
 
         users.forEach(x -> x.setArenaPoints(SystemVariablesManager.ARENA_POINTS));
 

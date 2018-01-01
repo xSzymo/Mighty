@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -66,7 +67,7 @@ public class SystemConfiger {
     }
 
     private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {
-        LinkedList<User> all = userService.findAll();
+        HashSet<User> all = userService.findAll();
         all.forEach(x -> SystemVariablesManager.JWTTokenCollection.add(x.getTokenCode()));
     }
 

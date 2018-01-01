@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 @RestController
 public class RankingController {
@@ -16,7 +17,7 @@ public class RankingController {
     private RankingService rankingService;
 
     @GetMapping("rankings")
-    public LinkedList<Ranking> getUsers() {
+    public Set<Ranking> getUsers() {
         return rankingService.findAll();
     }
 

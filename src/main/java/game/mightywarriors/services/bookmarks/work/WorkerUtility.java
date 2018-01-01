@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,7 +23,7 @@ public class WorkerUtility {
     @Autowired
     private WorkService workService;
 
-    public void createWork(User user, int hours, LinkedList<Champion> champions) {
+    public void createWork(User user, int hours, Set<Champion> champions) {
         Timestamp blockTime = new Timestamp(System.currentTimeMillis() + getHours(hours));
         LinkedList<Work> works = new LinkedList<>();
 
@@ -41,14 +41,14 @@ public class WorkerUtility {
     }
 
     public void getPayment(User user, Work work) {
-            user.addGold(new BigDecimal(work.getTime() * SystemVariablesManager.GOLD_FROM_WORK * work.getChampion().getLevel()));
-        user = setDate(user, Stream.of(work.getChampion()).collect(Collectors.toList()), null);
+        user.addGold(new BigDecimal(work.getTime() * SystemVariablesManager.GOLD_FROM_WORK * work.getChampion().getLevel()));
+        user = setDate(user, Stream.of(work.getChampion()).collect(Collectors.toSet()), null);
 
         workService.delete(work);
         userService.save(user);
     }
 
-    public User setDate(User user, List<Champion> champions, Timestamp date) {
+    public User setDate(User user, Set<Champion> champions, Timestamp date) {
         user.getChampions().stream().filter(x -> {
             for (Champion x1 : champions)
                 if (x1.getId().equals(x.getId()))

@@ -6,8 +6,10 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FightCoordinator {
@@ -68,7 +70,7 @@ public class FightCoordinator {
                 if (champion.getId().equals(id))
                     champions.add(champion);
 
-        user.setChampions((new LinkedList<>(champions)));
+        user.setChampions((new HashSet<>(champions)));
 
         if (user.getChampions().size() < 1)
             throw new Exception("Specify champion to fight");
@@ -86,7 +88,7 @@ public class FightCoordinator {
                 if (champion.getId().equals(id))
                     champions.add(champion);
 
-        user.setChampions((new LinkedList<>(champions)));
+        user.setChampions((new HashSet<>(champions)));
 
         LinkedList<Champion> opponentsChampions = new LinkedList<>();
 
@@ -95,7 +97,7 @@ public class FightCoordinator {
                 if (champion.getId().equals(id))
                     opponentsChampions.add(champion);
 
-        opponent.setChampions((new LinkedList<>(opponentsChampions)));
+        opponent.setChampions((new HashSet<>(opponentsChampions)));
 
         if (user.getChampions().size() < 1)
             throw new Exception("Specify champion to fight");
@@ -103,6 +105,10 @@ public class FightCoordinator {
             throw new Exception("Specify champion to fight");
 
         return fight(user, opponent);
+    }
+
+    private long[] getChampionsId(Set<Champion> champion) {
+        return getChampionsId(new LinkedList<>(champion));
     }
 
     private long[] getChampionsId(List<Champion> champions) {

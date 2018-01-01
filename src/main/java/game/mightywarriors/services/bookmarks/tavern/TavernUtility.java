@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TavernUtility {
@@ -33,7 +34,7 @@ public class TavernUtility {
     @Autowired
     private Helper helper;
 
-    public MissionFight prepareNewMissionFight(LinkedList<Champion> champions, Mission mission) {
+    public MissionFight prepareNewMissionFight(Set<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getTimeDuration() * ONE_SECOND));
@@ -48,7 +49,7 @@ public class TavernUtility {
         return missionFight;
     }
 
-    public void getThingsDoneAfterFight(User user, MissionFight missionFight, List<Champion> champions, FightResult fight, boolean wonFight) {
+    public void getThingsDoneAfterFight(User user, MissionFight missionFight, Set<Champion> champions, FightResult fight, boolean wonFight) {
         if (wonFight) {
             long missionExperience = missionFight.getMission().getExperience();
             BigDecimal missionGold = missionFight.getMission().getGold();

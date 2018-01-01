@@ -137,6 +137,9 @@ public class FightCoordinatorUserMultipleChampionsTest {
         }
 
         assertEquals(7, fightResult.getRounds().size());
+        assertEquals(3, fightResult.getRounds().get(0).getUserChampions().size());
+        assertEquals(3, fightResult.getRounds().get(0).getUserChampions().size());
+        assertEquals(3, fightResult.getRounds().get(0).getOpponentChampions().size());
         assertEquals(user1, fightResult.getLooser());
         assertEquals(user2, fightResult.getWinner());
     }

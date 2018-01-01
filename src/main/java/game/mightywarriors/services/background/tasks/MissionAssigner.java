@@ -27,7 +27,7 @@ public class MissionAssigner {
     }
 
     public void assignNewMissionForUsers(long id) {
-        LinkedList<User> users = new LinkedList();
+        HashSet<User> users = new HashSet<>();
         users.add(userService.findOne(id));
 
         assign(users);
@@ -38,8 +38,8 @@ public class MissionAssigner {
     }
 
     @Transactional
-    private void assign(LinkedList<User> users) {
-        LinkedList<Mission> missions = missionService.findAll();
+    private void assign(Set<User> users) {
+        HashSet<Mission> missions = missionService.findAll();
         map = new HashMap();
 
         if (missions.size() == 0)
@@ -51,7 +51,7 @@ public class MissionAssigner {
         userService.save(users);
     }
 
-    private LinkedList<User> draw(LinkedList<User> users, LinkedList<Mission> missions, boolean clear) {
+    private Set<User> draw(Set<User> users, Set<Mission> missions, boolean clear) {
         users.forEach(user -> {
             if (user.getChampions().size() == 0)
                 throw new RuntimeException("restart system");
@@ -87,7 +87,7 @@ public class MissionAssigner {
         return users;
     }
 
-    private List<Mission> getAllMissionsForSpecificLevel(LinkedList<Mission> missions, long level) {
+    private List<Mission> getAllMissionsForSpecificLevel(Set<Mission> missions, long level) {
         if (map.get(level) == null)
             map.put(level, missions.stream().filter(x -> x.getMonster().getLevel() <= level && x.getMonster().getLevel() >= level - SystemVariablesManager.MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL).collect(Collectors.toList()));
 

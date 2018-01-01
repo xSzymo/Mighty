@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DivisionAssigner {
@@ -26,8 +29,8 @@ public class DivisionAssigner {
 
     @Transactional
     public void assignUsersDivisions() {
-        LinkedList<User> users = userService.findAll();
-        users.sort(new UsersDivisionComparator());
+        Set<User> users = userService.findAll();
+        users = users.stream().sorted(new UsersDivisionComparator()).collect(Collectors.toSet());
 
         Division challenger = divisionService.findByLeague(League.CHALLENGER);
         Division diamond = divisionService.findByLeague(League.DIAMOND);

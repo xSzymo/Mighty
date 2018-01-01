@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +26,7 @@ public class MissionFightController {
     private UsersRetriever retriever;
 
     @GetMapping("missionFights")
-    public LinkedList<MissionFight> getChampions() {
+    public Set<MissionFight> getChampions() {
         return service.findAll();
     }
 

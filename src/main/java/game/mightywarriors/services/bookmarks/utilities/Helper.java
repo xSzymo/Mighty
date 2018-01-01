@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +21,7 @@ public class Helper {
     @Autowired
     private MissionFightService missionFightService;
 
-    public boolean isChampionOnMission(LinkedList<Champion> champions, boolean mustBeNull) {
+    public boolean isChampionOnMission(Set<Champion> champions, boolean mustBeNull) {
         for (Champion champion : champions) {
             if (champion.getBlockDate() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockDate()))
                 return true;
@@ -51,21 +53,25 @@ public class Helper {
         return (time - new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND;
     }
 
-    public LinkedList<Champion> getChampions(User user, long[] ids) {
+    public Set<Champion> getChampions(User user, long[] ids) {
         return user.getChampions().stream().filter(x -> {
             for (long id : ids)
                 if (x.getId().equals(id))
                     return true;
 
             return false;
-        }).collect(Collectors.toCollection(LinkedList::new));
+        }).collect(Collectors.toCollection(HashSet::new));
     }
 
     public Mission getMission(User user, long missionId) {
         return user.getMissions().stream().filter(x -> x.getId().equals(missionId)).findFirst().get();
     }
 
-    public long[] getChampionsId(List<Champion> champions) {
+    public long[] getChampionsId(Set<Champion> champions) {
+        return getChampionsId(new LinkedList<>(champions));
+    }
+
+    private long[] getChampionsId(List<Champion> champions) {
         long[] ids = new long[champions.size()];
         for (int i = 0; i < champions.size(); i++)
             ids[i] = champions.get(i).getId();

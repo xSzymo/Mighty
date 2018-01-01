@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ArenaManager {
@@ -51,7 +53,7 @@ public class ArenaManager {
         else
             throw new NotProperlyChampionsException("Wrong champions id");
 
-        LinkedList<Champion> champions = helper.getChampions(user, userFightInformer.championId);
+        Set<Champion> champions = helper.getChampions(user, userFightInformer.championId);
         check(user, opponent, champions);
 
         FightResult fight = fightCoordinator.fight(user, opponent, helper.getChampionsId(champions));
@@ -60,15 +62,15 @@ public class ArenaManager {
         return fight;
     }
 
-    private void getThingsDoneAfterFight(User user, User opponent, FightResult fight, LinkedList<Champion> champions) {
+    private void getThingsDoneAfterFight(User user, User opponent, FightResult fight, Set<Champion> champions) {
         if (fight.getWinner().getLogin().equals(user.getLogin())) {
             long HigherRank = rankingService.findOne(opponent.getLogin()).getRanking();
             long lowerRank = rankingService.findOne(user.getLogin()).getRanking();
             rankingService.delete(user.getLogin());
 
-            List<Ranking> allBelowRanking = rankingService.findAllBetween(lowerRank, HigherRank);
-            for (int i = allBelowRanking.size() - 1; i >= 0; i--)
-                rankingService.save(allBelowRanking.get(i).incrementRanking());
+            LinkedList<Ranking> rankings = new LinkedList<>(rankingService.findAllBetween(lowerRank, HigherRank));
+            for (int i = rankings.size() - 1; i >= 0; i--)
+                rankingService.save(rankings.get(i).incrementRanking());
 
             Ranking userRanking = new Ranking(user.getLogin());
             rankingService.save(userRanking);
@@ -84,12 +86,12 @@ public class ArenaManager {
         userService.save(user);
     }
 
-    private void check(User user, User opponent, LinkedList<Champion> champions) throws Exception {
+    private void check(User user, User opponent, Set<Champion> champions) throws Exception {
         if (rankingService.findOne(user.getLogin()).getRanking() < rankingService.findOne(opponent.getLogin()).getRanking())
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
             throw new UsedPointsException("Arena points already used");
-        if (helper.isChampionOnMission(new LinkedList<>(champions), true))
+        if (helper.isChampionOnMission(new HashSet<>(champions), true))
             throw new BusyChampionException("Someone is already busy");
         if (opponent == null)
             throw new NotProperlyChampionsException("Wrong champions id");

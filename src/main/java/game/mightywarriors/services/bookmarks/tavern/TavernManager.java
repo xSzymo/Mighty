@@ -14,8 +14,10 @@ import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TavernManager {
@@ -36,7 +38,7 @@ public class TavernManager {
         if (user.getMissionPoints() < 1)
             throw new Exception("Mission points already used");
 
-        LinkedList<Champion> champions = helper.getChampions(user, informer.championId);
+        Set<Champion> champions = helper.getChampions(user, informer.championId);
         Mission mission = helper.getMission(user, informer.missionId);
 
         if (helper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
@@ -50,8 +52,8 @@ public class TavernManager {
 
         MissionFight missionFight = missionFightService.findOne(informer.id);
 
-        List<Champion> champions = missionFight.getChampion();
-        if (helper.isChampionOnMission(new LinkedList<>(champions), false))
+        Set<Champion> champions = missionFight.getChampion();
+        if (helper.isChampionOnMission(new HashSet<>(champions), false))
             throw new BusyChampionException("Someone is already busy");
 
         FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampion()));

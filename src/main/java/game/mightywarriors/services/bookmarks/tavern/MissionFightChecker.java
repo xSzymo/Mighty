@@ -32,8 +32,8 @@ public class MissionFightChecker {
 
         MissionFight one = missionFightService.findOne(informer.id);
 
-        if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
-            throw new Exception("Something went wrong");
+//        if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
+//            throw new Exception("Something went wrong"); wtff?
 
         return (one.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }

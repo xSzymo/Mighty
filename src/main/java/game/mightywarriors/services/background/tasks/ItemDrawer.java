@@ -29,21 +29,21 @@ public class ItemDrawer {
 
     @Transactional
     public void drawItemsForUser() {
-        LinkedList<User> users = userService.findAll();
+        HashSet<User> users = userService.findAll();
         drawItems(users);
     }
 
     @Transactional
     public void drawItemsForUser(long id) {
         User one = userService.findOne(id);
-        LinkedList<User> users = new LinkedList<>();
+        HashSet<User> users = new HashSet<>();
         users.add(one);
 
         drawItems(users);
     }
 
-    private void drawItems(LinkedList<User> users) {
-        LinkedList<Item> items = itemService.findAll();
+    private void drawItems(Set<User> users) {
+        HashSet<Item> items = itemService.findAll();
         map = new HashMap();
 
         if (items.size() == 0)
@@ -55,7 +55,7 @@ public class ItemDrawer {
         userService.save(users);
     }
 
-    private LinkedList<User> draw(LinkedList<User> users, LinkedList<Item> items, boolean clear) {
+    private Set<User> draw(Set<User> users, Set<Item> items, boolean clear) {
         users.forEach(user -> {
             if (user.getChampions().size() == 0)
                 throw new RuntimeException("restart system");
@@ -97,7 +97,7 @@ public class ItemDrawer {
         return users;
     }
 
-    private List<Item> getAllItemsForSpecificLevel(LinkedList<Item> items, long level) {
+    private List<Item> getAllItemsForSpecificLevel(Set<Item> items, long level) {
         if (map.get(level) == null)
             map.put(level, items.stream().filter(x -> x.getLevel() <= level && x.getLevel() >= level - SystemVariablesManager.NUMBER_ABOVE_ITEM).collect(Collectors.toList()));
 

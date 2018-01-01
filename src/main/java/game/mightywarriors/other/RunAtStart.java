@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 @Component
@@ -22,7 +23,7 @@ public class RunAtStart {
     @Autowired
     private UserRoleService userRoleService;
 
-    private LinkedList<User> users = new LinkedList<>();
+    private HashSet<User> users = new HashSet<>();
     private LinkedList<Mission> missions = new LinkedList<>();
     private LinkedList<Champion> champions = new LinkedList<>();
     private LinkedList<Image> images = new LinkedList<>();
@@ -91,7 +92,7 @@ public class RunAtStart {
             equipments.add(equipment);
 
             items.addAll(myItems);
-            shop.setItems(myItems);
+            shop.setItems(new HashSet<>(myItems));
             shops.add(shop);
         }
 
