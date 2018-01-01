@@ -30,21 +30,6 @@ public class TavernManager {
     @Autowired
     private Helper helper;
 
-    public FightResult performFight(String authorization, Informer informer) throws Exception {
-        User user = usersRetriever.retrieveUser(authorization);
-
-        MissionFight missionFight = missionFightService.findOne(informer.id);
-
-        List<Champion> champions = missionFight.getChampion();
-        if (helper.isChampionOnMission(new LinkedList<>(champions), false))
-            throw new BusyChampionException("Someone is already busy");
-
-        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampion()));
-        tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
-
-        return fight;
-    }
-
     public MissionFight sendChampionOnMission(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
@@ -58,5 +43,20 @@ public class TavernManager {
             throw new BusyChampionException("Someone is already busy");
 
         return tavernUtility.prepareNewMissionFight(champions, mission);
+    }
+
+    public FightResult performFight(String authorization, Informer informer) throws Exception {
+        User user = usersRetriever.retrieveUser(authorization);
+
+        MissionFight missionFight = missionFightService.findOne(informer.id);
+
+        List<Champion> champions = missionFight.getChampion();
+        if (helper.isChampionOnMission(new LinkedList<>(champions), false))
+            throw new BusyChampionException("Someone is already busy");
+
+        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampion()));
+        tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
+
+        return fight;
     }
 }
