@@ -1,11 +1,8 @@
 package game.mightywarriors.data.tables;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "mission_fight")
@@ -18,12 +15,11 @@ public class MissionFight {
     @Column(name = "block_time")
     private Timestamp blockTime;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Mission mission;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Champion> champion;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Champion> champion;
 
     public Long getId() {
         return id;
@@ -37,11 +33,11 @@ public class MissionFight {
         this.mission = mission;
     }
 
-    public List<Champion> getChampion() {
+    public Set<Champion> getChampion() {
         return champion;
     }
 
-    public void setChampion(List<Champion> champion) {
+    public void setChampion(Set<Champion> champion) {
         this.champion = champion;
     }
 

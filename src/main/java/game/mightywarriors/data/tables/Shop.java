@@ -3,9 +3,8 @@ package game.mightywarriors.data.tables;
 import org.hibernate.LazyInitializationException;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "shop")
@@ -16,11 +15,11 @@ public class Shop {
     @Column(name = "id")
     private Long id;
 
-    @ManyToMany
-    private List<Item> items;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Item> items;
 
     public Shop() {
-        items = new LinkedList<>();
+        items = new HashSet<>();
     }
 
     public Long getId() {
@@ -31,22 +30,22 @@ public class Shop {
         try {
             items.add(item);
         } catch (LazyInitializationException e) {
-            items = new ArrayList<>();
+            items = new HashSet<>();
             items.add(item);
         }
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         try {
             items.isEmpty();
             return items;
         } catch (LazyInitializationException e) {
-            items = new ArrayList<>();
+            items = new HashSet<>();
             return items;
         }
     }
 
-    public void setItems(LinkedList<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 }

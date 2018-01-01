@@ -14,26 +14,25 @@ public class Equipment {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item weapon;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item offhand;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item helmet;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item armor;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item gloves;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item legs;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item boots;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item ring;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item bracelet;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Item necklace;
 
     public Equipment() {

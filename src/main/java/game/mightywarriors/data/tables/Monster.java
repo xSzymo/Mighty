@@ -1,8 +1,6 @@
 package game.mightywarriors.data.tables;
 
 import game.mightywarriors.data.interfaces.IFighter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -16,11 +14,10 @@ public class Monster implements IFighter {
 
     private long level;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Statistic statistic;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Image image;
 
     public Monster() {

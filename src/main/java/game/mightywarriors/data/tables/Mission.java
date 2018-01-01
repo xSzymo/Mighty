@@ -22,7 +22,7 @@ public class Mission {
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Monster monster;
 
     public Mission() {
@@ -34,24 +34,6 @@ public class Mission {
         this.description = description;
         this.gold = gold;
         this.monster = monster;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Mission)) return false;
-        Mission mission = (Mission) o;
-        return experience == mission.experience &&
-                timeDuration == mission.timeDuration &&
-                Objects.equals(id, mission.id) &&
-                Objects.equals(description, mission.description) &&
-                Objects.equals(gold, mission.gold);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, experience, description, timeDuration, gold);
     }
 
     public Long getId() {
@@ -97,5 +79,23 @@ public class Mission {
     public Mission setTimeDuration(long timeDuration) {
         this.timeDuration = timeDuration;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mission)) return false;
+        Mission mission = (Mission) o;
+        return experience == mission.experience &&
+                timeDuration == mission.timeDuration &&
+                Objects.equals(id, mission.id) &&
+                Objects.equals(description, mission.description) &&
+                Objects.equals(gold, mission.gold);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, experience, description, timeDuration, gold);
     }
 }

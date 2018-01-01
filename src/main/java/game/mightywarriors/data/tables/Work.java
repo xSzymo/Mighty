@@ -1,11 +1,7 @@
 package game.mightywarriors.data.tables;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "work")
@@ -25,16 +21,15 @@ public class Work {
     @Column(name = "block_time")
     private Timestamp blockTime;
 
-    @OneToOne
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToOne(fetch = FetchType.LAZY)
     private Champion champion;
 
     public Work() {
 
     }
 
-    public Work(String nickanem) {
-        this.nickname = nickanem;
+    public Work(String nickname) {
+        this.nickname = nickname;
     }
 
     public Work build() {

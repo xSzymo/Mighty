@@ -25,10 +25,10 @@ public class Item {
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Statistic statistic;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Image image;
 
     @Column(name = "time_stamp")

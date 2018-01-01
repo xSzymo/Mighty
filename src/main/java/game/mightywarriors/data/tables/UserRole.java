@@ -5,11 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "user_roles")
-//NOP
 public class UserRole {
 
     @Id
@@ -23,9 +22,9 @@ public class UserRole {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Collection<User> user = new LinkedHashSet<User>();
+    private Collection<User> user = new HashSet<>();
 
     public UserRole() {
         timeStamp = new Timestamp(System.currentTimeMillis());
@@ -46,10 +45,6 @@ public class UserRole {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long roleid) {
-        this.id = roleid;
     }
 
     public Collection<User> getUsers() {

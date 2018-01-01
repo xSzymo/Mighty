@@ -3,15 +3,12 @@ package game.mightywarriors.data.tables;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.LazyInitializationException;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -45,29 +42,32 @@ public class User {
     @Column(name = "mission_points")
     private int missionPoints;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Image image;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Shop shop;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Inventory inventory;
 
-    @ManyToOne
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Set<Champion> champions = new ChampionCollection();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Set<Mission> missions = new MissionCollection();
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
     private UserRole userRole;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private List<Mission> missions = new MissionCollection();
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Champion> champions = new ChampionCollection();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "division_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Division division;
 
     public User() {
         timeStamp = new Timestamp(System.currentTimeMillis());
@@ -78,19 +78,19 @@ public class User {
         timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
+    public User(String login, String password, String eMail) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
+        this.login = login;
+        this.password = password;
+        this.eMail = eMail;
+    }
+
     public User(String login, String password, String eMail, UserRole userRole) {
         timeStamp = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
         this.userRole = userRole;
-    }
-
-    public User(String login, String password, String eMail) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
-        this.login = login;
-        this.password = password;
-        this.eMail = eMail;
     }
 
     public User(String login, String password, String eMail, Image image, Champion champion, UserRole userRole) {
@@ -121,23 +121,7 @@ public class User {
         this.newToken = user.newToken;
         this.missionPoints = user.missionPoints;
         this.arenaPoints = user.arenaPoints;
-    }
-
-    public void setUser(User user) {
-        this.password = user.password;
-        this.eMail = user.eMail;
-        this.shop = user.shop;
-        this.image = user.image;
-        this.tokenCode = user.tokenCode;
-        this.gold = user.gold;
-        this.champions = user.champions;
-        this.missions = user.missions;
-        this.userRole = user.userRole;
-        this.timeStamp = user.timeStamp;
-        this.tokenCode = user.tokenCode;
-        this.inventory = user.inventory;
-        this.newToken = user.newToken;
-        this.missionPoints = user.missionPoints;
+        this.division = user.division;
     }
 
     public long getId() {
@@ -188,7 +172,7 @@ public class User {
         return timeStamp;
     }
 
-    public List<Champion> getChampions() {
+    public Set<Champion> getChampions() {
         try {
             champions.isEmpty();
             return champions;
@@ -198,7 +182,7 @@ public class User {
         }
     }
 
-    public void setChampions(LinkedList<Champion> champions) {
+    public void setChampions(Set<Champion> champions) {
         this.champions = champions;
     }
 
@@ -238,17 +222,17 @@ public class User {
         return this;
     }
 
-    public List<Mission> getMissions() {
+    public Set<Mission> getMissions() {
         try {
             missions.isEmpty();
             return missions;
         } catch (LazyInitializationException e) {
-            missions = new ArrayList<>();
+            missions = new MissionCollection();
             return missions;
         }
     }
 
-    public void setMissions(LinkedList<Mission> missions) {
+    public void setMissions(Set<Mission> missions) {
         this.missions = missions;
     }
 
@@ -256,7 +240,7 @@ public class User {
         try {
             missions.add(mission);
         } catch (LazyInitializationException e) {
-            missions = new ArrayList<>();
+            missions = new MissionCollection();
             missions.add(mission);
         }
     }
@@ -301,14 +285,22 @@ public class User {
         this.missionPoints = missionPoints;
     }
 
-    private class MissionCollection extends LinkedList<Mission> {
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    private class MissionCollection extends HashSet<Mission> {
         @Override
         public final boolean add(Mission a) {
             return this.size() <= 3 && super.add(a);
         }
     }
 
-    private class ChampionCollection extends LinkedList<Champion> {
+    private class ChampionCollection extends HashSet<Champion> {
         @Override
         public final boolean add(Champion a) {
             return this.size() <= 3 && super.add(a);

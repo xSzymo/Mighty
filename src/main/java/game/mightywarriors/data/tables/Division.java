@@ -5,7 +5,7 @@ import game.mightywarriors.other.enums.League;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "divisions")
@@ -22,7 +22,7 @@ public class Division {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "league_id", referencedColumnName = "id")
     @JsonManagedReference
-    private Collection<User> users = new LinkedHashSet<User>();
+    private Collection<User> users = new HashSet<>();
 
     public Division() {
 
@@ -44,8 +44,8 @@ public class Division {
         return id;
     }
 
-    public void setId(Long roleid) {
-        this.id = roleid;
+    public void setId(Long roleId) {
+        this.id = roleId;
     }
 
     public Collection<User> getUsers() {
