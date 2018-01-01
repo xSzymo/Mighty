@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "missions")
@@ -33,6 +34,24 @@ public class Mission {
         this.description = description;
         this.gold = gold;
         this.monster = monster;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mission)) return false;
+        Mission mission = (Mission) o;
+        return experience == mission.experience &&
+                timeDuration == mission.timeDuration &&
+                Objects.equals(id, mission.id) &&
+                Objects.equals(description, mission.description) &&
+                Objects.equals(gold, mission.gold);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, experience, description, timeDuration, gold);
     }
 
     public Long getId() {
