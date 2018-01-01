@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -64,7 +62,7 @@ public class RankingService {
         }
     }
 
-    public List<Ranking> findAllAboveRanking(long ranking) {
+    public Set<Ranking> findAllAboveRanking(long ranking) {
         try {
             return repository.findAllAbove(ranking);
         } catch (NullPointerException e) {
@@ -72,7 +70,7 @@ public class RankingService {
         }
     }
 
-    public List<Ranking> findAllBelowRanking(long ranking) {
+    public Set<Ranking> findAllBelowRanking(long ranking) {
         try {
             return repository.findAllBelow(ranking);
         } catch (NullPointerException e) {
@@ -81,7 +79,7 @@ public class RankingService {
     }
 
 
-    public List<Ranking> findAllAboveAndEqualRanking(long ranking) {
+    public Set<Ranking> findAllAboveAndEqualRanking(long ranking) {
         try {
             return repository.findAllAboveAndEqual(ranking);
         } catch (NullPointerException e) {
@@ -89,7 +87,7 @@ public class RankingService {
         }
     }
 
-    public List<Ranking> findAllBetween(long ranking) {
+    public Set<Ranking> findAllBetween(long ranking) {
         try {
             return repository.findAllBelowAndEqual(ranking);
         } catch (NullPointerException e) {
@@ -103,7 +101,7 @@ public class RankingService {
      *             for example low - 13 & high - 3
      *             for functionality : all between low and high will be increment
      */
-    public List<Ranking> findAllBetween(long low, long high) {
+    public Set<Ranking> findAllBetween(long low, long high) {
         try {
             return repository.findAllBetween(low, high);
         } catch (NullPointerException e) {
@@ -111,7 +109,7 @@ public class RankingService {
         }
     }
 
-    public LinkedList<Ranking> findAll() {
+    public HashSet<Ranking> findAll() {
         return repository.findAll();
     }
 

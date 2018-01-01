@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class ShopService {
             saveOperation(shop);
     }
 
-    public void save(LinkedList<Shop> shops) {
+    public void save(Set<Shop> shops) {
         shops.forEach(
                 x -> save(x));
     }
@@ -62,7 +63,7 @@ public class ShopService {
         }
     }
 
-    public LinkedList<Shop> findAll() {
+    public HashSet<Shop> findAll() {
         return repository.findAll();
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Service
 @Transactional
@@ -63,7 +63,7 @@ public class ImageService {
         }
     }
 
-    public LinkedList<Image> findAll() {
+    public HashSet<Image> findAll() {
         return repository.findAll();
     }
 

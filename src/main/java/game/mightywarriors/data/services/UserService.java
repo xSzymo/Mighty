@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -37,7 +38,7 @@ public class UserService {
         }
     }
 
-    public void save(LinkedList<User> users) {
+    public void save(Set<User> users) {
         users.stream().filter(x -> x != null).forEach(this::saveOperation);
     }
 
@@ -87,7 +88,7 @@ public class UserService {
         }
     }
 
-    public LinkedList<User> findAll() {
+    public HashSet<User> findAll() {
         return repository.findAll();
     }
 
@@ -103,7 +104,7 @@ public class UserService {
         }
     }
 
-    public void delete(LinkedList<User> users) {
+    public void delete(HashSet<User> users) {
         users.forEach(
                 x -> {
                     if (x != null)

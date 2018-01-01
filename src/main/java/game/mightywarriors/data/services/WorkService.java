@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -37,7 +35,7 @@ public class WorkService {
         }
     }
 
-    public List<Work> findOne(String nickname) {
+    public Set<Work> findOne(String nickname) {
         try {
             return repository.findByNickname(nickname);
         } catch (NullPointerException e) {
@@ -61,7 +59,7 @@ public class WorkService {
         }
     }
 
-    public LinkedList<Work> findAll() {
+    public HashSet<Work> findAll() {
         return repository.findAll();
     }
 

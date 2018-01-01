@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Service
 @Transactional
@@ -61,7 +61,7 @@ public class ItemService {
         }
     }
 
-    public LinkedList<Item> findAll() {
+    public HashSet<Item> findAll() {
         return repository.findAll();
     }
 
@@ -91,7 +91,7 @@ public class ItemService {
 
     private void deleteOperation(Item item) {
 
-        LinkedList<Item> items = new LinkedList<Item>();
+        HashSet<Item> items = new HashSet<>();
         shopService.findAll().forEach(
                 x -> {
                     x.getItems().forEach(x1 ->

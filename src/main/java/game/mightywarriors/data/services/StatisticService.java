@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -26,7 +27,7 @@ public class StatisticService {
             repository.save(image);
     }
 
-    public void save(LinkedList<Statistic> images) {
+    public void save(Set<Statistic> images) {
         images.forEach(
                 x -> {
                     if (x != null)
@@ -50,7 +51,7 @@ public class StatisticService {
         }
     }
 
-    public LinkedList<Statistic> findAll() {
+    public HashSet<Statistic> findAll() {
         return repository.findAll();
     }
 

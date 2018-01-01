@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -32,7 +33,7 @@ public class ChampionService {
             saveOperation(champion);
     }
 
-    public void save(LinkedList<Champion> champions) {
+    public void save(Set<Champion> champions) {
         champions.forEach(
                 x -> {
                     if (x != null)
@@ -90,7 +91,7 @@ public class ChampionService {
         }
     }
 
-    public LinkedList<Champion> findAll() {
+    public HashSet<Champion> findAll() {
         return repository.findAll();
     }
 
@@ -122,7 +123,7 @@ public class ChampionService {
         if (champion.getId() == null || findOne(champion.getId()) == null)
             return;
 
-        LinkedList<Champion> champions = new LinkedList<>();
+        Set<Champion> champions = new HashSet<>();
         userService.findAll().forEach(
                 x -> {
                     x.getChampions().forEach(x1 ->

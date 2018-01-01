@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -27,7 +28,7 @@ public class MonsterService {
             saveOperation(monster);
     }
 
-    public void save(LinkedList<Monster> monster) {
+    public void save(Set<Monster> monster) {
         monster.forEach(
                 x -> {
                     if (x != null)
@@ -65,7 +66,7 @@ public class MonsterService {
         }
     }
 
-    public LinkedList<Monster> findAll() {
+    public HashSet<Monster> findAll() {
         return repository.findAll();
     }
 

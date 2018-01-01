@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
 
 @Service
 @Transactional
@@ -55,7 +55,7 @@ public class MissionService {
         }
     }
 
-    public LinkedList<Mission> findAll() {
+    public HashSet<Mission> findAll() {
         return repository.findAll();
     }
 
@@ -90,9 +90,9 @@ public class MissionService {
         userService.findAll().forEach(
                 x -> {
                     if (x.getMissions() != null) {
-                        List<Mission> missions = new LinkedList<>(x.getMissions());
-                        for (int i = 0, missionsSize = missions.size(); i < missionsSize; i++) {
-                            Mission mission1 = missions.get(i);
+                        Iterator<Mission> iterator = new HashSet<>(x.getMissions()).iterator();
+                        while (iterator.hasNext()) {
+                            Mission mission1 = iterator.next();
                             if (mission1.getId().equals(mission.getId())) {
                                 x.getMissions().remove(mission1);
                                 userService.save(x);

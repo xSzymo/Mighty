@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Service
 @Transactional
@@ -92,7 +92,7 @@ public class EquipmentService {
         }
     }
 
-    public LinkedList<Equipment> findAll() {
+    public HashSet<Equipment> findAll() {
         return repository.findAll();
     }
 

@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -21,7 +22,7 @@ public class MissionFightService {
             saveOperation(missionFight);
     }
 
-    public void save(LinkedList<MissionFight> missionFights) {
+    public void save(Set<MissionFight> missionFights) {
         missionFights.forEach(
                 x -> {
                     if (x != null)
@@ -54,8 +55,8 @@ public class MissionFightService {
 
     public MissionFight findLatestByChampionId(Champion champion) {
         try {
-            LinkedList<MissionFight> missionFights = repository.findByChampionId(champion.getId());
-            MissionFight missionFight = missionFights.getFirst();
+            HashSet<MissionFight> missionFights = repository.findByChampionId(champion.getId());
+            MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
                 if (missionFight.getBlockDate().before(fight.getBlockDate()))
@@ -69,8 +70,8 @@ public class MissionFightService {
 
     public MissionFight findLatestByChampionId(long id) {
         try {
-            LinkedList<MissionFight> missionFights = repository.findByChampionId(id);
-            MissionFight missionFight = missionFights.getFirst();
+            HashSet<MissionFight> missionFights = repository.findByChampionId(id);
+            MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
                 if (missionFight.getBlockDate().before(fight.getBlockDate()))
@@ -82,7 +83,7 @@ public class MissionFightService {
         }
     }
 
-    public LinkedList<MissionFight> findAll() {
+    public HashSet<MissionFight> findAll() {
         return repository.findAll();
     }
 
