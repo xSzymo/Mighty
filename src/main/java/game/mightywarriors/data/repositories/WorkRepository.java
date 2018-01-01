@@ -4,14 +4,13 @@ import game.mightywarriors.data.tables.Work;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 
 @Repository
 public interface WorkRepository extends CrudRepository<Work, Long> {
     Work findById(long id);
 
-    List<Work> findByNickname(String nickname);
+    HashSet<Work> findByNickname(String nickname);
 
-    LinkedList<Work> findAll();
+    HashSet<Work> findAll();
 }

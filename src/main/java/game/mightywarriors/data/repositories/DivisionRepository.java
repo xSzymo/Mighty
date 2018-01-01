@@ -5,11 +5,11 @@ import game.mightywarriors.other.enums.League;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Repository
 public interface DivisionRepository extends CrudRepository<Division, Long> {
-    LinkedList<Division> findAll();
+    HashSet<Division> findAll();
 
     Division findById(long id);
 

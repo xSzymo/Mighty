@@ -4,11 +4,11 @@ import game.mightywarriors.data.tables.Inventory;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Repository
 public interface InventoryRepository extends CrudRepository<Inventory, Long> {
-    LinkedList<Inventory> findAll();
+    HashSet<Inventory> findAll();
 
     Inventory findById(long id);
 

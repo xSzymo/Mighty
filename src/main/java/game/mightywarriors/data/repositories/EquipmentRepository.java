@@ -4,11 +4,11 @@ import game.mightywarriors.data.tables.Equipment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 
 @Repository
 public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
-    LinkedList<Equipment> findAll();
+    HashSet<Equipment> findAll();
 
     Equipment findById(long id);
 

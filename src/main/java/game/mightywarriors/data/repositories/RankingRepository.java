@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public interface RankingRepository extends CrudRepository<Ranking, String> {
@@ -19,19 +19,19 @@ public interface RankingRepository extends CrudRepository<Ranking, String> {
     long getMaxRanking();
 
     @Query(value = "SELECT r FROM Ranking r WHERE r.ranking > :ranking")
-    List<Ranking> findAllAbove(@Param("ranking") long ranking);
+    Set<Ranking> findAllAbove(@Param("ranking") long ranking);
 
     @Query(value = "SELECT r FROM Ranking r WHERE r.ranking >= :ranking")
-    List<Ranking> findAllAboveAndEqual(@Param("ranking") long ranking);
+    Set<Ranking> findAllAboveAndEqual(@Param("ranking") long ranking);
 
     @Query(value = "SELECT r FROM Ranking r WHERE r.ranking < :ranking")
-    List<Ranking> findAllBelow(@Param("ranking") long ranking);
+    Set<Ranking> findAllBelow(@Param("ranking") long ranking);
 
     @Query(value = "SELECT r FROM Ranking r WHERE r.ranking <= :ranking")
-    List<Ranking> findAllBelowAndEqual(@Param("ranking") long ranking);
+    Set<Ranking> findAllBelowAndEqual(@Param("ranking") long ranking);
 
     @Query(value = "SELECT r FROM Ranking r WHERE r.ranking < :low AND r.ranking >= :high")
-    List<Ranking> findAllBetween(@Param("low") long low, @Param("high") long high);
+    Set<Ranking> findAllBetween(@Param("low") long low, @Param("high") long high);
 
-    LinkedList<Ranking> findAll();
+    HashSet<Ranking> findAll();
 }
