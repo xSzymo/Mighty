@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +28,7 @@ public class ArenaPointsRefresherTest extends IntegrationTestsConfig {
 
     @Test
     public void refreshMissionPointsForAllMission() {
-        LinkedList<User> users = userService.findAll();
+        Set<User> users = userService.findAll();
         users.forEach(x -> x.setArenaPoints(2));
         userService.save(users);
 

@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 import static junit.framework.TestCase.assertEquals;
@@ -38,9 +39,15 @@ public abstract class IntegrationTestsConfig {
     private static StatisticService statisticService;
     private static UserRoleService userRoleService;
     private static MissionFightService missionFightService;
+    private static boolean run = true;
 
     @Before
     public void createMonstersAndItems() {
+        if (!run)
+            return;
+        else
+            run = false;
+
         Monster monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
         missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
 
@@ -70,25 +77,30 @@ public abstract class IntegrationTestsConfig {
     }
 
     @AfterClass
+    @Transactional
     public static void cleanUpAfter() {
+        run = true;
         SystemVariablesManager.JWTTokenCollection.clear();
-        missionFightService.deleteAll();
+
+        userRoleService.deleteAll();
         userService.deleteAll();
-        championService.deleteAll();
         equipmentService.deleteAll();
-        imageService.deleteAll();
         inventoryService.deleteAll();
-        itemService.deleteAll();
+        championService.deleteAll();
+
         missionService.deleteAll();
         monsterService.deleteAll();
+
+        missionFightService.deleteAll();
         shopService.deleteAll();
+        itemService.deleteAll();
+
         statisticService.deleteAll();
-        userRoleService.deleteAll();
+        imageService.deleteAll();
 
         assertEquals(0, userService.findAll().size());
         assertEquals(0, missionFightService.findAll().size());
         assertEquals(0, championService.findAll().size());
-        assertEquals(6, divisionService.findAll().size());
         assertEquals(0, equipmentService.findAll().size());
         assertEquals(0, inventoryService.findAll().size());
         assertEquals(0, itemService.findAll().size());
@@ -97,6 +109,7 @@ public abstract class IntegrationTestsConfig {
         assertEquals(0, shopService.findAll().size());
         assertEquals(0, statisticService.findAll().size());
         assertEquals(0, userRoleService.findAll().size());
+        assertEquals(6, divisionService.findAll().size());
     }
 
     @Autowired

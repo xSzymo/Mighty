@@ -33,7 +33,7 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
 
             User user = new User("" + i, "", "");
             userService.save(user);
-            user.getChampions().get(0).setLevel(level / 10);
+            user.getChampions().iterator().next().setLevel(level / 10);
             userService.save(user);
 
             itemService.save(new Item("weapon " + i, WeaponType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));

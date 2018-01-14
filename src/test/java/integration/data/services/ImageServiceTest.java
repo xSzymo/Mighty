@@ -5,17 +5,14 @@ import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.ImageService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.MonsterService;
-import game.mightywarriors.data.tables.Champion;
-import game.mightywarriors.data.tables.Image;
-import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.data.tables.Monster;
+import game.mightywarriors.data.tables.*;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +26,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ChampionService championService;
 
-    private LinkedList<Image> images;
+    private HashSet<Image> images;
     private String myWeirdURL = "https://avatars1.githubusercontent.com/u/15995737?s=460&v=4";
     private Item item;
     private Champion champion;
@@ -37,7 +34,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
     @Before
     public void beforeEachTest() {
-        images = new LinkedList<>();
+        images = new HashSet<>();
         images.add(new Image(myWeirdURL));
         images.add(new Image(myWeirdURL + "1"));
         images.add(new Image(myWeirdURL + "2"));
@@ -57,18 +54,19 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(images.getFirst());
+        objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(images);
 
-        assertNotNull(objectUnderTest.findOne(images.get(0)));
-        assertNotNull(objectUnderTest.findOne(images.get(1)));
-        assertNotNull(objectUnderTest.findOne(images.get(2)));
+        Iterator<Image> iterator = images.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
 //    @Test(expected = Exception.class)
@@ -91,48 +89,51 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void findOne() {
-        objectUnderTest.save(images.getFirst());
+        objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(images.getFirst());
+        objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next().getId()));
     }
 
     @Test
     public void findAll() {
         objectUnderTest.save(images);
 
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(0).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(1).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(images.get(2).getId())).findFirst().get());
+        Iterator<Image> iterator = images.iterator();
+        List<Image> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(images.getFirst());
+        objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
 
-        objectUnderTest.delete(images.getFirst());
+        objectUnderTest.delete(images.iterator().next());
 
-        assertNull(objectUnderTest.findOne(images.getFirst()));
+        assertNull(objectUnderTest.findOne(images.iterator().next()));
         images.clear();
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(images.getFirst());
+        objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
 
-        objectUnderTest.delete(images.getFirst());
+        objectUnderTest.delete(images.iterator().next());
 
-        assertNull(objectUnderTest.findOne(images.getFirst()));
+        assertNull(objectUnderTest.findOne(images.iterator().next()));
         images.clear();
     }
 
@@ -140,28 +141,30 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(images);
 
-        assertNotNull(objectUnderTest.findOne(images.get(0)));
-        assertNotNull(objectUnderTest.findOne(images.get(1)));
-        assertNotNull(objectUnderTest.findOne(images.get(2)));
+        Iterator<Image> iterator = images.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(images);
 
-        assertNull(objectUnderTest.findOne(images.get(0)));
-        assertNull(objectUnderTest.findOne(images.get(1)));
-        assertNull(objectUnderTest.findOne(images.get(2)));
+        iterator = images.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void deleteFromItem() {
         item = new Item();
-        item.setImage(images.getFirst());
+        item.setImage(images.iterator().next());
 
         itemService.save(item);
 
         assertNotNull(itemService.findOne(item));
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
 
-        objectUnderTest.delete(images.getFirst());
+        objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(itemService.findOne(item));
         assertNull(itemService.findOne(item).getImage());
@@ -170,14 +173,14 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromChampion() {
         champion = new Champion();
-        champion.setImage(images.getFirst());
+        champion.setImage(images.iterator().next());
 
         championService.save(champion);
 
         assertNotNull(championService.findOne(champion));
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
 
-        objectUnderTest.delete(images.getFirst());
+        objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(championService.findOne(champion));
         assertNull(championService.findOne(champion).getImage());
@@ -186,14 +189,14 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromMonster() {
         monster = new Monster();
-        monster.setImage(images.getFirst());
+        monster.setImage(images.iterator().next());
 
         monsterService.save(monster);
 
         assertNotNull(monsterService.findOne(monster));
-        assertNotNull(objectUnderTest.findOne(images.getFirst()));
+        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
 
-        objectUnderTest.delete(images.getFirst());
+        objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(monsterService.findOne(monster));
         assertNull(monsterService.findOne(monster).getImage());

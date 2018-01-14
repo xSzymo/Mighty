@@ -56,6 +56,6 @@ public class PointsForDivisionCounterTest {
 
         user.getChampions().add(new Champion(new Statistic(2, 2, 3, 5, 5, 7), equipment));
 
-        assertEquals(47.4, pointsForDivisionCounter.getPointsOfFighterPower(user.getChampions().get(0)));
+        assertEquals(47.4, pointsForDivisionCounter.getPointsOfFighterPower(user.getChampions().iterator().next()));
     }
 }

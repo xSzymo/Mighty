@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertNull;
@@ -35,14 +36,14 @@ public class UserServiceTest extends IntegrationTestsConfig {
     @Autowired
     private UserRoleService userRoleService;
 
-    private LinkedList<User> users;
+    private HashSet<User> users;
     private LinkedList<Mission> missions;
     private LinkedList<Champion> champions;
     private LinkedList<Image> images;
     private LinkedList<Statistic> statistics;
     private LinkedList<Monster> monsters;
     private LinkedList<Shop> shops;
-    private LinkedList<Item> items;
+    private HashSet<Item> items;
     private Shop shop;
     private User user;
     private Champion champion;
@@ -50,14 +51,14 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Before
     public void beforeEachTest() {
-        users = new LinkedList<>();
+        users = new HashSet<>();
         missions = new LinkedList<>();
         champions = new LinkedList<>();
         images = new LinkedList<>();
         statistics = new LinkedList<>();
         monsters = new LinkedList<>();
         shops = new LinkedList<>();
-        items = new LinkedList<>();
+        items = new HashSet<>();
 
         addExampleDataToEquipments();
     }
@@ -83,7 +84,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(users.getFirst());
+        objectUnderTest.save(users.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
@@ -101,16 +102,16 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void findOne() {
-        objectUnderTest.save(users.getFirst());
+        objectUnderTest.save(users.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(users.getFirst()));
+        assertNotNull(objectUnderTest.findOne(users.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(users.getFirst());
+        objectUnderTest.save(users.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(users.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(users.iterator().next().getId()));
     }
 
     @Test
@@ -124,13 +125,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void delete() {
-        objectUnderTest.save(users.getFirst());
+        objectUnderTest.save(users.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
-        objectUnderTest.delete(users.getFirst());
+        objectUnderTest.delete(users.iterator().next());
 
         counter = objectUnderTest.findAll().size();
 
@@ -139,13 +140,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void delete1() {
-        objectUnderTest.save(users.getFirst());
+        objectUnderTest.save(users.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
-        objectUnderTest.delete(users.getFirst().getId());
+        objectUnderTest.delete(users.iterator().next().getId());
 
         counter = objectUnderTest.findAll().size();
 
@@ -171,7 +172,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void deleteFromShop() {
         shop = new Shop();
         shop.setItems(items);
-        User user = users.getFirst();
+        User user = users.iterator().next();
         user.setShop(shop);
 
         objectUnderTest.save(user);
@@ -228,7 +229,8 @@ public class UserServiceTest extends IntegrationTestsConfig {
         user.setUserRole(userRole);
         objectUnderTest.save(user);
 
-        assertNotNull(objectUnderTest.findOne(user));
+        User one = objectUnderTest.findOne(user);
+        assertNotNull(one);
 
         objectUnderTest.delete(user);
 
@@ -251,11 +253,11 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertEquals(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10, one.getMissionPoints());
 
         assertEquals(1, one.getChampions().size());
-        assertEquals(1, one.getChampions().get(0).getLevel());
-        assertEquals(1, one.getChampions().get(0).getExperience());
-        assertEquals(null, one.getChampions().get(0).getBlockDate());
-        assertNotNull(one.getChampions().get(0).getEquipment());
-        assertNotNull(one.getChampions().get(0).getStatistic());
+        assertEquals(1, one.getChampions().iterator().next().getLevel());
+        assertEquals(1, one.getChampions().iterator().next().getExperience());
+        assertEquals(null, one.getChampions().iterator().next().getBlockDate());
+        assertNotNull(one.getChampions().iterator().next().getEquipment());
+        assertNotNull(one.getChampions().iterator().next().getStatistic());
 
         assertEquals(new BigDecimal("0"), one.getGold());
         assertNull(null, one.getImage());
@@ -277,9 +279,9 @@ public class UserServiceTest extends IntegrationTestsConfig {
         Statistic statistic;
         Shop shop;
         User user;
-        LinkedList<Item> myItems = new LinkedList<>();
+        HashSet<Item> myItems = new HashSet<>();
 
-        for (int a = 0, i = 3; i < 6; i++) {
+        for (int i = 3; i < 6; i++) {
             myItems.clear();
             shop = new Shop();
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);

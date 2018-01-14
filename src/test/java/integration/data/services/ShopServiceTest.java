@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -29,14 +29,14 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     @Autowired
     private UserService userService;
 
-    private LinkedList<Shop> shops;
-    private LinkedList<Item> items;
+    private HashSet<Shop> shops;
+    private HashSet<Item> items;
     private User user;
 
     @Before
     public void beforeEachTest() {
-        shops = new LinkedList<>();
-        items = new LinkedList<>();
+        shops = new HashSet<>();
+        items = new HashSet<>();
         addExampleDataToEquipments();
     }
 
@@ -52,11 +52,11 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(shops.getFirst());
+        objectUnderTest.save(shops.iterator().next());
 
 
-        checkSavedItemsAreNotNull(shops.getFirst());
-        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
+        checkSavedItemsAreNotNull(shops.iterator().next());
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
     }
 
     @Test
@@ -64,26 +64,27 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(shops);
 
         shops.forEach(this::checkSavedItemsAreNotNull);
-        assertNotNull(objectUnderTest.findOne(shops.get(0)));
-        assertNotNull(objectUnderTest.findOne(shops.get(1)));
-        assertNotNull(objectUnderTest.findOne(shops.get(2)));
-        assertNotNull(objectUnderTest.findOne(shops.get(3)));
+        Iterator<Shop> iterator = shops.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOne() {
-        objectUnderTest.save(shops.getFirst());
+        objectUnderTest.save(shops.iterator().next());
 
-        checkSavedItemsAreNotNull(shops.getFirst());
-        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
+        checkSavedItemsAreNotNull(shops.iterator().next());
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(shops.getFirst());
+        objectUnderTest.save(shops.iterator().next());
 
-        checkSavedItemsAreNotNull(shops.getFirst());
-        assertNotNull(objectUnderTest.findOne(shops.getFirst().getId()));
+        checkSavedItemsAreNotNull(shops.iterator().next());
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next().getId()));
     }
 
     @Test
@@ -91,68 +92,73 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(shops);
 
         shops.forEach(this::checkSavedItemsAreNotNull);
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(0).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(1).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(2).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(shops.get(3).getId())).findFirst().get());
+
+        Iterator<Shop> iterator = shops.iterator();
+        List<Shop> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(shops.getFirst());
+        objectUnderTest.save(shops.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
 
-        objectUnderTest.delete(shops.getFirst());
+        objectUnderTest.delete(shops.iterator().next());
 
-        checkSavedItemsAreNotNull(shops.getFirst());
-        assertNull(objectUnderTest.findOne(shops.getFirst()));
+        checkSavedItemsAreNotNull(shops.iterator().next());
+        assertNull(objectUnderTest.findOne(shops.iterator().next()));
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(shops.getFirst());
+        objectUnderTest.save(shops.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
 
-        objectUnderTest.delete(shops.getFirst().getId());
+        objectUnderTest.delete(shops.iterator().next().getId());
 
 
-        checkSavedItemsAreNotNull(shops.getFirst());
-        assertNull(objectUnderTest.findOne(shops.getFirst()));
+        checkSavedItemsAreNotNull(shops.iterator().next());
+        assertNull(objectUnderTest.findOne(shops.iterator().next()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(shops);
 
-        assertNotNull(objectUnderTest.findOne(shops.get(0)));
-        assertNotNull(objectUnderTest.findOne(shops.get(1)));
-        assertNotNull(objectUnderTest.findOne(shops.get(2)));
+        Iterator<Shop> iterator = shops.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(shops);
 
-        assertNull(objectUnderTest.findOne(shops.get(0)));
-        assertNull(objectUnderTest.findOne(shops.get(1)));
-        assertNull(objectUnderTest.findOne(shops.get(2)));
+        iterator = shops.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
         shops.forEach(this::checkSavedItemsAreNotNull);
     }
 
     @Test
     public void deleteFromUser() {
         user = new User("simple login");
-        user.setShop(shops.getFirst());
+        user.setShop(shops.iterator().next());
 
         userService.save(user);
 
         assertNotNull(userService.findOne(user));
-        assertNotNull(objectUnderTest.findOne(shops.getFirst()));
+        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
 
-        objectUnderTest.delete(shops.getFirst());
+        objectUnderTest.delete(shops.iterator().next());
 
         assertNotNull(userService.findOne(user.getId()));
-        assertNotEquals(shops.getFirst(), userService.findOne(user.getId()).getShop());
-        assertNull(objectUnderTest.findOne(shops.getFirst()));
+        assertNotEquals(shops.iterator().next(), userService.findOne(user.getId()).getShop());
+        assertNull(objectUnderTest.findOne(shops.iterator().next()));
     }
 
     private void checkSavedItemsAreNotNull(Shop shop) {
@@ -162,7 +168,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     private void addExampleDataToEquipments() {
         Statistic statistic;
         Shop shop;
-        LinkedList<Item> myItems = new LinkedList<>();
+        HashSet<Item> myItems = new HashSet<>();
 
         for (int a = 0, i = 3; i < 7; i++) {
             myItems.clear();

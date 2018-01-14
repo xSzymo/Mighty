@@ -35,7 +35,7 @@ public class MissionAssignerTest extends IntegrationTestsConfig {
 
             User user = new User("a" + i, "", "");
             userService.save(user);
-            user.getChampions().get(0).setLevel(level / 10);
+            user.getChampions().iterator().next().setLevel(level / 10);
             userService.save(user);
 
             missionService.save(new Mission(1, "description : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));

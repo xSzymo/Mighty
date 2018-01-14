@@ -163,6 +163,6 @@ public class MissionServiceTest extends IntegrationTestsConfig {
 
     private void checkerNulls(Mission mission) {
         assertNull(objectUnderTest.findOne(mission));
-        assertNull(monsterService.findOne(mission.getMonster()));
+        assertNotNull(monsterService.findOne(mission.getMonster()));
     }
 }

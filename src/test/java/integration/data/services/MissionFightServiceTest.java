@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -25,14 +25,14 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     @Autowired
     private MissionService missionService;
 
-    private LinkedList<MissionFight> missionFights;
-    private LinkedList<Champion> champions;
+    private HashSet<MissionFight> missionFights;
+    private HashSet<Champion> champions;
     private Champion champion;
     private Mission mission;
 
     @Before
     public void beforeEachTest() {
-        missionFights = new LinkedList<>();
+        missionFights = new HashSet<>();
         champion = new Champion();
         mission = new Mission();
 
@@ -49,84 +49,90 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(missionFights.getFirst());
+        objectUnderTest.save(missionFights.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNotNull(objectUnderTest.findOne(missionFights.iterator().next()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(missionFights);
 
-        assertNotNull(objectUnderTest.findOne(missionFights.get(0)));
-        assertNotNull(objectUnderTest.findOne(missionFights.get(1)));
-        assertNotNull(objectUnderTest.findOne(missionFights.get(2)));
+        Iterator<MissionFight> iterator = missionFights.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOne() {
-        objectUnderTest.save(missionFights.getFirst());
+        objectUnderTest.save(missionFights.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNotNull(objectUnderTest.findOne(missionFights.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(missionFights.getFirst());
+        objectUnderTest.save(missionFights.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(missionFights.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(missionFights.iterator().next().getId()));
     }
 
     @Test
     public void findAll() {
         objectUnderTest.save(missionFights);
 
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(0).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(1).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(missionFights.get(2).getId())).findFirst().get());
+        Iterator<MissionFight> iterator = missionFights.iterator();
+        List<MissionFight> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(missionFights.getFirst());
+        objectUnderTest.save(missionFights.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNotNull(objectUnderTest.findOne(missionFights.iterator().next()));
 
-        objectUnderTest.delete(missionFights.getFirst());
+        objectUnderTest.delete(missionFights.iterator().next());
 
-        assertNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNull(objectUnderTest.findOne(missionFights.iterator().next()));
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(missionFights.getFirst());
+        objectUnderTest.save(missionFights.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNotNull(objectUnderTest.findOne(missionFights.iterator().next()));
 
-        objectUnderTest.delete(missionFights.getFirst().getId());
+        objectUnderTest.delete(missionFights.iterator().next().getId());
 
-        assertNull(objectUnderTest.findOne(missionFights.getFirst()));
+        assertNull(objectUnderTest.findOne(missionFights.iterator().next()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(missionFights);
 
-        assertNotNull(objectUnderTest.findOne(missionFights.get(0)));
-        assertNotNull(objectUnderTest.findOne(missionFights.get(1)));
-        assertNotNull(objectUnderTest.findOne(missionFights.get(2)));
+        Iterator<MissionFight> iterator = missionFights.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(missionFights);
 
-        assertNull(objectUnderTest.findOne(missionFights.get(0)));
-        assertNull(objectUnderTest.findOne(missionFights.get(1)));
-        assertNull(objectUnderTest.findOne(missionFights.get(2)));
+        iterator = missionFights.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOneByChampionId() {
         MissionFight missionFight = new MissionFight();
-        LinkedList<Champion> champions = new LinkedList<>();
+        HashSet<Champion> champions = new HashSet<>();
         champions.add(champion);
         mission = new Mission();
         championService.save(champion);
@@ -156,7 +162,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromChampionAndMission() {
         MissionFight missionFight = new MissionFight();
-        champions = new LinkedList<>();
+        champions = new HashSet<>();
         champions.add(champion);
         mission = new Mission();
 
@@ -186,7 +192,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
 
         for (int i = 0; i < 3; i++) {
             missionFight = new MissionFight();
-            champions = new LinkedList<>();
+            champions = new HashSet<>();
             champions.add(champion);
             mission = new Mission();
 

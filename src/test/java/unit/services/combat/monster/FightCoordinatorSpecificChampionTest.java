@@ -30,7 +30,7 @@ public class FightCoordinatorSpecificChampionTest {
 
     @Test
     public void fightBetweenPlayerAndMonster() throws Exception {
-        FightResult fightResult = fightCoordinator.fight(user1, monster, user1.getChampions().get(0).getId());
+        FightResult fightResult = fightCoordinator.fight(user1, monster, user1.getChampions().stream().filter(x -> x.getLevel() == 1).findFirst().get().getId());
 
         int i = -1;
         for (RoundProcess roundProcess : fightResult.getRounds()) {
@@ -39,12 +39,14 @@ public class FightCoordinatorSpecificChampionTest {
             LinkedList<Fighter> opponentChampions = roundProcess.getOpponentChampions();
 
             if (i == 0) {
+                assertEquals(0, roundProcess.getRoundNr());
                 assertEquals(18.0, championModels.get(0).getHp());
                 assertEquals(60.0, opponentChampions.get(0).getHp());
 
                 assertEquals(0.0, championModels.get(0).getDmg());
                 assertEquals(0.0, opponentChampions.get(0).getDmg());
             } else if (i == 1) {
+                assertEquals(1, roundProcess.getRoundNr());
                 assertEquals(18.0, championModels.get(0).getHp());
                 assertEquals(58.84, opponentChampions.get(0).getHp());
 

@@ -1,8 +1,6 @@
 package integration.data.services;
 
-import game.mightywarriors.data.services.ChampionService;
-import game.mightywarriors.data.services.EquipmentService;
-import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
@@ -10,9 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ChampionServiceTest extends IntegrationTestsConfig {
     @Autowired
@@ -21,8 +20,12 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
     private UserService userService;
     @Autowired
     private EquipmentService equipmentService;
+    @Autowired
+    private StatisticService statisticService;
+    @Autowired
+    private ImageService imageService;
 
-    private LinkedList<Champion> champions;
+    private HashSet<Champion> champions;
     private LinkedList<Statistic> statistics;
     private LinkedList<Image> images;
     private User user;
@@ -30,7 +33,7 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
 
     @Before
     public void beforeEachTest() {
-        champions = new LinkedList<>();
+        champions = new HashSet<>();
         statistics = new LinkedList<>();
         images = new LinkedList<>();
 
@@ -52,93 +55,94 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(champions.getFirst());
+        objectUnderTest.save(champions.iterator().next());
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(1, counter);
+        assertNotNull(objectUnderTest.findOne(champions.iterator().next()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(champions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        Iterator<Champion> iterator = champions.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOne() {
-        objectUnderTest.save(champions.getFirst());
+        objectUnderTest.save(champions.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(champions.getFirst()));
+        assertNotNull(objectUnderTest.findOne(champions.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(champions.getFirst());
+        objectUnderTest.save(champions.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(champions.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(champions.iterator().next().getId()));
     }
 
     @Test
     public void findAll() {
         objectUnderTest.save(champions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        Iterator<Champion> iterator = champions.iterator();
+        List<Champion> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(champions.getFirst());
+        objectUnderTest.save(champions.iterator().next());
 
-        long counter = (long) objectUnderTest.findAll().size();
+        Champion one = objectUnderTest.findOne(champions.iterator().next());
 
-        assertEquals(1, counter);
+        assertNotNull(one);
 
-        objectUnderTest.delete(champions.getFirst());
+        objectUnderTest.delete(champions.iterator().next());
+        one = objectUnderTest.findOne(champions.iterator().next());
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(one);
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(champions.getFirst());
+        objectUnderTest.save(champions.iterator().next());
 
-        long counter = (long) objectUnderTest.findAll().size();
+        Champion one = objectUnderTest.findOne(champions.iterator().next());
 
-        assertEquals(1, counter);
+        assertNotNull(one);
 
-        objectUnderTest.delete(champions.getFirst().getId());
+        objectUnderTest.delete(one);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        assertNull(objectUnderTest.findOne(one));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(champions);
 
-        long counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(3, counter);
+        Iterator<Champion> iterator = champions.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(champions);
 
-        counter = (long) objectUnderTest.findAll().size();
-
-        assertEquals(0, counter);
+        iterator = champions.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void deleteFromEquipment() {
-        Champion champion = champions.getFirst();
+        Champion champion = champions.iterator().next();
         equipment = new Equipment();
         champion.setEquipment(equipment);
 
@@ -155,7 +159,7 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromUser() {
-        Champion champion = champions.getFirst();
+        Champion champion = champions.iterator().next();
         user = new User("simple login" + System.currentTimeMillis());
         user.addChampion(champion);
 
@@ -167,6 +171,27 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(champion);
 
         assertNotNull(userService.findOne(user));
+        assertNull(objectUnderTest.findOne(champion));
+    }
+
+    @Test
+    public void deleteFromStatisticAndImage() {
+        Champion champion = champions.iterator().next();
+        Statistic statistic = new Statistic();
+        Image image = new Image();
+        champion.setStatistic(statistic);
+        champion.setImage(image);
+
+        objectUnderTest.save(champion);
+
+        assertNotNull(statisticService.findOne(statistic));
+        assertNotNull(imageService.findOne(image));
+        assertNotNull(objectUnderTest.findOne(champion));
+
+        objectUnderTest.delete(champion);
+
+        assertNull(statisticService.findOne(statistic));
+        assertNull(imageService.findOne(image));
         assertNull(objectUnderTest.findOne(champion));
     }
 }

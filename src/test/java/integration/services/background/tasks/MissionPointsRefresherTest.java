@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 
-import java.util.LinkedList;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,7 +37,7 @@ public class MissionPointsRefresherTest extends IntegrationTestsConfig {
     @Test
     @Transactional
     public void refreshMissionPointsForAllMission() {
-        LinkedList<User> users = userService.findAll();
+        Set<User> users = userService.findAll();
         users.forEach(x -> x.setMissionPoints(2));
         userService.save(users);
 

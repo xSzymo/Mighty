@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -29,14 +29,14 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     @Autowired
     private UserService userService;
 
-    private LinkedList<Inventory> inventories;
-    private LinkedList<Item> items;
+    private HashSet<Inventory> inventories;
+    private HashSet<Item> items;
     private User user;
 
     @Before
     public void beforeEachTest() {
-        inventories = new LinkedList<>();
-        items = new LinkedList<>();
+        inventories = new HashSet<>();
+        items = new HashSet<>();
         addExampleDataToEquipments();
     }
 
@@ -54,86 +54,92 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(inventories.getFirst());
+        objectUnderTest.save(inventories.iterator().next());
 
-        checkSavedItemsAreNotNull(inventories.getFirst());
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
+        checkSavedItemsAreNotNull(inventories.iterator().next());
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(inventories);
 
+        Iterator<Inventory> iterator = inventories.iterator();
         inventories.forEach(this::checkSavedItemsAreNotNull);
-        assertNotNull(objectUnderTest.findOne(inventories.get(0)));
-        assertNotNull(objectUnderTest.findOne(inventories.get(1)));
-        assertNotNull(objectUnderTest.findOne(inventories.get(2)));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOne() {
-        objectUnderTest.save(inventories.getFirst());
+        objectUnderTest.save(inventories.iterator().next());
 
-        checkSavedItemsAreNotNull(inventories.getFirst());
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
+        checkSavedItemsAreNotNull(inventories.iterator().next());
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(inventories.getFirst());
+        objectUnderTest.save(inventories.iterator().next());
 
-        checkSavedItemsAreNotNull(inventories.getFirst());
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst().getId()));
+        checkSavedItemsAreNotNull(inventories.iterator().next());
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next().getId()));
     }
 
     @Test
     public void findAll() {
         objectUnderTest.save(inventories);
 
-        inventories.forEach(this::checkSavedItemsAreNotNull);
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(0).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(1).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(2).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(inventories.get(3).getId())).findFirst().get());
+        Iterator<Inventory> iterator = inventories.iterator();
+        List<Inventory> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        list.forEach(this::checkSavedItemsAreNotNull);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(3).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(inventories.getFirst());
+        objectUnderTest.save(inventories.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next()));
 
-        objectUnderTest.delete(inventories.getFirst());
+        objectUnderTest.delete(inventories.iterator().next());
 
-        assertNull(objectUnderTest.findOne(inventories.getFirst()));
-        checkSavedItemsAreNotNull(inventories.getFirst());
+        assertNull(objectUnderTest.findOne(inventories.iterator().next()));
+        checkSavedItemsAreNotNull(inventories.iterator().next());
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(inventories.getFirst());
+        objectUnderTest.save(inventories.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next()));
 
-        objectUnderTest.delete(inventories.getFirst().getId());
+        objectUnderTest.delete(inventories.iterator().next().getId());
 
-        assertNull(objectUnderTest.findOne(inventories.getFirst()));
-        checkSavedItemsAreNotNull(inventories.getFirst());
+        assertNull(objectUnderTest.findOne(inventories.iterator().next()));
+        checkSavedItemsAreNotNull(inventories.iterator().next());
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(inventories);
 
-        assertNotNull(objectUnderTest.findOne(inventories.get(0)));
-        assertNotNull(objectUnderTest.findOne(inventories.get(1)));
-        assertNotNull(objectUnderTest.findOne(inventories.get(2)));
+        Iterator<Inventory> iterator = inventories.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(inventories);
 
-        assertNull(objectUnderTest.findOne(inventories.get(0)));
-        assertNull(objectUnderTest.findOne(inventories.get(1)));
-        assertNull(objectUnderTest.findOne(inventories.get(2)));
+        iterator = inventories.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
         inventories.forEach(this::checkSavedItemsAreNotNull);
     }
 
@@ -141,18 +147,18 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromUser() {
         user = new User("simple login" + System.currentTimeMillis());
-        user.setInventory(inventories.getFirst());
+        user.setInventory(inventories.iterator().next());
 
         userService.save(user);
 
         assertNotNull(userService.findOne(user));
-        assertNotNull(objectUnderTest.findOne(inventories.getFirst()));
+        assertNotNull(objectUnderTest.findOne(inventories.iterator().next()));
 
-        objectUnderTest.delete(inventories.getFirst());
+        objectUnderTest.delete(inventories.iterator().next());
 
         assertNotNull(userService.findOne(user.getId()));
         assertNull(userService.findOne(user.getId()).getInventory());
-        assertNull(objectUnderTest.findOne(inventories.getFirst()));
+        assertNull(objectUnderTest.findOne(inventories.iterator().next()));
     }
 
     private void checkSavedItemsAreNotNull(Inventory inventory) {
@@ -162,7 +168,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     private void addExampleDataToEquipments() {
         Statistic statistic;
         Inventory inventory;
-        LinkedList<Item> myItems = new LinkedList<>();
+        HashSet<Item> myItems = new HashSet<>();
 
         for (int i = 3; i < 7; i++) {
             myItems.clear();

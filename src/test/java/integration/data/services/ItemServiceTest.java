@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -28,14 +28,14 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ShopService shopService;
 
-    private LinkedList<Item> items;
+    private HashSet<Item> items;
     private Equipment equipment;
     private Shop shop;
 
     @Before
     public void beforeEachTest() {
-        items = new LinkedList<>();
-        items = new LinkedList<>();
+        items = new HashSet<>();
+        items = new HashSet<>();
         addExampleDataToEquipments();
     }
 
@@ -50,79 +50,84 @@ public class ItemServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(items.getFirst());
+        objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.getFirst()));
+        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(items);
 
-        assertNotNull(objectUnderTest.findOne(items.get(0)));
-        assertNotNull(objectUnderTest.findOne(items.get(1)));
-        assertNotNull(objectUnderTest.findOne(items.get(2)));
+        Iterator<Item> iterator = items.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test
     public void findOne() {
-        objectUnderTest.save(items.getFirst());
+        objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.getFirst()));
+        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(items.getFirst());
+        objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(items.iterator().next().getId()));
     }
 
     @Test
     public void findAll() {
         objectUnderTest.save(items);
 
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(0).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(1).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(2).getId())).findFirst().get());
-        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(items.get(3).getId())).findFirst().get());
+        Iterator<Item> iterator = items.iterator();
+        List<Item> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
     public void delete() {
-        objectUnderTest.save(items.getFirst());
+        objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.getFirst()));
+        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
 
-        objectUnderTest.delete(items.getFirst());
+        objectUnderTest.delete(items.iterator().next());
 
-        assertNull(objectUnderTest.findOne(items.getFirst()));
+        assertNull(objectUnderTest.findOne(items.iterator().next()));
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(items.getFirst());
+        objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.getFirst()));
+        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
 
-        objectUnderTest.delete(items.getFirst().getId());
+        objectUnderTest.delete(items.iterator().next().getId());
 
-        assertNull(objectUnderTest.findOne(items.getFirst()));
+        assertNull(objectUnderTest.findOne(items.iterator().next()));
     }
 
     @Test
     public void delete2() {
         objectUnderTest.save(items);
 
-        assertNotNull(objectUnderTest.findOne(items.get(0)));
-        assertNotNull(objectUnderTest.findOne(items.get(1)));
-        assertNotNull(objectUnderTest.findOne(items.get(2)));
+        Iterator<Item> iterator = items.iterator();
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.findOne(iterator.next()));
 
         objectUnderTest.delete(items);
 
-        assertNull(objectUnderTest.findOne(items.get(0)));
-        assertNull(objectUnderTest.findOne(items.get(1)));
-        assertNull(objectUnderTest.findOne(items.get(2)));
+        iterator = items.iterator();
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.findOne(iterator.next()));
     }
 
     @Test

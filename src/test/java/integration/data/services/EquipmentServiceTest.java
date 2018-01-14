@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import static junit.framework.TestCase.assertNull;
@@ -28,13 +29,13 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ChampionService championService;
 
-    private LinkedList<Equipment> equipments;
+    private HashSet<Equipment> equipments;
     private LinkedList<Item> items;
     private Champion champion;
 
     @Before
     public void beforeEachTest() throws Exception {
-        equipments = new LinkedList<>();
+        equipments = new HashSet<>();
         items = new LinkedList<>();
         addExampleDataToEquipments();
     }
@@ -51,11 +52,11 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void save() {
-        objectUnderTest.save(equipments.getFirst());
+        objectUnderTest.save(equipments.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
-        checkSavedItemsAreNotNull(equipments.getFirst());
+        checkSavedItemsAreNotNull(equipments.iterator().next());
         assertEquals(1, counter);
     }
 
@@ -71,18 +72,18 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void findOne() {
-        objectUnderTest.save(equipments.getFirst());
+        objectUnderTest.save(equipments.iterator().next());
 
-        checkSavedItemsAreNotNull(equipments.getFirst());
-        assertNotNull(objectUnderTest.findOne(equipments.getFirst()));
+        checkSavedItemsAreNotNull(equipments.iterator().next());
+        assertNotNull(objectUnderTest.findOne(equipments.iterator().next()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(equipments.getFirst());
+        objectUnderTest.save(equipments.iterator().next());
 
-        checkSavedItemsAreNotNull(equipments.getFirst());
-        assertNotNull(objectUnderTest.findOne(equipments.getFirst().getId()));
+        checkSavedItemsAreNotNull(equipments.iterator().next());
+        assertNotNull(objectUnderTest.findOne(equipments.iterator().next().getId()));
     }
 
     @Test
@@ -97,33 +98,33 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void delete() {
-        objectUnderTest.save(equipments.getFirst());
+        objectUnderTest.save(equipments.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
-        objectUnderTest.delete(equipments.getFirst());
+        objectUnderTest.delete(equipments.iterator().next());
 
         counter = objectUnderTest.findAll().size();
 
-        checkSavedItemsAreNotNull(equipments.getFirst());
+        checkSavedItemsAreNotNull(equipments.iterator().next());
         assertEquals(0, counter);
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(equipments.getFirst());
+        objectUnderTest.save(equipments.iterator().next());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(1, counter);
 
-        objectUnderTest.delete(equipments.getFirst().getId());
+        objectUnderTest.delete(equipments.iterator().next().getId());
 
         counter = objectUnderTest.findAll().size();
 
-        checkSavedItemsAreNotNull(equipments.getFirst());
+        checkSavedItemsAreNotNull(equipments.iterator().next());
         assertEquals(0, counter);
     }
 
@@ -146,14 +147,14 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromChampion() {
         champion = new Champion();
-        champion.setEquipment(equipments.getFirst());
+        champion.setEquipment(equipments.iterator().next());
 
         championService.save(champion);
 
         assertNotNull(championService.findOne(champion));
-        assertNotNull(objectUnderTest.findOne(equipments.getFirst()));
+        assertNotNull(objectUnderTest.findOne(equipments.iterator().next()));
 
-        objectUnderTest.delete(equipments.getFirst());
+        objectUnderTest.delete(equipments.iterator().next());
 
         assertNotNull(championService.findOne(champion.getId()));
         assertNull(championService.findOne(champion).getEquipment());
