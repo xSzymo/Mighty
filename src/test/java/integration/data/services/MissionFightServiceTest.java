@@ -182,6 +182,8 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(missionFight);
 
+        champion = championService.findOne(champion);
+        mission = missionService.findOne(mission);
         assertNull(objectUnderTest.findOne(missionFight));
         assertNotNull(championService.findOne(champion));
         assertNotNull(missionService.findOne(mission));
