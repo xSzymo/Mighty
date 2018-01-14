@@ -2,9 +2,12 @@ package advanced.integration.services.bookmarks.arena;
 
 import advanced.integration.config.AuthorizationConfiguration;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
+import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.RankingService;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Ranking;
+import game.mightywarriors.data.tables.Statistic;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.IllegalFightException;
 import game.mightywarriors.other.exceptions.NotProperlyChampionsException;
@@ -12,13 +15,15 @@ import game.mightywarriors.services.bookmarks.arena.ArenaManager;
 import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
+import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,54 +37,62 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     @Autowired
     private RankingService rankingService;
     @Autowired
+    private ChampionService championService;
+    @Autowired
     private PointsForDivisionCounter pointsForDivisionCounter;
 
     private User user;
     private Ranking userRanking;
 
+    private Champion champion;
+    private Statistic statistic;
     private User opponentWithHigherRanking;
     private User opponentWithLowerRanking;
     private Informer informer;
 
     private long abstractComicalNumber = 9998991;
 
+
     @Before
     public void setUp() throws Exception {
         authorize(rankingService.findOne(3).getNickname());
 
         user = retriever.retrieveUser(token);
+        champion = user.getChampions().stream().findFirst().get();
+        statistic = champion.getStatistic();
+        championService.save(champion.setStatistic(new Statistic(abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber)));
         userRanking = rankingService.findOne(user.getLogin());
 
-        List<Ranking> allAboveRanking = rankingService.findAllAboveRanking(userRanking.getRanking());
-        List<Ranking> allBelowRanking = rankingService.findAllBelowRanking(userRanking.getRanking());
-        opponentWithLowerRanking = userService.findByLogin(allAboveRanking.get(0).getNickname());
+        Set<Ranking> allAboveRanking = rankingService.findAllAboveRanking(userRanking.getRanking());
+        Set<Ranking> allBelowRanking = rankingService.findAllBelowRanking(userRanking.getRanking());
+        opponentWithLowerRanking = userService.findByLogin(allAboveRanking.iterator().next().getNickname());
         opponentWithHigherRanking = getOpponentWithHigherRanking(allBelowRanking);
+
         if (opponentWithHigherRanking == null)
             throw new Exception("Opponent was not chosen");
 
         informer = new Informer();
-        informer.championId = new long[]{user.getChampions().get(0).getId(), user.getChampions().get(1).getId(), user.getChampions().get(2).getId()};
+        Iterator<Champion> champions = user.getChampions().iterator();
+        informer.championId = new long[]{champions.next().getId(), champions.next().getId(), champions.next().getId()};
     }
 
     @After
     public void cleanUp() {
-        user.getChampions().get(0).setBlockTime(null);
-        user.getChampions().get(1).setBlockTime(null);
-        user.getChampions().get(2).setBlockTime(null);
-
+        user.getChampions().forEach(x -> x.setBlockTime(null));
+        user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().setStatistic(statistic);
         userService.save(user);
     }
 
     @Test
     public void fightUser_opponentWithHigherRanking_win() throws Exception {
         informer.opponentName = opponentWithHigherRanking.getLogin();
-
         int arenaPoints = user.getArenaPoints();
         long oldOpponentRanking = rankingService.findOne(informer.opponentName).getRanking();
 
-        objectUnderTest.fightUser(token, informer);
+        FightResult fightResult = objectUnderTest.fightUser(token, informer);
 
         user = userService.findOne(user.getId());
+        assertEquals(user.getLogin(), fightResult.getWinner().getLogin());
         assertEquals(arenaPoints - 1, user.getArenaPoints());
         assertEquals(oldOpponentRanking, rankingService.findOne(user.getLogin()).getRanking());
         assertEquals(oldOpponentRanking + 1, rankingService.findOne(informer.opponentName).getRanking());
@@ -103,9 +116,8 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
         objectUnderTest.fightUser(token, informer);
     }
 
-    public User getOpponentWithHigherRanking(List<Ranking> allBelowRanking) {
+    public User getOpponentWithHigherRanking(Set<Ranking> allBelowRanking) {
         return userService.findByLogin(allBelowRanking.stream()
-                .filter(x -> pointsForDivisionCounter.getPointsOfFighterPower(user) > pointsForDivisionCounter.getPointsOfFighterPower(userService.findByLogin(x.getNickname())))
                 .findFirst().get().getNickname());
     }
 }

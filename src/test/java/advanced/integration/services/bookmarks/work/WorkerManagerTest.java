@@ -20,7 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.spy;
@@ -44,6 +47,8 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     private Informer informer;
     private WorkerManager objectUnderTests;
     private int howManyHours;
+    private Long firstChampionId;
+    private Long secondChampionId;
 
     @Before
     public void setUp() throws Exception {
@@ -53,7 +58,10 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         user = retriever.retrieveUser(token);
 
         informer = new Informer();
-        informer.championId = new long[]{user.getChampions().get(0).getId(), user.getChampions().get(1).getId()};
+        Iterator<Champion> champions = user.getChampions().iterator();
+        firstChampionId = champions.next().getId();
+        secondChampionId = champions.next().getId();
+        informer.championId = new long[]{firstChampionId, secondChampionId};
         informer.hours = 1;
     }
 
@@ -69,7 +77,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         objectUnderTests.setWorkForUser(token, informer);
 
         user = userService.findOne(user.getId());
-        List<Work> works = workService.findOne(user.getLogin());
+        List<Work> works = new ArrayList<>(workService.findOne(user.getLogin()));
         long blockTime = new Timestamp(System.currentTimeMillis() + 60 * 60 * 1000).getTime() / 60 / 1000;
         assertEquals(1, works.get(0).getTime());
         assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[0])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
@@ -92,6 +100,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     }
 
     private void getPayment(int howManyHours, int expectedGold) throws Exception {
+        Iterator<Champion> champions = user.getChampions().iterator();
         this.howManyHours = howManyHours;
         when(workerUtility.getHours(howManyHours)).thenReturn(1000L);
 
@@ -102,7 +111,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         user = userService.findOne(user.getId());
         user.getChampions().forEach(x -> assertNull(x.getBlockDate()));
         assertEquals(0, workService.findOne(user.getLogin()).size());
-        assertEquals(expectedGold, getGold(user.getChampions().get(0)).add(getGold(user.getChampions().get(1))).intValue());
+        assertEquals(expectedGold, getGold(champions.next()).add(getGold(champions.next())).intValue());
     }
 
     @Test
@@ -119,16 +128,20 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     @Test
     public void cancelWork_one() throws Exception {
         setWorkForUser();
-        informer.championId = new long[]{user.getChampions().get(0).getId()};
+        informer.championId = new long[]{firstChampionId};
 
         objectUnderTests.cancelWork(token, informer);
 
         user = userService.findOne(user.getId());
-        List<Work> works = workService.findOne(user.getLogin());
+        List<Champion> champions = new ArrayList<>(user.getChampions());
+        Set<Work> works = workService.findOne(user.getLogin());
+        Champion firstChampion = champions.stream().filter(x -> x.getId().equals(firstChampionId)).findFirst().get();
+        Champion secondChampion = champions.stream().filter(x -> x.getId().equals(secondChampionId)).findFirst().get();
+
         assertEquals(1, workService.findOne(user.getLogin()).size());
-        assertNull(user.getChampions().stream().filter(x -> x.getId().equals(user.getChampions().get(0).getId())).findFirst().get().getBlockDate());
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(user.getChampions().get(1).getId())).findFirst().get().getBlockDate());
-        assertEquals(user.getChampions().get(1).getId(), works.get(0).getChampion().getId());
+        assertNull(firstChampion.getBlockDate());
+        assertNotNull(secondChampion.getBlockDate());
+        assertEquals(secondChampionId, works.iterator().next().getChampion().getId());
     }
 
     private BigDecimal getGold(Champion champion) {
