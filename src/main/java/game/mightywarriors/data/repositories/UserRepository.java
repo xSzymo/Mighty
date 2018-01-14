@@ -1,5 +1,7 @@
 package game.mightywarriors.data.repositories;
 
+import game.mightywarriors.data.tables.Inventory;
+import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -19,4 +21,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByLogin(String login);
 
     User findByEMail(String email);
+
+    User findByShop(Shop shop);
+
+    User findByInventory(Inventory inventory);
 }

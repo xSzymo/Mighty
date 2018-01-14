@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ShopRepository;
 import game.mightywarriors.data.tables.Shop;
+import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,11 +84,7 @@ public class ShopService {
     }
 
     public void delete(Collection<Shop> shops) {
-        shops.forEach(
-                x -> {
-                    if (x != null)
-                        delete(x);
-                });
+        shops.forEach(this::delete);
     }
 
     public void deleteAll() {
@@ -95,16 +92,14 @@ public class ShopService {
     }
 
     private void deleteOperation(Shop shop) {
-        userService.findAll().forEach(
-                x -> {
-                    if (x.getShop() != null) {
-                        if (x.getShop().getId().equals(shop.getId())) {
-                            x.setShop(null);
-                            userService.save(x);
-                        }
-                    }
+        User userShop = userService.findByShop(shop);
+        if (userShop != null)
+            if (userShop.getShop() != null)
+                if (userShop.getShop().getId().equals(shop.getId())) {
+                    userShop.setShop(null);
+                    userService.save(userShop);
                 }
-        );
+
         repository.deleteById(shop.getId());
     }
 }

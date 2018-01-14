@@ -2,6 +2,8 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
+import game.mightywarriors.data.tables.Inventory;
+import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
@@ -81,6 +83,22 @@ public class UserService {
     public User findByLogin(String login) {
         try {
             return repository.findByLogin(login);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public User findByShop(Shop shop) {
+        try {
+            return repository.findByShop(shop);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public User findByInventory(Inventory inventory) {
+        try {
+            return repository.findByInventory(inventory);
         } catch (NullPointerException e) {
             return null;
         }
