@@ -156,6 +156,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(shops.iterator().next());
 
+        user = userService.findOne(user);
         assertNotNull(userService.findOne(user.getId()));
         assertNotEquals(shops.iterator().next(), userService.findOne(user.getId()).getShop());
         assertNull(objectUnderTest.findOne(shops.iterator().next()));

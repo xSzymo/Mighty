@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.InventoryRepository;
 import game.mightywarriors.data.tables.Inventory;
+import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,16 +96,16 @@ public class InventoryService {
     }
 
     private void deleteOperation(Inventory inventory) {
-        userService.findAll().forEach(
-                x -> {
-                    if (x.getInventory() != null) {
-                        if (x.getInventory().getId().equals(inventory.getId())) {
-                            x.setInventory(null);
-                            userService.save(x);
-                        }
-                    }
+        User userInventory = userService.findByInventory(inventory);
+
+        if (userInventory != null)
+            if (userInventory.getInventory() != null) {
+                if (userInventory.getInventory().getId().equals(inventory.getId())) {
+                    userInventory.setInventory(null);
+                    userService.save(userInventory);
                 }
-        );
+            }
+
         repository.deleteById(inventory.getId());
     }
 }

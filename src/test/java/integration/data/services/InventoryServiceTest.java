@@ -156,8 +156,9 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(inventories.iterator().next());
 
-        assertNotNull(userService.findOne(user.getId()));
-        assertNull(userService.findOne(user.getId()).getInventory());
+        user = userService.findOne(user);
+        assertNotNull(user);
+        assertNotNull(user.getInventory());
         assertNull(objectUnderTest.findOne(inventories.iterator().next()));
     }
 
