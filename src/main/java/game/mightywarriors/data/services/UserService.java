@@ -26,6 +26,12 @@ public class UserService {
     @Autowired
     private MissionAssigner missionAssigner;
     @Autowired
+    private ShopService shopService;
+    @Autowired
+    private InventoryService inventoryService;
+    @Autowired
+    private ChampionService championService;
+    @Autowired
     private ItemDrawer itemDrawer;
 
     public void save(User user) {
@@ -121,11 +127,12 @@ public class UserService {
             return;
 
         user.getMissions().clear();
-        user.getMissions().forEach(missionService::delete);
-//        if (user.getShop() != null)
-//            shopService.delete(user.getShop());
-//        if (user.getInventory() != null)
-//            inventoryService.delete(user.getInventory());
+
+        if (user.getShop() != null)
+            shopService.delete(user.getShop());
+        if (user.getInventory() != null)
+            inventoryService.delete(user.getInventory());
+        user.getChampions().forEach(championService::delete);
         rankingService.delete(user.getLogin());
         repository.deleteById(user.getId());
     }

@@ -123,20 +123,10 @@ public class ChampionService {
         if (champion.getId() == null || findOne(champion.getId()) == null)
             return;
 
-        Set<Champion> champions = new HashSet<>();
-        userService.findAll().forEach(
-                x -> {
-                    x.getChampions().forEach(x1 ->
-                            champions.add(x1)
-                    );
-                    champions.forEach(x.getChampions()::remove);
-                    userService.save(x);
-                    champions.clear();
-                }
-        );
+        Equipment equipment = champion.getEquipment();
+        if (equipment != null)
+            equipmentService.delete(equipment);
 
-        if(champion.getImage() == null)
-            imageService.delete(champion.getImage());
         repository.deleteById(champion.getId());
     }
 }

@@ -55,10 +55,12 @@ public class StatisticService {
         return repository.findAll();
     }
 
+    @Deprecated
     public void delete(long id) {
         deleteOperation(findOne(id));
     }
 
+    @Deprecated
     public void delete(Statistic image) {
         try {
             deleteOperation(image);
@@ -67,6 +69,7 @@ public class StatisticService {
         }
     }
 
+    @Deprecated
     public void delete(Collection<Statistic> addresses) {
         addresses.forEach(
                 x -> {
@@ -75,18 +78,28 @@ public class StatisticService {
                 });
     }
 
+    @Deprecated
     public void deleteAll() {
         delete(findAll());
     }
 
+    /**
+     * This method should not be used anymore
+     * There isn't case where You have to delete statistic
+     * When You delete the relation monster, item or champion statistic will be deleted anyway)
+     * @param statistic
+     */
+    @Deprecated
     private void deleteOperation(Statistic statistic) {
         if (statistic.getId() == null || findOne(statistic.getId()) == null)
             return;
+
 
         championService.findAll().forEach(
                 x -> {
                     if (x.getStatistic() != null)
                         if (x.getStatistic().getId().equals(statistic.getId())) {
+                            System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM CHAMPION");
                             x.setStatistic(null);
                             championService.save(x);
                         }
@@ -96,6 +109,7 @@ public class StatisticService {
                 x -> {
                     if (x.getStatistic() != null)
                         if (x.getStatistic().getId().equals(statistic.getId())) {
+                            System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM MONSTER");
                             x.setStatistic(null);
                             monsterService.save(x);
                         }
@@ -105,6 +119,7 @@ public class StatisticService {
                 x -> {
                     if (x.getStatistic() != null)
                         if (x.getStatistic().getId().equals(statistic.getId())) {
+                            System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM ITEM");
                             x.setStatistic(null);
                             itemService.save(x);
                         }

@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.MissionRepository;
 import game.mightywarriors.data.tables.Mission;
+import game.mightywarriors.data.tables.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,14 @@ public class MissionService {
         }
     }
 
+    public Mission findOne(Monster monster) {
+        try {
+            return repository.findByMonster(monster);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public HashSet<Mission> findAll() {
         return repository.findAll();
     }
@@ -102,7 +111,6 @@ public class MissionService {
                 }
         );
 
-        monsterService.delete(mission.getMonster());
         repository.deleteById(mission.getId());
     }
 }

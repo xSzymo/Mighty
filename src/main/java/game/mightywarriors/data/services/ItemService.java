@@ -106,8 +106,6 @@ public class ItemService {
         );
 
 
-        if (item.getStatistic() != null)
-            statisticService.delete(item.getStatistic());
 
         equipmentService.findAll().forEach(
                 x -> {

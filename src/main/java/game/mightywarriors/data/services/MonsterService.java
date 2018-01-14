@@ -1,7 +1,8 @@
 package game.mightywarriors.data.services;
 
+import game.mightywarriors.data.repositories.MissionRepository;
 import game.mightywarriors.data.repositories.MonsterRepository;
-import game.mightywarriors.data.tables.Image;
+import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class MonsterService {
     private MonsterRepository repository;
     @Autowired
     private MissionService missionRepository;
+    @Autowired
+    private MissionRepository missionRepository1;
     @Autowired
     private StatisticService statisticService;
     @Autowired
@@ -95,25 +98,17 @@ public class MonsterService {
     }
 
     private void deleteOperation(Monster monster) {
-        if (monster.getId() == null || findOne(monster.getId()) == null)
+        Long id = monster.getId();
+        if (id == null || findOne(id) == null)
             return;
 
-        missionRepository.findAll().forEach(
-                x -> {
-                    if (x.getMonster() != null)
-                        if (x.getMonster().getId().equals(monster.getId())) {
-                            x.setMonster(null);
-                            missionRepository.save(x);
-                        }
-                }
-        );
 
-        Image image = monster.getImage();
-        if (monster.getStatistic() != null)
-            statisticService.delete(monster.getStatistic());
-        if (image != null)
-            imageService.delete(image.getId());
+        Mission one = missionRepository.findOne(monster);
+        if (one != null) {
+            one.setMonster(null);
+            missionRepository.save(one);
+        }
 
-        repository.deleteById(monster.getId());
+        repository.deleteById(id);
     }
 }
