@@ -35,7 +35,7 @@ public class RunAtStart {
 
     @PostConstruct
     public void addExampleDataForTestAtStartApplication() throws Exception {
-        if (SystemVariablesManager.INSERT_EXAMPLE_DATA)
+        if (!SystemVariablesManager.INSERT_EXAMPLE_DATA)
             return;
 
         UserRole admin_role = new UserRole("admin");
