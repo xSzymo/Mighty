@@ -96,21 +96,6 @@ public class MissionService {
         if (mission.getId() == null || findOne(mission.getId()) == null)
             return;
 
-        userService.findAll().forEach(
-                x -> {
-                    if (x.getMissions() != null) {
-                        Iterator<Mission> iterator = new HashSet<>(x.getMissions()).iterator();
-                        while (iterator.hasNext()) {
-                            Mission mission1 = iterator.next();
-                            if (mission1.getId().equals(mission.getId())) {
-                                x.getMissions().remove(mission1);
-                                userService.save(x);
-                            }
-                        }
-                    }
-                }
-        );
-
         repository.deleteById(mission.getId());
     }
 }

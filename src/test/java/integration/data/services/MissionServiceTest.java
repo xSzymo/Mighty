@@ -9,10 +9,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class MissionServiceTest extends IntegrationTestsConfig {
     @Autowired
@@ -130,25 +130,30 @@ public class MissionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromUser() {
-        user = new User();
-        user.setLogin("");
-        user.setPassword("");
-        user.seteMail("");
-        user.getMissions().add(missions.getFirst());
-        user.getMissions().add(missions.getFirst());
-        user.getMissions().add(missions.getFirst());
-
+        user = new User("", "", "");
         userService.save(user);
+        objectUnderTest.save(missions.getFirst());
 
         Mission mission = objectUnderTest.findOne(missions.getFirst());
+        Long id = mission.getId();
+        user = userService.findOne(user);
+        user.getMissions().remove(user.getMissions().iterator().next());
+        user.getMissions().add(mission);
+        userService.save(user);
         user = userService.findOne(user);
 
+        assertTrue(user.getMissions().stream().anyMatch(x -> x.getId().equals(id)));
         assertNotNull(mission);
         assertNotNull(user);
 
         objectUnderTest.delete(missions.getFirst());
 
+        user = userService.findOne(user);
         assertNotNull(user);
+        Iterator<Mission> iterator = user.getMissions().iterator();
+        assertEquals(2, user.getMissions().size());
+        assertNotEquals(id, iterator.next().getId());
+        assertNotEquals(id, iterator.next().getId());
         assertNull(objectUnderTest.findOne(mission));
     }
 
