@@ -5,9 +5,11 @@ import game.mightywarriors.other.enums.League;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 
 @Repository
+@Transactional
 public interface DivisionRepository extends CrudRepository<Division, Long> {
     HashSet<Division> findAll();
 
