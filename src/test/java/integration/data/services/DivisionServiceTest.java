@@ -18,24 +18,24 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     @Autowired
     private DivisionService objectUnderTest;
 
-    private LinkedList<Division> userRoles;
+    private LinkedList<Division> divisions;
 
     @Before
     public void beforeEachTest() {
-        userRoles = new LinkedList<>();
-        userRoles.add(new Division(League.DIAMOND));
-        userRoles.add(new Division(League.GOLD));
-        userRoles.add(new Division(League.SILVER));
+        divisions = new LinkedList<>();
+        divisions.add(new Division(League.DIAMOND));
+        divisions.add(new Division(League.GOLD));
+        divisions.add(new Division(League.SILVER));
     }
 
     @After
     public void afterEachTest() {
-        userRoles.forEach(objectUnderTest::delete);
+        divisions.forEach(objectUnderTest::delete);
     }
 
     @Test
     public void save() {
-        objectUnderTest.save(userRoles.getFirst());
+        objectUnderTest.save(divisions.getFirst());
 
         long counter = objectUnderTest.findAll().size();
 
@@ -44,7 +44,7 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void saveCollection() {
-        objectUnderTest.save(userRoles);
+        objectUnderTest.save(divisions);
 
         long counter = objectUnderTest.findAll().size();
 
@@ -53,21 +53,21 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void findOne() {
-        objectUnderTest.save(userRoles.getFirst());
+        objectUnderTest.save(divisions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNotNull(objectUnderTest.findOne(divisions.getFirst()));
     }
 
     @Test
     public void findOne1() {
-        objectUnderTest.save(userRoles.getFirst());
+        objectUnderTest.save(divisions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst().getId()));
+        assertNotNull(objectUnderTest.findOne(divisions.getFirst().getId()));
     }
 
     @Test
     public void findAll() {
-        objectUnderTest.save(userRoles);
+        objectUnderTest.save(divisions);
 
         long counter = objectUnderTest.findAll().size();
 
@@ -76,49 +76,49 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void delete() {
-        objectUnderTest.save(userRoles.getFirst());
+        objectUnderTest.save(divisions.getFirst());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(7, counter);
 
-        objectUnderTest.delete(userRoles.getFirst());
+        objectUnderTest.delete(divisions.getFirst());
 
         counter = objectUnderTest.findAll().size();
 
         assertEquals(6, counter);
-        userRoles.clear();
+        divisions.clear();
     }
 
     @Test
     public void delete1() {
-        objectUnderTest.save(userRoles.getFirst());
+        objectUnderTest.save(divisions.getFirst());
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(7, counter);
 
-        objectUnderTest.delete(userRoles.getFirst().getId());
+        objectUnderTest.delete(divisions.getFirst().getId());
 
         counter = objectUnderTest.findAll().size();
 
         assertEquals(6, counter);
-        userRoles.clear();
+        divisions.clear();
     }
 
     @Test
     public void delete2() {
-        objectUnderTest.save(userRoles);
+        objectUnderTest.save(divisions);
 
         long counter = objectUnderTest.findAll().size();
 
         assertEquals(9, counter);
 
-        objectUnderTest.delete(userRoles);
+        objectUnderTest.delete(divisions);
 
         counter = objectUnderTest.findAll().size();
 
         assertEquals(6, counter);
-        userRoles.clear();
+        divisions.clear();
     }
 }
