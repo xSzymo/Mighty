@@ -115,7 +115,7 @@ public class RankingService {
 
     public void delete(String nickname) {
         if (repository.findByNickname(nickname) != null)
-            repository.deleteById(nickname);
+            repository.deleteByNickname(nickname);
     }
 
     public void delete(Ranking ranking) {

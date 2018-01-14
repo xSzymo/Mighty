@@ -36,4 +36,6 @@ public interface RankingRepository extends CrudRepository<Ranking, String> {
     Set<Ranking> findAllBetween(@Param("low") long low, @Param("high") long high);
 
     HashSet<Ranking> findAll();
+
+    void deleteByNickname(String nickname);
 }
