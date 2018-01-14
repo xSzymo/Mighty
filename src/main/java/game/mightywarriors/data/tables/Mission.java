@@ -22,7 +22,7 @@ public class Mission {
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Monster monster;
 
     public Mission() {

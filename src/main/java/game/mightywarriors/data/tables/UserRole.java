@@ -22,7 +22,7 @@ public class UserRole {
     @Column(name = "time_stamp")
     private Timestamp timeStamp;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<User> user = new HashSet<>();
 

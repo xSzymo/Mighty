@@ -15,7 +15,7 @@ public class Shop {
     @Column(name = "id")
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Item> items;
 
     public Shop() {

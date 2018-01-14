@@ -1,6 +1,8 @@
 package game.mightywarriors.data.tables;
 
 import game.mightywarriors.other.enums.WeaponType;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,17 +24,18 @@ public class Item {
     private WeaponType typeOfWeapon;
     @Column(name = "level")
     private long level;
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Statistic statistic;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Image image;
-
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
 
     public Item() {
         timeStamp = new Timestamp(System.currentTimeMillis());

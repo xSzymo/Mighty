@@ -21,7 +21,7 @@ public class Work {
     @Column(name = "block_time")
     private Timestamp blockTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Champion champion;
 
     public Work() {

@@ -15,10 +15,10 @@ public class MissionFight {
     @Column(name = "block_time")
     private Timestamp blockTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Mission mission;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Champion> champion;
 
     public Long getId() {
