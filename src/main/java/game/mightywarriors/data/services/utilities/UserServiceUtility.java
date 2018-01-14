@@ -65,21 +65,21 @@ public class UserServiceUtility {
             user.setArenaPoints(SystemVariablesManager.ARENA_POINTS);
             user.setMissionPoints(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10);
 
-            if (user.getInventory() == null) {
-                Inventory inventory = new Inventory();
-                inventoryService.save(inventory);
-                user.setInventory(inventory);
-            }
-
             if (user.getUserRole() == null) {
                 user.setUserRole(userRoleService.findOne("user"));
             }
+        }
 
-            if (user.getShop() == null) {
-                Shop shop = new Shop();
-                user.setShop(shop);
-                shopService.save(shop);
-            }
+        if (user.getInventory() == null) {
+            Inventory inventory = new Inventory();
+            inventoryService.save(inventory);
+            user.setInventory(inventory);
+        }
+
+        if (user.getShop() == null) {
+            Shop shop = new Shop();
+            user.setShop(shop);
+            shopService.save(shop);
         }
 
         return user;
