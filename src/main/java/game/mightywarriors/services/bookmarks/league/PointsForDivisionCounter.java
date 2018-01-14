@@ -42,7 +42,7 @@ public class PointsForDivisionCounter {
         double points = 0;
 
         for (Champion x : user.getChampions())
-            points = getPointsOfFighterPower(x);
+            points += getPointsOfFighterPower(x);
 
         return points;
     }
