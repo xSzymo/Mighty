@@ -1,5 +1,6 @@
 package game.mightywarriors.data.repositories;
 
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Work;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,8 @@ public interface WorkRepository extends CrudRepository<Work, Long> {
     Work findById(long id);
 
     HashSet<Work> findByNickname(String nickname);
+
+    Work findByChampion(Champion champion);
 
     HashSet<Work> findAll();
 }

@@ -1,6 +1,7 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.WorkRepository;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,14 @@ public class WorkService {
     public Work findOne(Work work) {
         try {
             return repository.findById((long) work.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Work findOne(Champion champion) {
+        try {
+            return repository.findByChampion(champion);
         } catch (NullPointerException e) {
             return null;
         }

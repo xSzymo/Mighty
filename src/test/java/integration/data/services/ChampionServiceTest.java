@@ -8,8 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Timestamp;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -24,12 +26,20 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
     private StatisticService statisticService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private WorkService workService;
+    @Autowired
+    private MissionFightService missionFightService;
+    @Autowired
+    private MissionService missionService;
 
     private HashSet<Champion> champions;
     private LinkedList<Statistic> statistics;
     private LinkedList<Image> images;
     private User user;
     private Equipment equipment;
+    private Work work;
+    private MissionFight missionFight;
 
     @Before
     public void beforeEachTest() {
@@ -50,6 +60,8 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
             userService.delete(user);
         if (equipment != null)
             equipmentService.delete(equipment);
+        if (missionFight != null)
+            missionFightService.delete(missionFight);
         champions.forEach(objectUnderTest::delete);
     }
 
@@ -172,6 +184,48 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
 
         assertNotNull(userService.findOne(user));
         assertNull(objectUnderTest.findOne(champion));
+    }
+
+    @Test
+    public void deleteFromWork() {
+        Champion champion = champions.iterator().next();
+        work = new Work();
+        work.setChampion(champion);
+
+        objectUnderTest.save(champion);
+        workService.save(work);
+
+        assertNotNull(workService.findOne(work));
+        assertNotNull(objectUnderTest.findOne(champion));
+
+        objectUnderTest.delete(champion);
+
+        assertNull(objectUnderTest.findOne(champion));
+        assertNull(workService.findOne(work));
+    }
+
+    @Test
+    public void deleteFromMissionFight() {
+        Champion champion = champions.iterator().next();
+        Mission mission = new Mission();
+        missionFight = new MissionFight();
+        missionFight.setMission(mission);
+        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis()));
+        missionFight.getChampion().add(champion);
+
+        missionService.save(mission);
+        objectUnderTest.save(champion);
+        missionFightService.save(missionFight);
+
+        assertNotNull(missionFightService.findOne(missionFight));
+        assertNotNull(missionFightService.findOne(missionFight).getChampion().toArray()[0]);
+        assertNotNull(objectUnderTest.findOne(champion));
+
+        objectUnderTest.delete(champion);
+
+        assertNull(objectUnderTest.findOne(champion));
+        assertNotNull(missionFightService.findOne(missionFight));
+        assertEquals(0, missionFightService.findOne(missionFight).getChampion().toArray().length);
     }
 
     @Test

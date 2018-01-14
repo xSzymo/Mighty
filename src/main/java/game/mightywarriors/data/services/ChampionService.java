@@ -5,6 +5,7 @@ import game.mightywarriors.data.repositories.ChampionRepository;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Equipment;
 import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.managers.ChampionLevelManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class ChampionService {
     private ImageService imageService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private WorkService workService;
 
     public void save(Champion champion) {
         if (champion != null)
@@ -126,6 +129,10 @@ public class ChampionService {
         Equipment equipment = champion.getEquipment();
         if (equipment != null)
             equipmentService.delete(equipment);
+
+        Work one = workService.findOne(champion);
+        if(one != null)
+            workService.delete(one);
 
         repository.deleteById(champion.getId());
     }

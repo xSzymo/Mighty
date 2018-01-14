@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,10 @@ public class MissionFight {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Champion> champion;
+
+    public MissionFight() {
+        champion = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
