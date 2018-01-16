@@ -96,17 +96,20 @@ public class EquipmentService {
         return repository.findAll();
     }
 
+    @Deprecated
     public void delete(long id) {
         Equipment equipment = findOne(id);
         if (equipment != null)
             deleteOperation(equipment);
     }
 
+    @Deprecated
     public void delete(Equipment equipment) {
         if (equipment.getId() != null)
             delete(equipment.getId());
     }
 
+    @Deprecated
     public void delete(Collection<Equipment> equipments) {
         equipments.forEach(
                 x -> {
@@ -119,12 +122,20 @@ public class EquipmentService {
         delete(findAll());
     }
 
+    /**
+     * This method should not be used anymore
+     * There isn't case where You have to delete equipment
+     * When You delete the relation monster, item or champion statistic will be deleted anyway)
+     * @param equipment
+     */
+    @Deprecated
     private void deleteOperation(Equipment equipment) {
         try {
             championService.findAll().forEach(
                     x -> {
                         if (x.getEquipment() != null)
                             if (x.getEquipment().getId().equals(equipment.getId())) {
+                                System.out.println("YOU SHOULD NOT DELETE EQUIPMENT FROM CHAMPION");
                                 x.setEquipment(null);
                                 championService.save(x);
                             }
