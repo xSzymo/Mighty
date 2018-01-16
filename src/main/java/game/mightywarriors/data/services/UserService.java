@@ -2,9 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
-import game.mightywarriors.data.tables.Inventory;
-import game.mightywarriors.data.tables.Shop;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,10 @@ public class UserService {
     private InventoryService inventoryService;
     @Autowired
     private ChampionService championService;
+    @Autowired
+    private DivisionService divisionService;
+    @Autowired
+    private UserRoleService userRoleService;
     @Autowired
     private ItemDrawer itemDrawer;
 
@@ -150,8 +152,10 @@ public class UserService {
             shopService.delete(user.getShop());
         if (user.getInventory() != null)
             inventoryService.delete(user.getInventory());
+
         user.getChampions().forEach(championService::delete);
         rankingService.delete(user.getLogin());
+
         repository.deleteById(user.getId());
     }
 }

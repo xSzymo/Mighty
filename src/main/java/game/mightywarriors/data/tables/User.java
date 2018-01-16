@@ -3,6 +3,8 @@ package game.mightywarriors.data.tables;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.LazyInitializationException;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -42,7 +44,8 @@ public class User {
     @Column(name = "mission_points")
     private int missionPoints;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Image image;
 
     @OneToOne(fetch = FetchType.EAGER)
