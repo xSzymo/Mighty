@@ -2,7 +2,6 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ItemRepository;
 import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.other.exceptions.WrongTypeItemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,84 +89,7 @@ public class ItemService {
     }
 
     private void deleteOperation(Item item) {
-
-        HashSet<Item> items = new HashSet<>();
-        shopService.findAll().forEach(
-                x -> {
-                    x.getItems().forEach(x1 ->
-                            items.add(x1)
-                    );
-//                    items.forEach(x1 -> x.getItems().remove(x1));
-                    items.forEach(x.getItems()::remove);
-//                    x.getItems().remove(items);
-                    shopService.save(x);
-                    items.clear();
-                }
-        );
-
-
-
-        equipmentService.findAll().forEach(
-                x -> {
-                    try {
-                        if (x.getId() != null) {
-                            if (x.getArmor() != null)
-                                if (x.getArmor().getId().equals(item.getId())) {
-                                    x.setArmor(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getWeapon() != null)
-                                if (x.getWeapon().getId().equals(item.getId())) {
-                                    x.setWeapon(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getBoots() != null)
-                                if (x.getBoots().getId().equals(item.getId())) {
-                                    x.setBoots(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getBracelet() != null)
-                                if (x.getBracelet().getId().equals(item.getId())) {
-                                    x.setBracelet(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getGloves() != null)
-                                if (x.getGloves().getId().equals(item.getId())) {
-                                    x.setGloves(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getHelmet() != null)
-                                if (x.getHelmet().getId().equals(item.getId())) {
-                                    x.setHelmet(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getLegs() != null)
-                                if (x.getLegs().getId().equals(item.getId())) {
-                                    x.setLegs(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getNecklace() != null)
-                                if (x.getNecklace().getId().equals(item.getId())) {
-                                    x.setNecklace(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getOffhand() != null)
-                                if (x.getOffhand().getId().equals(item.getId())) {
-                                    x.setOffhand(null);
-                                    equipmentService.save(x);
-                                }
-                            if (x.getRing() != null)
-                                if (x.getRing().getId().equals(item.getId())) {
-                                    x.setRing(null);
-                                    equipmentService.save(x);
-                                }
-                        }
-                    } catch (WrongTypeItemException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
-
-        repository.deleteById(item.getId());
+        if (item.getId() != null)
+            repository.deleteById(item.getId());
     }
 }

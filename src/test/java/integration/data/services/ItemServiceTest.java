@@ -2,12 +2,10 @@ package integration.data.services;
 
 
 import game.mightywarriors.data.services.EquipmentService;
+import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.ShopService;
-import game.mightywarriors.data.tables.Equipment;
-import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.data.tables.Shop;
-import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
@@ -27,10 +25,13 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     private EquipmentService equipmentService;
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private InventoryService inventoryService;
 
     private HashSet<Item> items;
     private Equipment equipment;
     private Shop shop;
+    private Inventory inventory;
 
     @Before
     public void beforeEachTest() {
@@ -44,6 +45,8 @@ public class ItemServiceTest extends IntegrationTestsConfig {
         items.forEach(objectUnderTest::delete);
         if (shop != null)
             shopService.delete(shop);
+        if (inventory != null)
+            inventoryService.delete(inventory);
         if (equipment != null)
             equipmentService.delete(equipment);
     }
@@ -152,7 +155,37 @@ public class ItemServiceTest extends IntegrationTestsConfig {
 
         shopService.save(shop);
 
-        assertNotNull(shopService.findOne(shop));
+        Shop one = shopService.findOne(shop);
+        assertNotNull(one);
+        assertEquals(1, one.getItems().size());
+        assertNotNull(objectUnderTest.findOne(item));
+    }
+
+    @Test
+    public void deleteFromInventory() {
+        inventory = new Inventory();
+        inventory.setItems(items);
+
+        inventoryService.save(inventory);
+
+        assertNotNull(inventoryService.findOne(inventory));
+        items.forEach(x -> assertNotNull(objectUnderTest.findOne(x)));
+
+        objectUnderTest.delete(items);
+
+        assertNotNull(inventoryService.findOne(inventory));
+        assertEquals(0, inventoryService.findOne(inventory).getItems().size());
+
+        Item item = new Item();
+        items.add(item);
+        inventory = inventoryService.findOne(inventory);
+        inventory.addItem(item);
+
+        inventoryService.save(inventory);
+
+        Inventory one = inventoryService.findOne(inventory);
+        assertNotNull(one);
+        assertEquals(1, inventory.getItems().size());
         assertNotNull(objectUnderTest.findOne(item));
     }
 

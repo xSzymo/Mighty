@@ -2,6 +2,8 @@ package game.mightywarriors.data.tables;
 
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.other.exceptions.WrongTypeItemException;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -14,24 +16,34 @@ public class Equipment {
     @Column(name = "id")
     private Long id;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item weapon;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item offhand;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item helmet;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item armor;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item gloves;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item legs;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item boots;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item ring;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item bracelet;
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER)
     private Item necklace;
 
