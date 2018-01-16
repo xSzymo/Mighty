@@ -106,6 +106,7 @@ public class ImageService {
      * This method should not be used anymore
      * There isn't case where You have to delete image
      * When You delete the relation monster, item or champion statistic will be deleted anyway)
+     *
      * @param image
      */
     @Deprecated

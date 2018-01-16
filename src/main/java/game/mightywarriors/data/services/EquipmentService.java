@@ -126,6 +126,7 @@ public class EquipmentService {
      * This method should not be used anymore
      * There isn't case where You have to delete equipment
      * When You delete the relation monster, item or champion statistic will be deleted anyway)
+     *
      * @param equipment
      */
     @Deprecated

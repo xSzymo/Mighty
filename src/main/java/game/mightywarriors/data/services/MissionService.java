@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 @Service
 @Transactional

@@ -131,7 +131,7 @@ public class ChampionService {
             equipmentService.delete(equipment);
 
         Work one = workService.findOne(champion);
-        if(one != null)
+        if (one != null)
             workService.delete(one);
 
         repository.deleteById(champion.getId());

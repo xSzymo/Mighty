@@ -87,6 +87,7 @@ public class StatisticService {
      * This method should not be used anymore
      * There isn't case where You have to delete statistic
      * When You delete the relation monster, item or champion statistic will be deleted anyway)
+     *
      * @param statistic
      */
     @Deprecated
