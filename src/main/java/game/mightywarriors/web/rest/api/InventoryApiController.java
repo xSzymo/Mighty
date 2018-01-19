@@ -1,27 +1,26 @@
 package game.mightywarriors.web.rest.api;
 
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.tables.Inventory;
+import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.security.UsersRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashSet;
 
 @RestController
 public class InventoryApiController {
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    UsersRetriever retriever;
 
-    @GetMapping("inventories")
-    public HashSet<Inventory> getShops() {
-        return inventoryService.findAll();
-    }
-
-    @GetMapping("inventories/{id}")
-    public Inventory getShop(@PathVariable("id") String id) {
-        return inventoryService.find(Long.parseLong(id));
+    @GetMapping("secure/inventory")
+    public Inventory getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+        User user = retriever.retrieveUser(authorization);
+        return user.getInventory();
     }
 }

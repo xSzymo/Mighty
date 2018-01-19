@@ -22,16 +22,6 @@ public class WorkApiController {
     @Autowired
     private UsersRetriever retriever;
 
-    @GetMapping("works")
-    public HashSet<Work> getChampions() {
-        return service.findAll();
-    }
-
-    @GetMapping("works/{id}")
-    public Work getChampion(@PathVariable("id") String id) {
-        return service.find(Long.parseLong(id));
-    }
-
     @GetMapping("secure/works")
     public Set<Work> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);

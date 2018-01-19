@@ -1,11 +1,14 @@
 package game.mightywarriors.web.rest.api;
 
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.MissionService;
 import game.mightywarriors.data.tables.Mission;
+import game.mightywarriors.data.tables.User;
+import game.mightywarriors.services.security.UsersRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
@@ -14,14 +17,12 @@ import java.util.Set;
 public class MissionsApiController {
     @Autowired
     MissionService missionService;
+    @Autowired
+    UsersRetriever retriever;
 
-    @GetMapping("missions")
-    public Set<Mission> getChampions() {
-        return missionService.findAll();
-    }
-
-    @GetMapping("missions/{id}")
-    public Mission getChampion(@PathVariable("id") String id) {
-        return missionService.find(Long.parseLong(id));
+    @GetMapping("secure/missions")
+    public Set<Mission> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+        User user = retriever.retrieveUser(authorization);
+        return user.getMissions();
     }
 }

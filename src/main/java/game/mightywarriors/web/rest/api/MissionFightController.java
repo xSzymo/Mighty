@@ -24,16 +24,6 @@ public class MissionFightController {
     @Autowired
     private UsersRetriever retriever;
 
-    @GetMapping("missionFights")
-    public Set<MissionFight> getChampions() {
-        return service.findAll();
-    }
-
-    @GetMapping("missionFights/{id}")
-    public MissionFight getChampion(@PathVariable("id") String id) {
-        return service.find(Long.parseLong(id));
-    }
-
     @GetMapping("secure/getMissionFights")
     public List<MissionFight> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);
