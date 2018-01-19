@@ -241,7 +241,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     @Test
     @Transactional
     public void save_check_basic_variables() {
-        if(userRoleService.find("user") == null)
+        if (userRoleService.find("user") == null)
             userRoleService.save(new UserRole("user"));
 
         user = new User("halu", "halu", "halu@gmail.com");

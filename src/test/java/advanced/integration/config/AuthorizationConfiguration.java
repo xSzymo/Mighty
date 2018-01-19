@@ -11,17 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AuthorizationConfiguration extends AdvancedIntegrationTestsConfig {
+    protected String token;
     @Autowired
     private UserService userService;
     @Autowired
     private LoginController loginController;
-
     @Value("${login.username}")
     private String login;
     @Value("${login.password}")
     private String password;
-
-    protected String token;
 
     @BeforeClass
     public static void setUpBefore() {

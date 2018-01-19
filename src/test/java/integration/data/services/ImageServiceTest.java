@@ -5,16 +5,23 @@ import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.ImageService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.MonsterService;
-import game.mightywarriors.data.tables.*;
+import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.Image;
+import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Monster;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ImageServiceTest extends IntegrationTestsConfig {
     @Autowired

@@ -41,35 +41,6 @@ public abstract class IntegrationTestsConfig {
     private static MissionFightService missionFightService;
     private static boolean run = true;
 
-    @Before
-    public void createMonstersAndItems() {
-        if (!run)
-            return;
-        else
-            run = false;
-
-        Monster monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
-        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
-
-        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
-        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
-
-        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
-        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
-
-
-        itemService.save(new Item("name" + 1, WeaponType.WEAPON, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 2, WeaponType.ARMOR, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 3, WeaponType.BOOTS, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 4, WeaponType.BRACELET, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 5, WeaponType.GLOVES, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 6, WeaponType.HELMET, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 7, WeaponType.LEGS, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 8, WeaponType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 9, WeaponType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 10, WeaponType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
-    }
-
     @BeforeClass
     public static void setUpBefore() {
         SystemVariablesManager.JWTTokenCollection.clear();
@@ -110,6 +81,35 @@ public abstract class IntegrationTestsConfig {
         assertEquals(0, statisticService.findAll().size());
         assertEquals(0, userRoleService.findAll().size());
         assertEquals(6, divisionService.findAll().size());
+    }
+
+    @Before
+    public void createMonstersAndItems() {
+        if (!run)
+            return;
+        else
+            run = false;
+
+        Monster monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+        monster = new Monster(new Statistic(1, 1, 1, 1, 1, 1));
+        missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
+
+
+        itemService.save(new Item("name" + 1, WeaponType.WEAPON, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 2, WeaponType.ARMOR, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 3, WeaponType.BOOTS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 4, WeaponType.BRACELET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 5, WeaponType.GLOVES, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 6, WeaponType.HELMET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 7, WeaponType.LEGS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 8, WeaponType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 9, WeaponType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 10, WeaponType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
     }
 
     @Autowired

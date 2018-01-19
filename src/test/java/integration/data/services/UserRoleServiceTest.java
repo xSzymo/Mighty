@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 

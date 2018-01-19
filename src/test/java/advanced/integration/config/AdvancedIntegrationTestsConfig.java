@@ -27,6 +27,12 @@ public abstract class AdvancedIntegrationTestsConfig {
     private static MissionService missionService;
     private static boolean run = true;
 
+    @BeforeClass
+    public static void setUpBefore() {
+        SystemVariablesManager.JWTTokenCollection.clear();
+        SystemVariablesManager.INSERT_EXAMPLE_DATA = false;
+    }
+
     @Before
     public void createMonstersAndItems() {
         if (!run)
@@ -54,12 +60,6 @@ public abstract class AdvancedIntegrationTestsConfig {
         itemService.save(new Item("name" + 8, WeaponType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
         itemService.save(new Item("name" + 9, WeaponType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
         itemService.save(new Item("name" + 10, WeaponType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
-    }
-
-    @BeforeClass
-    public static void setUpBefore() {
-        SystemVariablesManager.JWTTokenCollection.clear();
-        SystemVariablesManager.INSERT_EXAMPLE_DATA = false;
     }
 
     @Autowired

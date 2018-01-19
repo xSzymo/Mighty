@@ -9,12 +9,10 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.UsersRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController

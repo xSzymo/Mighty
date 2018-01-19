@@ -21,7 +21,7 @@ public class ArenaPointsRefresherTest extends IntegrationTestsConfig {
 
     @Before
     public void setUp() {
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             userService.save(new User("" + i, "", ""));
         }
     }
