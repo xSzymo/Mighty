@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.UserRoleRepository;
+import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.tables.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class UserRoleApiController {
     @Autowired
-    UserRoleRepository userRoleRepository;
+    private UserRoleService service;
 
     @GetMapping("userRoles")
     public Set<UserRole> getUserRoles() {
-        return userRoleRepository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("userRoles/{id}")
     public UserRole getUserRole(@PathVariable("id") String id) {
-        return userRoleRepository.findById(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

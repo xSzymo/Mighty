@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class RankingController {
     @Autowired
-    private RankingService rankingService;
+    private RankingService service;
 
     @GetMapping("rankings")
     public Set<Ranking> getUsers() {
-        return rankingService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("rankings/{name}")
     public Ranking getUser(@PathVariable("name") String name) {
-        return rankingService.find(name);
+        return service.find(name);
     }
 }

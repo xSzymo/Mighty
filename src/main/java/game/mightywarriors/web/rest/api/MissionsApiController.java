@@ -16,9 +16,9 @@ import java.util.Set;
 @RestController
 public class MissionsApiController {
     @Autowired
-    MissionService missionService;
+    private MissionService service;
     @Autowired
-    UsersRetriever retriever;
+    private UsersRetriever retriever;
 
     @GetMapping("secure/missions")
     public Set<Mission> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {

@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.EquipmentRepository;
+import game.mightywarriors.data.services.EquipmentService;
 import game.mightywarriors.data.tables.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class EquipmentApiController {
     @Autowired
-    EquipmentRepository equipmentRepository;
+    private EquipmentService service;
 
     @GetMapping("equipments")
     public Set<Equipment> getEquipments() {
-        return equipmentRepository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("equipments/{id}")
     public Equipment getEquipment(@PathVariable("id") String id) {
-        return equipmentRepository.findById(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.ImageRepository;
+import game.mightywarriors.data.services.ImageService;
 import game.mightywarriors.data.tables.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class ImagesApiController {
     @Autowired
-    ImageRepository imageRepository;
+    private ImageService service;
 
     @GetMapping("images")
     public Set<Image> getImages() {
-        return imageRepository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("images/{id}")
     public Image getImage(@PathVariable("id") String id) {
-        return imageRepository.findById(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

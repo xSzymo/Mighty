@@ -13,15 +13,15 @@ import java.util.HashSet;
 @RestController
 public class DivisionsApiController {
     @Autowired
-    private DivisionService divisionService;
+    private DivisionService service;
 
     @GetMapping("divisions")
     public HashSet<Division> getUserRoles() {
-        return divisionService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("divisions/{id}")
     public Division getUserRole(@PathVariable("id") String id) {
-        return divisionService.find(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

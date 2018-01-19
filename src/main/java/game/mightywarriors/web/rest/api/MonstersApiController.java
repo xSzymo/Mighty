@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class MonstersApiController {
     @Autowired
-    MonsterService monsterService;
+    private MonsterService service;
 
     @GetMapping("monsters")
     public Set<Monster> getChampions() {
-        return monsterService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("monsters/{id}")
     public Monster getChampion(@PathVariable("id") String id) {
-        return monsterService.find(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.StatisticRepository;
+import game.mightywarriors.data.services.StatisticService;
 import game.mightywarriors.data.tables.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class StatisticApiController {
     @Autowired
-    StatisticRepository statisticRepository;
+    private StatisticService service;
 
     @GetMapping("statistics")
     public Set<Statistic> getStatistics() {
-        return statisticRepository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("statistics/{id}")
     public Statistic getStatistic(@PathVariable("id") String id) {
-        return statisticRepository.findById(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

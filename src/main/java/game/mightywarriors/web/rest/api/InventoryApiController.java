@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InventoryApiController {
     @Autowired
-    UsersRetriever retriever;
+    private UsersRetriever retriever;
     @Autowired
-    private InventoryService inventoryService;
+    private InventoryService service;
 
     @GetMapping("secure/inventory")
     public Inventory getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {

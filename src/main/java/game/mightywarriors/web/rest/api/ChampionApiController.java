@@ -1,7 +1,7 @@
 package game.mightywarriors.web.rest.api;
 
 
-import game.mightywarriors.data.repositories.ChampionRepository;
+import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.tables.Champion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.Set;
 @RestController
 public class ChampionApiController {
     @Autowired
-    ChampionRepository championRepository;
+    private ChampionService service;
 
     @GetMapping("champions")
     public Set<Champion> getChampions() {
-        return championRepository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("champions/{id}")
     public Champion getChampion(@PathVariable("id") String id) {
-        return championRepository.findById(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 }

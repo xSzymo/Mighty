@@ -2,7 +2,7 @@ package game.mightywarriors.web.rest.api;
 
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
-import game.mightywarriors.data.repositories.ShopRepository;
+import game.mightywarriors.data.services.ShopService;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.security.UsersRetriever;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ShopApiController {
     @Autowired
-    ShopRepository shopRepository;
+    private ShopService service;
     @Autowired
-    UsersRetriever retriever;
+    private UsersRetriever retriever;
 
     @GetMapping("secure/shop")
     public Shop getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
