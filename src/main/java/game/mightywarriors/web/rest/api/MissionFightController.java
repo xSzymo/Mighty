@@ -22,7 +22,7 @@ public class MissionFightController {
     @Autowired
     private UsersRetriever retriever;
 
-    @GetMapping("secure/getMissionFights")
+    @GetMapping("secure/missionFights")
     public List<MissionFight> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);
 
