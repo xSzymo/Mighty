@@ -54,7 +54,7 @@ public class TokenGeneratorTest extends IntegrationTestsConfig {
                 .getBody().get("code", String.class));
 
         assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
-        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(userService.findOne(user).getTokenCode()));
+        assertEquals(myToken, SystemVariablesManager.DECO4DER_DB.decode(userService.find(user).getTokenCode()));
         assertNotEquals(token, user.getTokenCode());
         assertEquals(myToken, parsedToken);
         assertNotEquals(token, parsedToken);

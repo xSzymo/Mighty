@@ -37,7 +37,7 @@ public class MissionFightService {
         repository.save(missionFight);
     }
 
-    public MissionFight findOne(long id) {
+    public MissionFight find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -45,9 +45,9 @@ public class MissionFightService {
         }
     }
 
-    public MissionFight findOne(MissionFight missionFight) {
+    public MissionFight find(MissionFight missionFight) {
         try {
-            return findOne(missionFight.getId());
+            return find(missionFight.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -88,7 +88,7 @@ public class MissionFightService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     public void delete(MissionFight image) {
@@ -112,7 +112,7 @@ public class MissionFightService {
     }
 
     private void deleteOperation(MissionFight missionFight) {
-        if (missionFight.getId() == null || findOne(missionFight.getId()) == null)
+        if (missionFight.getId() == null || find(missionFight.getId()) == null)
             return;
 
         missionFight.setChampion(null);

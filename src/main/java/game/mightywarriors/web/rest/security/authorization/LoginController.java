@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("token")
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
-        User myUser = userService.findByLogin(loginData.login);
+        User myUser = userService.find(loginData.login);
         if (myUser == null)
             throw new Exception("Wrong login or password");
 

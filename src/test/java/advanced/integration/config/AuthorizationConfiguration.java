@@ -35,7 +35,7 @@ public abstract class AuthorizationConfiguration extends AdvancedIntegrationTest
     }
 
     protected void authorize(String login) throws Exception {
-        User user = userService.findByLogin(login);
+        User user = userService.find(login);
         JSONLoginObject loginObject = new JSONLoginObject(user.getLogin(), user.getPassword());
         token = SystemVariablesManager.NAME_OF_SECRET_WORD_BEFORE_TOKEN + loginController.generate(loginObject).token;
     }

@@ -20,7 +20,7 @@ public class UsersRetriever {
             throw new Exception("Wrong token");
 
         UserDetails userDetails = jwtAuthenticationProvider.retrieveUser("NONE_PROVIDED", new JwtAuthenticationToken(authorization));
-        return userService.findByLogin(userDetails.getName());
+        return userService.find(userDetails.getName());
     }
 
     public UserDetails retrieveUserDetails(String authorization) throws Exception {

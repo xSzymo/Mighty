@@ -55,17 +55,17 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
 
     @Before
     public void setUp() throws Exception {
-        authorize(rankingService.findOne(3).getNickname());
+        authorize(rankingService.find(3).getNickname());
 
         user = retriever.retrieveUser(token);
         champion = user.getChampions().stream().findFirst().get();
         statistic = champion.getStatistic();
         championService.save(champion.setStatistic(new Statistic(abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber, abstractComicalNumber)));
-        userRanking = rankingService.findOne(user.getLogin());
+        userRanking = rankingService.find(user.getLogin());
 
         Set<Ranking> allAboveRanking = rankingService.findAllAboveRanking(userRanking.getRanking());
         Set<Ranking> allBelowRanking = rankingService.findAllBelowRanking(userRanking.getRanking());
-        opponentWithLowerRanking = userService.findByLogin(allAboveRanking.iterator().next().getNickname());
+        opponentWithLowerRanking = userService.find(allAboveRanking.iterator().next().getNickname());
         opponentWithHigherRanking = getOpponentWithHigherRanking(allBelowRanking);
 
         if (opponentWithHigherRanking == null)
@@ -87,15 +87,15 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     public void fightUser_opponentWithHigherRanking_win() throws Exception {
         informer.opponentName = opponentWithHigherRanking.getLogin();
         int arenaPoints = user.getArenaPoints();
-        long oldOpponentRanking = rankingService.findOne(informer.opponentName).getRanking();
+        long oldOpponentRanking = rankingService.find(informer.opponentName).getRanking();
 
         FightResult fightResult = objectUnderTest.fightUser(token, informer);
 
-        user = userService.findOne(user.getId());
+        user = userService.find(user.getId());
         assertEquals(user.getLogin(), fightResult.getWinner().getLogin());
         assertEquals(arenaPoints - 1, user.getArenaPoints());
-        assertEquals(oldOpponentRanking, rankingService.findOne(user.getLogin()).getRanking());
-        assertEquals(oldOpponentRanking + 1, rankingService.findOne(informer.opponentName).getRanking());
+        assertEquals(oldOpponentRanking, rankingService.find(user.getLogin()).getRanking());
+        assertEquals(oldOpponentRanking + 1, rankingService.find(informer.opponentName).getRanking());
         long blockTime = new Timestamp(System.currentTimeMillis() + SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * 60 * 1000).getTime() / 60 / 1000;
         assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[0])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
         assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[1])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
@@ -117,7 +117,7 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     }
 
     public User getOpponentWithHigherRanking(Set<Ranking> allBelowRanking) {
-        return userService.findByLogin(allBelowRanking.stream()
+        return userService.find(allBelowRanking.stream()
                 .findFirst().get().getNickname());
     }
 }

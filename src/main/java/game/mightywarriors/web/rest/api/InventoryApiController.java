@@ -22,6 +22,6 @@ public class InventoryApiController {
 
     @GetMapping("inventories/{id}")
     public Inventory getShop(@PathVariable("id") String id) {
-        return inventoryService.findOne(Long.parseLong(id));
+        return inventoryService.find(Long.parseLong(id));
     }
 }

@@ -35,7 +35,7 @@ public class StatisticService {
                 });
     }
 
-    public Statistic findOne(long id) {
+    public Statistic find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -43,9 +43,9 @@ public class StatisticService {
         }
     }
 
-    public Statistic findOne(Statistic image) {
+    public Statistic find(Statistic image) {
         try {
-            return findOne(image.getId());
+            return find(image.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -57,7 +57,7 @@ public class StatisticService {
 
     @Deprecated
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     @Deprecated
@@ -92,7 +92,7 @@ public class StatisticService {
      */
     @Deprecated
     private void deleteOperation(Statistic statistic) {
-        if (statistic.getId() == null || findOne(statistic.getId()) == null)
+        if (statistic.getId() == null || find(statistic.getId()) == null)
             return;
 
 

@@ -57,13 +57,13 @@ public class MissionAssignerTest extends IntegrationTestsConfig {
     @Test
     @Transactional
     public void assignNewMissionForUsers_1() {
-        User user = userService.findByLogin("a5");
+        User user = userService.find("a5");
         user.getMissions().clear();
         userService.save(user);
-        assertEquals(0, userService.findOne(user).getMissions().size());
+        assertEquals(0, userService.find(user).getMissions().size());
 
         objectUnderTest.assignNewMissionForUsers(user.getId());
 
-        assertEquals(3, userService.findOne(user.getId()).getMissions().size());
+        assertEquals(3, userService.find(user.getId()).getMissions().size());
     }
 }

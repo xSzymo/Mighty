@@ -45,7 +45,7 @@ public class ChampionService {
     }
 
     private void saveOperation(Champion champion) {
-        Champion foundChampion = findOne(champion);
+        Champion foundChampion = find(champion);
 
         if (champion.getImage() != null)
             try {
@@ -78,7 +78,7 @@ public class ChampionService {
         repository.save(champion);
     }
 
-    public Champion findOne(long id) {
+    public Champion find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -86,9 +86,9 @@ public class ChampionService {
         }
     }
 
-    public Champion findOne(Champion champion) {
+    public Champion find(Champion champion) {
         try {
-            return findOne(champion.getId());
+            return find(champion.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -99,7 +99,7 @@ public class ChampionService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     public void delete(Champion image) {
@@ -123,14 +123,14 @@ public class ChampionService {
     }
 
     private void deleteOperation(Champion champion) {
-        if (champion.getId() == null || findOne(champion.getId()) == null)
+        if (champion.getId() == null || find(champion.getId()) == null)
             return;
 
         Equipment equipment = champion.getEquipment();
         if (equipment != null)
             equipmentService.delete(equipment);
 
-        Work one = workService.findOne(champion);
+        Work one = workService.find(champion);
         if (one != null)
             workService.delete(one);
 

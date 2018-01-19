@@ -38,7 +38,7 @@ public class WorkService {
         }
     }
 
-    public Set<Work> findOne(String nickname) {
+    public Set<Work> find(String nickname) {
         try {
             return repository.findByNickname(nickname);
         } catch (NullPointerException e) {
@@ -46,7 +46,7 @@ public class WorkService {
         }
     }
 
-    public Work findOne(Work work) {
+    public Work find(Work work) {
         try {
             return repository.findById((long) work.getId());
         } catch (NullPointerException e) {
@@ -54,7 +54,7 @@ public class WorkService {
         }
     }
 
-    public Work findOne(Champion champion) {
+    public Work find(Champion champion) {
         try {
             return repository.findByChampion(champion);
         } catch (NullPointerException e) {
@@ -62,7 +62,7 @@ public class WorkService {
         }
     }
 
-    public Work findOne(long id) {
+    public Work find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {

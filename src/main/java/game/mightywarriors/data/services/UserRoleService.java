@@ -28,7 +28,7 @@ public class UserRoleService {
                 });
     }
 
-    public UserRole findOne(long id) {
+    public UserRole find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -36,7 +36,7 @@ public class UserRoleService {
         }
     }
 
-    public UserRole findOne(String role) {
+    public UserRole find(String role) {
         try {
             return repository.findByRole(role);
         } catch (NullPointerException e) {
@@ -44,9 +44,9 @@ public class UserRoleService {
         }
     }
 
-    public UserRole findOne(UserRole image) {
+    public UserRole find(UserRole image) {
         try {
-            return findOne(image.getId());
+            return find(image.getId());
         } catch (NullPointerException e) {
             return null;
         }

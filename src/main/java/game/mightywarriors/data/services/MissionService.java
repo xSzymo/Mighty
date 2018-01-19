@@ -39,7 +39,7 @@ public class MissionService {
         repository.save(mission);
     }
 
-    public Mission findOne(long id) {
+    public Mission find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -47,15 +47,15 @@ public class MissionService {
         }
     }
 
-    public Mission findOne(Mission mission) {
+    public Mission find(Mission mission) {
         try {
-            return findOne(mission.getId());
+            return find(mission.getId());
         } catch (NullPointerException e) {
             return null;
         }
     }
 
-    public Mission findOne(Monster monster) {
+    public Mission find(Monster monster) {
         try {
             return repository.findByMonster(monster);
         } catch (NullPointerException e) {
@@ -68,7 +68,7 @@ public class MissionService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     public void delete(Mission image) {
@@ -92,7 +92,7 @@ public class MissionService {
     }
 
     private void deleteOperation(Mission mission) {
-        if (mission.getId() == null || findOne(mission.getId()) == null)
+        if (mission.getId() == null || find(mission.getId()) == null)
             return;
 
         repository.deleteById(mission.getId());

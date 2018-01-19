@@ -45,7 +45,7 @@ public class WorkerManager {
 
     public void getPayment(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Set<Work> works = workService.findOne(user.getLogin());
+        Set<Work> works = workService.find(user.getLogin());
 
         for (Work work : works)
             if (work != null && !work.getBlockDate().after(new Timestamp(System.currentTimeMillis())))
@@ -54,7 +54,7 @@ public class WorkerManager {
 
     public void cancelWork(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Set<Work> works = workService.findOne(user.getLogin());
+        Set<Work> works = workService.find(user.getLogin());
 
         for (Work work : works) {
             for (Champion champion : helper.getChampions(user, informer.championId)) {

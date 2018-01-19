@@ -4,13 +4,11 @@ import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.WeaponType;
 import integration.config.IntegrationTestsConfig;
-import org.hibernate.Hibernate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -50,7 +48,7 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(statistics.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNotNull(objectUnderTest.find(statistics.iterator().next()));
     }
 
     @Test
@@ -58,23 +56,23 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(statistics);
 
         Iterator<Statistic> iterator = statistics.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(statistics.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNotNull(objectUnderTest.find(statistics.iterator().next()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(statistics.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(statistics.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(statistics.iterator().next().getId()));
     }
 
     @Test
@@ -93,11 +91,11 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(statistics.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNotNull(objectUnderTest.find(statistics.iterator().next()));
 
         objectUnderTest.delete(statistics.iterator().next());
 
-        assertNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNull(objectUnderTest.find(statistics.iterator().next()));
         statistics.clear();
     }
 
@@ -105,11 +103,11 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(statistics.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNotNull(objectUnderTest.find(statistics.iterator().next()));
 
         objectUnderTest.delete(statistics.iterator().next().getId());
 
-        assertNull(objectUnderTest.findOne(statistics.iterator().next()));
+        assertNull(objectUnderTest.find(statistics.iterator().next()));
         statistics.clear();
     }
 
@@ -118,16 +116,16 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(statistics);
 
         Iterator<Statistic> iterator = statistics.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(statistics);
 
         iterator = statistics.iterator();
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
         statistics.clear();
     }
 
@@ -139,9 +137,9 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(statistic);
 
-        assertNull(objectUnderTest.findOne(statistic.getId()));
-        assertNull(itemService.findOne(item.getId()).getStatistic());
-        assertNotNull(itemService.findOne(item.getId()));
+        assertNull(objectUnderTest.find(statistic.getId()));
+        assertNull(itemService.find(item.getId()).getStatistic());
+        assertNotNull(itemService.find(item.getId()));
     }
 
     @Test
@@ -152,9 +150,9 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(statistic);
 
-        assertNull(objectUnderTest.findOne(statistic.getId()));
-        assertNull(monsterService.findOne(monster.getId()).getStatistic());
-        assertNotNull(monsterService.findOne(monster.getId()));
+        assertNull(objectUnderTest.find(statistic.getId()));
+        assertNull(monsterService.find(monster.getId()).getStatistic());
+        assertNotNull(monsterService.find(monster.getId()));
     }
 
     @Test
@@ -165,9 +163,9 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(statistic);
 
-        champion = championService.findOne(champion);
-        assertNull(objectUnderTest.findOne(statistic.getId()));
+        champion = championService.find(champion);
+        assertNull(objectUnderTest.find(statistic.getId()));
         assertNull(champion.getStatistic());
-        assertNotNull(championService.findOne(champion.getId()));
+        assertNotNull(championService.find(champion.getId()));
     }
 }

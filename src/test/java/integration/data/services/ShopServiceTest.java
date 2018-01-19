@@ -56,7 +56,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
 
         checkSavedItemsAreNotNull(shops.iterator().next());
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNotNull(objectUnderTest.find(shops.iterator().next()));
     }
 
     @Test
@@ -65,10 +65,10 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
         shops.forEach(this::checkSavedItemsAreNotNull);
         Iterator<Shop> iterator = shops.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(shops.iterator().next());
 
         checkSavedItemsAreNotNull(shops.iterator().next());
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNotNull(objectUnderTest.find(shops.iterator().next()));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(shops.iterator().next());
 
         checkSavedItemsAreNotNull(shops.iterator().next());
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(shops.iterator().next().getId()));
     }
 
     @Test
@@ -105,25 +105,25 @@ public class ShopServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(shops.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNotNull(objectUnderTest.find(shops.iterator().next()));
 
         objectUnderTest.delete(shops.iterator().next());
 
         checkSavedItemsAreNotNull(shops.iterator().next());
-        assertNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNull(objectUnderTest.find(shops.iterator().next()));
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(shops.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNotNull(objectUnderTest.find(shops.iterator().next()));
 
         objectUnderTest.delete(shops.iterator().next().getId());
 
 
         checkSavedItemsAreNotNull(shops.iterator().next());
-        assertNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNull(objectUnderTest.find(shops.iterator().next()));
     }
 
     @Test
@@ -131,16 +131,16 @@ public class ShopServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(shops);
 
         Iterator<Shop> iterator = shops.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(shops);
 
         iterator = shops.iterator();
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
         shops.forEach(this::checkSavedItemsAreNotNull);
     }
 
@@ -151,15 +151,15 @@ public class ShopServiceTest extends IntegrationTestsConfig {
 
         userService.save(user);
 
-        assertNotNull(userService.findOne(user));
-        assertNotNull(objectUnderTest.findOne(shops.iterator().next()));
+        assertNotNull(userService.find(user));
+        assertNotNull(objectUnderTest.find(shops.iterator().next()));
 
         objectUnderTest.delete(shops.iterator().next());
 
-        user = userService.findOne(user);
-        assertNotNull(userService.findOne(user.getId()));
-        assertNotEquals(shops.iterator().next(), userService.findOne(user.getId()).getShop());
-        assertNull(objectUnderTest.findOne(shops.iterator().next()));
+        user = userService.find(user);
+        assertNotNull(userService.find(user.getId()));
+        assertNotEquals(shops.iterator().next(), userService.find(user.getId()).getShop());
+        assertNull(objectUnderTest.find(shops.iterator().next()));
     }
 
     private void checkSavedItemsAreNotNull(Shop shop) {

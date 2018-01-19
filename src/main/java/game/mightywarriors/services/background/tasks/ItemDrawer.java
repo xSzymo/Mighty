@@ -35,7 +35,7 @@ public class ItemDrawer {
 
     @Transactional
     public void drawItemsForUser(long id) {
-        User one = userService.findOne(id);
+        User one = userService.find(id);
         HashSet<User> users = new HashSet<>();
         users.add(one);
 

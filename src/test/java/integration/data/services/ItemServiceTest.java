@@ -55,7 +55,7 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNotNull(objectUnderTest.find(items.iterator().next()));
     }
 
     @Test
@@ -63,23 +63,23 @@ public class ItemServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(items);
 
         Iterator<Item> iterator = items.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNotNull(objectUnderTest.find(items.iterator().next()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(items.iterator().next().getId()));
     }
 
     @Test
@@ -98,22 +98,22 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNotNull(objectUnderTest.find(items.iterator().next()));
 
         objectUnderTest.delete(items.iterator().next());
 
-        assertNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNull(objectUnderTest.find(items.iterator().next()));
     }
 
     @Test
     public void delete1() {
         objectUnderTest.save(items.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNotNull(objectUnderTest.find(items.iterator().next()));
 
         objectUnderTest.delete(items.iterator().next().getId());
 
-        assertNull(objectUnderTest.findOne(items.iterator().next()));
+        assertNull(objectUnderTest.find(items.iterator().next()));
     }
 
     @Test
@@ -121,16 +121,16 @@ public class ItemServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(items);
 
         Iterator<Item> iterator = items.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(items);
 
         iterator = items.iterator();
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
@@ -140,25 +140,25 @@ public class ItemServiceTest extends IntegrationTestsConfig {
 
         shopService.save(shop);
 
-        assertNotNull(shopService.findOne(shop));
-        items.forEach(x -> assertNotNull(objectUnderTest.findOne(x)));
+        assertNotNull(shopService.find(shop));
+        items.forEach(x -> assertNotNull(objectUnderTest.find(x)));
 
         objectUnderTest.delete(items);
 
-        assertNotNull(shopService.findOne(shop));
-        assertEquals(0, shopService.findOne(shop).getItems().size());
+        assertNotNull(shopService.find(shop));
+        assertEquals(0, shopService.find(shop).getItems().size());
 
         Item item = new Item();
         items.add(item);
-        shop = shopService.findOne(shop);
+        shop = shopService.find(shop);
         shop.addItem(item);
 
         shopService.save(shop);
 
-        Shop one = shopService.findOne(shop);
+        Shop one = shopService.find(shop);
         assertNotNull(one);
         assertEquals(1, one.getItems().size());
-        assertNotNull(objectUnderTest.findOne(item));
+        assertNotNull(objectUnderTest.find(item));
     }
 
     @Test
@@ -168,25 +168,25 @@ public class ItemServiceTest extends IntegrationTestsConfig {
 
         inventoryService.save(inventory);
 
-        assertNotNull(inventoryService.findOne(inventory));
-        items.forEach(x -> assertNotNull(objectUnderTest.findOne(x)));
+        assertNotNull(inventoryService.find(inventory));
+        items.forEach(x -> assertNotNull(objectUnderTest.find(x)));
 
         objectUnderTest.delete(items);
 
-        assertNotNull(inventoryService.findOne(inventory));
-        assertEquals(0, inventoryService.findOne(inventory).getItems().size());
+        assertNotNull(inventoryService.find(inventory));
+        assertEquals(0, inventoryService.find(inventory).getItems().size());
 
         Item item = new Item();
         items.add(item);
-        inventory = inventoryService.findOne(inventory);
+        inventory = inventoryService.find(inventory);
         inventory.addItem(item);
 
         inventoryService.save(inventory);
 
-        Inventory one = inventoryService.findOne(inventory);
+        Inventory one = inventoryService.find(inventory);
         assertNotNull(one);
         assertEquals(1, inventory.getItems().size());
-        assertNotNull(objectUnderTest.findOne(item));
+        assertNotNull(objectUnderTest.find(item));
     }
 
     @Test
@@ -205,22 +205,22 @@ public class ItemServiceTest extends IntegrationTestsConfig {
 
         equipmentService.save(equipment);
 
-        assertNotNull(equipmentService.findOne(equipment));
-        items.forEach(objectUnderTest::findOne);
+        assertNotNull(equipmentService.find(equipment));
+        items.forEach(objectUnderTest::find);
 
         objectUnderTest.delete(items);
 
-        assertNotNull(equipmentService.findOne(equipment));
-        assertNull(equipmentService.findOne(equipment).getArmor());
-        assertNull(equipmentService.findOne(equipment).getRing());
-        assertNull(equipmentService.findOne(equipment).getBoots());
-        assertNull(equipmentService.findOne(equipment).getBracelet());
-        assertNull(equipmentService.findOne(equipment).getGloves());
-        assertNull(equipmentService.findOne(equipment).getHelmet());
-        assertNull(equipmentService.findOne(equipment).getLegs());
-        assertNull(equipmentService.findOne(equipment).getNecklace());
-        assertNull(equipmentService.findOne(equipment).getOffhand());
-        assertNull(equipmentService.findOne(equipment).getWeapon());
+        assertNotNull(equipmentService.find(equipment));
+        assertNull(equipmentService.find(equipment).getArmor());
+        assertNull(equipmentService.find(equipment).getRing());
+        assertNull(equipmentService.find(equipment).getBoots());
+        assertNull(equipmentService.find(equipment).getBracelet());
+        assertNull(equipmentService.find(equipment).getGloves());
+        assertNull(equipmentService.find(equipment).getHelmet());
+        assertNull(equipmentService.find(equipment).getLegs());
+        assertNull(equipmentService.find(equipment).getNecklace());
+        assertNull(equipmentService.find(equipment).getOffhand());
+        assertNull(equipmentService.find(equipment).getWeapon());
     }
 
     private void addExampleDataToEquipments() {

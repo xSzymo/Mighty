@@ -22,6 +22,6 @@ public class MonstersApiController {
 
     @GetMapping("monsters/{id}")
     public Monster getChampion(@PathVariable("id") String id) {
-        return monsterService.findOne(Long.parseLong(id));
+        return monsterService.find(Long.parseLong(id));
     }
 }

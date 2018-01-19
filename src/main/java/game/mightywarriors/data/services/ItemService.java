@@ -44,7 +44,7 @@ public class ItemService {
         repository.save(item);
     }
 
-    public Item findOne(long id) {
+    public Item find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -52,9 +52,9 @@ public class ItemService {
         }
     }
 
-    public Item findOne(Item items) {
+    public Item find(Item items) {
         try {
-            return findOne(items.getId());
+            return find(items.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -65,7 +65,7 @@ public class ItemService {
     }
 
     public void delete(long id) {
-        Item one = findOne(id);
+        Item one = find(id);
         if (one != null)
             deleteOperation(one);
     }

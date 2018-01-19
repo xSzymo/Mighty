@@ -104,14 +104,14 @@ public class UserServiceTest extends IntegrationTestsConfig {
     public void findOne() {
         objectUnderTest.save(users.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(users.iterator().next()));
+        assertNotNull(objectUnderTest.find(users.iterator().next()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(users.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(users.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(users.iterator().next().getId()));
     }
 
     @Test
@@ -177,13 +177,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.save(user);
 
-        assertNotNull(shopService.findOne(shop));
-        assertNotNull(objectUnderTest.findOne(user));
+        assertNotNull(shopService.find(shop));
+        assertNotNull(objectUnderTest.find(user));
 
         objectUnderTest.delete(user);
 
-        assertNull(shopService.findOne(shop));
-        assertNull(objectUnderTest.findOne(user));
+        assertNull(shopService.find(shop));
+        assertNull(objectUnderTest.find(user));
     }
 
     @Test
@@ -194,13 +194,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.save(user);
 
-        assertNotNull(championService.findOne(champion));
-        assertNotNull(objectUnderTest.findOne(user));
+        assertNotNull(championService.find(champion));
+        assertNotNull(objectUnderTest.find(user));
 
         objectUnderTest.delete(user);
 
-        assertNull(championService.findOne(champion));
-        assertNull(objectUnderTest.findOne(user));
+        assertNull(championService.find(champion));
+        assertNull(objectUnderTest.find(user));
     }
 
     @Test
@@ -211,13 +211,13 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.save(user);
 
-        assertNotNull(missionService.findOne(mission));
-        assertNotNull(objectUnderTest.findOne(user));
+        assertNotNull(missionService.find(mission));
+        assertNotNull(objectUnderTest.find(user));
 
         objectUnderTest.delete(user);
 
-        assertNull(championService.findOne(champion));
-        assertNull(objectUnderTest.findOne(user));
+        assertNull(championService.find(champion));
+        assertNull(objectUnderTest.find(user));
     }
 
     @Test
@@ -229,25 +229,25 @@ public class UserServiceTest extends IntegrationTestsConfig {
         user.setUserRole(userRole);
         objectUnderTest.save(user);
 
-        User one = objectUnderTest.findOne(user);
+        User one = objectUnderTest.find(user);
         assertNotNull(one);
 
         objectUnderTest.delete(user);
 
-        assertNull(objectUnderTest.findOne(user));
-        assertNotNull(userRoleService.findOne(userRole));
+        assertNull(objectUnderTest.find(user));
+        assertNotNull(userRoleService.find(userRole));
     }
 
     @Test
     @Transactional
     public void save_check_basic_variables() {
-        if(userRoleService.findOne("user") == null)
+        if(userRoleService.find("user") == null)
             userRoleService.save(new UserRole("user"));
 
         user = new User("halu", "halu", "halu@gmail.com");
 
         objectUnderTest.save(user);
-        User one = objectUnderTest.findOne(user);
+        User one = objectUnderTest.find(user);
 
         assertEquals(SystemVariablesManager.ARENA_POINTS, one.getArenaPoints());
         assertEquals(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10, one.getMissionPoints());

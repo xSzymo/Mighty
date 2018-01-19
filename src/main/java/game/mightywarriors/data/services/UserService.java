@@ -55,7 +55,7 @@ public class UserService {
     }
 
     private void saveOperation(User user) {
-        User foundUserWithSameLogin = findByLogin(user.getLogin());
+        User foundUserWithSameLogin = find(user.getLogin());
 
         try {
             user = userServiceUtility.updateObjectsFromRelations(user);
@@ -76,7 +76,7 @@ public class UserService {
         }
     }
 
-    public User findOne(long id) {
+    public User find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -84,7 +84,7 @@ public class UserService {
         }
     }
 
-    public User findByLogin(String login) {
+    public User find(String login) {
         try {
             return repository.findByLogin(login);
         } catch (NullPointerException e) {
@@ -92,7 +92,7 @@ public class UserService {
         }
     }
 
-    public User findByShop(Shop shop) {
+    public User find(Shop shop) {
         try {
             return repository.findByShop(shop);
         } catch (NullPointerException e) {
@@ -100,7 +100,7 @@ public class UserService {
         }
     }
 
-    public User findByInventory(Inventory inventory) {
+    public User find(Inventory inventory) {
         try {
             return repository.findByInventory(inventory);
         } catch (NullPointerException e) {
@@ -108,9 +108,9 @@ public class UserService {
         }
     }
 
-    public User findOne(User user) {
+    public User find(User user) {
         try {
-            return findOne(user.getId());
+            return find(user.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -121,7 +121,7 @@ public class UserService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     public void delete(User user) {
@@ -145,7 +145,7 @@ public class UserService {
     }
 
     private void deleteOperation(User user) {
-        if (user.getId() == 0 || findOne(user.getId()) == null)
+        if (user.getId() == 0 || find(user.getId()) == null)
             return;
 
         user.getMissions().clear();

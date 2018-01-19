@@ -60,7 +60,7 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(monsters.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(monsters.iterator().next()));
+        assertNotNull(objectUnderTest.find(monsters.iterator().next()));
     }
 
     @Test
@@ -68,23 +68,23 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(monsters);
 
         Iterator<Monster> iterator = monsters.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(monsters.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(monsters.iterator().next()));
+        assertNotNull(objectUnderTest.find(monsters.iterator().next()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(monsters.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(monsters.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(monsters.iterator().next().getId()));
     }
 
     @Test
@@ -103,12 +103,12 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(monsters.iterator().next());
 
-        Monster one = objectUnderTest.findOne(monsters.iterator().next());
+        Monster one = objectUnderTest.find(monsters.iterator().next());
 
         assertNotNull(one);
 
         objectUnderTest.delete(monsters.iterator().next());
-        one = objectUnderTest.findOne(monsters.iterator().next());
+        one = objectUnderTest.find(monsters.iterator().next());
 
         assertNull(one);
     }
@@ -117,13 +117,13 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(monsters.iterator().next());
 
-        Monster one = objectUnderTest.findOne(monsters.iterator().next());
+        Monster one = objectUnderTest.find(monsters.iterator().next());
 
         assertNotNull(one);
 
         objectUnderTest.delete(one);
 
-        assertNull(objectUnderTest.findOne(one));
+        assertNull(objectUnderTest.find(one));
     }
 
     @Test
@@ -131,30 +131,30 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(monsters);
 
         Iterator<Monster> iterator = monsters.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(monsters);
 
         iterator = monsters.iterator();
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
     public void deleteCheckRelationsAreNull() {
         objectUnderTest.save(monsters.iterator().next());
-        Monster monster = objectUnderTest.findOne(monsters.iterator().next());
+        Monster monster = objectUnderTest.find(monsters.iterator().next());
 
         assertNotNull(monster);
 
         objectUnderTest.delete(monster);
 
-        assertNull(objectUnderTest.findOne(monster.getId()));
-        assertNull(statisticService.findOne(monster.getStatistic().getId()));
-        assertNull(imageService.findOne(monster.getImage()));
+        assertNull(objectUnderTest.find(monster.getId()));
+        assertNull(statisticService.find(monster.getStatistic().getId()));
+        assertNull(imageService.find(monster.getImage()));
     }
 
     @Test
@@ -162,15 +162,15 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
         Monster monster = monsters.iterator().next();
         mission = new Mission(1, "", new BigDecimal("1"), monster);
         missionService.save(mission);
-        monster = objectUnderTest.findOne(monster);
+        monster = objectUnderTest.find(monster);
         assertNotNull(monster);
 
         objectUnderTest.delete(monster);
 
-        assertNull(objectUnderTest.findOne(monster));
-        assertNull(statisticService.findOne(monster.getStatistic()));
-        assertNull(imageService.findOne(monster.getImage()));
-        assertNotNull(missionService.findOne(mission.getId()));
-        assertNull(missionService.findOne(mission.getId()).getMonster());
+        assertNull(objectUnderTest.find(monster));
+        assertNull(statisticService.find(monster.getStatistic()));
+        assertNull(imageService.find(monster.getImage()));
+        assertNotNull(missionService.find(mission.getId()));
+        assertNull(missionService.find(mission.getId()).getMonster());
     }
 }

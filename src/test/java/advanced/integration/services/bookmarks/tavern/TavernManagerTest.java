@@ -85,8 +85,8 @@ public class TavernManagerTest extends AuthorizationConfiguration {
 
     private void checkAfterSendChampion(MissionFight missionFight) throws InterruptedException {
         informer.id = missionFight.getId();
-        user = userService.findOne(user);
-        missionFight = missionFightService.findOne(missionFight);
+        user = userService.find(user);
+        missionFight = missionFightService.find(missionFight);
 
         Iterator<Champion> iterator = missionFight.getChampion().iterator();
         LinkedList<Champion> champions = new LinkedList<>();
@@ -98,34 +98,34 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         long blockTime = new Timestamp(System.currentTimeMillis() + SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * 60 * 1000).getTime() / 60 / 1000;
         assertEquals(2, missionFight.getChampion().size());
 
-        next = championService.findOne(firstChampionId);
+        next = championService.find(firstChampionId);
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));
         assertTrue((blockTime - next.getBlockDate().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockDate().getTime() / 60 / 1000) <= 1);
 
-        next = championService.findOne(secondChampionId);
+        next = championService.find(secondChampionId);
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));
         assertTrue((blockTime - next.getBlockDate().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockDate().getTime() / 60 / 1000) <= 1);
 
-        assertTrue((blockTime - new Timestamp(System.currentTimeMillis() + (missionService.findOne(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) >= -1 ||
-                (blockTime - new Timestamp(System.currentTimeMillis() + (missionService.findOne(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) <= 1);
+        assertTrue((blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) >= -1 ||
+                (blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) <= 1);
 
         sleep(missionFight);
     }
 
     private void checkAfterPerformFight(FightResult fightResult) {
-        user = userService.findOne(user);
-        Champion one = championService.findOne(firstChampionId);
-        Champion two = championService.findOne(secondChampionId);
+        user = userService.find(user);
+        Champion one = championService.find(firstChampionId);
+        Champion two = championService.find(secondChampionId);
 
         assertEquals(missionPoints - 1, user.getMissionPoints());
         assertEquals(userGold + goldFromMission, user.getGold().intValue());
         assertEquals(user.getLogin(), fightResult.getWinner().getLogin());
         assertEquals(new BigDecimal(goldFromMission).intValue(), fightResult.getGold().intValue());
-        assertEquals(missionService.findOne(informer.missionId).getExperience(), fightResult.getExperience());
+        assertEquals(missionService.find(informer.missionId).getExperience(), fightResult.getExperience());
         assertEquals(champLevel, one.getLevel());
         assertEquals(champLevel1, two.getLevel());
-        assertEquals(champExperience + missionService.findOne(informer.missionId).getExperience() / 2, one.getExperience());
-        assertEquals(champExperience1 + missionService.findOne(informer.missionId).getExperience() / 2, two.getExperience());
+        assertEquals(champExperience + missionService.find(informer.missionId).getExperience() / 2, one.getExperience());
+        assertEquals(champExperience1 + missionService.find(informer.missionId).getExperience() / 2, two.getExperience());
         assertNull(one.getBlockDate());
         assertNull(two.getBlockDate());
 
@@ -135,8 +135,8 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     }
 
     private void setUpVariables() {
-        Champion one = championService.findOne(firstChampionId);
-        Champion two = championService.findOne(secondChampionId);
+        Champion one = championService.find(firstChampionId);
+        Champion two = championService.find(secondChampionId);
 
         goldFromMission = user.getMissions().iterator().next().getGold().longValue();
         userGold = user.getGold().intValue();

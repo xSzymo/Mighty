@@ -28,7 +28,7 @@ public class MissionAssigner {
 
     public void assignNewMissionForUsers(long id) {
         HashSet<User> users = new HashSet<>();
-        users.add(userService.findOne(id));
+        users.add(userService.find(id));
 
         assign(users);
     }

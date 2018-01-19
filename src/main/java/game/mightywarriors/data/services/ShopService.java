@@ -48,7 +48,7 @@ public class ShopService {
     }
 
 
-    public Shop findOne(long id) {
+    public Shop find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -56,9 +56,9 @@ public class ShopService {
         }
     }
 
-    public Shop findOne(Shop shop) {
+    public Shop find(Shop shop) {
         try {
-            return findOne(shop.getId());
+            return find(shop.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -69,7 +69,7 @@ public class ShopService {
     }
 
     public void delete(long id) {
-        Shop one = findOne(id);
+        Shop one = find(id);
         if (one != null)
             deleteOperation(one);
     }
@@ -92,7 +92,7 @@ public class ShopService {
     }
 
     private void deleteOperation(Shop shop) {
-        User userShop = userService.findByShop(shop);
+        User userShop = userService.find(shop);
         if (userShop != null)
             if (userShop.getShop() != null)
                 if (userShop.getShop().getId().equals(shop.getId())) {

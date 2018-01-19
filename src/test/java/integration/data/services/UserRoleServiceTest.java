@@ -37,30 +37,30 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(userRoles.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNotNull(objectUnderTest.find(userRoles.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(userRoles);
 
-        assertNotNull(objectUnderTest.findOne(userRoles.get(0)));
-        assertNotNull(objectUnderTest.findOne(userRoles.get(1)));
-        assertNotNull(objectUnderTest.findOne(userRoles.get(2)));
+        assertNotNull(objectUnderTest.find(userRoles.get(0)));
+        assertNotNull(objectUnderTest.find(userRoles.get(1)));
+        assertNotNull(objectUnderTest.find(userRoles.get(2)));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(userRoles.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNotNull(objectUnderTest.find(userRoles.getFirst()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(userRoles.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst().getId()));
+        assertNotNull(objectUnderTest.find(userRoles.getFirst().getId()));
     }
 
     @Test
@@ -76,11 +76,11 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(userRoles.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNotNull(objectUnderTest.find(userRoles.getFirst()));
 
         objectUnderTest.delete(userRoles.getFirst());
 
-        assertNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNull(objectUnderTest.find(userRoles.getFirst()));
         userRoles.clear();
     }
 
@@ -88,11 +88,11 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(userRoles.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNotNull(objectUnderTest.find(userRoles.getFirst()));
 
         objectUnderTest.delete(userRoles.getFirst().getId());
 
-        assertNull(objectUnderTest.findOne(userRoles.getFirst()));
+        assertNull(objectUnderTest.find(userRoles.getFirst()));
         userRoles.clear();
     }
 
@@ -100,15 +100,15 @@ public class UserRoleServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(userRoles);
 
-        assertNotNull(objectUnderTest.findOne(userRoles.get(0)));
-        assertNotNull(objectUnderTest.findOne(userRoles.get(1)));
-        assertNotNull(objectUnderTest.findOne(userRoles.get(2)));
+        assertNotNull(objectUnderTest.find(userRoles.get(0)));
+        assertNotNull(objectUnderTest.find(userRoles.get(1)));
+        assertNotNull(objectUnderTest.find(userRoles.get(2)));
 
         objectUnderTest.delete(userRoles);
 
-        assertNull(objectUnderTest.findOne(userRoles.get(0)));
-        assertNull(objectUnderTest.findOne(userRoles.get(1)));
-        assertNull(objectUnderTest.findOne(userRoles.get(2)));
+        assertNull(objectUnderTest.find(userRoles.get(0)));
+        assertNull(objectUnderTest.find(userRoles.get(1)));
+        assertNull(objectUnderTest.find(userRoles.get(2)));
         userRoles.clear();
     }
 }

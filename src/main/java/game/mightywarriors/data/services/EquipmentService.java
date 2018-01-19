@@ -76,7 +76,7 @@ public class EquipmentService {
                 });
     }
 
-    public Equipment findOne(long id) {
+    public Equipment find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -84,9 +84,9 @@ public class EquipmentService {
         }
     }
 
-    public Equipment findOne(Equipment equipment) {
+    public Equipment find(Equipment equipment) {
         try {
-            return findOne(equipment.getId());
+            return find(equipment.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -98,7 +98,7 @@ public class EquipmentService {
 
     @Deprecated
     public void delete(long id) {
-        Equipment equipment = findOne(id);
+        Equipment equipment = find(id);
         if (equipment != null)
             deleteOperation(equipment);
     }

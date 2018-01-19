@@ -29,7 +29,7 @@ public class DivisionService {
                 });
     }
 
-    public Division findOne(long id) {
+    public Division find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -37,15 +37,15 @@ public class DivisionService {
         }
     }
 
-    public Division findOne(Division division) {
+    public Division find(Division division) {
         try {
-            return findOne(division.getId());
+            return find(division.getId());
         } catch (NullPointerException e) {
             return null;
         }
     }
 
-    public Division findByLeague(League league) {
+    public Division find(League league) {
         try {
             return repository.findByLeague(league);
         } catch (NullPointerException e) {

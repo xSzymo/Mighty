@@ -22,6 +22,6 @@ public class DivisionsApiController {
 
     @GetMapping("divisions/{id}")
     public Division getUserRole(@PathVariable("id") String id) {
-        return divisionService.findOne(Long.parseLong(id));
+        return divisionService.find(Long.parseLong(id));
     }
 }

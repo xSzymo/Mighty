@@ -22,6 +22,6 @@ public class MissionsApiController {
 
     @GetMapping("missions/{id}")
     public Mission getChampion(@PathVariable("id") String id) {
-        return missionService.findOne(Long.parseLong(id));
+        return missionService.find(Long.parseLong(id));
     }
 }

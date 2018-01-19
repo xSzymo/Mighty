@@ -66,7 +66,7 @@ public class UserServiceUtility {
             user.setMissionPoints(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10);
 
             if (user.getUserRole() == null) {
-                user.setUserRole(userRoleService.findOne("user"));
+                user.setUserRole(userRoleService.find("user"));
             }
         }
 

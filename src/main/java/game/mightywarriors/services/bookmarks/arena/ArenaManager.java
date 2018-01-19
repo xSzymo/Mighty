@@ -46,9 +46,9 @@ public class ArenaManager {
         User opponent;
 
         if (userFightInformer.opponentId != 0)
-            opponent = userService.findOne(userFightInformer.opponentId);
+            opponent = userService.find(userFightInformer.opponentId);
         else if (userFightInformer.opponentName != null)
-            opponent = userService.findByLogin(userFightInformer.opponentName);
+            opponent = userService.find(userFightInformer.opponentName);
         else
             throw new NotProperlyChampionsException("Wrong champions id");
 
@@ -63,8 +63,8 @@ public class ArenaManager {
 
     private void getThingsDoneAfterFight(User user, User opponent, FightResult fight, Set<Champion> champions) {
         if (fight.getWinner().getLogin().equals(user.getLogin())) {
-            long HigherRank = rankingService.findOne(opponent.getLogin()).getRanking();
-            long lowerRank = rankingService.findOne(user.getLogin()).getRanking();
+            long HigherRank = rankingService.find(opponent.getLogin()).getRanking();
+            long lowerRank = rankingService.find(user.getLogin()).getRanking();
             rankingService.delete(user.getLogin());
 
             LinkedList<Ranking> rankings = new LinkedList<>(rankingService.findAllBetween(lowerRank, HigherRank));
@@ -86,7 +86,7 @@ public class ArenaManager {
     }
 
     private void check(User user, User opponent, Set<Champion> champions) throws Exception {
-        if (rankingService.findOne(user.getLogin()).getRanking() < rankingService.findOne(opponent.getLogin()).getRanking())
+        if (rankingService.find(user.getLogin()).getRanking() < rankingService.find(opponent.getLogin()).getRanking())
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
             throw new UsedPointsException("Arena points already used");

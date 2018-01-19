@@ -48,7 +48,7 @@ public class InventoryService {
     }
 
 
-    public Inventory findOne(long id) {
+    public Inventory find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -56,9 +56,9 @@ public class InventoryService {
         }
     }
 
-    public Inventory findOne(Inventory inventory) {
+    public Inventory find(Inventory inventory) {
         try {
-            return findOne(inventory.getId());
+            return find(inventory.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -69,7 +69,7 @@ public class InventoryService {
     }
 
     public void delete(long id) {
-        Inventory one = findOne(id);
+        Inventory one = find(id);
         if (one != null)
             deleteOperation(one);
     }
@@ -96,7 +96,7 @@ public class InventoryService {
     }
 
     private void deleteOperation(Inventory inventory) {
-        User userInventory = userService.findByInventory(inventory);
+        User userInventory = userService.find(inventory);
 
         if (userInventory != null)
             if (userInventory.getInventory() != null) {

@@ -22,6 +22,6 @@ public class RankingController {
 
     @GetMapping("rankings/{name}")
     public Ranking getUser(@PathVariable("name") String name) {
-        return rankingService.findOne(name);
+        return rankingService.find(name);
     }
 }

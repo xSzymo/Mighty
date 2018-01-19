@@ -30,12 +30,12 @@ public class DivisionAssigner {
         Set<User> users = userService.findAll();
         users = users.stream().sorted(new UsersDivisionComparator()).collect(Collectors.toSet());
 
-        Division challenger = divisionService.findByLeague(League.CHALLENGER);
-        Division diamond = divisionService.findByLeague(League.DIAMOND);
-        Division gold = divisionService.findByLeague(League.GOLD);
-        Division silver = divisionService.findByLeague(League.SILVER);
-        Division bronze = divisionService.findByLeague(League.BRONZE);
-        Division wood = divisionService.findByLeague(League.WOOD);
+        Division challenger = divisionService.find(League.CHALLENGER);
+        Division diamond = divisionService.find(League.DIAMOND);
+        Division gold = divisionService.find(League.GOLD);
+        Division silver = divisionService.find(League.SILVER);
+        Division bronze = divisionService.find(League.BRONZE);
+        Division wood = divisionService.find(League.WOOD);
 
         challenger.clearUsers();
         diamond.clearUsers();

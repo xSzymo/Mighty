@@ -53,7 +53,7 @@ public class MonsterService {
         repository.save(monster);
     }
 
-    public Monster findOne(long id) {
+    public Monster find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -61,9 +61,9 @@ public class MonsterService {
         }
     }
 
-    public Monster findOne(Monster monster) {
+    public Monster find(Monster monster) {
         try {
-            return findOne(monster.getId());
+            return find(monster.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -74,7 +74,7 @@ public class MonsterService {
     }
 
     public void delete(long id) {
-        deleteOperation(findOne(id));
+        deleteOperation(find(id));
     }
 
     public void delete(Monster monster) {
@@ -99,11 +99,11 @@ public class MonsterService {
 
     private void deleteOperation(Monster monster) {
         Long id = monster.getId();
-        if (id == null || findOne(id) == null)
+        if (id == null || find(id) == null)
             return;
 
 
-        Mission one = missionRepository.findOne(monster);
+        Mission one = missionRepository.find(monster);
         if (one != null) {
             one.setMonster(null);
             missionRepository.save(one);

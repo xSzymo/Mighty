@@ -58,7 +58,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(missions.getFirst());
 
-        Mission mission = objectUnderTest.findOne(missions.getFirst());
+        Mission mission = objectUnderTest.find(missions.getFirst());
 
         checker(mission);
     }
@@ -67,23 +67,23 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void saveCollection() {
         objectUnderTest.save(missions);
 
-        assertNotNull(objectUnderTest.findOne(missions.get(0)));
-        assertNotNull(objectUnderTest.findOne(missions.get(1)));
-        assertNotNull(objectUnderTest.findOne(missions.get(2)));
+        assertNotNull(objectUnderTest.find(missions.get(0)));
+        assertNotNull(objectUnderTest.find(missions.get(1)));
+        assertNotNull(objectUnderTest.find(missions.get(2)));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(missions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(missions.getFirst()));
+        assertNotNull(objectUnderTest.find(missions.getFirst()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(missions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(missions.getFirst().getId()));
+        assertNotNull(objectUnderTest.find(missions.getFirst().getId()));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(missions.getFirst());
 
-        checker(objectUnderTest.findOne(missions.getFirst()));
+        checker(objectUnderTest.find(missions.getFirst()));
 
         objectUnderTest.delete(missions.getFirst());
 
@@ -110,7 +110,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(missions.getFirst());
 
-        checker(objectUnderTest.findOne(missions.getFirst()));
+        checker(objectUnderTest.find(missions.getFirst()));
 
         objectUnderTest.delete(missions.getFirst().getId());
 
@@ -134,13 +134,13 @@ public class MissionServiceTest extends IntegrationTestsConfig {
         userService.save(user);
         objectUnderTest.save(missions.getFirst());
 
-        Mission mission = objectUnderTest.findOne(missions.getFirst());
+        Mission mission = objectUnderTest.find(missions.getFirst());
         Long id = mission.getId();
-        user = userService.findOne(user);
+        user = userService.find(user);
         user.getMissions().remove(user.getMissions().iterator().next());
         user.getMissions().add(mission);
         userService.save(user);
-        user = userService.findOne(user);
+        user = userService.find(user);
 
         assertTrue(user.getMissions().stream().anyMatch(x -> x.getId().equals(id)));
         assertNotNull(mission);
@@ -148,26 +148,26 @@ public class MissionServiceTest extends IntegrationTestsConfig {
 
         objectUnderTest.delete(missions.getFirst());
 
-        user = userService.findOne(user);
+        user = userService.find(user);
         assertNotNull(user);
         Iterator<Mission> iterator = user.getMissions().iterator();
         assertEquals(2, user.getMissions().size());
         assertNotEquals(id, iterator.next().getId());
         assertNotEquals(id, iterator.next().getId());
-        assertNull(objectUnderTest.findOne(mission));
+        assertNull(objectUnderTest.find(mission));
     }
 
     private void checker(Mission mission) {
-        Monster monster = monsterService.findOne(mission.getMonster());
+        Monster monster = monsterService.find(mission.getMonster());
 
         assertNotNull(monster);
-        assertNotNull(objectUnderTest.findOne(mission));
-        assertNotNull(imageService.findOne(monster.getImage()));
-        assertNotNull(statisticService.findOne(monster.getStatistic()));
+        assertNotNull(objectUnderTest.find(mission));
+        assertNotNull(imageService.find(monster.getImage()));
+        assertNotNull(statisticService.find(monster.getStatistic()));
     }
 
     private void checkerNulls(Mission mission) {
-        assertNull(objectUnderTest.findOne(mission));
-        assertNotNull(monsterService.findOne(mission.getMonster()));
+        assertNull(objectUnderTest.find(mission));
+        assertNotNull(monsterService.find(mission.getMonster()));
     }
 }

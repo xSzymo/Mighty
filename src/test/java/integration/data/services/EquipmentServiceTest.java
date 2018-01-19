@@ -75,7 +75,7 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(equipments.iterator().next());
 
         checkSavedItemsAreNotNull(equipments.iterator().next());
-        assertNotNull(objectUnderTest.findOne(equipments.iterator().next()));
+        assertNotNull(objectUnderTest.find(equipments.iterator().next()));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(equipments.iterator().next());
 
         checkSavedItemsAreNotNull(equipments.iterator().next());
-        assertNotNull(objectUnderTest.findOne(equipments.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(equipments.iterator().next().getId()));
     }
 
     @Test
@@ -151,26 +151,26 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
 
         championService.save(champion);
 
-        assertNotNull(championService.findOne(champion));
-        assertNotNull(objectUnderTest.findOne(equipments.iterator().next()));
+        assertNotNull(championService.find(champion));
+        assertNotNull(objectUnderTest.find(equipments.iterator().next()));
 
         objectUnderTest.delete(equipments.iterator().next());
 
-        assertNotNull(championService.findOne(champion.getId()));
-        assertNull(championService.findOne(champion).getEquipment());
+        assertNotNull(championService.find(champion.getId()));
+        assertNull(championService.find(champion).getEquipment());
     }
 
     private void checkSavedItemsAreNotNull(Equipment equipment) {
-        assertNotNull(itemService.findOne(equipment.getArmor().getId()));
-        assertNotNull(itemService.findOne(equipment.getBoots().getId()));
-        assertNotNull(itemService.findOne(equipment.getBracelet().getId()));
-        assertNotNull(itemService.findOne(equipment.getGloves().getId()));
-        assertNotNull(itemService.findOne(equipment.getHelmet().getId()));
-        assertNotNull(itemService.findOne(equipment.getLegs().getId()));
-        assertNotNull(itemService.findOne(equipment.getNecklace().getId()));
-        assertNotNull(itemService.findOne(equipment.getOffhand().getId()));
-        assertNotNull(itemService.findOne(equipment.getRing().getId()));
-        assertNotNull(itemService.findOne(equipment.getWeapon().getId()));
+        assertNotNull(itemService.find(equipment.getArmor().getId()));
+        assertNotNull(itemService.find(equipment.getBoots().getId()));
+        assertNotNull(itemService.find(equipment.getBracelet().getId()));
+        assertNotNull(itemService.find(equipment.getGloves().getId()));
+        assertNotNull(itemService.find(equipment.getHelmet().getId()));
+        assertNotNull(itemService.find(equipment.getLegs().getId()));
+        assertNotNull(itemService.find(equipment.getNecklace().getId()));
+        assertNotNull(itemService.find(equipment.getOffhand().getId()));
+        assertNotNull(itemService.find(equipment.getRing().getId()));
+        assertNotNull(itemService.find(equipment.getWeapon().getId()));
     }
 
     private void addExampleDataToEquipments() throws Exception {

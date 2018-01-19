@@ -55,14 +55,14 @@ public class DivisionServiceTest extends IntegrationTestsConfig {
     public void findOne() {
         objectUnderTest.save(divisions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(divisions.getFirst()));
+        assertNotNull(objectUnderTest.find(divisions.getFirst()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(divisions.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(divisions.getFirst().getId()));
+        assertNotNull(objectUnderTest.find(divisions.getFirst().getId()));
     }
 
     @Test

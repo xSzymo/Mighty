@@ -43,30 +43,30 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(rankings.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(rankings.getFirst()));
+        assertNotNull(objectUnderTest.find(rankings.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(rankings);
 
-        assertNotNull(objectUnderTest.findOne(rankings.get(0)));
-        assertNotNull(objectUnderTest.findOne(rankings.get(1)));
-        assertNotNull(objectUnderTest.findOne(rankings.get(2)));
+        assertNotNull(objectUnderTest.find(rankings.get(0)));
+        assertNotNull(objectUnderTest.find(rankings.get(1)));
+        assertNotNull(objectUnderTest.find(rankings.get(2)));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(rankings.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(rankings.getFirst()));
+        assertNotNull(objectUnderTest.find(rankings.getFirst()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(rankings.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(rankings.getFirst().getNickname()));
+        assertNotNull(objectUnderTest.find(rankings.getFirst().getNickname()));
     }
 
     @Test
@@ -82,13 +82,13 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(rankings.getFirst());
 
-        Ranking one = objectUnderTest.findOne(rankings.getFirst());
+        Ranking one = objectUnderTest.find(rankings.getFirst());
 
         assertNotNull(one);
 
         objectUnderTest.delete(rankings.getFirst());
 
-        one = objectUnderTest.findOne(rankings.getFirst());
+        one = objectUnderTest.find(rankings.getFirst());
         assertNull(one);
         rankings.clear();
     }
@@ -97,13 +97,13 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(rankings.getFirst());
 
-        Ranking one = objectUnderTest.findOne(rankings.getFirst());
+        Ranking one = objectUnderTest.find(rankings.getFirst());
 
         assertNotNull(one);
 
         objectUnderTest.delete(rankings.getFirst().getNickname());
 
-        one = objectUnderTest.findOne(rankings.getFirst());
+        one = objectUnderTest.find(rankings.getFirst());
         assertNull(one);
         rankings.clear();
     }
@@ -112,15 +112,15 @@ public class RankingServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(rankings);
 
-        assertNotNull(objectUnderTest.findOne(rankings.get(0)));
-        assertNotNull(objectUnderTest.findOne(rankings.get(1)));
-        assertNotNull(objectUnderTest.findOne(rankings.get(2)));
+        assertNotNull(objectUnderTest.find(rankings.get(0)));
+        assertNotNull(objectUnderTest.find(rankings.get(1)));
+        assertNotNull(objectUnderTest.find(rankings.get(2)));
 
         objectUnderTest.delete(rankings);
 
-        assertNull(objectUnderTest.findOne(rankings.get(0)));
-        assertNull(objectUnderTest.findOne(rankings.get(1)));
-        assertNull(objectUnderTest.findOne(rankings.get(2)));
+        assertNull(objectUnderTest.find(rankings.get(0)));
+        assertNull(objectUnderTest.find(rankings.get(1)));
+        assertNull(objectUnderTest.find(rankings.get(2)));
         rankings.clear();
     }
 
@@ -142,8 +142,8 @@ public class RankingServiceTest extends IntegrationTestsConfig {
         users.add(user);
         userService.save(user);
 
-        user = userService.findOne(user);
-        assertNotNull(userService.findOne(user));
+        user = userService.find(user);
+        assertNotNull(userService.find(user));
 
         long maxRanking = 0;
         for (Ranking ranking : objectUnderTest.findAll()) {
@@ -152,6 +152,6 @@ public class RankingServiceTest extends IntegrationTestsConfig {
         }
 
 
-        assertEquals(maxRanking, objectUnderTest.findOne(user.getLogin()).getRanking());
+        assertEquals(maxRanking, objectUnderTest.find(user.getLogin()).getRanking());
     }
 }

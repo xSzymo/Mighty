@@ -67,7 +67,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
 
     @After
     public void cleanUp() {
-        workService.findOne(user.getLogin()).forEach(workService::delete);
+        workService.find(user.getLogin()).forEach(workService::delete);
         user.getChampions().forEach(x -> x.setBlockTime(null));
         userService.save(user);
     }
@@ -76,8 +76,8 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     public void setWorkForUser() throws Exception {
         objectUnderTests.setWorkForUser(token, informer);
 
-        user = userService.findOne(user.getId());
-        List<Work> works = new ArrayList<>(workService.findOne(user.getLogin()));
+        user = userService.find(user.getId());
+        List<Work> works = new ArrayList<>(workService.find(user.getLogin()));
         long blockTime = new Timestamp(System.currentTimeMillis() + 60 * 60 * 1000).getTime() / 60 / 1000;
         assertEquals(1, works.get(0).getTime());
         assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[0])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
@@ -108,9 +108,9 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         Thread.sleep(2000);
         objectUnderTests.getPayment(token);
 
-        user = userService.findOne(user.getId());
+        user = userService.find(user.getId());
         user.getChampions().forEach(x -> assertNull(x.getBlockDate()));
-        assertEquals(0, workService.findOne(user.getLogin()).size());
+        assertEquals(0, workService.find(user.getLogin()).size());
         assertEquals(expectedGold, getGold(champions.next()).add(getGold(champions.next())).intValue());
     }
 
@@ -120,8 +120,8 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
 
         objectUnderTests.cancelWork(token, informer);
 
-        user = userService.findOne(user.getId());
-        assertEquals(0, workService.findOne(user.getLogin()).size());
+        user = userService.find(user.getId());
+        assertEquals(0, workService.find(user.getLogin()).size());
         user.getChampions().forEach(x -> assertNull(x.getBlockDate()));
     }
 
@@ -132,13 +132,13 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
 
         objectUnderTests.cancelWork(token, informer);
 
-        user = userService.findOne(user.getId());
+        user = userService.find(user.getId());
         List<Champion> champions = new ArrayList<>(user.getChampions());
-        Set<Work> works = workService.findOne(user.getLogin());
+        Set<Work> works = workService.find(user.getLogin());
         Champion firstChampion = champions.stream().filter(x -> x.getId().equals(firstChampionId)).findFirst().get();
         Champion secondChampion = champions.stream().filter(x -> x.getId().equals(secondChampionId)).findFirst().get();
 
-        assertEquals(1, workService.findOne(user.getLogin()).size());
+        assertEquals(1, workService.find(user.getLogin()).size());
         assertNull(firstChampion.getBlockDate());
         assertNotNull(secondChampion.getBlockDate());
         assertEquals(secondChampionId, works.iterator().next().getChampion().getId());

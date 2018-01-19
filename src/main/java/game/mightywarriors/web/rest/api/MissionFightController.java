@@ -31,7 +31,7 @@ public class MissionFightController {
 
     @GetMapping("missionFights/{id}")
     public MissionFight getChampion(@PathVariable("id") String id) {
-        return service.findOne(Long.parseLong(id));
+        return service.find(Long.parseLong(id));
     }
 
     @GetMapping("secure/getMissionFights")

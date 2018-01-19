@@ -26,13 +26,13 @@ public class RankingService {
     }
 
     private void saveOperation(Ranking ranking) {
-        if (findOne(ranking.getNickname()) == null)
+        if (find(ranking.getNickname()) == null)
             ranking.setRanking(getMaxRanking() + 1);
 
         repository.save(ranking);
     }
 
-    public Ranking findOne(String nickname) {
+    public Ranking find(String nickname) {
         try {
             return repository.findByNickname(nickname);
         } catch (NullPointerException e) {
@@ -40,7 +40,7 @@ public class RankingService {
         }
     }
 
-    public Ranking findOne(long ranking) {
+    public Ranking find(long ranking) {
         try {
             return repository.findByRanking(ranking);
         } catch (NullPointerException e) {
@@ -48,9 +48,9 @@ public class RankingService {
         }
     }
 
-    public Ranking findOne(Ranking ranking) {
+    public Ranking find(Ranking ranking) {
         try {
-            return findOne(ranking.getNickname());
+            return find(ranking.getNickname());
         } catch (NullPointerException e) {
             return null;
         }

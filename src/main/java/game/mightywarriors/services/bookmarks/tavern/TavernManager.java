@@ -48,7 +48,7 @@ public class TavernManager {
     public FightResult performFight(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight missionFight = missionFightService.findOne(informer.id);
+        MissionFight missionFight = missionFightService.find(informer.id);
 
         Set<Champion> champions = missionFight.getChampion();
         if (helper.isChampionOnMission(new HashSet<>(champions), false))

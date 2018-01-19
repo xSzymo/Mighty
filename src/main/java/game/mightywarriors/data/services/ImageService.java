@@ -39,7 +39,7 @@ public class ImageService {
         }
     }
 
-    public Image findOne(long id) {
+    public Image find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -47,15 +47,15 @@ public class ImageService {
         }
     }
 
-    public Image findOne(Image image) {
+    public Image find(Image image) {
         try {
-            return findOne(image.getId());
+            return find(image.getId());
         } catch (NullPointerException e) {
             return null;
         }
     }
 
-    public Image findByUrl(String url) {
+    public Image find(String url) {
         try {
             return repository.findByUrl(url);
         } catch (NullPointerException e) {

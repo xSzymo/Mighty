@@ -41,30 +41,30 @@ public class WorkServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(works.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(works.getFirst()));
+        assertNotNull(objectUnderTest.find(works.getFirst()));
     }
 
     @Test
     public void saveCollection() {
         objectUnderTest.save(works);
 
-        assertNotNull(objectUnderTest.findOne(works.get(0)));
-        assertNotNull(objectUnderTest.findOne(works.get(1)));
-        assertNotNull(objectUnderTest.findOne(works.get(2)));
+        assertNotNull(objectUnderTest.find(works.get(0)));
+        assertNotNull(objectUnderTest.find(works.get(1)));
+        assertNotNull(objectUnderTest.find(works.get(2)));
     }
 
     @Test
     public void findOne() {
         objectUnderTest.save(works.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(works.getFirst()));
+        assertNotNull(objectUnderTest.find(works.getFirst()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(works.getFirst());
 
-        assertNotNull(objectUnderTest.findOne(works.getFirst().getNickname()));
+        assertNotNull(objectUnderTest.find(works.getFirst().getNickname()));
     }
 
     @Test
@@ -80,13 +80,13 @@ public class WorkServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(works.getFirst());
 
-        Work one = objectUnderTest.findOne(works.getFirst());
+        Work one = objectUnderTest.find(works.getFirst());
 
         assertNotNull(one);
 
         objectUnderTest.delete(works.getFirst());
 
-        one = objectUnderTest.findOne(works.getFirst());
+        one = objectUnderTest.find(works.getFirst());
         assertNull(one);
         works.clear();
     }
@@ -95,13 +95,13 @@ public class WorkServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(works.getFirst());
 
-        Work one = objectUnderTest.findOne(works.getFirst());
+        Work one = objectUnderTest.find(works.getFirst());
 
         assertNotNull(one);
 
         objectUnderTest.delete(works.getFirst().getId());
 
-        one = objectUnderTest.findOne(works.getFirst());
+        one = objectUnderTest.find(works.getFirst());
         assertNull(one);
         works.clear();
     }
@@ -110,15 +110,15 @@ public class WorkServiceTest extends IntegrationTestsConfig {
     public void delete2() {
         objectUnderTest.save(works);
 
-        assertNotNull(objectUnderTest.findOne(works.get(0)));
-        assertNotNull(objectUnderTest.findOne(works.get(1)));
-        assertNotNull(objectUnderTest.findOne(works.get(2)));
+        assertNotNull(objectUnderTest.find(works.get(0)));
+        assertNotNull(objectUnderTest.find(works.get(1)));
+        assertNotNull(objectUnderTest.find(works.get(2)));
 
         objectUnderTest.delete(works);
 
-        assertNull(objectUnderTest.findOne(works.get(0)));
-        assertNull(objectUnderTest.findOne(works.get(1)));
-        assertNull(objectUnderTest.findOne(works.get(2)));
+        assertNull(objectUnderTest.find(works.get(0)));
+        assertNull(objectUnderTest.find(works.get(1)));
+        assertNull(objectUnderTest.find(works.get(2)));
         works.clear();
     }
 
@@ -131,15 +131,15 @@ public class WorkServiceTest extends IntegrationTestsConfig {
         championService.save(champion);
         objectUnderTest.save(works);
 
-        assertNotNull(objectUnderTest.findOne(works.getFirst()));
-        assertNotNull(objectUnderTest.findOne(works.getFirst()).getChampion());
-        assertNotNull(championService.findOne(champion.getId()));
+        assertNotNull(objectUnderTest.find(works.getFirst()));
+        assertNotNull(objectUnderTest.find(works.getFirst()).getChampion());
+        assertNotNull(championService.find(champion.getId()));
 
         objectUnderTest.delete(works.getFirst());
 
-        assertNull(objectUnderTest.findOne(works.getFirst()));
-        assertNull(objectUnderTest.findOne(works.getFirst()));
-        assertNotNull(championService.findOne(champion.getId()));
+        assertNull(objectUnderTest.find(works.getFirst()));
+        assertNull(objectUnderTest.find(works.getFirst()));
+        assertNotNull(championService.find(champion.getId()));
         works.clear();
     }
 }

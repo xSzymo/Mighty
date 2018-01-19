@@ -40,15 +40,15 @@ public class DivisionAssignerTest extends IntegrationTestsConfig {
     public void assignUsersDivisions() {
         divisionAssigner.assignUsersDivisions();
 
-        assertEquals(2, divisionService.findByLeague(League.CHALLENGER).getUsers().size());
-        assertEquals(5, divisionService.findByLeague(League.DIAMOND).getUsers().size());
-        assertEquals(2, divisionService.findByLeague(League.GOLD).getUsers().size());
-        assertEquals(4, divisionService.findByLeague(League.SILVER).getUsers().size());
-        assertEquals(5, divisionService.findByLeague(League.BRONZE).getUsers().size());
-        assertEquals(0, divisionService.findByLeague(League.WOOD).getUsers().size());
+        assertEquals(2, divisionService.find(League.CHALLENGER).getUsers().size());
+        assertEquals(5, divisionService.find(League.DIAMOND).getUsers().size());
+        assertEquals(2, divisionService.find(League.GOLD).getUsers().size());
+        assertEquals(4, divisionService.find(League.SILVER).getUsers().size());
+        assertEquals(5, divisionService.find(League.BRONZE).getUsers().size());
+        assertEquals(0, divisionService.find(League.WOOD).getUsers().size());
 
-        assertEquals(0, divisionService.findByLeague(League.CHALLENGER).getUsers().stream().
-                filter(x -> userService.findByLogin(x.getLogin()).getUserChampiongHighestLevel() < SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER).count());
+        assertEquals(0, divisionService.find(League.CHALLENGER).getUsers().stream().
+                filter(x -> userService.find(x.getLogin()).getUserChampiongHighestLevel() < SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER).count());
     }
 
     private User setUpUser1(String login) throws Exception {

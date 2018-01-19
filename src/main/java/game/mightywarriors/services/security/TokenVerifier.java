@@ -25,7 +25,7 @@ public class TokenVerifier {
     }
 
     private User verifyToken(Claims body) {
-        User user = userService.findByLogin(body.getSubject());
+        User user = userService.find(body.getSubject());
         if (user == null)
             return null;
 

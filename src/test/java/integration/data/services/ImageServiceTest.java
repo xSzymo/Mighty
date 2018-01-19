@@ -56,7 +56,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void save() {
         objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
     }
 
     @Test
@@ -64,9 +64,9 @@ public class ImageServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(images);
 
         Iterator<Image> iterator = images.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
 //    @Test(expected = Exception.class)
@@ -91,14 +91,14 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void findOne() {
         objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
     }
 
     @Test
     public void findOne1() {
         objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.iterator().next().getId()));
+        assertNotNull(objectUnderTest.find(images.iterator().next().getId()));
     }
 
     @Test
@@ -117,11 +117,11 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void delete() {
         objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
 
         objectUnderTest.delete(images.iterator().next());
 
-        assertNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNull(objectUnderTest.find(images.iterator().next()));
         images.clear();
     }
 
@@ -129,11 +129,11 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     public void delete1() {
         objectUnderTest.save(images.iterator().next());
 
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
 
         objectUnderTest.delete(images.iterator().next());
 
-        assertNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNull(objectUnderTest.find(images.iterator().next()));
         images.clear();
     }
 
@@ -142,16 +142,16 @@ public class ImageServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(images);
 
         Iterator<Image> iterator = images.iterator();
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
-        assertNotNull(objectUnderTest.findOne(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(images);
 
         iterator = images.iterator();
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
-        assertNull(objectUnderTest.findOne(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
@@ -161,13 +161,13 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
         itemService.save(item);
 
-        assertNotNull(itemService.findOne(item));
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(itemService.find(item));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
 
         objectUnderTest.delete(images.iterator().next());
 
-        assertNotNull(itemService.findOne(item));
-        assertNull(itemService.findOne(item).getImage());
+        assertNotNull(itemService.find(item));
+        assertNull(itemService.find(item).getImage());
     }
 
     @Test
@@ -177,13 +177,13 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
         championService.save(champion);
 
-        assertNotNull(championService.findOne(champion));
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(championService.find(champion));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
 
         objectUnderTest.delete(images.iterator().next());
 
-        assertNotNull(championService.findOne(champion));
-        assertNull(championService.findOne(champion).getImage());
+        assertNotNull(championService.find(champion));
+        assertNull(championService.find(champion).getImage());
     }
 
     @Test
@@ -193,13 +193,13 @@ public class ImageServiceTest extends IntegrationTestsConfig {
 
         monsterService.save(monster);
 
-        assertNotNull(monsterService.findOne(monster));
-        assertNotNull(objectUnderTest.findOne(images.iterator().next()));
+        assertNotNull(monsterService.find(monster));
+        assertNotNull(objectUnderTest.find(images.iterator().next()));
 
         objectUnderTest.delete(images.iterator().next());
 
-        assertNotNull(monsterService.findOne(monster));
-        assertNull(monsterService.findOne(monster).getImage());
+        assertNotNull(monsterService.find(monster));
+        assertNull(monsterService.find(monster).getImage());
 
     }
 }
