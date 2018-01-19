@@ -13,7 +13,7 @@ class TavernControllerTest extends GroovyTestCase {
     private String tokenURL = baseURL + "/token"
     private String sendURL = baseURL + "/secure/tavern/send"
     private String checkChampionURL = baseURL + "/secure/check/champion"
-    private String getMissionFightsURL = baseURL + "/secure/getMissionFights"
+    private String getMissionFightsURL = baseURL + "/secure/missionFights"
     private String fightURL = baseURL + "/secure/tavern/fight"
     private String currentUserURL = baseURL + "/secure/getCurrentUser"
     private String loginJSON
