@@ -25,24 +25,30 @@ public class MissionAssignerTest extends IntegrationTestsConfig {
     @Autowired
     private MissionService missionService;
 
+    private static boolean run = true;
+
     @Before
     @Transactional
-    public void setUp() {
-        int level = 10;
-        for (int i = 3; i < 100; i++) {
-            if (i == level)
-                level += 10;
+    public void setUp() throws InterruptedException {
+        if(run) {
+            run = false;
 
-            User user = new User("a" + i, "", "");
-            userService.save(user);
-            user.getChampions().iterator().next().setLevel(level / 10);
-            userService.save(user);
+            int level = 10;
+            for (int i = 3; i < 100; i++) {
+                if (i == level)
+                    level += 10;
 
-            missionService.save(new Mission(1, "description : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
-            missionService.save(new Mission(1, "description1 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
-            missionService.save(new Mission(1, "description2 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
-            missionService.save(new Mission(1, "description3 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
-            missionService.save(new Mission(1, "description4 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+                User user = new User("a" + i, "", "");
+                userService.save(user);
+                user.getChampions().iterator().next().setLevel(level / 10);
+                userService.save(user);
+
+                missionService.save(new Mission(1, "description : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+                missionService.save(new Mission(1, "description1 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+                missionService.save(new Mission(1, "description2 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+                missionService.save(new Mission(1, "description3 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+                missionService.save(new Mission(1, "description4 : " + i, new BigDecimal("1" + i), new Monster(new Statistic(1, 1, 1, 1, 1, 1)).setLevel(level / 10)));
+            }
         }
     }
 
