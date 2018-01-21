@@ -11,12 +11,12 @@ public class Statistic {
     @Column(name = "id")
     private Long id;
 
-    private long strength;
-    private long intelligence;
-    private long vitality;
-    private long criticalChance;
-    private long armor;
-    private long magicResist;
+    private double strength;
+    private double intelligence;
+    private double vitality;
+    private double criticalChance;
+    private double armor;
+    private double magicResist;
 
     public Statistic() {
         this.strength = 0;
@@ -27,7 +27,7 @@ public class Statistic {
         this.magicResist = 0;
     }
 
-    public Statistic(long strength, long intelligence, long vitality, long criticalChance, long armor, long magicResist) {
+    public Statistic(double strength, double intelligence, double vitality, double criticalChance, double armor, double magicResist) {
         this.strength = strength;
         this.intelligence = intelligence;
         this.vitality = vitality;
@@ -36,51 +36,51 @@ public class Statistic {
         this.magicResist = magicResist;
     }
 
-    public long getStrength() {
+    public double getStrength() {
         return strength;
     }
 
-    public void setStrength(long strength) {
+    public void setStrength(double strength) {
         this.strength = strength;
     }
 
-    public long getIntelligence() {
+    public double getIntelligence() {
         return intelligence;
     }
 
-    public void setIntelligence(long intelligence) {
+    public void setIntelligence(double intelligence) {
         this.intelligence = intelligence;
     }
 
-    public long getVitality() {
+    public double getVitality() {
         return vitality;
     }
 
-    public void setVitality(long vitality) {
+    public void setVitality(double vitality) {
         this.vitality = vitality;
     }
 
-    public long getCriticalChance() {
+    public double getCriticalChance() {
         return criticalChance;
     }
 
-    public void setCriticalChance(long criticalChance) {
+    public void setCriticalChance(double criticalChance) {
         this.criticalChance = criticalChance;
     }
 
-    public long getArmor() {
+    public double getArmor() {
         return armor;
     }
 
-    public void setArmor(long armor) {
+    public void setArmor(double armor) {
         this.armor = armor;
     }
 
-    public long getMagicResist() {
+    public double getMagicResist() {
         return magicResist;
     }
 
-    public void setMagicResist(long magicResist) {
+    public void setMagicResist(double magicResist) {
         this.magicResist = magicResist;
     }
 

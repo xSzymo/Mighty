@@ -6,7 +6,9 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.StatisticType;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PointsInFightCounter {
 
     public double getPointsForSpecificType(User user, StatisticType statisticType) {
