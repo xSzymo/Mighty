@@ -53,7 +53,6 @@ public abstract class IntegrationTestsConfig {
         run = true;
         SystemVariablesManager.JWTTokenCollection.clear();
 
-        userRoleService.deleteAll();
         userService.deleteAll();
         equipmentService.deleteAll();
         inventoryService.deleteAll();
@@ -66,6 +65,7 @@ public abstract class IntegrationTestsConfig {
         shopService.deleteAll();
         itemService.deleteAll();
 
+        userRoleService.deleteAll();
         statisticService.deleteAll();
         imageService.deleteAll();
 

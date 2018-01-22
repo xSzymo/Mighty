@@ -7,6 +7,8 @@ import game.mightywarriors.data.tables.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class UserServiceUtility {
     @Autowired
@@ -86,22 +88,36 @@ public class UserServiceUtility {
     }
 
     public User updateObjectsFromRelations(User user) {
-        if (user.getMissions() != null)
-            missionService.save(user.getMissions());
+        if (user.getMissions() != null) {
+            HashSet<Mission> missions = new HashSet<>();
+            for (Mission mission : user.getMissions())
+                if (mission != null) {
+                    missionService.save(mission);
+                    missions.add(mission);
+                }
+            user.setMissions(missions);
+        }
 
-        if (user.getInventory() != null)
-            inventoryService.save(user.getInventory());
-
-        if (user.getChampions() != null)
+        if (user.getChampions() != null) {
             if (user.getChampions().size() == 0) {
                 Champion champion = new Champion();
                 user.addChampion(champion);
                 championService.save(champion);
+                user.setChampions(new HashSet<>());
+                user.addChampion(champion);
             } else {
+                HashSet<Champion> champions = new HashSet<>();
                 for (Champion champion : user.getChampions())
-                    if (champion != null)
+                    if (champion != null) {
                         championService.save(champion);
+                        champions.add(champion);
+                    }
+                user.setChampions(champions);
             }
+        }
+
+        if (user.getInventory() != null)
+            inventoryService.save(user.getInventory());
 
         if (user.getShop() != null)
             shopService.save(user.getShop());
