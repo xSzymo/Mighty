@@ -30,11 +30,11 @@ public class MissionFightChecker {
     public long checkLeftTimeForMissionFight(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        MissionFight one = missionFightService.find(informer.id);
+        MissionFight fight = missionFightService.find(informer.id);
 
-//        if (user.getChampions().stream().noneMatch(x -> one.getChampion().get(0).getId().equals(x.getId())))
-//            throw new Exception("Something went wrong"); wtff?
+        if (user.getChampions().stream().noneMatch(x -> fight.getChampion().iterator().next().getId().equals(x.getId())))
+            throw new Exception("Something went wrong");
 
-        return (one.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
+        return (fight.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }
 }

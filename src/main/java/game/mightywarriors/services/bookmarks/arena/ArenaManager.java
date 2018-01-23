@@ -52,7 +52,7 @@ public class ArenaManager {
         else
             throw new NotProperlyChampionsException("Wrong champions id");
 
-        Set<Champion> champions = helper.getChampions(user, userFightInformer.championId);
+        Set<Champion> champions = user.getChampions();
         check(user, opponent, champions);
 
         FightResult fight = fightCoordinator.fight(user, opponent, helper.getChampionsId(champions));
