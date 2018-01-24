@@ -53,12 +53,12 @@ public class UserApiController {
     private Statistic setValidStatistic(Champion champion) {
         Statistic statistic = new Statistic();
 
-        statistic.setArmor(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.ARMOR));
-        statistic.setMagicResist(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.MAGIC_RESIST));
-        statistic.setStrength(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.STRENGTH));
-        statistic.setIntelligence(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.INTELLIGENCE));
-        statistic.setCriticalChance(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.CRITICAL_CHANCE));
-        statistic.setVitality(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.VITALITY));
+        statistic.setArmor(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.ARMOR)));
+        statistic.setMagicResist(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.MAGIC_RESIST)));
+        statistic.setStrength(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.STRENGTH)));
+        statistic.setIntelligence(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.INTELLIGENCE)));
+        statistic.setCriticalChance(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.CRITICAL_CHANCE)));
+        statistic.setVitality(Math.round(pointsInFightCounter.getPointsForSpecificType(champion, StatisticType.VITALITY)));
         champion.setStatistic(statistic);
 
         return statistic;

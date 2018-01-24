@@ -34,20 +34,20 @@ public class UserApiControllerTest extends IntegrationTestsConfig {
     @Test
     public void getUserWithValidStatistics_test() {
         User userWithValidStatistics = userApiController.getUserWithValidStatistics(String.valueOf(id));
-        assertEquals(0.9, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(1, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
 
         userWithValidStatistics = userApiController.getUser(String.valueOf(id));
-        assertEquals(3.0, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(3, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
     }
 
     @Test
     public void getUsersWithValidStatistics_test() {
         Set<User> usersWithValidStatistics = userApiController.getUsersWithValidStatistics();
-        assertEquals(0.9, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
-        assertEquals(0.9, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(1, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(1, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
 
         usersWithValidStatistics = userApiController.getUsers();
-        assertEquals(3.0, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
-        assertEquals(3.0, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(3, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
+        assertEquals(3, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
     }
 }
