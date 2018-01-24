@@ -4,6 +4,7 @@ import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.exceptions.NotEnoughGoldException;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.ShopInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class ShopManager {
 
         if (user.getShop().getItems().stream().filter(x -> x.getId().equals(item.getId())).findFirst() == null)
             throw new Exception("Wrong item");
+        if(user.getGold().doubleValue() < item.getGold().doubleValue())
+            throw new NotEnoughGoldException("Not enough gold");
 
         user.subtractGold(item.getGold());
         user.getInventory().addItem(item);
