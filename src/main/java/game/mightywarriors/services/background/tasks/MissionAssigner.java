@@ -63,13 +63,13 @@ public class MissionAssigner {
             if (clear)
                 user.getMissions().clear();
 
-            List<Mission> missionForSpecifiedLevel = new LinkedList<>(getAllMissionsForSpecificLevel(missions, user.getUserChampiongHighestLevel()));
+            List<Mission> missionForSpecifiedLevel = new LinkedList<>(getAllMissionsForSpecificLevel(missions, user.getUserChampionHighestLevel()));
             while (user.getMissions().size() < 3 && missionForSpecifiedLevel.size() > 0) {
                 Mission mission = null;
                 try {
                     mission = missionForSpecifiedLevel.get(rand.nextInt(missionForSpecifiedLevel.size() > 0 ? missionForSpecifiedLevel.size() : 1));
 
-                    if (mission.getMonster().getLevel() > user.getUserChampiongHighestLevel())
+                    if (mission.getMonster().getLevel() > user.getUserChampionHighestLevel())
                         continue;
 
                     if (oldMissions.contains(mission))

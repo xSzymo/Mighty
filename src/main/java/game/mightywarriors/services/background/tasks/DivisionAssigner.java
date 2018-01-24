@@ -46,7 +46,7 @@ public class DivisionAssigner {
 
 
         for (User user : users) {
-            long level = user.getUserChampiongHighestLevel();
+            long level = user.getUserChampionHighestLevel();
 
             if (level < 30)
                 continue;

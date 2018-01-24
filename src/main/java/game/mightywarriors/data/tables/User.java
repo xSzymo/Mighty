@@ -189,7 +189,7 @@ public class User {
         this.champions = champions;
     }
 
-    public long getUserChampiongHighestLevel() {
+    public long getUserChampionHighestLevel() {
         long highest = 0;
 
         for (Champion champion : getChampions())
@@ -222,6 +222,11 @@ public class User {
 
     public User addGold(BigDecimal gold) {
         this.gold = this.gold.add(gold);
+        return this;
+    }
+
+    public User subtractGold(BigDecimal gold) {
+        this.gold = this.gold.subtract(gold);
         return this;
     }
 

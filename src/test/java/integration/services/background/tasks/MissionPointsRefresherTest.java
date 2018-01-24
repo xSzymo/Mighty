@@ -43,7 +43,7 @@ public class MissionPointsRefresherTest extends IntegrationTestsConfig {
         missionPointsRefresher.refreshMissionPointsForAllMission();
 
         userService.findAll().forEach(x -> {
-            long level = x.getUserChampiongHighestLevel();
+            long level = x.getUserChampionHighestLevel();
 
             if (level >= 0 && level <= 10)
                 assertEquals(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10, x.getMissionPoints());

@@ -48,7 +48,7 @@ public class DivisionAssignerTest extends IntegrationTestsConfig {
         assertEquals(0, divisionService.find(League.WOOD).getUsers().size());
 
         assertEquals(0, divisionService.find(League.CHALLENGER).getUsers().stream().
-                filter(x -> userService.find(x.getLogin()).getUserChampiongHighestLevel() < SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER).count());
+                filter(x -> userService.find(x.getLogin()).getUserChampionHighestLevel() < SystemFightsVariablesManager.MIN_LEVEL_FOR_CHALLENGER).count());
     }
 
     private User setUpUser1(String login) throws Exception {

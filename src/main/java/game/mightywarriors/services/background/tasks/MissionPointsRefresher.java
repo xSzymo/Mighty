@@ -19,7 +19,7 @@ public class MissionPointsRefresher {
         HashSet<User> users = userService.findAll();
 
         users.forEach(x -> {
-            long level = x.getUserChampiongHighestLevel();
+            long level = x.getUserChampionHighestLevel();
 
             if (level >= 0 && level <= 10)
                 x.setMissionPoints(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10);
