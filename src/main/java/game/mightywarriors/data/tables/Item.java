@@ -7,6 +7,7 @@ import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "items")
@@ -69,6 +70,24 @@ public class Item {
         this.statistic = statistic;
         this.image = image;
         this.level = level;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return level == item.level &&
+                Objects.equals(id, item.id) &&
+                Objects.equals(name, item.name) &&
+                typeOfWeapon == item.typeOfWeapon &&
+                Objects.equals(gold, item.gold);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, typeOfWeapon, level, gold);
     }
 
     public Long getId() {
