@@ -3,6 +3,8 @@ package game.mightywarriors.web.rest.bookmarks.profile;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.bookmarks.profile.ChampionPointsManager;
+import game.mightywarriors.services.bookmarks.profile.ItemManager;
+import game.mightywarriors.web.json.objects.bookmarks.tavern.PlaceInformer;
 import game.mightywarriors.web.json.objects.bookmarks.tavern.PointsInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfileController {
     @Autowired
     private ChampionPointsManager championPointsManager;
+    @Autowired
+    private ItemManager itemManager;
 
     @PostMapping("secure/profile/statistic")
     public void fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PointsInformer informer) throws Exception {
@@ -23,5 +27,15 @@ public class ProfileController {
                 return;
             }
         }
+    }
+
+    @PostMapping("secure/profile/inventoryToEquipment")
+    public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
+        itemManager.moveEquipmentItemToInventory(authorization, informer.itemId);
+    }
+
+    @PostMapping("secure/profile/EquipmentToInventory")
+    public void moveInventoryToEquipmentItem(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
+        itemManager.moveInventoryToEquipmentItem(authorization, informer.itemId, informer.championId);
     }
 }
