@@ -29,12 +29,12 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("secure/profile/inventoryToEquipment")
+    @PostMapping("secure/profile/EquipmentToInventory")
     public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
         itemManager.moveEquipmentItemToInventory(authorization, informer.itemId);
     }
 
-    @PostMapping("secure/profile/EquipmentToInventory")
+    @PostMapping("secure/profile/inventoryToEquipment")
     public void moveInventoryToEquipmentItem(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
         itemManager.moveInventoryToEquipmentItem(authorization, informer.itemId, informer.championId);
     }
