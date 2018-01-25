@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 
 public class ShopManagerTest extends AuthorizationConfiguration {
     @Autowired
@@ -42,6 +45,8 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         informer.itemId = item.getId();
         userService.save(user);
         item1 = new Item();
+        item1.setGold(new BigDecimal("10"));
+        itemService.save(item1);
         itemService.save(item);
     }
 
@@ -73,5 +78,19 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         informer.itemId = item1.getId();
 
         objectUnderTest.buyItem(token, informer);
+    }
+
+    @Test
+    public void sellItem() throws Exception {
+        user.setGold(new BigDecimal("0"));
+        user.getInventory().addItem(item1);
+        userService.save(user);
+        informer.itemId = item1.getId();
+
+        objectUnderTest.sellItem(token, informer);
+
+        User user = userService.find(this.user.getLogin());
+        assertEquals(new BigDecimal(item.getGold().doubleValue() / 2).doubleValue(), user.getGold().doubleValue());
+        assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
     }
 }
