@@ -93,4 +93,14 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         assertEquals(new BigDecimal(item.getGold().doubleValue() / 2).doubleValue(), user.getGold().doubleValue());
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
     }
+
+    @Test(expected = Exception.class)
+    public void sellItem_which_is_not_in_user_inventory() throws Exception {
+        user.setGold(new BigDecimal("0"));
+        user.getInventory().addItem(item1);
+        userService.save(user);
+        informer.itemId = item.getId();
+
+        objectUnderTest.sellItem(token, informer);
+    }
 }
