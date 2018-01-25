@@ -4,7 +4,7 @@ public class ShopInformer {
 
     /**
      * Shop
-     * itemId : id of item to buy
+     * itemId : id of item to buy or sell
      */
     public long itemId;
 
