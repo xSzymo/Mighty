@@ -24,6 +24,7 @@ public final class SystemVariablesManager {
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
 
     public static final int GOLD_FOR_STATISTIC_RATE = 10;
+    public static final double PERCENT_FOR_SOLD_ITEM = 0.5;
 
     public static final double RATE = 0.1;
     public static final int HP_RATE = 3;

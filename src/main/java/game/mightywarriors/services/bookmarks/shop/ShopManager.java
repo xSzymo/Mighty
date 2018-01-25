@@ -1,5 +1,6 @@
 package game.mightywarriors.services.bookmarks.shop;
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
@@ -44,7 +45,7 @@ public class ShopManager {
         if (!user.getInventory().getItems().contains(item))
             throw new Exception("Wrong item");
 
-        user.addGold(new BigDecimal(item.getGold().doubleValue() / 2));
+        user.addGold(new BigDecimal(item.getGold().doubleValue() * SystemVariablesManager.PERCENT_FOR_SOLD_ITEM));
         user.getInventory().getItems().remove(item);
 
         userService.save(user);
