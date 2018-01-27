@@ -29,7 +29,7 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("secure/profile/EquipmentToInventory")
+    @PostMapping("secure/profile/equipmentToInventory")
     public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
         itemManager.moveEquipmentItemToInventory(authorization, informer.itemId);
     }
