@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -61,6 +62,12 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Set<Mission> missions = new MissionCollection();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "user_chats",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "id"))
+    private Set<Chat> chats = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -118,6 +125,7 @@ public class User {
         this.champions = user.champions;
         this.missions = user.missions;
         this.userRole = user.userRole;
+        this.chats = user.chats;
         this.timeStamp = user.timeStamp;
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
@@ -125,6 +133,22 @@ public class User {
         this.missionPoints = user.missionPoints;
         this.arenaPoints = user.arenaPoints;
         this.division = user.division;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(eMail, user.eMail);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, login, eMail);
     }
 
     public long getId() {
@@ -299,6 +323,18 @@ public class User {
 
     public void setDivision(Division division) {
         this.division = division;
+    }
+
+    public Set<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(Set<Chat> chats) {
+        this.chats = chats;
+    }
+
+    public void addChat(Chat chat) {
+        this.chats.add(chat);
     }
 
     private class MissionCollection extends HashSet<Mission> {
