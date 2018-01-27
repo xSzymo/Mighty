@@ -4,8 +4,8 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.bookmarks.profile.ChampionPointsManager;
 import game.mightywarriors.services.bookmarks.profile.ItemManager;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.PlaceInformer;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.PointsInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PlaceInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PointsInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

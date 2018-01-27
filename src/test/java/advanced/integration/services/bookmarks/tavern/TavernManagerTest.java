@@ -12,7 +12,7 @@ import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.junit.Before;
 import org.junit.Test;

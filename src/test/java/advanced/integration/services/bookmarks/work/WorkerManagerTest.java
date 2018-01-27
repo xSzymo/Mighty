@@ -12,7 +12,7 @@ import game.mightywarriors.services.bookmarks.utilities.Helper;
 import game.mightywarriors.services.bookmarks.work.WorkerManager;
 import game.mightywarriors.services.bookmarks.work.WorkerUtility;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

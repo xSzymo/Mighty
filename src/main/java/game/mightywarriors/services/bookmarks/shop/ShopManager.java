@@ -7,7 +7,7 @@ import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotEnoughGoldException;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.ShopInformer;
+import game.mightywarriors.web.json.objects.bookmarks.ShopInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

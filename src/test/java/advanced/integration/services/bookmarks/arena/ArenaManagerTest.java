@@ -14,7 +14,7 @@ import game.mightywarriors.other.exceptions.NotProperlyChampionsException;
 import game.mightywarriors.services.bookmarks.arena.ArenaManager;
 import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.junit.After;
 import org.junit.Before;

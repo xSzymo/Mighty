@@ -7,7 +7,7 @@ import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotEnoughGoldException;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.ShopInformer;
+import game.mightywarriors.web.json.objects.bookmarks.ShopInformer;
 import game.mightywarriors.web.rest.bookmarks.shop.ShopController;
 import org.junit.Before;
 import org.junit.Test;

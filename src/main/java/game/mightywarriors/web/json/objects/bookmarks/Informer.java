@@ -1,4 +1,4 @@
-package game.mightywarriors.web.json.objects.bookmarks.tavern;
+package game.mightywarriors.web.json.objects.bookmarks;
 
 public class Informer {
 

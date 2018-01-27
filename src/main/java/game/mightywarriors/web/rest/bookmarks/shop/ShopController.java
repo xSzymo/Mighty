@@ -2,7 +2,7 @@ package game.mightywarriors.web.rest.bookmarks.shop;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.shop.ShopManager;
-import game.mightywarriors.web.json.objects.bookmarks.tavern.ShopInformer;
+import game.mightywarriors.web.json.objects.bookmarks.ShopInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
