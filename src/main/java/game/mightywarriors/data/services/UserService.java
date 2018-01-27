@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
+import game.mightywarriors.data.tables.Chat;
 import game.mightywarriors.data.tables.Inventory;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
@@ -159,5 +160,18 @@ public class UserService {
         rankingService.delete(user.getLogin());
 
         repository.deleteById(user.getId());
+    }
+
+    @Transactional
+    public void removeChat(long userId, long chatId) {
+        User user = find(userId);
+        if (user != null) {
+            Chat chat = user.getChats().stream().filter(x -> x.getId().equals(chatId)).findFirst().get();
+            if (chat != null) {
+                user.getChats().remove(chat);
+                chat.getUsers().remove(user);
+                save(user);
+            }
+        }
     }
 }
