@@ -27,6 +27,8 @@ public class UserServiceUtility {
     private RankingService rankingService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private ChatService chatService;
 
     public User setToken(User user, User foundUser) throws Exception {
         if (user.isNewToken()) {
@@ -122,12 +124,19 @@ public class UserServiceUtility {
         if (user.getShop() != null)
             shopService.save(user.getShop());
 
-        if (user.getImage() != null)
+        if (user.getImage() != null) {
             try {
                 imageService.save((user.getImage()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        user.getChats().forEach(x -> {
+            if (!x.getUsers().contains(user))
+                x.getUsers().add(user);
+            chatService.save(x);
+        });
 
         return user;
     }
