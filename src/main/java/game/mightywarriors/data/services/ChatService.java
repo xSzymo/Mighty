@@ -1,7 +1,6 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ChatRepository;
-import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.tables.Chat;
 import game.mightywarriors.data.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,13 @@ public class ChatService {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserRepository userRepository;
+    private AdminService adminService;
 
     public void save(Chat chat) {
         if (chat == null)
             return;
 
+        chat.getAdmins().forEach(adminService::save);
         chat.getMessages().forEach(messageService::save);
         repository.save(chat);
     }
