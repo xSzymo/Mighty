@@ -41,11 +41,7 @@ public class PrivilegesManager {
         throwExceptionIf_UserHaveNotAccessToChat(userToAddPrivileges, chat);
         throwExceptionIf_UserIsNotOwnerOfChat(user, chat);
 
-        if (informer.admin)
-            chat.getAdmins().add(new Admin(ChatRole.ADMIN, userToAddPrivileges.getLogin()));
-        else
-            chat.getAdmins().add(new Admin(ChatRole.MODIFIER, userToAddPrivileges.getLogin()));
-
+        chat.getAdmins().add(new Admin((informer.admin ? ChatRole.ADMIN : ChatRole.MODIFIER), userToAddPrivileges.getLogin()));
         chatService.save(chat);
     }
 
@@ -53,7 +49,6 @@ public class PrivilegesManager {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         User userToRemovePrivileges = helper.getUserFromInformer(informer);
-
 
         throwExceptionIf_UserIsNotPresent(userToRemovePrivileges);
         throwExceptionIf_ChatIsNotPresent(chat);
