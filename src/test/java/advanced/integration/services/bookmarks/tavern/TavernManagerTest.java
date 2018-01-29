@@ -84,7 +84,7 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     }
 
     private void checkAfterSendChampion(MissionFight missionFight) throws InterruptedException {
-        informer.id = missionFight.getId();
+        informer.missionFightId = missionFight.getId();
         user = userService.find(user);
         missionFight = missionFightService.find(missionFight);
 

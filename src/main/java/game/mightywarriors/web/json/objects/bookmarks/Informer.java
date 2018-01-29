@@ -10,10 +10,10 @@ public class Informer {
 
     /**
      * Mission
-     * id : MissionFight id
+     * missionFightId : MissionFight id
      * missionId : mission id
      */
-    public long id;
+    public long missionFightId;
     public long missionId;
 
     /**
