@@ -50,9 +50,8 @@ public class UserDataChatProvider {
         User user = retriever.retrieveUser(authorization);
 
         Chat userChat = getUserChat_IfChatIsNotPresentThrowException(user, informer.chatId);
-        List<Message> messages = getLastMessagesFromChat(userChat);
 
-        return messages;
+        return getLastMessagesFromChat(userChat);
     }
 
     private List<Message> getLastMessagesFromChat(Chat userChat) {
