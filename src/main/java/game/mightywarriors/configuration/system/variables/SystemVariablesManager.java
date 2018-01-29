@@ -21,6 +21,8 @@ public final class SystemVariablesManager {
     public static final String EMAIL_SMTP_START_TLS_ENABLE = "true";
     public static final String EMAIL_DEBUG = "false";
 
+    public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
+
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
 
     public static final int GOLD_FOR_STATISTIC_RATE = 10;
