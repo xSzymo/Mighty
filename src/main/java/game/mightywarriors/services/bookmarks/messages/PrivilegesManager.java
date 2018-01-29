@@ -78,7 +78,7 @@ public class PrivilegesManager {
 
     private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
-            throw new NotFoundException("Chat not found");
+            throw new NotFoundException("User not found");
     }
 
     private void throwExceptionIf_UserHaveNotAccessToChat(User user, Chat chat) throws Exception {
@@ -93,6 +93,6 @@ public class PrivilegesManager {
 
     private void throwExceptionIf_UserIsOwnerOfRoom(Admin admin) throws Exception {
         if (admin.getChatRole().getRole().equals(ChatRole.OWNER.getRole()))
-            throw new Exception("you cant do that to user");
+            throw new Exception("You cant' do that to user");
     }
 }

@@ -82,7 +82,7 @@ public class RoomsAccessManager {
 
     private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
-            throw new NotFoundException("Chat not found");
+            throw new NotFoundException("User not found");
     }
 
     private void throwExceptionIf_UserHaveNotAccessToChat(User user, Chat chat) throws Exception {
