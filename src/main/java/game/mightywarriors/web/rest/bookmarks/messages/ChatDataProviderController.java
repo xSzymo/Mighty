@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-public class DatProviderController {
+public class ChatDataProviderController {
     @Autowired
     private UserDataChatProvider userDataChatProvider;
 
@@ -31,13 +31,13 @@ public class DatProviderController {
         return userDataChatProvider.getChat(authorization, informer);
     }
 
-    @PostMapping("secure/chat/chat/all/messages")
+    @PostMapping("secure/chat/chat/messages/all")
     public List<Message> getAllMessages(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
 
         return userDataChatProvider.getAllMessages(authorization, informer);
     }
 
-    @PostMapping("secure/chat/chat/last")
+    @PostMapping("secure/chat/chat/messages/last")
     public List<Message> getLastMessages(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
 
         return userDataChatProvider.getLastMessages(authorization, informer);
