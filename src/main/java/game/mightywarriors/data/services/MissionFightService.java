@@ -31,7 +31,7 @@ public class MissionFightService {
     }
 
     private void saveOperation(MissionFight missionFight) {
-        if (missionFight.getChampion() == null || missionFight.getMission() == null || missionFight.getBlockDate() == null)
+        if (missionFight.getChampions() == null || missionFight.getMission() == null || missionFight.getBlockDate() == null)
             return;
 
         repository.save(missionFight);
@@ -55,7 +55,7 @@ public class MissionFightService {
 
     public MissionFight findLatestByChampionId(Champion champion) {
         try {
-            HashSet<MissionFight> missionFights = repository.findByChampionId(champion.getId());
+            HashSet<MissionFight> missionFights = repository.findByChampionsId(champion.getId());
             MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
@@ -70,7 +70,7 @@ public class MissionFightService {
 
     public MissionFight findLatestByChampionId(long id) {
         try {
-            HashSet<MissionFight> missionFights = repository.findByChampionId(id);
+            HashSet<MissionFight> missionFights = repository.findByChampionsId(id);
             MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
@@ -115,7 +115,7 @@ public class MissionFightService {
         if (missionFight.getId() == null || find(missionFight.getId()) == null)
             return;
 
-        missionFight.setChampion(null);
+        missionFight.setChampions(null);
         missionFight.setMission(null);
         repository.deleteById(missionFight.getId());
     }

@@ -27,7 +27,7 @@ public class MissionFightController {
         User user = retriever.retrieveUser(authorization);
 
         return service.findAll().stream().filter(x -> {
-            for (Champion champion : x.getChampion())
+            for (Champion champion : x.getChampions())
                 for (Champion champ : user.getChampions())
                     if (champion.getId().equals(champ.getId()))
                         return true;

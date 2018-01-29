@@ -209,21 +209,21 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
         missionFight = new MissionFight();
         missionFight.setMission(mission);
         missionFight.setBlockTime(new Timestamp(System.currentTimeMillis()));
-        missionFight.getChampion().add(champion);
+        missionFight.getChampions().add(champion);
 
         missionService.save(mission);
         objectUnderTest.save(champion);
         missionFightService.save(missionFight);
 
         assertNotNull(missionFightService.find(missionFight));
-        assertNotNull(missionFightService.find(missionFight).getChampion().toArray()[0]);
+        assertNotNull(missionFightService.find(missionFight).getChampions().toArray()[0]);
         assertNotNull(objectUnderTest.find(champion));
 
         objectUnderTest.delete(champion);
 
         assertNull(objectUnderTest.find(champion));
         assertNotNull(missionFightService.find(missionFight));
-        assertEquals(0, missionFightService.find(missionFight).getChampion().toArray().length);
+        assertEquals(0, missionFightService.find(missionFight).getChampions().toArray().length);
     }
 
     @Test

@@ -89,13 +89,13 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         missionFight = missionFightService.find(missionFight);
 
         LinkedList<Champion> champions = new LinkedList<>();
-        missionFight.getChampion().forEach(champions::add);
-        Champion one = missionFight.getChampion().stream().filter(x -> x.getId().equals(firstChampionId)).findFirst().get();
-        Champion two = missionFight.getChampion().stream().filter(x -> x.getId().equals(secondChampionId)).findFirst().get();
+        missionFight.getChampions().forEach(champions::add);
+        Champion one = missionFight.getChampions().stream().filter(x -> x.getId().equals(firstChampionId)).findFirst().get();
+        Champion two = missionFight.getChampions().stream().filter(x -> x.getId().equals(secondChampionId)).findFirst().get();
         Champion next;
 
         long blockTime = new Timestamp(System.currentTimeMillis() + SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * 60 * 1000).getTime() / 60 / 1000;
-        assertEquals(2, missionFight.getChampion().size());
+        assertEquals(2, missionFight.getChampions().size());
 
         next = championService.find(firstChampionId);
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));

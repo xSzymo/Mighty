@@ -20,10 +20,10 @@ public class MissionFight {
     private Mission mission;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Champion> champion;
+    private Set<Champion> champions;
 
     public MissionFight() {
-        champion = new HashSet<>();
+        champions = new HashSet<>();
     }
 
     public Long getId() {
@@ -38,12 +38,12 @@ public class MissionFight {
         this.mission = mission;
     }
 
-    public Set<Champion> getChampion() {
-        return champion;
+    public Set<Champion> getChampions() {
+        return champions;
     }
 
-    public void setChampion(Set<Champion> champion) {
-        this.champion = champion;
+    public void setChampions(Set<Champion> champions) {
+        this.champions = champions;
     }
 
     public Timestamp getBlockDate() {

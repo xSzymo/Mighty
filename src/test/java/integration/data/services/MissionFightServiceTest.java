@@ -141,7 +141,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
         championService.save(champion);
         missionService.save(mission);
 
-        missionFight.setChampion(champions);
+        missionFight.setChampions(champions);
         missionFight.setMission(mission);
         missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 4000));
         missionFights.add(missionFight);
@@ -149,7 +149,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(missionFights);
 
         MissionFight secondMissionFight = new MissionFight();
-        secondMissionFight.setChampion(champions);
+        secondMissionFight.setChampions(champions);
         secondMissionFight.setMission(mission);
         secondMissionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + 5000));
         missionFights.add(secondMissionFight);
@@ -172,7 +172,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
         championService.save(champion);
         missionService.save(mission);
 
-        missionFight.setChampion(champions);
+        missionFight.setChampions(champions);
         missionFight.setMission(mission);
         missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (1 * 1000)));
         missionFights.add(missionFight);
@@ -204,7 +204,7 @@ public class MissionFightServiceTest extends IntegrationTestsConfig {
             championService.save(champion);
             missionService.save(mission);
 
-            missionFight.setChampion(champions);
+            missionFight.setChampions(champions);
             missionFight.setMission(mission);
             missionFight.setBlockTime(new Timestamp(System.currentTimeMillis() + (i * 1000)));
 

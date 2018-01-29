@@ -50,11 +50,11 @@ public class TavernManager {
 
         MissionFight missionFight = missionFightService.find(informer.missionFightId);
 
-        Set<Champion> champions = missionFight.getChampion();
+        Set<Champion> champions = missionFight.getChampions();
         if (helper.isChampionOnMission(new HashSet<>(champions), false))
             throw new BusyChampionException("Someone is already busy");
 
-        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampion()));
+        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampions()));
         tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
 
         return fight;

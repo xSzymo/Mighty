@@ -14,7 +14,7 @@ public interface MissionFightRepository extends CrudRepository<MissionFight, Lon
 
     MissionFight findById(long id);
 
-    HashSet<MissionFight> findByChampionId(long id);
+    HashSet<MissionFight> findByChampionsId(long id);
 
     void deleteById(long id);
 }
