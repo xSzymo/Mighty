@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
@@ -12,18 +13,23 @@ public class Chat {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
+
     @Column(name = "admins")
-    @ElementCollection(targetClass = String.class)
-    private Set<String> admins = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "chat_id", referencedColumnName = "id")
+    private Set<Admin> admins = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "chat_id", referencedColumnName = "id")
-    private List<Message> messages = new LinkedList<>();
+    private Set<Message> messages = new HashSet<>();
 
     @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     private Set<User> users = new HashSet<>();
 
     public Chat() {
+        timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     @Override
@@ -45,11 +51,11 @@ public class Chat {
         return id;
     }
 
-    public List<Message> getMessages() {
+    public Set<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
 
@@ -57,15 +63,15 @@ public class Chat {
         this.messages.add(message);
     }
 
-    public Set<String> getAdmins() {
+    public Set<Admin> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(Set<String> admins) {
+    public void setAdmins(Set<Admin> admins) {
         this.admins = admins;
     }
 
-    public void addAdmin(String login) {
+    public void addAdmin(Admin login) {
         this.admins.add(login);
     }
 
@@ -75,5 +81,9 @@ public class Chat {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 }

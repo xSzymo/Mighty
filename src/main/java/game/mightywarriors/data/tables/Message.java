@@ -1,6 +1,7 @@
 package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +18,15 @@ public class Message {
     private String userLogin;
     @Column(name = "number")
     private long number;
+    @Column(name = "time_stamp")
+    private Timestamp timeStamp;
 
     public Message() {
+        timeStamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Message(String message, String userLogin) {
+        timeStamp = new Timestamp(System.currentTimeMillis());
         this.message = message;
         this.userLogin = userLogin;
     }
@@ -43,6 +48,10 @@ public class Message {
 
     public Long getId() {
         return id;
+    }
+
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 
     public String getMessage() {
