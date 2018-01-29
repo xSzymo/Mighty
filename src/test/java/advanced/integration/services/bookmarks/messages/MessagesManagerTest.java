@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.ChatService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Chat;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.messages.MessagesManager;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MessagesManagerTest extends AuthorizationConfiguration {
     @Autowired
@@ -41,7 +43,6 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
     private MessageInformer informer;
     private String message = "my new message";
     private String deleteMessage = "Message was deleted";
-    private long comicalNumber = 151251231;
 
     @Before
     public void setUp() throws Exception {
@@ -141,8 +142,28 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         assertEquals(1, userService.find(user.getId()).getChats().iterator().next().getMessages().size());
     }
 
+    @Test
+    public void removeMessage_as_modifier() throws Exception {
+        addMessage();
+        informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
+        informer.userId = user1.getId();
+        roomsAccessManager.addUserToRoom(token, informer);
+        privilegesManager.addPrivileges(token, informer);
+        assertEquals(2, chatService.find(informer.chatId).getUsers().size());
+        assertEquals(2, chatService.find(informer.chatId).getAdmins().size());
+        assertTrue(chatService.find(informer.chatId).getAdmins().stream().anyMatch(x -> x.getChatRole().getRole().equals(ChatRole.MODIFIER.getRole())));
+        authorize(user1.getLogin());
+
+        objectUnderTest.deleteMessage(token, informer);
+
+        assertEquals(1, chatService.find(informer.chatId).getMessages().size());
+        assertEquals(deleteMessage, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
+        assertEquals(1, userService.find(user.getId()).getChats().size());
+        assertEquals(1, userService.find(user.getId()).getChats().iterator().next().getMessages().size());
+    }
+
     @Test(expected = NoAccessException.class)
-    public void removeMessage_as_not_admin() throws Exception {
+    public void removeMessage_as_not_admin_or_modifier() throws Exception {
         addMessage();
         informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
         informer.userId = user1.getId();
