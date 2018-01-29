@@ -2,10 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
-import game.mightywarriors.data.tables.Chat;
-import game.mightywarriors.data.tables.Inventory;
-import game.mightywarriors.data.tables.Shop;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,6 +37,8 @@ public class UserService {
     private DivisionService divisionService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private ChatService chatService;
     @Autowired
     private ItemDrawer itemDrawer;
 
@@ -134,11 +135,7 @@ public class UserService {
     }
 
     public void delete(HashSet<User> users) {
-        users.forEach(
-                x -> {
-                    if (x != null)
-                        deleteOperation(x);
-                });
+        users.forEach(this::delete);
     }
 
     public void deleteAll() {
@@ -163,14 +160,22 @@ public class UserService {
     }
 
     @Transactional
-    public void removeChat(long userId, long chatId) {
+    public void removeChat(long userId, long chatId) throws NoSuchElementException {
         User user = find(userId);
         if (user != null) {
-            Chat chat = user.getChats().stream().filter(x -> x.getId().equals(chatId)).findFirst().get();
-            if (chat != null) {
+            Optional<Chat> myChat = user.getChats().stream().filter(x -> x.getId().equals(chatId)).findFirst();
+            if (myChat.isPresent()) {
+                Chat chat = myChat.get();
+
                 user.getChats().remove(chat);
                 chat.getUsers().remove(user);
+                Optional<Admin> first = chat.getAdmins().stream().filter(x -> x.getLogin().equals(user.getLogin())).findFirst();
+                first.ifPresent(admin -> chat.getAdmins().remove(admin));
+
                 save(user);
+
+                if (chat.getUsers().size() == 0)
+                    chatService.delete(chat.getId());
             }
         }
     }
