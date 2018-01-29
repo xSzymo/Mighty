@@ -24,6 +24,8 @@ public class Champion implements IFighter {
     private long level = 1;
     @Column(name = "block_until")
     private Timestamp blockUntil;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -37,24 +39,28 @@ public class Champion implements IFighter {
     private Equipment equipment;
 
     public Champion() {
-
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Champion(Statistic statistic) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
     }
 
     public Champion(Statistic statistic, Equipment equipment) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
         this.equipment = equipment;
     }
 
     public Champion(Statistic statistic, Image image) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
         this.image = image;
     }
 
     public Champion(Statistic statistic, Image image, Equipment equipment) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
         this.image = image;
         this.equipment = equipment;
@@ -119,15 +125,19 @@ public class Champion implements IFighter {
         return blockUntil;
     }
 
-    public void setBlockTime(Timestamp timestamp) {
-        this.blockUntil = timestamp;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setBlockUntil(Timestamp blockUntil) {
+        this.blockUntil = blockUntil;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

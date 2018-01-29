@@ -14,19 +14,19 @@ public class Admin {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
     @Column(name = "role")
     private ChatRole chatRole;
     @Column(name = "login")
     private String login;
 
     public Admin() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Admin(ChatRole chatRole, String login) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.chatRole = chatRole;
         this.login = login;
     }
@@ -58,9 +58,6 @@ public class Admin {
     public void setChatRole(ChatRole chatRole) {
         this.chatRole = chatRole;
     }
-    public Timestamp getTimeStamp() {
-        return timeStamp;
-    }
 
     public String getLogin() {
         return login;
@@ -68,5 +65,9 @@ public class Admin {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

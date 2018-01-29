@@ -14,21 +14,22 @@ public class Work {
 
     @Column(name = "nickname")
     private String nickname;
-
     @Column(name = "time")
     private int time;
-
     @Column(name = "block_time")
     private Timestamp blockUntil;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Champion champion;
 
     public Work() {
-
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Work(String nickname) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.nickname = nickname;
     }
 
@@ -74,5 +75,9 @@ public class Work {
 
     public Long getId() {
         return id;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

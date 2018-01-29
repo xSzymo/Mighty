@@ -68,7 +68,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     @After
     public void cleanUp() {
         workService.find(user.getLogin()).forEach(workService::delete);
-        user.getChampions().forEach(x -> x.setBlockTime(null));
+        user.getChampions().forEach(x -> x.setBlockUntil(null));
         userService.save(user);
     }
 

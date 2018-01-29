@@ -36,7 +36,7 @@ public class TavernUtility {
         MissionFight missionFight = new MissionFight();
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getTimeDuration() * ONE_SECOND));
-        champions.forEach(x -> x.setBlockTime(blockDate));
+        champions.forEach(x -> x.setBlockUntil(blockDate));
         missionFight.setBlockUntil(blockDate);
         missionFight.setChampions(champions);
         missionFight.setMission(mission);
@@ -63,7 +63,7 @@ public class TavernUtility {
         }
 
         user.setMissionPoints(user.getMissionPoints() - 1);
-        champions.forEach(x -> x.setBlockTime(null));
+        champions.forEach(x -> x.setBlockUntil(null));
 
         missionFightService.delete(missionFight);
         userService.save(user);

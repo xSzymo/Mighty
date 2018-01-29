@@ -54,7 +54,7 @@ public class WorkerUtility {
                 if (x1.getId().equals(x.getId()))
                     return true;
             return false;
-        }).forEach(x -> x.setBlockTime(date));
+        }).forEach(x -> x.setBlockUntil(date));
 
         return user;
     }

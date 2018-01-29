@@ -13,25 +13,20 @@ public class Image {
 
     @Column(name = "url")
     private String url;
-
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     public Image() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Image(String url) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.url = url;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Timestamp getTimeStamp() {
-        return timeStamp;
     }
 
     public String getUrl() {
@@ -40,5 +35,9 @@ public class Image {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

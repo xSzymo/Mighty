@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -21,15 +22,18 @@ public class Mission {
     private long timeDuration;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Monster monster;
 
     public Mission() {
-
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Mission(long experience, String description, BigDecimal gold, Monster monster) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
         this.description = description;
         this.gold = gold;
@@ -97,5 +101,9 @@ public class Mission {
     public int hashCode() {
 
         return Objects.hash(id, experience, description, timeDuration, gold);
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

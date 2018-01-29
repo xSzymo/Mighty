@@ -18,15 +18,15 @@ public class Message {
     private String userLogin;
     @Column(name = "number")
     private long number;
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     public Message() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Message(String message, String userLogin) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.message = message;
         this.userLogin = userLogin;
     }
@@ -50,8 +50,8 @@ public class Message {
         return id;
     }
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 
     public String getMessage() {

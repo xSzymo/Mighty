@@ -79,7 +79,7 @@ public class ArenaManager {
         }
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * ONE_MINUTE));
-        user.getChampions().stream().filter(x -> champions.contains(x)).forEach(x -> x.setBlockTime(blockDate));
+        user.getChampions().stream().filter(x -> champions.contains(x)).forEach(x -> x.setBlockUntil(blockDate));
 
         user.setArenaPoints(user.getArenaPoints() - 1);
         userService.save(user);

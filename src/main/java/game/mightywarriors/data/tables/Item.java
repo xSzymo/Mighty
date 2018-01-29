@@ -25,8 +25,8 @@ public class Item {
     private WeaponType typeOfWeapon;
     @Column(name = "level")
     private long level;
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
 
@@ -39,23 +39,23 @@ public class Item {
     private Image image;
 
     public Item() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(WeaponType typeOfWeapon) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.typeOfWeapon = typeOfWeapon;
     }
 
     public Item(WeaponType typeOfWeapon, Statistic statistic, long level) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.typeOfWeapon = typeOfWeapon;
         this.statistic = statistic;
         this.level = level;
     }
 
     public Item(String name, WeaponType typeOfWeapon, Statistic statistic, long level) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.typeOfWeapon = typeOfWeapon;
         this.statistic = statistic;
@@ -63,7 +63,7 @@ public class Item {
     }
 
     public Item(String name, String description, WeaponType typeOfWeapon, Statistic statistic, Image image, long level) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
         this.typeOfWeapon = typeOfWeapon;
@@ -134,10 +134,6 @@ public class Item {
         this.image = image;
     }
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
-    }
-
     public long getLevel() {
         return level;
     }
@@ -152,5 +148,9 @@ public class Item {
 
     public void setGold(BigDecimal gold) {
         this.gold = gold;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

@@ -13,8 +13,8 @@ public class Chat {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @Column(name = "admins")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -29,7 +29,7 @@ public class Chat {
     private Set<User> users = new HashSet<>();
 
     public Chat() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Chat {
         this.users = users;
     }
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

@@ -78,7 +78,7 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
 
     @After
     public void cleanUp() {
-        user.getChampions().forEach(x -> x.setBlockTime(null));
+        user.getChampions().forEach(x -> x.setBlockUntil(null));
         user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().setStatistic(statistic);
         userService.save(user);
     }

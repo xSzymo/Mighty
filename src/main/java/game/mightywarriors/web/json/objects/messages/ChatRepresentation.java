@@ -19,7 +19,7 @@ public class ChatRepresentation {
 
     public ChatRepresentation(Chat chat) {
         this.id = chat.getId();
-        this.timeStamp = chat.getTimeStamp();
+        this.timeStamp = chat.getCreatedDate();
         this.admins = chat.getAdmins();
         this.users = chat.getUsers();
         this.messages = new LinkedList<>(chat.getMessages());

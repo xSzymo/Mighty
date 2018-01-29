@@ -38,8 +38,8 @@ public class User {
     private BigDecimal gold = new BigDecimal("0");
     @Column(name = "e_mail")
     private String eMail;
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
     @Column(name = "arena_points")
     private int arenaPoints;
     @Column(name = "mission_points")
@@ -80,23 +80,23 @@ public class User {
     private Division division;
 
     public User() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String login) {
         this.login = login;
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String login, String password, String eMail) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
     }
 
     public User(String login, String password, String eMail, UserRole userRole) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
@@ -104,7 +104,7 @@ public class User {
     }
 
     public User(String login, String password, String eMail, Image image, Champion champion, UserRole userRole) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
@@ -126,7 +126,7 @@ public class User {
         this.missions = user.missions;
         this.userRole = user.userRole;
         this.chats = user.chats;
-        this.timeStamp = user.timeStamp;
+        this.createdDate = user.createdDate;
         this.tokenCode = user.tokenCode;
         this.inventory = user.inventory;
         this.newToken = user.newToken;
@@ -193,10 +193,6 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
-    }
-
-    public Timestamp getTimeStamp() {
-        return timeStamp;
     }
 
     public Set<Champion> getChampions() {
@@ -335,6 +331,10 @@ public class User {
 
     public void addChat(Chat chat) {
         this.chats.add(chat);
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 
     private class MissionCollection extends HashSet<Mission> {

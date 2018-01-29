@@ -5,6 +5,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "monsters")
@@ -14,7 +15,10 @@ public class Monster implements IFighter {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "level")
     private long level;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -25,16 +29,19 @@ public class Monster implements IFighter {
     private Image image;
 
     public Monster() {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.level = 1;
     }
 
     public Monster(Statistic statistic, Image image) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
         this.image = image;
         this.level = 1;
     }
 
     public Monster(Statistic statistic) {
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
         this.level = 1;
     }
@@ -69,5 +76,9 @@ public class Monster implements IFighter {
     public Monster setLevel(int level) {
         this.level = level;
         return this;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

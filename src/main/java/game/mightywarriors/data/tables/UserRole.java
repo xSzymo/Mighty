@@ -18,20 +18,19 @@ public class UserRole {
 
     @Column(name = "role")
     private String role;
-
-    @Column(name = "time_stamp")
-    private Timestamp timeStamp;
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<User> user = new HashSet<>();
 
     public UserRole() {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public UserRole(String role) {
-        timeStamp = new Timestamp(System.currentTimeMillis());
+        createdDate = new Timestamp(System.currentTimeMillis());
         this.role = role;
     }
 
@@ -55,7 +54,7 @@ public class UserRole {
         this.user = user;
     }
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 }

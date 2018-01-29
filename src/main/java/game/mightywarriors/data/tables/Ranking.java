@@ -17,7 +17,6 @@ public class Ranking {
     private long ranking;
 
     public Ranking() {
-
     }
 
     public Ranking(String nickname) {

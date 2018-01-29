@@ -25,7 +25,6 @@ public class Division {
     private Collection<User> users = new HashSet<>();
 
     public Division() {
-
     }
 
     public Division(League league) {
