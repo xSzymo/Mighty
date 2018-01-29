@@ -31,7 +31,7 @@ public class MissionFightService {
     }
 
     private void saveOperation(MissionFight missionFight) {
-        if (missionFight.getChampions() == null || missionFight.getMission() == null || missionFight.getBlockDate() == null)
+        if (missionFight.getChampions() == null || missionFight.getMission() == null || missionFight.getBlockUntil() == null)
             return;
 
         repository.save(missionFight);
@@ -59,7 +59,7 @@ public class MissionFightService {
             MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
-                if (missionFight.getBlockDate().before(fight.getBlockDate()))
+                if (missionFight.getBlockUntil().before(fight.getBlockUntil()))
                     missionFight = fight;
 
             return missionFight;
@@ -74,7 +74,7 @@ public class MissionFightService {
             MissionFight missionFight = missionFights.iterator().next();
 
             for (MissionFight fight : missionFights)
-                if (missionFight.getBlockDate().before(fight.getBlockDate()))
+                if (missionFight.getBlockUntil().before(fight.getBlockUntil()))
                     missionFight = fight;
 
             return missionFight;

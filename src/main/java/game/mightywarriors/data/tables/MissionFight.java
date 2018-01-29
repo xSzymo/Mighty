@@ -13,8 +13,8 @@ public class MissionFight {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "block_time")
-    private Timestamp blockTime;
+    @Column(name = "block_until")
+    private Timestamp blockUntil;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Mission mission;
@@ -46,11 +46,11 @@ public class MissionFight {
         this.champions = champions;
     }
 
-    public Timestamp getBlockDate() {
-        return blockTime;
+    public Timestamp getBlockUntil() {
+        return blockUntil;
     }
 
-    public void setBlockTime(Timestamp blockTime) {
-        this.blockTime = blockTime;
+    public void setBlockUntil(Timestamp blockUntil) {
+        this.blockUntil = blockUntil;
     }
 }

@@ -19,7 +19,7 @@ public class Work {
     private int time;
 
     @Column(name = "block_time")
-    private Timestamp blockTime;
+    private Timestamp blockUntil;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Champion champion;
@@ -36,12 +36,12 @@ public class Work {
         return this;
     }
 
-    public Timestamp getBlockDate() {
-        return blockTime;
+    public Timestamp getBlockUntil() {
+        return blockUntil;
     }
 
-    public Work setBlockTime(Timestamp blockTime) {
-        this.blockTime = blockTime;
+    public Work setBlockUntil(Timestamp blockUntil) {
+        this.blockUntil = blockUntil;
         return this;
     }
 

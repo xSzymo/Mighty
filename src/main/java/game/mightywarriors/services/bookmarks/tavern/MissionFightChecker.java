@@ -35,6 +35,6 @@ public class MissionFightChecker {
         if (user.getChampions().stream().noneMatch(x -> fight.getChampions().iterator().next().getId().equals(x.getId())))
             throw new Exception("Something went wrong");
 
-        return (fight.getBlockDate().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
+        return (fight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }
 }

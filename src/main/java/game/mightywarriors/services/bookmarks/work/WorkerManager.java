@@ -48,7 +48,7 @@ public class WorkerManager {
         Set<Work> works = workService.find(user.getLogin());
 
         for (Work work : works)
-            if (work != null && !work.getBlockDate().after(new Timestamp(System.currentTimeMillis())))
+            if (work != null && !work.getBlockUntil().after(new Timestamp(System.currentTimeMillis())))
                 workerUtility.getPayment(user, work);
     }
 

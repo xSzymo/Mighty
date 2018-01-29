@@ -22,8 +22,8 @@ public class Champion implements IFighter {
     private String name;
     @Column(name = "level")
     private long level = 1;
-    @Column(name = "block_date")
-    private Timestamp blockDate;
+    @Column(name = "block_until")
+    private Timestamp blockUntil;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -115,12 +115,12 @@ public class Champion implements IFighter {
         return this;
     }
 
-    public Timestamp getBlockDate() {
-        return blockDate;
+    public Timestamp getBlockUntil() {
+        return blockUntil;
     }
 
-    public void setBlockTime(Timestamp blockDate) {
-        this.blockDate = blockDate;
+    public void setBlockTime(Timestamp timestamp) {
+        this.blockUntil = timestamp;
     }
 
     public String getName() {

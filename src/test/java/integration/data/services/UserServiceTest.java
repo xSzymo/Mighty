@@ -255,7 +255,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertEquals(1, one.getChampions().size());
         assertEquals(1, one.getChampions().iterator().next().getLevel());
         assertEquals(1, one.getChampions().iterator().next().getExperience());
-        assertEquals(null, one.getChampions().iterator().next().getBlockDate());
+        assertEquals(null, one.getChampions().iterator().next().getBlockUntil());
         assertNotNull(one.getChampions().iterator().next().getEquipment());
         assertNotNull(one.getChampions().iterator().next().getStatistic());
 

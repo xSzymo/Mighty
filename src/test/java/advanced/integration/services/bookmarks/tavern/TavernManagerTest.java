@@ -99,11 +99,11 @@ public class TavernManagerTest extends AuthorizationConfiguration {
 
         next = championService.find(firstChampionId);
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));
-        assertTrue((blockTime - next.getBlockDate().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockDate().getTime() / 60 / 1000) <= 1);
+        assertTrue((blockTime - next.getBlockUntil().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockUntil().getTime() / 60 / 1000) <= 1);
 
         next = championService.find(secondChampionId);
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));
-        assertTrue((blockTime - next.getBlockDate().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockDate().getTime() / 60 / 1000) <= 1);
+        assertTrue((blockTime - next.getBlockUntil().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockUntil().getTime() / 60 / 1000) <= 1);
 
         assertTrue((blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) >= -1 ||
                 (blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) <= 1);
@@ -125,8 +125,8 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         assertEquals(champLevel1, two.getLevel());
         assertEquals(champExperience + missionService.find(informer.missionId).getExperience() / 2, one.getExperience());
         assertEquals(champExperience1 + missionService.find(informer.missionId).getExperience() / 2, two.getExperience());
-        assertNull(one.getBlockDate());
-        assertNull(two.getBlockDate());
+        assertNull(one.getBlockUntil());
+        assertNull(two.getBlockUntil());
 
         for (Mission mission : user.getMissions())
             if (mission.getId() == informer.missionId)
@@ -149,7 +149,7 @@ public class TavernManagerTest extends AuthorizationConfiguration {
 
     private void sleep(MissionFight missionFight) throws InterruptedException {
 
-        long timeToSleep = missionFight.getBlockDate().getTime() - new Timestamp(System.currentTimeMillis()).getTime() + 1000;
+        long timeToSleep = missionFight.getBlockUntil().getTime() - new Timestamp(System.currentTimeMillis()).getTime() + 1000;
         if (timeToSleep > 0)
             Thread.sleep(timeToSleep);
     }

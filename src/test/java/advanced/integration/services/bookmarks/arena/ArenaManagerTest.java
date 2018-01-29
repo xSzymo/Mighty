@@ -97,9 +97,9 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
         assertEquals(oldOpponentRanking, rankingService.find(user.getLogin()).getRanking());
         assertEquals(oldOpponentRanking + 1, rankingService.find(informer.opponentName).getRanking());
         long blockTime = new Timestamp(System.currentTimeMillis() + SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * 60 * 1000).getTime() / 60 / 1000;
-        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[0])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
-        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[1])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
-        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[2])).findFirst().get().getBlockDate().getTime() / 60 / 1000);
+        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[0])).findFirst().get().getBlockUntil().getTime() / 60 / 1000);
+        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[1])).findFirst().get().getBlockUntil().getTime() / 60 / 1000);
+        assertEquals(blockTime, user.getChampions().stream().filter(x -> x.getId().equals(informer.championId[2])).findFirst().get().getBlockUntil().getTime() / 60 / 1000);
     }
 
     @Test(expected = IllegalFightException.class)

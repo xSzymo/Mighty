@@ -208,7 +208,7 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
         Mission mission = new Mission();
         missionFight = new MissionFight();
         missionFight.setMission(mission);
-        missionFight.setBlockTime(new Timestamp(System.currentTimeMillis()));
+        missionFight.setBlockUntil(new Timestamp(System.currentTimeMillis()));
         missionFight.getChampions().add(champion);
 
         missionService.save(mission);

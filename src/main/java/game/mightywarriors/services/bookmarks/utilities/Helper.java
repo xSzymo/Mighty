@@ -23,7 +23,7 @@ public class Helper {
 
     public boolean isChampionOnMission(Set<Champion> champions, boolean mustBeNull) {
         for (Champion champion : champions) {
-            if (champion.getBlockDate() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockDate()))
+            if (champion.getBlockUntil() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockUntil()))
                 return true;
 
             if (!mustBeNull)
@@ -45,9 +45,9 @@ public class Helper {
 
         long time = 0;
         for (Champion champion : collect) {
-            if (champion.getBlockDate() != null)
-                if (champion.getBlockDate().getTime() > time)
-                    time = champion.getBlockDate().getTime();
+            if (champion.getBlockUntil() != null)
+                if (champion.getBlockUntil().getTime() > time)
+                    time = champion.getBlockUntil().getTime();
         }
 
         return (time - new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND;

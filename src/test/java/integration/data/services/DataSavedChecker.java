@@ -78,7 +78,7 @@ public class DataSavedChecker extends IntegrationTestsConfig {
         assertEquals(1, user.getChampions().size());
         assertEquals(1, user.getChampions().iterator().next().getLevel());
         assertEquals(1, user.getChampions().iterator().next().getExperience());
-        assertEquals(null, user.getChampions().iterator().next().getBlockDate());
+        assertEquals(null, user.getChampions().iterator().next().getBlockUntil());
         assertNotNull(user.getChampions().iterator().next().getEquipment());
         assertNotNull(user.getChampions().iterator().next().getStatistic());
 

@@ -37,7 +37,7 @@ public class TavernUtility {
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getTimeDuration() * ONE_SECOND));
         champions.forEach(x -> x.setBlockTime(blockDate));
-        missionFight.setBlockTime(blockDate);
+        missionFight.setBlockUntil(blockDate);
         missionFight.setChampions(champions);
         missionFight.setMission(mission);
 

@@ -30,7 +30,7 @@ public class WorkerUtility {
         for (Champion x : champions)
             works.add(new Work().build()
                     .setNickname(user.getLogin())
-                    .setBlockTime(blockTime)
+                    .setBlockUntil(blockTime)
                     .setTime(hours)
                     .setChampion(x));
 
