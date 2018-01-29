@@ -88,7 +88,6 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         user = userService.find(user);
         missionFight = missionFightService.find(missionFight);
 
-        Iterator<Champion> iterator = missionFight.getChampion().iterator();
         LinkedList<Champion> champions = new LinkedList<>();
         missionFight.getChampion().forEach(champions::add);
         Champion one = missionFight.getChampion().stream().filter(x -> x.getId().equals(firstChampionId)).findFirst().get();
