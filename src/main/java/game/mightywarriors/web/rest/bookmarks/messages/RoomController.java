@@ -1,8 +1,7 @@
 package game.mightywarriors.web.rest.bookmarks.messages;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
-import game.mightywarriors.services.bookmarks.messages.PrivilegesManager;
-import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
+import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,37 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RoomController {
     @Autowired
-    private PrivilegesManager privilegesManager;
-    @Autowired
-    private RoomsAccessManager roomsAccessManager;
+    private RoomManager roomManager;
 
-    @PostMapping("secure/chat/privileges/add")
-    public void addPrivileges(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
+    @PostMapping("secure/chat/room/create")
+    public void createRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
 
-        privilegesManager.addPrivileges(authorization, informer);
+        roomManager.createRoom(authorization);
     }
 
-    @PostMapping("secure/chat/privileges/delete")
-    public void removePrivileges(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
+    @PostMapping("secure/chat/room/delete")
+    public void deleteRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
 
-        privilegesManager.removePrivileges(authorization, informer);
-    }
-
-    @PostMapping("secure/chat/room/user/add")
-    public void addUserToRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
-
-        roomsAccessManager.addUserToRoom(authorization, informer);
-    }
-
-    @PostMapping("secure/chat/room/user/delete")
-    public void removeUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
-
-        roomsAccessManager.removeUserFromRoom(authorization, informer);
-    }
-
-    @PostMapping("secure/chat/leave")
-    public void removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
-
-        roomsAccessManager.leaveChat(authorization, informer);
+        roomManager.deleteRoom(authorization, informer);
     }
 }
