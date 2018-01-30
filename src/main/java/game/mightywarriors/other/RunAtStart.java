@@ -100,7 +100,7 @@ public class RunAtStart {
             statistics.add(new Statistic(2, 2, 5, 0, 2, 2));
             images.add(new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
-            missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setTimeDuration(2 + i));
+            missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setDuration(2 + i));
         }
 
         for (int i = 0; i < 12; i++) {

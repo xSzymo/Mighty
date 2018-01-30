@@ -19,7 +19,7 @@ public class Mission {
     @Column(name = "description")
     private String description;
     @Column(name = "time_duration")
-    private long timeDuration;
+    private long duration;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
     @Column(name = "created_date")
@@ -76,12 +76,12 @@ public class Mission {
         this.monster = monster;
     }
 
-    public long getTimeDuration() {
-        return timeDuration;
+    public long getDuration() {
+        return duration;
     }
 
-    public Mission setTimeDuration(long timeDuration) {
-        this.timeDuration = timeDuration;
+    public Mission setDuration(long duration) {
+        this.duration = duration;
         return this;
     }
 
@@ -91,7 +91,7 @@ public class Mission {
         if (!(o instanceof Mission)) return false;
         Mission mission = (Mission) o;
         return experience == mission.experience &&
-                timeDuration == mission.timeDuration &&
+                duration == mission.duration &&
                 Objects.equals(id, mission.id) &&
                 Objects.equals(description, mission.description) &&
                 Objects.equals(gold, mission.gold);
@@ -100,7 +100,7 @@ public class Mission {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, experience, description, timeDuration, gold);
+        return Objects.hash(id, experience, description, duration, gold);
     }
 
     public Timestamp getCreatedDate() {

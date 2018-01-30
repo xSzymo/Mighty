@@ -105,8 +105,8 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         assertTrue(next.getId().equals(one.getId()) || next.getId().equals(two.getId()));
         assertTrue((blockTime - next.getBlockUntil().getTime() / 60 / 1000) >= -1 && (blockTime - next.getBlockUntil().getTime() / 60 / 1000) <= 1);
 
-        assertTrue((blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) >= -1 ||
-                (blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getTimeDuration() * 1000)).getTime() / 60 / 1000) <= 1);
+        assertTrue((blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getDuration() * 1000)).getTime() / 60 / 1000) >= -1 ||
+                (blockTime - new Timestamp(System.currentTimeMillis() + (missionService.find(informer.missionId).getDuration() * 1000)).getTime() / 60 / 1000) <= 1);
 
         sleep(missionFight);
     }

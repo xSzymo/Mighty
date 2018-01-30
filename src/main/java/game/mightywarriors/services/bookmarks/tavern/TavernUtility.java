@@ -35,7 +35,7 @@ public class TavernUtility {
     public MissionFight prepareNewMissionFight(Set<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();
 
-        Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getTimeDuration() * ONE_SECOND));
+        Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getDuration() * ONE_SECOND));
         champions.forEach(x -> x.setBlockUntil(blockDate));
         missionFight.setBlockUntil(blockDate);
         missionFight.setChampions(champions);
