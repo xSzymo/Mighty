@@ -1,6 +1,7 @@
 package unit.services.combat.monster;
 
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.TypeOfFighter;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.web.json.objects.fights.FightResult;
@@ -71,6 +72,11 @@ public class FightCoordinatorMultipleSpecificChampionTest {
                 assertEquals(0.0, championModels.get(1).getDmg());
                 assertEquals(0.0, opponentChampions.get(0).getDmg());
             }
+        }
+
+        for(int j = 0; j < fightResult.getRounds().size(); j++) {
+            assertEquals(TypeOfFighter.CHAMPION.getType(), fightResult.getRounds().get(i).getUserChampions().getFirst().getTypeOfFighter().getType());
+            assertEquals(TypeOfFighter.MONSTER.getType(), fightResult.getRounds().get(i).getOpponentChampions().getFirst().getTypeOfFighter().getType());
         }
         assertEquals(2, fightResult.getRounds().get(0).getUserChampions().size());
         assertEquals(1, fightResult.getRounds().get(0).getOpponentChampions().size());

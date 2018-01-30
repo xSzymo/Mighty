@@ -1,6 +1,7 @@
 package unit.services.combat.user;
 
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.TypeOfFighter;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.web.json.objects.fights.FightResult;
@@ -68,6 +69,10 @@ public class FightCoordinatorUserTest {
             }
         }
 
+        for(int j = 0; j < fightResult.getRounds().size(); j++) {
+            assertEquals(TypeOfFighter.CHAMPION.getType(), fightResult.getRounds().get(i).getUserChampions().getFirst().getTypeOfFighter().getType());
+            assertEquals(TypeOfFighter.CHAMPION.getType(), fightResult.getRounds().get(i).getOpponentChampions().getFirst().getTypeOfFighter().getType());
+        }
         assertEquals(5, fightResult.getRounds().size());
         assertEquals(user1, fightResult.getLooser());
         assertEquals(user2, fightResult.getWinner());
