@@ -1,5 +1,7 @@
 package game.mightywarriors.web.json.objects.fights;
 
+import game.mightywarriors.other.enums.TypeOfFighter;
+
 public class Fighter {
     private long id;
     private double dmg;
@@ -10,9 +12,9 @@ public class Fighter {
     private double criticalChance;
     private double armor;
     private double magicResist;
+    private TypeOfFighter typeOfFighter;
 
     public Fighter() {
-
     }
 
     public Fighter(Fighter fighter) {
@@ -25,6 +27,7 @@ public class Fighter {
         this.criticalChance = fighter.criticalChance;
         this.armor = fighter.armor;
         this.magicResist = fighter.magicResist;
+        this.typeOfFighter = fighter.typeOfFighter;
     }
 
     public Fighter build() {
@@ -109,6 +112,15 @@ public class Fighter {
 
     public Fighter setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public TypeOfFighter getTypeOfFighter() {
+        return typeOfFighter;
+    }
+
+    public Fighter setTypeOfFighter(TypeOfFighter typeOfFighter) {
+        this.typeOfFighter = typeOfFighter;
         return this;
     }
 }

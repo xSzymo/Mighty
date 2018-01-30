@@ -4,6 +4,7 @@ import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.casters.FighterModelCaster;
+import game.mightywarriors.other.enums.TypeOfFighter;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import game.mightywarriors.web.json.objects.fights.RoundProcess;
@@ -83,7 +84,7 @@ public class FightPerformer {
     private RoundProcess setUpRound(RoundProcess round, FightResult fightResult, int roundNr) {
         LinkedList<Fighter> fighters = new LinkedList<>();
         for (Fighter fighter : fightResult.getRounds().get(roundNr - 2).getUserChampions()) {
-            fighters.add(new Fighter(fighter));
+            fighters.add(new Fighter(fighter).setTypeOfFighter(TypeOfFighter.CHAMPION));
         }
         round.setUserChampions(fighters);
 

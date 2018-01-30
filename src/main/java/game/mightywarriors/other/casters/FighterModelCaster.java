@@ -1,7 +1,9 @@
 package game.mightywarriors.other.casters;
 
 import game.mightywarriors.data.interfaces.IFighter;
+import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.other.enums.StatisticType;
+import game.mightywarriors.other.enums.TypeOfFighter;
 import game.mightywarriors.services.combat.PointsInFightCounter;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class FighterModelCaster {
                 .setStrength(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.STRENGTH))
                 .setIntelligence(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.INTELLIGENCE))
                 .setCriticalChance(pointsInFightCounter.getPointsForSpecificType(fighter, StatisticType.CRITICAL_CHANCE))
+                .setTypeOfFighter(returnFighterType(fighter))
                 .setLevel(fighter.getLevel());
 
         if (fighter.getId() != null)
@@ -36,5 +39,9 @@ public class FighterModelCaster {
             championModels1.add(castChampionToChampionModel(fighter));
 
         return championModels1;
+    }
+
+    private TypeOfFighter returnFighterType(IFighter fighter) {
+        return fighter instanceof Monster ? TypeOfFighter.MONSTER : TypeOfFighter.CHAMPION;
     }
 }
