@@ -16,7 +16,7 @@ public class MissionFight {
     @Column(name = "block_until")
     private Timestamp blockUntil;
     @Column(name = "created_date")
-    private Timestamp createdDate;
+    private Timestamp departedTime;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Mission mission;
@@ -25,7 +25,7 @@ public class MissionFight {
     private Set<Champion> champions;
 
     public MissionFight() {
-        createdDate = new Timestamp(System.currentTimeMillis());
+        departedTime = new Timestamp(System.currentTimeMillis());
         champions = new HashSet<>();
     }
 
@@ -57,7 +57,7 @@ public class MissionFight {
         this.blockUntil = blockUntil;
     }
 
-    public Timestamp getCreatedDate() {
-        return createdDate;
+    public Timestamp getDepartedTime() {
+        return departedTime;
     }
 }
