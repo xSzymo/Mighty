@@ -42,13 +42,13 @@ public class ChatServiceTest extends IntegrationTestsConfig {
     public void beforeEachTest() {
         chats = new HashSet<>();
         Chat chat = new Chat();
-        chat.addMessage(new Message("b,", "z"));
+        chat.addMessage(new Message("b1,", "z"));
         chats.add(chat);
         chat = new Chat();
-        chat.addMessage(new Message("b,", "z"));
+        chat.addMessage(new Message("b2,", "z"));
         chats.add(chat);
         chat = new Chat();
-        chat.addMessage(new Message("b,", "z"));
+        chat.addMessage(new Message("b3,", "z"));
         chats.add(chat);
     }
 
@@ -70,8 +70,8 @@ public class ChatServiceTest extends IntegrationTestsConfig {
 
         Iterator<Chat> iterator = chats.iterator();
         assertNotNull(objectUnderTest.find(iterator.next()));
-//        assertNotNull(objectUnderTest.find(iterator.next()));
-//        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
     }
 
     @Test
@@ -96,8 +96,8 @@ public class ChatServiceTest extends IntegrationTestsConfig {
         List<Chat> list = new ArrayList<>();
         iterator.forEachRemaining(list::add);
         assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(0).getId())).findFirst().get());
-//        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
-//        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(1).getId())).findFirst().get());
+        assertNotNull(objectUnderTest.findAll().stream().filter(x -> x.getId().equals(list.get(2).getId())).findFirst().get());
     }
 
     @Test
@@ -130,15 +130,15 @@ public class ChatServiceTest extends IntegrationTestsConfig {
 
         Iterator<Chat> iterator = chats.iterator();
         assertNotNull(objectUnderTest.find(iterator.next()));
-//        assertNotNull(objectUnderTest.find(iterator.next()));
-//        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
+        assertNotNull(objectUnderTest.find(iterator.next()));
 
         objectUnderTest.delete(chats);
 
         iterator = chats.iterator();
         assertNull(objectUnderTest.find(iterator.next()));
-//        assertNull(objectUnderTest.find(iterator.next()));
-//        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
+        assertNull(objectUnderTest.find(iterator.next()));
         chats.clear();
     }
 

@@ -30,8 +30,8 @@ public class AdminServiceTest extends IntegrationTestsConfig {
     public void beforeEachTest() {
         messages = new HashSet<>();
         messages.add(new Admin(ChatRole.ADMIN, "a"));
-        messages.add(new Admin(ChatRole.ADMIN, "a"));
-        messages.add(new Admin(ChatRole.ADMIN, "a"));
+        messages.add(new Admin(ChatRole.ADMIN, "a1"));
+        messages.add(new Admin(ChatRole.ADMIN, "a2"));
     }
 
     @After
