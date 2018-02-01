@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AuthorizationConfiguration extends AdvancedIntegrationTestsConfig {
-    protected String token;
+    protected static String token;
     @Autowired
     private UserService userService;
     @Autowired
@@ -21,10 +21,7 @@ public abstract class AuthorizationConfiguration extends AdvancedIntegrationTest
     @Value("${login.password}")
     private String password;
 
-    @BeforeClass
-    public static void setUpBefore() {
-        SystemVariablesManager.JWTTokenCollection.clear();
-    }
+
 
     @Before
     public void authorize_and_load_example_data() throws Exception {
