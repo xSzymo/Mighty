@@ -102,9 +102,9 @@ public class ChampionService {
         deleteOperation(find(id));
     }
 
-    public void delete(Champion image) {
+    public void delete(Champion champion) {
         try {
-            deleteOperation(image);
+            deleteOperation(champion);
         } catch (NullPointerException e) {
 
         }
