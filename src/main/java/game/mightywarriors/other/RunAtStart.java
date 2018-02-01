@@ -100,7 +100,12 @@ public class RunAtStart {
             statistics.add(new Statistic(2, 2, 5, 0, 2, 2));
             images.add(new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
-            missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setDuration((30 + i * 3)));
+            if (i <= 5 && i > 0)
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("https://www.ufopaedia.org/images/6/62/XCOM_Base_Defense_Mission_Screen_(EU2012).png")).setDuration((30 + i * 3)));
+            else if (i <= 9 && i > 5)
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("https://c1.staticflickr.com/5/4059/4485522732_f73ce8d7f7_b.jpg")).setDuration((30 + i * 3)));
+            else
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((30 + i * 3)));
         }
 
         for (int i = 0; i < 12; i++) {
