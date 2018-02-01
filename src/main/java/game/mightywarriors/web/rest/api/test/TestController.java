@@ -59,7 +59,8 @@ public class TestController {
             testDataProvider.loginAccess = true;
         } catch (Exception e) {
             e.setStackTrace(new StackTraceElement[]{});
-            return new TestDataProvider(e);
+            testDataProvider.thrownException = e;
+            return testDataProvider;
         }
 
         return testDataProvider;
