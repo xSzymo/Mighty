@@ -19,6 +19,8 @@ public class MissionService {
     private MonsterService monsterService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImageService imageService;
 
     public void save(Mission mission) {
         if (mission != null)
@@ -36,6 +38,12 @@ public class MissionService {
     private void saveOperation(Mission mission) {
         if (mission.getMonster() != null)
             monsterService.save(mission.getMonster());
+        if (mission.getImage() != null)
+            try {
+                imageService.save(mission.getImage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         repository.save(mission);
     }
 

@@ -1,5 +1,8 @@
 package game.mightywarriors.data.tables;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -27,6 +30,10 @@ public class Mission {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Monster monster;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Image image;
 
     public Mission() {
         createdDate = new Timestamp(System.currentTimeMillis());
@@ -105,5 +112,14 @@ public class Mission {
 
     public Timestamp getCreatedDate() {
         return createdDate;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Mission setImage(Image image) {
+        this.image = image;
+        return this;
     }
 }
