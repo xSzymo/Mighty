@@ -21,16 +21,18 @@ public class TokenGenerator {
 
     public String generateToken(User user) {
         String tokenCode = userService.find(user).getTokenCode();
-        if (tokenCode != null)
-            if (SystemVariablesManager.JWTTokenCollection.contains(SystemVariablesManager.DECO4DER_DB.decode(tokenCode)))
-                SystemVariablesManager.JWTTokenCollection.remove(SystemVariablesManager.DECO4DER_DB.decode(tokenCode));
+        String code;
 
-        String uniqueCode = randomCodeFactory.getUniqueCode();
-        user.setTokenCode(uniqueCode);
-        user.setNewToken(true);
-        userService.save(user);
-
-        String code = SystemVariablesManager.ENCODER_JSON.encode(uniqueCode);
+        if (tokenCode != null) {
+            code = SystemVariablesManager.DECO4DER_DB.decode(tokenCode);
+            code = SystemVariablesManager.ENCODER_JSON.encode(code);
+        } else {
+            String uniqueCode = randomCodeFactory.getUniqueCode();
+            user.setTokenCode(uniqueCode);
+            user.setNewToken(true);
+            userService.save(user);
+            code = SystemVariablesManager.ENCODER_JSON.encode(uniqueCode);
+        }
 
         Claims claims = Jwts.claims()
                 .setExpiration(new Timestamp(System.currentTimeMillis() + SystemVariablesManager.SECONDS_FOR_TOKEN_EXPIRED * 1000))
