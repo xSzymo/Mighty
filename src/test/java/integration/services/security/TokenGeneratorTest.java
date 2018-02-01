@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TokenGeneratorTest extends IntegrationTestsConfig {
     @Autowired
@@ -41,7 +41,7 @@ public class TokenGeneratorTest extends IntegrationTestsConfig {
 
         token = objectUnderTest.generateToken(user);
 
-        assertFalse(SystemVariablesManager.JWTTokenCollection.contains(myToken));
+        assertTrue(SystemVariablesManager.JWTTokenCollection.contains(myToken));
         assertNotEquals(myToken, token);
         checker(user, token);
     }
