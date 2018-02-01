@@ -1,11 +1,11 @@
 package game.mightywarriors.other.enums;
 
-public enum TypeOfFighter {
+public enum FighterType {
     CHAMPION("champion"), MONSTER("monster");
 
     private String type;
 
-    TypeOfFighter(String type) {
+    FighterType(String type) {
         this.type = type;
     }
 
