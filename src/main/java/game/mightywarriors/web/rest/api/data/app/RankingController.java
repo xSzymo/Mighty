@@ -16,12 +16,17 @@ public class RankingController {
     private RankingService service;
 
     @GetMapping("rankings")
-    public Set<Ranking> getUsers() {
+    public Set<Ranking> getRankings() {
         return service.findAll();
     }
 
     @GetMapping("rankings/{name}")
-    public Ranking getUser(@PathVariable("name") String name) {
+    public Ranking getRankingByName(@PathVariable("name") String name) {
         return service.find(name);
+    }
+
+    @GetMapping("rankings/{ranking}")
+    public Ranking getRankingBy(@PathVariable("ranking") long ranking) {
+        return service.find(ranking);
     }
 }
