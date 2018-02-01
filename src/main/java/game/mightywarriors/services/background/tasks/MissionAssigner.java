@@ -20,7 +20,6 @@ public class MissionAssigner {
     private UserService userService;
     @Autowired
     private MissionService missionService;
-    private Map map;
 
     public MissionAssigner() {
         rand = new Random();
@@ -40,18 +39,18 @@ public class MissionAssigner {
     @Transactional
     private void assign(Set<User> users) {
         HashSet<Mission> missions = missionService.findAll();
-        map = new HashMap();
+        Map map = new HashMap();
 
         if (missions.size() == 0)
             throw new RuntimeException("restart system");
 
-        draw(users, missions, true);
-        draw(users, missions, false);
+        draw(users, missions, map, true);
+        draw(users, missions, map, false);
 
         userService.save(users);
     }
 
-    private Set<User> draw(Set<User> users, Set<Mission> missions, boolean clear) {
+    private Set<User> draw(Set<User> users, Set<Mission> missions, Map map, boolean clear) {
         users.forEach(user -> {
             if (user.getChampions().size() == 0)
                 throw new RuntimeException("restart system");
@@ -63,7 +62,7 @@ public class MissionAssigner {
             if (clear)
                 user.getMissions().clear();
 
-            List<Mission> missionForSpecifiedLevel = new LinkedList<>(getAllMissionsForSpecificLevel(missions, user.getUserChampionHighestLevel()));
+            List<Mission> missionForSpecifiedLevel = new LinkedList<>(getAllMissionsForSpecificLevel(missions, map, user.getUserChampionHighestLevel()));
             while (user.getMissions().size() < 3 && missionForSpecifiedLevel.size() > 0) {
                 Mission mission = null;
                 try {
@@ -87,7 +86,7 @@ public class MissionAssigner {
         return users;
     }
 
-    private List<Mission> getAllMissionsForSpecificLevel(Set<Mission> missions, long level) {
+    private List<Mission> getAllMissionsForSpecificLevel(Set<Mission> missions, Map map, long level) {
         if (map.get(level) == null)
             map.put(level, missions.stream().filter(x -> x.getMonster().getLevel() <= level && x.getMonster().getLevel() >= level - SystemVariablesManager.MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL).collect(Collectors.toList()));
 

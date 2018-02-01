@@ -22,8 +22,8 @@ public class ItemDrawer {
     private UserService userService;
     @Autowired
     private ItemService itemService;
-    private Map map;
-    private static long howManyItemsForOneChampion = 10;
+
+    private static long howManyItemsForOneChampion = SystemVariablesManager.HOW_MANY_ITEMS_FOR_ONE_CHAMPION;
 
     public ItemDrawer() {
         rand = new Random();
@@ -46,17 +46,17 @@ public class ItemDrawer {
 
     private synchronized void drawItems(Set<User> users) {
         HashSet<Item> items = itemService.findAll();
-        map = new HashMap();
+        HashMap map = new HashMap();
 
         if (items.size() == 0)
             throw new RuntimeException("restart system");
 
-        draw(users, items, true);
+        draw(users, items, map, true);
 
         userService.save(users);
     }
 
-    private Set<User> draw(Set<User> users, Set<Item> items, boolean clear) {
+    private Set<User> draw(Set<User> users, Set<Item> items, HashMap map, boolean clear) {
         Iterator<User> iterator = users.iterator();
         while (iterator.hasNext()) {
             User user = iterator.next();
@@ -67,13 +67,13 @@ public class ItemDrawer {
             Iterator<Champion> champions = user.getChampions().iterator();
             for (int i = 1; i <= user.getChampions().size(); i++) {
                 Champion champion = champions.next();
-                draw(user, items, champion.getLevel(), i * howManyItemsForOneChampion, (i * howManyItemsForOneChampion) - howManyItemsForOneChampion, i);
+                draw(user, items, map, champion.getLevel(), i * howManyItemsForOneChampion, (i * howManyItemsForOneChampion) - howManyItemsForOneChampion, i);
             }
         }
         return users;
     }
 
-    private void draw(User user, Set<Item> items, long limitedLevel, long maxItems, long minItems, int times) {
+    private void draw(User user, Set<Item> items, HashMap map, long limitedLevel, long maxItems, long minItems, int times) {
         if (user.getChampions().size() == 0)
             throw new RuntimeException("restart system");
 
@@ -81,7 +81,7 @@ public class ItemDrawer {
         if (oldItemsInShop.size() == 0)
             oldItemsInShop = new LinkedList<>();
 
-        List<Item> itemsForSpecificLevel = new LinkedList<>(getAllItemsForSpecificLevel(items, limitedLevel));
+        List<Item> itemsForSpecificLevel = new LinkedList<>(getAllItemsForSpecificLevel(items, map, limitedLevel));
         while (user.getShop().getItems().size() < maxItems && itemsForSpecificLevel.size() > minItems) {
             Item item = null;
             try {
@@ -106,7 +106,7 @@ public class ItemDrawer {
     }
 
 
-    private List<Item> getAllItemsForSpecificLevel(Set<Item> items, long level) {
+    private List<Item> getAllItemsForSpecificLevel(Set<Item> items, HashMap map, long level) {
         if (map.get(level) == null)
             map.put(level, items.stream().filter(x -> x.getLevel() <= level && x.getLevel() >= level - SystemVariablesManager.NUMBER_ABOVE_ITEM).collect(Collectors.toList()));
 
