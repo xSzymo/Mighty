@@ -13,12 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Properties;
 
 @RestController
 public class TestController {
@@ -31,13 +25,6 @@ public class TestController {
     @Autowired
     private LoginController login;
 
-    private String DATABASE_URL = "";
-    private String DATABASE_USER_NAME = "";
-    private String DATABASE_USER_PASSWORD = "";
-    private String DATABASE_DRIVER = "";
-
-    private String propFileName = "application.properties";
-    private InputStream inputStream;
     private String user1 = "bober";
     private String user2 = "szymson";
     private boolean loadNewUsers = true;
@@ -51,7 +38,7 @@ public class TestController {
         testDataProvider.port = request.getRemotePort();
 
         try {
-            testDataBaseAuthorization();
+            testDataBase();
             testDataProvider.dataBaseAccess = true;
             testDataProvider = testDI(testDataProvider);
             testDataProvider.DIAccess = true;
@@ -66,21 +53,9 @@ public class TestController {
         return testDataProvider;
     }
 
-    private void testDataBaseAuthorization() throws Exception {
-        loadDataBaseProperties();
-        Class.forName(DATABASE_DRIVER);
-        Connection con = DriverManager.getConnection(DATABASE_URL, DATABASE_USER_NAME, DATABASE_USER_PASSWORD);
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from USERS");
-
-        int i = 0;
-        while (rs.next())
-            i++;
-
-        if (i == 0)
+    private void testDataBase() throws Exception {
+        if (userService.findAll().size() == 0)
             throw new Exception("There are not data in DB");
-
-        con.close();
     }
 
     private TestDataProvider testDI(TestDataProvider testDataProvider) {
@@ -108,28 +83,6 @@ public class TestController {
             throw new Exception("User can't login");
     }
 
-    private void loadDataBaseProperties() {
-        try {
-            Properties prop = new Properties();
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-            if (inputStream != null) {
-                prop.load(inputStream);
-            }
-
-            DATABASE_URL = prop.getProperty("spring.datasource.url");
-            DATABASE_USER_NAME = prop.getProperty("spring.datasource.username");
-            DATABASE_USER_PASSWORD = prop.getProperty("spring.datasource.password");
-            DATABASE_DRIVER = prop.getProperty("spring.datasource.driver-class-name");
-
-            inputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-    }
-
     public class TestDataProvider {
         public String user;
         public String addr;
@@ -140,14 +93,6 @@ public class TestController {
         public boolean loginAccess = false;
         public Exception thrownException;
         public FightInformer fight;
-
-        public TestDataProvider() {
-
-        }
-
-        public TestDataProvider(Exception e) {
-            this.thrownException = e;
-        }
     }
 
     public class FightInformer {
