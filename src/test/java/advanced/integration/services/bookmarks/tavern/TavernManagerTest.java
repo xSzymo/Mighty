@@ -68,9 +68,16 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     @Test
     public void run() throws Exception {
         for (int i = 0; i < howManyRolls; i++) {
-            informer.missionId = user.getMissions().iterator().next().getId();
+            setMissionDurationToOne(user);
             tavern_process();
         }
+    }
+
+    private void setMissionDurationToOne(User user) {
+        informer.missionId = user.getMissions().iterator().next().getId();
+        Mission mission = missionService.find(informer.missionId);
+        mission.setDuration(1);
+        missionService.save(mission);
     }
 
     private void tavern_process() throws Exception {
