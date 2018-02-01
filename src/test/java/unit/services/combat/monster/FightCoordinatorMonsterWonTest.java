@@ -2,7 +2,7 @@ package unit.services.combat.monster;
 
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.FighterType;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import game.mightywarriors.web.json.objects.fights.Fighter;
@@ -74,16 +74,16 @@ public class FightCoordinatorMonsterWonTest {
         User user = new User("admin", "admin", "admin");
 
         Equipment equipment = new Equipment();
-        equipment.setWeapon(new Item(WeaponType.WEAPON, new Statistic(5, 5, 0, 0, 0, 0), 1));
-        equipment.setArmor(new Item(WeaponType.ARMOR, new Statistic(0, 0, 10, 0, 5, 5), 1));
-        equipment.setRing(new Item(WeaponType.RING, new Statistic(0, 0, 5, 0, 0, 0), 1));
-        equipment.setOffhand(new Item(WeaponType.OFFHAND, new Statistic(5, 5, 0, 0, 0, 0), 1));
-        equipment.setNecklace(new Item(WeaponType.NECKLACE, new Statistic(5, 5, 10, 0, 0, 0), 1));
-        equipment.setLegs(new Item(WeaponType.LEGS, new Statistic(0, 0, 10, 0, 10, 10), 1));
-        equipment.setHelmet(new Item(WeaponType.HELMET, new Statistic(0, 0, 5, 0, 5, 5), 1));
-        equipment.setGloves(new Item(WeaponType.GLOVES, new Statistic(0, 0, 0, 0, 5, 5), 1));
-        equipment.setBracelet(new Item(WeaponType.BRACELET, new Statistic(0, 5, 5, 0, 0, 0), 1));
-        equipment.setBoots(new Item(WeaponType.BOOTS, new Statistic(0, 0, 5, 0, 5, 5), 1));
+        equipment.setWeapon(new Item(ItemType.WEAPON, new Statistic(5, 5, 0, 0, 0, 0), 1));
+        equipment.setArmor(new Item(ItemType.ARMOR, new Statistic(0, 0, 10, 0, 5, 5), 1));
+        equipment.setRing(new Item(ItemType.RING, new Statistic(0, 0, 5, 0, 0, 0), 1));
+        equipment.setOffhand(new Item(ItemType.OFFHAND, new Statistic(5, 5, 0, 0, 0, 0), 1));
+        equipment.setNecklace(new Item(ItemType.NECKLACE, new Statistic(5, 5, 10, 0, 0, 0), 1));
+        equipment.setLegs(new Item(ItemType.LEGS, new Statistic(0, 0, 10, 0, 10, 10), 1));
+        equipment.setHelmet(new Item(ItemType.HELMET, new Statistic(0, 0, 5, 0, 5, 5), 1));
+        equipment.setGloves(new Item(ItemType.GLOVES, new Statistic(0, 0, 0, 0, 5, 5), 1));
+        equipment.setBracelet(new Item(ItemType.BRACELET, new Statistic(0, 5, 5, 0, 0, 0), 1));
+        equipment.setBoots(new Item(ItemType.BOOTS, new Statistic(0, 0, 5, 0, 5, 5), 1));
 
         user.getChampions().add(new Champion(new Statistic(10, 1, 10, 0, 5, 5), equipment).setLevel(1));
 

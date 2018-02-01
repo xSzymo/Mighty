@@ -6,11 +6,10 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import game.mightywarriors.services.bookmarks.profile.ItemManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,7 +36,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_ring() throws Exception {
-        item = new Item(WeaponType.RING);
+        item = new Item(ItemType.RING);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -53,7 +52,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_bracelet() throws Exception {
-        item = new Item(WeaponType.BRACELET);
+        item = new Item(ItemType.BRACELET);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -69,7 +68,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_necklace() throws Exception {
-        item = new Item(WeaponType.NECKLACE);
+        item = new Item(ItemType.NECKLACE);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -85,7 +84,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_boots() throws Exception {
-        item = new Item(WeaponType.BOOTS);
+        item = new Item(ItemType.BOOTS);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -101,7 +100,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_legs() throws Exception {
-        item = new Item(WeaponType.LEGS);
+        item = new Item(ItemType.LEGS);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -117,7 +116,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_gloves() throws Exception {
-        item = new Item(WeaponType.GLOVES);
+        item = new Item(ItemType.GLOVES);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -133,7 +132,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_armor() throws Exception {
-        item = new Item(WeaponType.ARMOR);
+        item = new Item(ItemType.ARMOR);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -149,7 +148,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_helmet() throws Exception {
-        item = new Item(WeaponType.HELMET);
+        item = new Item(ItemType.HELMET);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -165,7 +164,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_offhand() throws Exception {
-        item = new Item(WeaponType.OFFHAND);
+        item = new Item(ItemType.OFFHAND);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();
@@ -181,7 +180,7 @@ public class ItemManagerEqToInvTest extends AuthorizationConfiguration {
 
     @Test
     public void moveEquipmentItemToInventory_weapon() throws Exception {
-        item = new Item(WeaponType.WEAPON);
+        item = new Item(ItemType.WEAPON);
         itemService.save(item);
         user = usersRetriever.retrieveUser(token);
         champion = user.getChampions().iterator().next();

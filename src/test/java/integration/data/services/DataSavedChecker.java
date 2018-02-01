@@ -4,7 +4,7 @@ package integration.data.services;
 import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -108,16 +108,16 @@ public class DataSavedChecker extends IntegrationTestsConfig {
             shop = new Shop();
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);
 
-            myItems.add(new Item("name" + i, WeaponType.WEAPON, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.ARMOR, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.BOOTS, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.BRACELET, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.GLOVES, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.HELMET, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.LEGS, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.NECKLACE, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.OFFHAND, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.RING, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.WEAPON, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.ARMOR, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.BOOTS, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.BRACELET, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.GLOVES, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.HELMET, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.LEGS, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.NECKLACE, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.OFFHAND, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.RING, statistic, i));
 
             items.addAll(myItems);
             shop.setItems(myItems);

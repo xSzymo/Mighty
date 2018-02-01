@@ -1,6 +1,6 @@
 package game.mightywarriors.other.enums;
 
-public enum WeaponType {
+public enum ItemType {
     WEAPON("weapon"), OFFHAND("offhand"),
     HELMET("helmet"), ARMOR("armor"),
     GLOVES("gloves"), LEGS("legs"),
@@ -9,7 +9,7 @@ public enum WeaponType {
 
     private String type;
 
-    WeaponType(String type) {
+    ItemType(String type) {
         this.type = type;
     }
 

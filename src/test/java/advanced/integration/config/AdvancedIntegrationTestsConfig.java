@@ -8,7 +8,7 @@ import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.Statistic;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -50,16 +50,16 @@ public abstract class AdvancedIntegrationTestsConfig {
         missionService.save(new Mission(1, "", new BigDecimal("1"), monster));
 
 
-        itemService.save(new Item("name" + 1, WeaponType.WEAPON, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 2, WeaponType.ARMOR, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 3, WeaponType.BOOTS, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 4, WeaponType.BRACELET, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 5, WeaponType.GLOVES, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 6, WeaponType.HELMET, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 7, WeaponType.LEGS, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 8, WeaponType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 9, WeaponType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
-        itemService.save(new Item("name" + 10, WeaponType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 1, ItemType.WEAPON, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 2, ItemType.ARMOR, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 3, ItemType.BOOTS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 4, ItemType.BRACELET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 5, ItemType.GLOVES, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 6, ItemType.HELMET, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 7, ItemType.LEGS, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 8, ItemType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 9, ItemType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
+        itemService.save(new Item("name" + 10, ItemType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
     }
 
     @Autowired

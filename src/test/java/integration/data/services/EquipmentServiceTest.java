@@ -7,7 +7,7 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Equipment;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.Statistic;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -180,16 +180,16 @@ public class EquipmentServiceTest extends IntegrationTestsConfig {
         for (int a = 0, i = 3; i < 7; i++) {
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);
 
-            items.add(new Item("name" + i, WeaponType.WEAPON, statistic, i));
-            items.add(new Item("name" + i, WeaponType.ARMOR, statistic, i));
-            items.add(new Item("name" + i, WeaponType.BOOTS, statistic, i));
-            items.add(new Item("name" + i, WeaponType.BRACELET, statistic, i));
-            items.add(new Item("name" + i, WeaponType.GLOVES, statistic, i));
-            items.add(new Item("name" + i, WeaponType.HELMET, statistic, i));
-            items.add(new Item("name" + i, WeaponType.LEGS, statistic, i));
-            items.add(new Item("name" + i, WeaponType.NECKLACE, statistic, i));
-            items.add(new Item("name" + i, WeaponType.OFFHAND, statistic, i));
-            items.add(new Item("name" + i, WeaponType.RING, statistic, i));
+            items.add(new Item("name" + i, ItemType.WEAPON, statistic, i));
+            items.add(new Item("name" + i, ItemType.ARMOR, statistic, i));
+            items.add(new Item("name" + i, ItemType.BOOTS, statistic, i));
+            items.add(new Item("name" + i, ItemType.BRACELET, statistic, i));
+            items.add(new Item("name" + i, ItemType.GLOVES, statistic, i));
+            items.add(new Item("name" + i, ItemType.HELMET, statistic, i));
+            items.add(new Item("name" + i, ItemType.LEGS, statistic, i));
+            items.add(new Item("name" + i, ItemType.NECKLACE, statistic, i));
+            items.add(new Item("name" + i, ItemType.OFFHAND, statistic, i));
+            items.add(new Item("name" + i, ItemType.RING, statistic, i));
 
             equipment = new Equipment();
             equipment.setWeapon(items.get(a++));

@@ -1,6 +1,6 @@
 package game.mightywarriors.data.tables;
 
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -22,7 +22,7 @@ public class Item {
     @Column(name = "description")
     private String description;
     @Column(name = "type_of_weapon")
-    private WeaponType weaponType;
+    private ItemType itemType;
     @Column(name = "level")
     private long level;
     @Column(name = "created_date")
@@ -42,31 +42,31 @@ public class Item {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Item(WeaponType weaponType) {
+    public Item(ItemType itemType) {
         createdDate = new Timestamp(System.currentTimeMillis());
-        this.weaponType = weaponType;
+        this.itemType = itemType;
     }
 
-    public Item(WeaponType weaponType, Statistic statistic, long level) {
+    public Item(ItemType itemType, Statistic statistic, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
-        this.weaponType = weaponType;
+        this.itemType = itemType;
         this.statistic = statistic;
         this.level = level;
     }
 
-    public Item(String name, WeaponType weaponType, Statistic statistic, long level) {
+    public Item(String name, ItemType itemType, Statistic statistic, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
-        this.weaponType = weaponType;
+        this.itemType = itemType;
         this.statistic = statistic;
         this.level = level;
     }
 
-    public Item(String name, String description, WeaponType weaponType, Statistic statistic, Image image, long level) {
+    public Item(String name, String description, ItemType itemType, Statistic statistic, Image image, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
-        this.weaponType = weaponType;
+        this.itemType = itemType;
         this.statistic = statistic;
         this.image = image;
         this.level = level;
@@ -80,14 +80,14 @@ public class Item {
         return level == item.level &&
                 Objects.equals(id, item.id) &&
                 Objects.equals(name, item.name) &&
-                weaponType == item.weaponType &&
+                itemType == item.itemType &&
                 Objects.equals(gold, item.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, weaponType, level, gold);
+        return Objects.hash(id, name, itemType, level, gold);
     }
 
     public Long getId() {
@@ -110,12 +110,12 @@ public class Item {
         this.description = description;
     }
 
-    public WeaponType getWeaponType() {
-        return weaponType;
+    public ItemType getItemType() {
+        return itemType;
     }
 
-    public void setWeaponType(WeaponType weaponType) {
-        this.weaponType = weaponType;
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
 
     public Statistic getStatistic() {

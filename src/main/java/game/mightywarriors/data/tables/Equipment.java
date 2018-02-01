@@ -1,6 +1,6 @@
 package game.mightywarriors.data.tables;
 
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import game.mightywarriors.other.exceptions.WrongTypeItemException;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -74,7 +74,7 @@ public class Equipment {
 
     public void setWeapon(Item weapon) throws WrongTypeItemException {
         if (weapon != null)
-            if (!weapon.getWeaponType().equals(WeaponType.WEAPON))
+            if (!weapon.getItemType().equals(ItemType.WEAPON))
                 throw new WrongTypeItemException();
 
         this.weapon = weapon;
@@ -86,7 +86,7 @@ public class Equipment {
 
     public void setOffhand(Item offhand) throws WrongTypeItemException {
         if (offhand != null)
-            if (!offhand.getWeaponType().equals(WeaponType.OFFHAND))
+            if (!offhand.getItemType().equals(ItemType.OFFHAND))
                 throw new WrongTypeItemException();
 
         this.offhand = offhand;
@@ -98,7 +98,7 @@ public class Equipment {
 
     public void setHelmet(Item helmet) throws WrongTypeItemException {
         if (helmet != null)
-            if (!helmet.getWeaponType().equals(WeaponType.HELMET))
+            if (!helmet.getItemType().equals(ItemType.HELMET))
                 throw new WrongTypeItemException();
 
         this.helmet = helmet;
@@ -110,7 +110,7 @@ public class Equipment {
 
     public void setArmor(Item armor) throws WrongTypeItemException {
         if (armor != null)
-            if (!armor.getWeaponType().equals(WeaponType.ARMOR))
+            if (!armor.getItemType().equals(ItemType.ARMOR))
                 throw new WrongTypeItemException();
 
         this.armor = armor;
@@ -122,7 +122,7 @@ public class Equipment {
 
     public void setGloves(Item gloves) throws WrongTypeItemException {
         if (gloves != null)
-            if (!gloves.getWeaponType().equals(WeaponType.GLOVES))
+            if (!gloves.getItemType().equals(ItemType.GLOVES))
                 throw new WrongTypeItemException();
 
         this.gloves = gloves;
@@ -134,7 +134,7 @@ public class Equipment {
 
     public void setLegs(Item legs) throws WrongTypeItemException {
         if (legs != null)
-            if (!legs.getWeaponType().equals(WeaponType.LEGS))
+            if (!legs.getItemType().equals(ItemType.LEGS))
                 throw new WrongTypeItemException();
 
         this.legs = legs;
@@ -146,7 +146,7 @@ public class Equipment {
 
     public void setBoots(Item boots) throws WrongTypeItemException {
         if (boots != null)
-            if (!boots.getWeaponType().equals(WeaponType.BOOTS))
+            if (!boots.getItemType().equals(ItemType.BOOTS))
                 throw new WrongTypeItemException();
 
         this.boots = boots;
@@ -158,7 +158,7 @@ public class Equipment {
 
     public void setRing(Item ring) throws WrongTypeItemException {
         if (ring != null)
-            if (!ring.getWeaponType().equals(WeaponType.RING))
+            if (!ring.getItemType().equals(ItemType.RING))
                 throw new WrongTypeItemException();
 
         this.ring = ring;
@@ -170,7 +170,7 @@ public class Equipment {
 
     public void setBracelet(Item bracelet) throws WrongTypeItemException {
         if (bracelet != null)
-            if (!bracelet.getWeaponType().equals(WeaponType.BRACELET))
+            if (!bracelet.getItemType().equals(ItemType.BRACELET))
                 throw new WrongTypeItemException();
 
         this.bracelet = bracelet;
@@ -182,7 +182,7 @@ public class Equipment {
 
     public void setNecklace(Item necklace) throws WrongTypeItemException {
         if (necklace != null)
-            if (!necklace.getWeaponType().equals(WeaponType.NECKLACE))
+            if (!necklace.getItemType().equals(ItemType.NECKLACE))
                 throw new WrongTypeItemException();
         this.necklace = necklace;
     }

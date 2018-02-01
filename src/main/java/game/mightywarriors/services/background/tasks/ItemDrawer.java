@@ -6,7 +6,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,16 +87,16 @@ public class ItemDrawer {
             try {
                 item = itemsForSpecificLevel.get(rand.nextInt(itemsForSpecificLevel.size() > 0 ? itemsForSpecificLevel.size() : 1));
 
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.WEAPON);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.ARMOR);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.BOOTS);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.BRACELET);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.GLOVES);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.HELMET);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.LEGS);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.NECKLACE);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.OFFHAND);
-                user = addItemForSpecificType(oldItemsInShop, user, item, times, WeaponType.RING);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.WEAPON);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.ARMOR);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.BOOTS);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.BRACELET);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.GLOVES);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.HELMET);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.LEGS);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.NECKLACE);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.OFFHAND);
+                user = addItemForSpecificType(oldItemsInShop, user, item, times, ItemType.RING);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -113,10 +113,10 @@ public class ItemDrawer {
         return (List<Item>) map.get(level);
     }
 
-    private User addItemForSpecificType(List<Item> oldItemsInShop, User user, Item item, int times, WeaponType weaponType) {
+    private User addItemForSpecificType(List<Item> oldItemsInShop, User user, Item item, int times, ItemType itemType) {
         int counter = 0;
         for (Item x : user.getShop().getItems())
-            if (x.getWeaponType().getType().equals(weaponType.getType()))
+            if (x.getItemType().getType().equals(itemType.getType()))
                 counter++;
 
         if (counter >= times)
@@ -125,7 +125,7 @@ public class ItemDrawer {
         if (item != null)
             if (!oldItemsInShop.contains(item))
                 if (!user.getShop().getItems().contains(item))
-                    if (item.getWeaponType().getType().equals(weaponType.getType()))
+                    if (item.getItemType().getType().equals(itemType.getType()))
                         user.getShop().addItem(item);
         return user;
     }

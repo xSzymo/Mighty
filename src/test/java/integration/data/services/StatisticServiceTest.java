@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.MonsterService;
 import game.mightywarriors.data.services.StatisticService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -139,7 +139,7 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromItem() {
         Statistic statistic = statistics.iterator().next();
-        item = new Item("", WeaponType.OFFHAND, statistic, 1);
+        item = new Item("", ItemType.OFFHAND, statistic, 1);
         itemService.save(item);
 
         objectUnderTest.delete(statistic);

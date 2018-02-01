@@ -6,7 +6,7 @@ import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.ShopService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -195,16 +195,16 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromEquipment() throws Exception {
         equipment = new Equipment();
-        equipment.setRing(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.RING)).findFirst().get());
-        equipment.setArmor(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.ARMOR)).findFirst().get());
-        equipment.setBoots(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.BOOTS)).findFirst().get());
-        equipment.setBracelet(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.BRACELET)).findFirst().get());
-        equipment.setGloves(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.GLOVES)).findFirst().get());
-        equipment.setHelmet(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.HELMET)).findFirst().get());
-        equipment.setLegs(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.LEGS)).findFirst().get());
-        equipment.setNecklace(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.NECKLACE)).findFirst().get());
-        equipment.setOffhand(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.OFFHAND)).findFirst().get());
-        equipment.setWeapon(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.WEAPON)).findFirst().get());
+        equipment.setRing(items.stream().filter(x -> x.getItemType().equals(ItemType.RING)).findFirst().get());
+        equipment.setArmor(items.stream().filter(x -> x.getItemType().equals(ItemType.ARMOR)).findFirst().get());
+        equipment.setBoots(items.stream().filter(x -> x.getItemType().equals(ItemType.BOOTS)).findFirst().get());
+        equipment.setBracelet(items.stream().filter(x -> x.getItemType().equals(ItemType.BRACELET)).findFirst().get());
+        equipment.setGloves(items.stream().filter(x -> x.getItemType().equals(ItemType.GLOVES)).findFirst().get());
+        equipment.setHelmet(items.stream().filter(x -> x.getItemType().equals(ItemType.HELMET)).findFirst().get());
+        equipment.setLegs(items.stream().filter(x -> x.getItemType().equals(ItemType.LEGS)).findFirst().get());
+        equipment.setNecklace(items.stream().filter(x -> x.getItemType().equals(ItemType.NECKLACE)).findFirst().get());
+        equipment.setOffhand(items.stream().filter(x -> x.getItemType().equals(ItemType.OFFHAND)).findFirst().get());
+        equipment.setWeapon(items.stream().filter(x -> x.getItemType().equals(ItemType.WEAPON)).findFirst().get());
 
         equipmentService.save(equipment);
 
@@ -231,15 +231,15 @@ public class ItemServiceTest extends IntegrationTestsConfig {
         int i = 3;
         statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);
 
-        items.add(new Item("name" + i, WeaponType.WEAPON, statistic, i));
-        items.add(new Item("name" + i, WeaponType.ARMOR, statistic, i));
-        items.add(new Item("name" + i, WeaponType.BOOTS, statistic, i));
-        items.add(new Item("name" + i, WeaponType.BRACELET, statistic, i));
-        items.add(new Item("name" + i, WeaponType.GLOVES, statistic, i));
-        items.add(new Item("name" + i, WeaponType.HELMET, statistic, i));
-        items.add(new Item("name" + i, WeaponType.LEGS, statistic, i));
-        items.add(new Item("name" + i, WeaponType.NECKLACE, statistic, i));
-        items.add(new Item("name" + i, WeaponType.OFFHAND, statistic, i));
-        items.add(new Item("name" + i, WeaponType.RING, statistic, i));
+        items.add(new Item("name" + i, ItemType.WEAPON, statistic, i));
+        items.add(new Item("name" + i, ItemType.ARMOR, statistic, i));
+        items.add(new Item("name" + i, ItemType.BOOTS, statistic, i));
+        items.add(new Item("name" + i, ItemType.BRACELET, statistic, i));
+        items.add(new Item("name" + i, ItemType.GLOVES, statistic, i));
+        items.add(new Item("name" + i, ItemType.HELMET, statistic, i));
+        items.add(new Item("name" + i, ItemType.LEGS, statistic, i));
+        items.add(new Item("name" + i, ItemType.NECKLACE, statistic, i));
+        items.add(new Item("name" + i, ItemType.OFFHAND, statistic, i));
+        items.add(new Item("name" + i, ItemType.RING, statistic, i));
     }
 }

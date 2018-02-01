@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,31 +51,31 @@ public class RunAtStart {
         Equipment equipment;
 
         for (int a, i = 3; i < 15; i++) {
-            itemService.save(new Item("weapon " + i, WeaponType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, WeaponType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
 
             myItems.clear();
             shop = new Shop();
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);
 
-            myItems.add(new Item("name" + i, WeaponType.WEAPON, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.ARMOR, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.BOOTS, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.BRACELET, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.GLOVES, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.HELMET, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.LEGS, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.NECKLACE, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.OFFHAND, statistic, i));
-            myItems.add(new Item("name" + i, WeaponType.RING, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.WEAPON, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.ARMOR, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.BOOTS, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.BRACELET, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.GLOVES, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.HELMET, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.LEGS, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.NECKLACE, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.OFFHAND, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.RING, statistic, i));
 
             a = 0;
             equipment = new Equipment();

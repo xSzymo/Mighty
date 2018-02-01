@@ -3,7 +3,7 @@ package integration.services.background.tasks;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.WeaponType;
+import game.mightywarriors.other.enums.ItemType;
 import game.mightywarriors.services.background.tasks.ItemDrawer;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
@@ -40,16 +40,16 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
                     user.getChampions().iterator().next().setLevel(level / 10);
                     userService.save(user);
 
-                    itemService.save(new Item("weapon " + i, WeaponType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
-                    itemService.save(new Item("weapon " + i, WeaponType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
+                    itemService.save(new Item("weapon " + i, ItemType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), level / 10));
 
                 }
             }
@@ -85,16 +85,16 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
 
         Shop shop = userService.find(user.getId()).getShop();
         assertEquals(10, shop.getItems().size());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.WEAPON.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.ARMOR.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BOOTS.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BRACELET.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.GLOVES.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.HELMET.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.LEGS.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.NECKLACE.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.OFFHAND.getType())).count());
-        assertEquals(1, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.RING.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.WEAPON.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.ARMOR.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BOOTS.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BRACELET.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.GLOVES.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.HELMET.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.LEGS.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.NECKLACE.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.OFFHAND.getType())).count());
+        assertEquals(1, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.RING.getType())).count());
     }
 
     @Test
@@ -114,16 +114,16 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
 
         Shop shop = userService.find(user.getId()).getShop();
         assertEquals(20, shop.getItems().size());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.WEAPON.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.ARMOR.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BOOTS.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BRACELET.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.GLOVES.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.HELMET.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.LEGS.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.NECKLACE.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.OFFHAND.getType())).count());
-        assertEquals(2, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.RING.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.WEAPON.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.ARMOR.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BOOTS.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BRACELET.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.GLOVES.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.HELMET.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.LEGS.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.NECKLACE.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.OFFHAND.getType())).count());
+        assertEquals(2, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.RING.getType())).count());
     }
 
     @Test
@@ -144,15 +144,15 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
 
         Shop shop = userService.find(user.getId()).getShop();
         assertEquals(30, shop.getItems().size());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.WEAPON.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.ARMOR.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BOOTS.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.BRACELET.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.GLOVES.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.HELMET.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.LEGS.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.NECKLACE.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.OFFHAND.getType())).count());
-        assertEquals(3, shop.getItems().stream().filter(x -> x.getWeaponType().getType().equals(WeaponType.RING.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.WEAPON.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.ARMOR.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BOOTS.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.BRACELET.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.GLOVES.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.HELMET.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.LEGS.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.NECKLACE.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.OFFHAND.getType())).count());
+        assertEquals(3, shop.getItems().stream().filter(x -> x.getItemType().getType().equals(ItemType.RING.getType())).count());
     }
 }
