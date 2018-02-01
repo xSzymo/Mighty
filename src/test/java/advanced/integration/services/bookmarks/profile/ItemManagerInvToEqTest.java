@@ -60,7 +60,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getNecklace());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getBracelet());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getBoots());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getLegs());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getGloves());
     }
 
     @Test
@@ -145,7 +145,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getArmor());
     }
 
     @Test
@@ -162,7 +162,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getHelmet());
     }
 
     @Test
@@ -179,7 +179,7 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getOffhand());
     }
 
     @Test
@@ -196,6 +196,6 @@ public class ItemManagerInvToEqTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertFalse(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getRing());
+        assertNotNull(user.getChampions().stream().filter(x -> x.getId().equals(champion.getId())).findFirst().get().getEquipment().getWeapon());
     }
 }
