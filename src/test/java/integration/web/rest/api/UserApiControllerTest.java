@@ -2,7 +2,7 @@ package integration.web.rest.api;
 
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.web.rest.api.UserApiController;
+import game.mightywarriors.web.rest.api.data.user.UserApiController;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
