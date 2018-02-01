@@ -22,7 +22,7 @@ public class Item {
     @Column(name = "description")
     private String description;
     @Column(name = "type_of_weapon")
-    private WeaponType typeOfWeapon;
+    private WeaponType weaponType;
     @Column(name = "level")
     private long level;
     @Column(name = "created_date")
@@ -42,31 +42,31 @@ public class Item {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Item(WeaponType typeOfWeapon) {
+    public Item(WeaponType weaponType) {
         createdDate = new Timestamp(System.currentTimeMillis());
-        this.typeOfWeapon = typeOfWeapon;
+        this.weaponType = weaponType;
     }
 
-    public Item(WeaponType typeOfWeapon, Statistic statistic, long level) {
+    public Item(WeaponType weaponType, Statistic statistic, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
-        this.typeOfWeapon = typeOfWeapon;
+        this.weaponType = weaponType;
         this.statistic = statistic;
         this.level = level;
     }
 
-    public Item(String name, WeaponType typeOfWeapon, Statistic statistic, long level) {
+    public Item(String name, WeaponType weaponType, Statistic statistic, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
-        this.typeOfWeapon = typeOfWeapon;
+        this.weaponType = weaponType;
         this.statistic = statistic;
         this.level = level;
     }
 
-    public Item(String name, String description, WeaponType typeOfWeapon, Statistic statistic, Image image, long level) {
+    public Item(String name, String description, WeaponType weaponType, Statistic statistic, Image image, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
-        this.typeOfWeapon = typeOfWeapon;
+        this.weaponType = weaponType;
         this.statistic = statistic;
         this.image = image;
         this.level = level;
@@ -80,14 +80,14 @@ public class Item {
         return level == item.level &&
                 Objects.equals(id, item.id) &&
                 Objects.equals(name, item.name) &&
-                typeOfWeapon == item.typeOfWeapon &&
+                weaponType == item.weaponType &&
                 Objects.equals(gold, item.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, typeOfWeapon, level, gold);
+        return Objects.hash(id, name, weaponType, level, gold);
     }
 
     public Long getId() {
@@ -110,12 +110,12 @@ public class Item {
         this.description = description;
     }
 
-    public WeaponType getTypeOfWeapon() {
-        return typeOfWeapon;
+    public WeaponType getWeaponType() {
+        return weaponType;
     }
 
-    public void setTypeOfWeapon(WeaponType typeOfWeapon) {
-        this.typeOfWeapon = typeOfWeapon;
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType = weaponType;
     }
 
     public Statistic getStatistic() {

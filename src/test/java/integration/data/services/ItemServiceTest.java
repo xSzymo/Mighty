@@ -195,16 +195,16 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromEquipment() throws Exception {
         equipment = new Equipment();
-        equipment.setRing(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.RING)).findFirst().get());
-        equipment.setArmor(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.ARMOR)).findFirst().get());
-        equipment.setBoots(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.BOOTS)).findFirst().get());
-        equipment.setBracelet(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.BRACELET)).findFirst().get());
-        equipment.setGloves(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.GLOVES)).findFirst().get());
-        equipment.setHelmet(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.HELMET)).findFirst().get());
-        equipment.setLegs(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.LEGS)).findFirst().get());
-        equipment.setNecklace(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.NECKLACE)).findFirst().get());
-        equipment.setOffhand(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.OFFHAND)).findFirst().get());
-        equipment.setWeapon(items.stream().filter(x -> x.getTypeOfWeapon().equals(WeaponType.WEAPON)).findFirst().get());
+        equipment.setRing(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.RING)).findFirst().get());
+        equipment.setArmor(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.ARMOR)).findFirst().get());
+        equipment.setBoots(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.BOOTS)).findFirst().get());
+        equipment.setBracelet(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.BRACELET)).findFirst().get());
+        equipment.setGloves(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.GLOVES)).findFirst().get());
+        equipment.setHelmet(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.HELMET)).findFirst().get());
+        equipment.setLegs(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.LEGS)).findFirst().get());
+        equipment.setNecklace(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.NECKLACE)).findFirst().get());
+        equipment.setOffhand(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.OFFHAND)).findFirst().get());
+        equipment.setWeapon(items.stream().filter(x -> x.getWeaponType().equals(WeaponType.WEAPON)).findFirst().get());
 
         equipmentService.save(equipment);
 

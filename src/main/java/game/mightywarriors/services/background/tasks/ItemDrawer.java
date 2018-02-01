@@ -116,7 +116,7 @@ public class ItemDrawer {
     private User addItemForSpecificType(List<Item> oldItemsInShop, User user, Item item, int times, WeaponType weaponType) {
         int counter = 0;
         for (Item x : user.getShop().getItems())
-            if (x.getTypeOfWeapon().getType().equals(weaponType.getType()))
+            if (x.getWeaponType().getType().equals(weaponType.getType()))
                 counter++;
 
         if (counter >= times)
@@ -125,7 +125,7 @@ public class ItemDrawer {
         if (item != null)
             if (!oldItemsInShop.contains(item))
                 if (!user.getShop().getItems().contains(item))
-                    if (item.getTypeOfWeapon().getType().equals(weaponType.getType()))
+                    if (item.getWeaponType().getType().equals(weaponType.getType()))
                         user.getShop().addItem(item);
         return user;
     }
