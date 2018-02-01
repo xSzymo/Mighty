@@ -41,4 +41,13 @@ public class LoginController {
 
         return new JSONTokenObject(tokenGenerator.generateToken(user), user.getId());
     }
+
+    @PostMapping("secure/token/delete")
+    public void deletToken(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+        User user = usersRetriever.retrieveUser(authorization);
+
+        user.setTokenCode(null);
+        user.setNewToken(false);
+        userService.save(user);
+    }
 }
