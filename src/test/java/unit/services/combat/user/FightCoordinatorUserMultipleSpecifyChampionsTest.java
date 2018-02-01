@@ -1,7 +1,7 @@
 package unit.services.combat.user;
 
 import game.mightywarriors.data.tables.*;
-`import game.mightywarriors.other.enums.TypeOfFighter;
+import game.mightywarriors.other.enums.TypeOfFighter;
 import game.mightywarriors.other.enums.WeaponType;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.web.json.objects.fights.FightResult;
