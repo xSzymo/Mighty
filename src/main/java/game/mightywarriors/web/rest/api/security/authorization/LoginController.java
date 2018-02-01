@@ -45,6 +45,7 @@ public class LoginController {
     @PostMapping("secure/token/delete")
     public void deletToken(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
+        SystemVariablesManager.JWTTokenCollection.remove(SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
 
         user.setTokenCode(null);
         user.setNewToken(false);
