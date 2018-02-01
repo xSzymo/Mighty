@@ -3,6 +3,7 @@ package game.mightywarriors.web.rest.api.security.authorization;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.security.TokenGenerator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
@@ -26,10 +27,10 @@ public class LoginController {
     public JSONTokenObject generate(@RequestBody JSONLoginObject loginData) throws Exception {
         User myUser = userService.find(loginData.login);
         if (myUser == null)
-            throw new Exception("Wrong login or password");
+            throw new NoAccessException("Wrong login or password");
 
         if (!myUser.getPassword().equals(loginData.password))
-            throw new Exception("Wrong login or password");
+            throw new NoAccessException("Wrong login or password");
 
         return new JSONTokenObject(tokenGenerator.generateToken(myUser), myUser.getId());
     }
