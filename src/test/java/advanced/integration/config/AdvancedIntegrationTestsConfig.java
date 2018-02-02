@@ -27,11 +27,7 @@ public abstract class AdvancedIntegrationTestsConfig {
     private static MissionService missionService;
     private static boolean run = true;
 
-    @BeforeClass
-    public static void setUpBefore() {
-        SystemVariablesManager.JWTTokenCollection.clear();
-        SystemVariablesManager.INSERT_EXAMPLE_DATA = false;
-    }
+
 
     @Before
     public void createMonstersAndItems() {
