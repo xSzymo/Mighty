@@ -48,7 +48,7 @@ public abstract class IntegrationTestsConfig {
     }
 
     @AfterClass
-    @Transactional
+    @Deprecated
     public static void cleanUpAfter() {
         run = true;
         SystemVariablesManager.JWTTokenCollection.clear();
