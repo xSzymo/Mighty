@@ -4,7 +4,6 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.fights.FightResult;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.json.objects.security.JSONTokenObject;
 import game.mightywarriors.web.rest.api.security.authorization.LoginController;
@@ -45,7 +44,6 @@ public class TestController {
             testLogin();
             testDataProvider.loginAccess = true;
         } catch (Exception e) {
-            e.setStackTrace(new StackTraceElement[]{});
             testDataProvider.thrownException = e;
             return testDataProvider;
         }
