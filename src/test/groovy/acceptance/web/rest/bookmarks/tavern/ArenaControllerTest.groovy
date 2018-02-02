@@ -27,7 +27,7 @@ class ArenaControllerTest extends GroovyTestCase {
 
     void testFight() {
         loginJSON = '{ "login": "user3", "password": "user"}'
-        opponentName = "admin0"
+        opponentName = "user1"
         run(3)
     }
 
