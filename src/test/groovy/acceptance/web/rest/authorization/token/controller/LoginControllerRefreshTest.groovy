@@ -2,6 +2,7 @@ package acceptance.web.rest.authorization.token.controller
 
 import acceptance.Requester
 import groovy.json.JsonSlurper
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class LoginControllerRefreshTest extends Specification {
@@ -16,6 +17,7 @@ class LoginControllerRefreshTest extends Specification {
 
     private Requester requester = new Requester()
 
+    @Ignore
     void "refresh existing token"() {
         given: "get token after send login request"
         def json = requester.request(tokenURL, correctJSONLogin)
@@ -38,6 +40,7 @@ class LoginControllerRefreshTest extends Specification {
         myToken1 != myToken
     }
 
+    @Ignore
     void "check refresh token end point which should return every request another token"() {
         given: "log in"
         def json = requester.request(tokenURL, correctJSONLogin)

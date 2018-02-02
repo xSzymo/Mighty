@@ -2,6 +2,7 @@ package acceptance.web.rest.authorization.token.controller
 
 import acceptance.Requester
 import groovy.json.JsonSlurper
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class LoginControllerGenerateTest extends Specification {
@@ -29,6 +30,7 @@ class LoginControllerGenerateTest extends Specification {
     }
 
 
+    @Ignore
     void "double request to token controller will create different tokens and only latest will be correct"() {
         given: "get 2 times token after send login request"
             def json = requester.request(tokenURL, correctJSONLogin)
