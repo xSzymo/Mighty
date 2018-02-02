@@ -36,9 +36,6 @@ class TavernControllerTest extends GroovyTestCase {
 
         loginJSON = '{ "login": "admin0", "password": "admin"}'
         run(3)
-
-        loginJSON = '{ "login": "admin2", "password": "admin"}'
-        run(2)
     }
 
     void run(int howManyChampions) {
@@ -58,10 +55,10 @@ class TavernControllerTest extends GroovyTestCase {
         String fightJSON = fight(myJson).getInputStream().getText()
 
         assertTrue(parser(checkLeftTimeResponseSecond).leftTime <= 0)
-        assertEquals(parser(usersMissionFight).champion[0].size(), howManyChampions)
+        assertEquals(parser(usersMissionFight).champions[0].size(), howManyChampions)
         assertEquals(parser(usersMissionFight).id[0], parser(sendChampionResponse).id)
-        for (def x : parser(sendChampionResponse).champion)
-            assertTrue(x.id in parser(usersMissionFight).champion[0].id)
+        for (def x : parser(sendChampionResponse).champions)
+            assertTrue(x.id in parser(usersMissionFight).champions[0].id)
 
         assertEquals(parser(usersMissionFight).mission[0].id, parser(sendChampionResponse).mission.id)
         assertEquals(parser(fightJSON).winner.id, parser(currentUser).id)
@@ -91,19 +88,17 @@ class TavernControllerTest extends GroovyTestCase {
         def json = new JsonBuilder()
 
         json {
-            id parser(sendChampionResponse).id
-            missionId parser(sendChampionResponse).mission.id
-            championId getArrayOfChampionsId(sendChampionResponse)
+            missionFightId parser(sendChampionResponse).id
         }
 
         return json
     }
 
     private def getArrayOfChampionsId(def sendChampionResponse) {
-        long[] myArray = new long[parser(sendChampionResponse).champion.size]
+        long[] myArray = new long[parser(sendChampionResponse).champions.size]
 
         for (int i = 0; i < myArray.size(); i++)
-            myArray[i] = parser(sendChampionResponse).champion[i].id
+            myArray[i] = parser(sendChampionResponse).champions[i].id
 
         return myArray
     }
