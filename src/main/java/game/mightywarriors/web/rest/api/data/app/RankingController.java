@@ -25,7 +25,7 @@ public class RankingController {
         return service.find(name);
     }
 
-    @GetMapping("rankings/{ranking}")
+    @GetMapping("rankings/ranking/{ranking}")
     public Ranking getRankingBy(@PathVariable("ranking") long ranking) {
         return service.find(ranking);
     }
