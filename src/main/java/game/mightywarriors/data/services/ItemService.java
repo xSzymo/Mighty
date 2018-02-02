@@ -2,6 +2,7 @@ package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.ItemRepository;
 import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,11 @@ public class ItemService {
     private void saveOperation(Item item) {
         if (item.getStatistic() != null)
             statisticService.save(item.getStatistic());
+        else {
+            Statistic statistic = new Statistic();
+            item.setStatistic(statistic);
+            statisticService.save(statistic);
+        }
         if (item.getImage() != null)
             try {
                 imageService.save(item.getImage());

@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -145,8 +146,8 @@ public class StatisticServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(statistic);
 
         assertNull(objectUnderTest.find(statistic.getId()));
-        assertNull(itemService.find(item.getId()).getStatistic());
-        assertNotNull(itemService.find(item.getId()));
+        assertNotNull(itemService.find(item.getId()).getStatistic());
+        assertNotEquals(itemService.find(item.getId()).getStatistic(), statistic);
     }
 
     @Test
