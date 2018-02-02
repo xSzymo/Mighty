@@ -4,8 +4,8 @@ import game.mightywarriors.configuration.system.variables.SystemFightsVariablesM
 import game.mightywarriors.data.services.DivisionService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.League;
 import game.mightywarriors.other.enums.ItemType;
+import game.mightywarriors.other.enums.League;
 import game.mightywarriors.services.background.tasks.DivisionAssigner;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;

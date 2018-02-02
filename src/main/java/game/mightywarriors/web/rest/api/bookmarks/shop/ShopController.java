@@ -20,7 +20,6 @@ public class ShopController {
         manager.buyItem(authorization, informer);
     }
 
-
     @PostMapping("secure/shop/sell")
     public void sellItem(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody ShopInformer informer) throws Exception {
 

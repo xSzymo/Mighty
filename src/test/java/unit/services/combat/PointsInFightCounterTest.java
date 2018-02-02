@@ -1,8 +1,8 @@
 package unit.services.combat;
 
 import game.mightywarriors.data.tables.*;
-import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.other.enums.ItemType;
+import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.combat.PointsInFightCounter;
 import org.junit.Before;
 import org.junit.Test;

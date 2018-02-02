@@ -30,7 +30,7 @@ public class MissionAssignerTest extends IntegrationTestsConfig {
     @Before
     @Transactional
     public void setUp() throws InterruptedException {
-        if(run) {
+        if (run) {
             run = false;
 
             int level = 10;

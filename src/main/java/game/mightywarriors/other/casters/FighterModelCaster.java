@@ -2,8 +2,8 @@ package game.mightywarriors.other.casters;
 
 import game.mightywarriors.data.interfaces.IFighter;
 import game.mightywarriors.data.tables.Monster;
-import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.other.enums.FighterType;
+import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.combat.PointsInFightCounter;
 import game.mightywarriors.web.json.objects.fights.Fighter;
 import org.springframework.stereotype.Service;

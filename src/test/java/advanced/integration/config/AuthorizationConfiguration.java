@@ -6,12 +6,10 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.rest.api.security.authorization.LoginController;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AuthorizationConfiguration extends AdvancedIntegrationTestsConfig {
-    protected static String token;
     @Autowired
     private UserService userService;
     @Autowired
@@ -21,7 +19,7 @@ public abstract class AuthorizationConfiguration extends AdvancedIntegrationTest
     @Value("${login.password}")
     private String password;
 
-
+    protected static String token;
 
     @Before
     public void authorize_and_load_example_data() throws Exception {

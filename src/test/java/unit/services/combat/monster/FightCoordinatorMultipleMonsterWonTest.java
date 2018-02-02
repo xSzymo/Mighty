@@ -89,7 +89,7 @@ public class FightCoordinatorMultipleMonsterWonTest {
             }
         }
 
-        for(int j = 0; j < fightResult.getRounds().size(); j++) {
+        for (int j = 0; j < fightResult.getRounds().size(); j++) {
             assertEquals(FighterType.CHAMPION.getType(), fightResult.getRounds().get(i).getUserChampions().getFirst().getFighterType().getType());
             assertEquals(FighterType.MONSTER.getType(), fightResult.getRounds().get(i).getOpponentChampions().getFirst().getFighterType().getType());
         }

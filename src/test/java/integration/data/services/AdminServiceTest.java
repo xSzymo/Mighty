@@ -2,8 +2,10 @@ package integration.data.services;
 
 import game.mightywarriors.data.services.AdminService;
 import game.mightywarriors.data.services.ChatService;
-import game.mightywarriors.data.services.MessageService;
-import game.mightywarriors.data.tables.*;
+import game.mightywarriors.data.tables.Admin;
+import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.other.enums.ChatRole;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
@@ -11,9 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class AdminServiceTest extends IntegrationTestsConfig {
     @Autowired

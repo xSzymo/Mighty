@@ -1,16 +1,13 @@
 package game.mightywarriors.data.services;
 
 import game.mightywarriors.data.repositories.AdminRepository;
-import game.mightywarriors.data.repositories.MessageRepository;
 import game.mightywarriors.data.tables.Admin;
-import game.mightywarriors.data.tables.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 @Service
