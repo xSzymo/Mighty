@@ -40,7 +40,7 @@ public class TestController {
         try {
             testDataBase();
             testDataProvider.dataBaseAccess = true;
-            testDataProvider = testDI(testDataProvider);
+            testDI();
             testDataProvider.DIAccess = true;
             testLogin();
             testDataProvider.loginAccess = true;
@@ -58,7 +58,7 @@ public class TestController {
             throw new Exception("There are not data in DB");
     }
 
-    private TestDataProvider testDI(TestDataProvider testDataProvider) {
+    private void testDI() {
         User myUser;
         User myUser1;
 
@@ -73,8 +73,7 @@ public class TestController {
         myUser = userService.find(user1);
         myUser1 = userService.find(user2);
 
-        testDataProvider.fight = new FightInformer(fightCoordinator.fight(myUser, myUser1));
-        return testDataProvider;
+        fightCoordinator.fight(myUser, myUser1);
     }
 
     private void testLogin() throws Exception {
@@ -92,14 +91,5 @@ public class TestController {
         public boolean DIAccess = false;
         public boolean loginAccess = false;
         public Exception thrownException;
-        public FightInformer fight;
-    }
-
-    public class FightInformer {
-        public FightResult fightResult;
-
-        public FightInformer(FightResult fightResult) {
-            this.fightResult = fightResult;
-        }
     }
 }
