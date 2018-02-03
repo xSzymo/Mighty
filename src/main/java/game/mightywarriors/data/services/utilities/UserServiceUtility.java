@@ -54,7 +54,6 @@ public class UserServiceUtility {
                     throw new Exception("oh no");
             }
         } else if (foundUser != null) {
-            System.out.println("BE CAREFUL EMPTY TOKEN FOR USER " + foundUser);
             user.setTokenCode(null);
         }
 
