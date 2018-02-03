@@ -25,19 +25,28 @@ public class User {
     @JsonIgnore
     @Transient
     private boolean newToken;
+    @Column(name = "token_code", unique = true)
+    @JsonIgnore
+    private String tokenCode;
+    @Column(name = "code_to_enable_account", unique = true)
+    @JsonIgnore
+    private String codeToEnableAccount;
 
     @Column(name = "login", unique = true)
     private String login;
     @Column(name = "password")
     @JsonIgnore
     private String password;
-    @Column(name = "token_code", unique = true)
-    @JsonIgnore
-    private String tokenCode;
-    @Column(name = "gold")
-    private BigDecimal gold = new BigDecimal("0");
     @Column(name = "e_mail")
     private String eMail;
+
+    @Column(name = "is_account_enabled")
+    private boolean isAccountEnabled = false;
+    @Column(name = "is_account_non_locked")
+    private boolean isAccountNonLocked = true;
+
+    @Column(name = "gold")
+    private BigDecimal gold = new BigDecimal("0");
     @Column(name = "created_date")
     private Timestamp createdDate;
     @Column(name = "arena_points")
@@ -335,6 +344,30 @@ public class User {
 
     public Timestamp getCreatedDate() {
         return createdDate;
+    }
+
+    public String getCodeToEnableAccount() {
+        return codeToEnableAccount;
+    }
+
+    public void setCodeToEnableAccount(String codeToEnableAccount) {
+        this.codeToEnableAccount = codeToEnableAccount;
+    }
+
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public boolean isAccountEnabled() {
+        return isAccountEnabled;
+    }
+
+    public void setAccountEnabled(boolean accountEnabled) {
+        isAccountEnabled = accountEnabled;
     }
 
     private class MissionCollection extends HashSet<Mission> {
