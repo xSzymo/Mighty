@@ -20,8 +20,6 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     @Autowired
-    private MissionService missionService;
-    @Autowired
     private RankingService rankingService;
     @Autowired
     private UserServiceUtility userServiceUtility;
@@ -33,10 +31,6 @@ public class UserService {
     private InventoryService inventoryService;
     @Autowired
     private ChampionService championService;
-    @Autowired
-    private DivisionService divisionService;
-    @Autowired
-    private UserRoleService userRoleService;
     @Autowired
     private ChatService chatService;
     @Autowired
@@ -113,6 +107,30 @@ public class UserService {
     public User find(User user) {
         try {
             return find(user.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public User findByEmail(String email) {
+        try {
+            return repository.findByEMail(email);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public User findByCodeToEnableAccount(String code) {
+        try {
+            return repository.findByCodeToEnableAccount(code);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Set<String> findAllCodesToEnableAccount() {
+        try {
+            return repository.findAllCodesToEnableAccount();
         } catch (NullPointerException e) {
             return null;
         }
