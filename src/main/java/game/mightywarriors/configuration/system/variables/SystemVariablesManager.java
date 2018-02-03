@@ -20,7 +20,7 @@ public final class SystemVariablesManager {
     public static final String EMAIL_TRANSPORT_PROTOCOL = "smtp";
     public static final String EMAIL_SMTP_AUTH = "true";
     public static final String EMAIL_SMTP_START_TLS_ENABLE = "true";
-    public static final String EMAIL_DEBUG = "true";
+    public static final String EMAIL_DEBUG = "false";
 
     public static final String EMAIL_TEST_USERNAME = "testtest396@wp.pl";
     public static final String EMAIL_TEST_PASSWORD = "Admin1234";
