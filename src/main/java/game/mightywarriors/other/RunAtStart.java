@@ -130,6 +130,7 @@ public class RunAtStart {
             user.getMissions().add(missions.get(b++));
             user.getMissions().add(missions.get(b++));
 
+            user.setAccountEnabled(true);
             users.add(user);
         }
         userService.save(users);
