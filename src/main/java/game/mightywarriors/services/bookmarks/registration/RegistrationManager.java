@@ -37,7 +37,7 @@ public class RegistrationManager {
         throwExceptionIf_EmailIsNotValid(informer.email);
         throwExceptionIf_EmailIsAlreadyTaken(informer.email);
         throwExceptionIf_LoginIsAlreadyTaken(informer.login);
-        throwExceptionIf_PasswordIsAlreadyTaken(informer.password);
+        throwExceptionIf_PasswordIsNotValid(informer.password);
 
         String code = codeFactory.getUniqueCodeToEnableAccount();
 
@@ -56,7 +56,7 @@ public class RegistrationManager {
 
     private void throwExceptionIf_EmailIsAlreadyTaken(String email) throws Exception {
         if (userService.findByEmail(email) != null)
-            throw new Exception("Login already taken");
+            throw new Exception("Email already taken");
     }
 
     private void throwExceptionIf_EmailIsNotValid(String email) throws Exception {
@@ -64,7 +64,7 @@ public class RegistrationManager {
             throw new Exception("Email is not valid");
     }
 
-    private void throwExceptionIf_PasswordIsAlreadyTaken(String password) throws Exception {
+    private void throwExceptionIf_PasswordIsNotValid(String password) throws Exception {
         if (!passwordValidator.isPasswordValid(password))
             throw new Exception("Password is not valid, You need to set : at least " + minimumPasswordChars + " chars, max : " + maximumPasswordChars +
                     ", minimum digit chars" + minimumDigitChars + ", minimum upper case : " + minimumUpperCase + ", minimum lower case : " + minimumLowerCase);
