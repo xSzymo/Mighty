@@ -3,6 +3,7 @@ package game.mightywarriors.web.rest.api.security.authorization;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.exceptions.LockedAccountException;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.security.TokenGenerator;
 import game.mightywarriors.services.security.UsersRetriever;
@@ -32,6 +33,9 @@ public class LoginController {
         if (!myUser.getPassword().equals(loginData.password))
             throw new NoAccessException("Wrong login or password");
 
+        if (!myUser.isAccountEnabled() || !myUser.isAccountNonLocked())
+            throw new LockedAccountException("Account is locked");
+
         return new JSONTokenObject(tokenGenerator.generateToken(myUser), myUser.getId());
     }
 
@@ -43,7 +47,7 @@ public class LoginController {
     }
 
     @PostMapping("secure/token/delete")
-    public void deletToken(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+    public void deleteToken(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         SystemVariablesManager.JWTTokenCollection.remove(SystemVariablesManager.DECO4DER_DB.decode(user.getTokenCode()));
 
