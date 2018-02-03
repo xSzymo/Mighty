@@ -29,7 +29,7 @@ public class SystemBeansManager {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(SystemVariablesManager.EMAIL_HOST);
         mailSender.setPort(SystemVariablesManager.EMAIL_PORT);
-        mailSender.setPassword(SystemVariablesManager.EMAIL_ADDRESS);
+        mailSender.setPassword(SystemVariablesManager.EMAIL_PASSWORD);
         mailSender.setUsername(SystemVariablesManager.EMAIL_USERNAME);
 
         Properties props = mailSender.getJavaMailProperties();

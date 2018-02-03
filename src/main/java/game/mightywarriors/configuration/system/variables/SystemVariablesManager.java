@@ -6,6 +6,7 @@ import game.mightywarriors.other.base64.EncoderDB;
 import game.mightywarriors.other.base64.EncoderJSON;
 
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 public final class SystemVariablesManager {
     public static final String SPECIAL_JWT_SECRET_KEY = "K00LINN3R";
@@ -14,12 +15,25 @@ public final class SystemVariablesManager {
 
     public static final String EMAIL_HOST = "smtp.gmail.com";
     public static final int EMAIL_PORT = 587;
-    public static final String EMAIL_USERNAME = "Admin1234";
-    public static final String EMAIL_ADDRESS = "MightyWarriorsGame@gmail.com";
+    public static final String EMAIL_USERNAME = "MightyWarriorsGame@gmail.com";
+    public static final String EMAIL_PASSWORD = "Admin1234";
     public static final String EMAIL_TRANSPORT_PROTOCOL = "smtp";
     public static final String EMAIL_SMTP_AUTH = "true";
     public static final String EMAIL_SMTP_START_TLS_ENABLE = "true";
-    public static final String EMAIL_DEBUG = "false";
+    public static final String EMAIL_DEBUG = "true";
+
+    public static final String EMAIL_TEST_USERNAME = "testtest396@wp.pl";
+    public static final String EMAIL_TEST_PASSWORD = "Admin1234";
+
+    public static final int REGISTRATION_MINIMUM_PASSWORD_CHARS = 6;
+    public static final int REGISTRATION_MAXIMUM_PASSWORD_CHARS = 24;
+    public static final int REGISTRATION_MINIMUM_PASSWORD_UPPER_CASE = 1;
+    public static final int REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE = 4;
+    public static final int REGISTRATION_MINIMUM_PASSWORD_DIGIT_CHARS = 1;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final int EMAIL_CODE_EXPIRATION_TIME = 15;
+    public static final String EMAIL_SUBJECT = "Mighty authentication code";
+    public static final String EMAIL_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
 
     public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
 
