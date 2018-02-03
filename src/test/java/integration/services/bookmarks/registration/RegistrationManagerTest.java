@@ -37,4 +37,27 @@ public class RegistrationManagerTest extends IntegrationTestsConfig {
         assertEquals(false, userService.find(login).isAccountEnabled());
         assertEquals(true, userService.find(login).isAccountNonLocked());
     }
+
+    @Test(expected = Exception.class)
+    public void registerUser_taken_login() throws Exception {
+        RegistrationInformer informer = new RegistrationInformer();
+        informer.login = login;
+        informer.password = password;
+        informer.email = email;
+
+        objectUnderTest.registerUser(informer);
+        informer.email = "testtest630@wp.pl";
+        objectUnderTest.registerUser(informer);
+    }
+
+    @Test(expected = Exception.class)
+    public void registerUser_taken_email() throws Exception {
+        RegistrationInformer informer = new RegistrationInformer();
+        informer.login = login;
+        informer.password = password;
+        informer.email = email;
+        objectUnderTest.registerUser(informer);
+        informer.login = "asd";
+        objectUnderTest.registerUser(informer);
+    }
 }

@@ -26,7 +26,7 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
     private String email = SystemVariablesManager.EMAIL_TEST_USERNAME;
 
     @Test
-    public void registerUser() throws Exception {
+    public void enableUser() throws Exception {
         RegistrationInformer informer = setUp();
         User user = userService.find(informer.login);
         informer.code = user.getCodeToEnableAccount();
@@ -35,6 +35,14 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
 
         assertEquals(null, userService.find(informer.login).getCodeToEnableAccount());
         assertEquals(true, userService.find(informer.login).isAccountEnabled());
+    }
+
+    @Test(expected = Exception.class)
+    public void enableUser_with_wrong_code() throws Exception {
+        RegistrationInformer informer = setUp();
+        informer.code = "";
+
+        objectUnderTest.enableAccount(informer);
     }
 
     private RegistrationInformer setUp() throws Exception {
