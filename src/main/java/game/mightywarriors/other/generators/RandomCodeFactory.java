@@ -1,10 +1,51 @@
 package game.mightywarriors.other.generators;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
+import game.mightywarriors.data.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+@Service
 public class RandomCodeFactory {
+    @Autowired
+    private UserService userService;
+
+    public String getUniqueCode() {
+        boolean is = true;
+        String code;
+
+        do {
+            code = coder();
+            for (String x : SystemVariablesManager.JWTTokenCollection)
+                if (x.equals(code))
+                    is = false;
+        } while (!is);
+
+        SystemVariablesManager.JWTTokenCollection.add(code);
+        return code;
+    }
+
+    public String getUniqueCodeToEnableAccount() {
+        boolean is = true;
+        String code;
+
+        do {
+            code = coder();
+            for (String x : userService.findAllCodesToEnableAccount())
+                if (x != null)
+                    if (x.equals(code))
+                        is = false;
+        } while (!is);
+
+        return code;
+    }
+
+    public char getUniqueChar() {
+        return coder().charAt(3);
+    }
+
     private static String coder() {
         String[] tab = tab();
         StringBuilder code = new StringBuilder();
@@ -150,25 +191,6 @@ public class RandomCodeFactory {
         if (number == 60)
             return "Y";
         return "@";
-    }
-
-    public String getUniqueCode() {
-        boolean is = true;
-        String code;
-
-        do {
-            code = coder();
-            for (String x : SystemVariablesManager.JWTTokenCollection)
-                if (x.equals(code))
-                    is = false;
-        } while (!is);
-
-        SystemVariablesManager.JWTTokenCollection.add(code);
-        return code;
-    }
-
-    public char getUniqueChar() {
-        return coder().charAt(3);
     }
 }
 
