@@ -2,6 +2,7 @@ package game.mightywarriors.other.generators;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.AuthorizationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,21 @@ public class RandomCodeFactory {
             for (String x : userService.findAllCodesToEnableAccount())
                 if (x != null)
                     if (x.equals(code))
+                        is = false;
+        } while (!is);
+
+        return code;
+    }
+
+    public String getUniqueCodeToAuthorizeChangeUserOperation() {
+        boolean is = true;
+        String code;
+
+        do {
+            code = coder();
+            for (AuthorizationCode x : userService.findAllAuthorizationCodes())
+                if (x != null)
+                    if (x.getAuthorizationCode().equals(code))
                         is = false;
         } while (!is);
 
