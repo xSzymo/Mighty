@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EmailChangerTest extends ChangerTestConfig {
     @Autowired
@@ -38,7 +39,7 @@ public class EmailChangerTest extends ChangerTestConfig {
         objectUnderTest.changeEmail(token, informer);
 
         user = userService.find(user);
-        assertEquals(0, user.getAuthorizationCodes().size());
+        assertTrue(user.getAuthorizationCodes().stream().anyMatch(x -> x.getType().getType().equals(AuthorizationType.EMAIL.getType())));
         assertEquals(newEmail, user.geteMail());
     }
 
