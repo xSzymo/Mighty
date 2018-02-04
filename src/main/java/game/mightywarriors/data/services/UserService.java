@@ -136,6 +136,14 @@ public class UserService {
         }
     }
 
+    public Set<AuthorizationCode> findAllAuthorizationCodes() {
+        try {
+            return repository.findAllAuthorizationCodes();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public HashSet<User> findAll() {
         return repository.findAll();
     }

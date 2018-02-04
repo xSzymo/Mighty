@@ -1,5 +1,6 @@
 package game.mightywarriors.data.repositories;
 
+import game.mightywarriors.data.tables.AuthorizationCode;
 import game.mightywarriors.data.tables.Inventory;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
@@ -34,4 +35,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query(value = "SELECT u.codeToEnableAccount FROM User u")
     Set<String> findAllCodesToEnableAccount();
+
+    @Query(value = "SELECT u.authorizationCodes FROM User u")
+    Set<AuthorizationCode> findAllAuthorizationCodes();
 }
