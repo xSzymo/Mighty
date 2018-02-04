@@ -39,7 +39,7 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
 
     @Test(expected = Exception.class)
     public void enableUser_with_wrong_code() throws Exception {
-        RegistrationInformer informer = setUp();
+        RegistrationInformer informer = new RegistrationInformer();
         informer.code = "";
 
         objectUnderTest.enableAccount(informer);
