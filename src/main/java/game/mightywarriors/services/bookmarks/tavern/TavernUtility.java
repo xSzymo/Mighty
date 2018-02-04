@@ -1,5 +1,6 @@
 package game.mightywarriors.services.bookmarks.tavern;
 
+import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.services.UserService;
@@ -19,8 +20,8 @@ import java.util.Set;
 
 @Service
 public class TavernUtility {
-    private static final int ONE_SECOND = 1000;
-
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private MissionFightService missionFightService;
     @Autowired
@@ -32,7 +33,9 @@ public class TavernUtility {
     @Autowired
     private Helper helper;
 
-    public MissionFight prepareNewMissionFight(Set<Champion> champions, Mission mission) {
+    private static final int ONE_SECOND = 1000;
+
+    public void prepareNewMissionFight(Set<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (mission.getDuration() * ONE_SECOND));
@@ -44,7 +47,7 @@ public class TavernUtility {
         championService.save(champions);
         missionFightService.save(missionFight);
 
-        return missionFight;
+        missionAssigner.assignNewMissionForUsers(userRepository.findByChampionsIdIn(helper.getSetOfChampionsIds(champions)).getId());
     }
 
     public void getThingsDoneAfterFight(User user, MissionFight missionFight, Set<Champion> champions, FightResult fight, boolean wonFight) {
@@ -67,7 +70,5 @@ public class TavernUtility {
 
         missionFightService.delete(missionFight);
         userService.save(user);
-
-        missionAssigner.assignNewMissionForUsers(user.getId());
     }
 }

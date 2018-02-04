@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,6 +58,15 @@ public class Helper {
 
             return false;
         }).collect(Collectors.toCollection(HashSet::new));
+    }
+
+    public Set<Long> getSetOfChampionsIds(Set<Champion> champions) {
+        Set<Long> collect = new HashSet<>();
+        Iterator<Champion> iterator = champions.iterator();
+        while(iterator.hasNext())
+            collect.add(iterator.next().getId());
+
+        return collect;
     }
 
     public Mission getMission(User user, long missionId) {

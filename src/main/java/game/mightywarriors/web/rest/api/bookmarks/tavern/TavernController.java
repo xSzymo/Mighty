@@ -19,16 +19,16 @@ public class TavernController {
     @Autowired
     private MissionFightChecker missionFightChecker;
 
+    @PostMapping("secure/tavern/send")
+    public void sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
+
+        tavernManager.sendChampionOnMission(authorization, informer);
+    }
+
     @PostMapping("secure/tavern/fight")
     public FightResult fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
 
         return tavernManager.performFight(authorization, informer);
-    }
-
-    @PostMapping("secure/tavern/send")
-    public MissionFight sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
-
-        return tavernManager.sendChampionOnMission(authorization, informer);
     }
 
     @PostMapping("secure/tavern/check/mission")

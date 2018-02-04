@@ -30,6 +30,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByInventory(Inventory inventory);
 
+    User findByChampionsIdIn(Set<Long> ids);
+
     @Query(value = "SELECT u.codeToEnableAccount FROM User u")
     Set<String> findAllCodesToEnableAccount();
 }

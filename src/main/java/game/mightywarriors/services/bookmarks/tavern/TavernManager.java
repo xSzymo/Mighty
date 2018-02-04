@@ -30,7 +30,7 @@ public class TavernManager {
     @Autowired
     private Helper helper;
 
-    public MissionFight sendChampionOnMission(String authorization, Informer informer) throws Exception {
+    public void sendChampionOnMission(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         if (user.getMissionPoints() < 1)
@@ -42,7 +42,7 @@ public class TavernManager {
         if (helper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
             throw new BusyChampionException("Someone is already busy");
 
-        return tavernUtility.prepareNewMissionFight(champions, mission);
+        tavernUtility.prepareNewMissionFight(champions, mission);
     }
 
     public FightResult performFight(String authorization, Informer informer) throws Exception {
