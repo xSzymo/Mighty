@@ -34,6 +34,7 @@ public final class SystemVariablesManager {
     public static final int EMAIL_CODE_EXPIRATION_TIME = 15;
     public static final String EMAIL_SUBJECT = "Mighty authentication code";
     public static final String EMAIL_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
+    public static final int HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS = 1;
 
     public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
 

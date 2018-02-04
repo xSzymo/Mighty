@@ -43,6 +43,7 @@ public class SystemConfiger {
         refreshMissionPoints();
         refreshArenaPoints();
         drawingItemsForUserEveryDay();
+        deleteAllUsersWithExpiredTokens();
     }
 
     private void updateDivisionForUsers() {
@@ -63,6 +64,11 @@ public class SystemConfiger {
     private void drawingItemsForUserEveryDay() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS, TimeUnit.HOURS);
+    }
+
+    private void deleteAllUsersWithExpiredTokens() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser(), 0, SystemVariablesManager.HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS, TimeUnit.HOURS);
     }
 
     private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {
