@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 
 @RestController
 public class TestController {
@@ -35,6 +36,7 @@ public class TestController {
         testDataProvider.addr = request.getRemoteAddr();
         testDataProvider.host = request.getRemoteHost();
         testDataProvider.port = request.getRemotePort();
+        testDataProvider.time = new Timestamp(System.currentTimeMillis());
 
         try {
             testDataBase();
@@ -47,7 +49,6 @@ public class TestController {
             testDataProvider.thrownException = e;
             return testDataProvider;
         }
-
         return testDataProvider;
     }
 
@@ -81,6 +82,7 @@ public class TestController {
     }
 
     public class TestDataProvider {
+        public Timestamp time;
         public String user;
         public String addr;
         public String host;
