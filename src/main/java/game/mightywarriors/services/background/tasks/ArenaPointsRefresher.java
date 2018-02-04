@@ -15,7 +15,7 @@ public class ArenaPointsRefresher {
     private UserService userService;
 
     @Transactional
-    public void refreshArenaPointsForAllUsers() {
+    public synchronized void refreshArenaPointsForAllUsers() {
         HashSet<User> users = userService.findAll();
 
         users.forEach(x -> x.setArenaPoints(SystemVariablesManager.ARENA_POINTS));

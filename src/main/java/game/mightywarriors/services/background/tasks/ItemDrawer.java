@@ -36,7 +36,7 @@ public class ItemDrawer {
     }
 
     @Transactional
-    public synchronized void drawItemsForUser(long id) {
+    public void drawItemsForUser(long id) {
         User one = userService.find(id);
         HashSet<User> users = new HashSet<>();
         users.add(one);
@@ -44,7 +44,7 @@ public class ItemDrawer {
         drawItems(users);
     }
 
-    private synchronized void drawItems(Set<User> users) {
+    private void drawItems(Set<User> users) {
         HashSet<Item> items = itemService.findAll();
         HashMap map = new HashMap();
 

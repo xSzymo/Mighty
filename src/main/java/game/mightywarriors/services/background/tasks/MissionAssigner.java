@@ -25,6 +25,7 @@ public class MissionAssigner {
         rand = new Random();
     }
 
+    @Transactional
     public void assignNewMissionForUsers(long id) {
         HashSet<User> users = new HashSet<>();
         users.add(userService.find(id));
@@ -32,11 +33,11 @@ public class MissionAssigner {
         assign(users);
     }
 
-    public void assignNewMissionForUsers() {
+    @Transactional
+    public synchronized void assignNewMissionForUsers() {
         assign(userService.findAll());
     }
 
-    @Transactional
     private void assign(Set<User> users) {
         HashSet<Mission> missions = missionService.findAll();
         Map map = new HashMap();

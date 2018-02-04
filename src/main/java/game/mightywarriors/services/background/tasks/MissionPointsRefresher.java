@@ -15,7 +15,7 @@ public class MissionPointsRefresher {
     private UserService userService;
 
     @Transactional
-    public void refreshMissionPointsForAllMission() {
+    public synchronized void refreshMissionPointsForAllMission() {
         HashSet<User> users = userService.findAll();
 
         users.forEach(x -> {

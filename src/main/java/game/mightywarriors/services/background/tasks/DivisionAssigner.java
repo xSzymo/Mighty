@@ -26,7 +26,7 @@ public class DivisionAssigner {
     private UserService userService;
 
     @Transactional
-    public void assignUsersDivisions() {
+    public synchronized void assignUsersDivisions() {
         Set<User> users = userService.findAll();
         users = users.stream().sorted(new UsersDivisionComparator()).collect(Collectors.toSet());
 
