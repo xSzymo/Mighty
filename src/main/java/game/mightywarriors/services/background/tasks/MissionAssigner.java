@@ -40,6 +40,8 @@ public class MissionAssigner {
 
     private void assign(Set<User> users) {
         HashSet<Mission> missions = missionService.findAll();
+        missions = missions.stream().filter(x -> x.getMonster() != null).collect(Collectors.toCollection(HashSet::new));
+
         Map map = new HashMap();
 
         if (missions.size() == 0)
