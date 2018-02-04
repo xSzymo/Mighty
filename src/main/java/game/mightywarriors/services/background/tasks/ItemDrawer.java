@@ -125,8 +125,9 @@ public class ItemDrawer {
         if (item != null)
             if (!oldItemsInShop.contains(item))
                 if (!user.getShop().getItems().contains(item))
-                    if (item.getItemType().getType().equals(itemType.getType()))
-                        user.getShop().addItem(item);
+                    if (item.getItemType() != null)
+                        if (item.getItemType().getType().equals(itemType.getType()))
+                            user.getShop().addItem(item);
         return user;
     }
 }
