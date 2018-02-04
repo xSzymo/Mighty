@@ -19,15 +19,13 @@ public class DataReminder {
         User user = userService.findByEmail(informer.email);
 
         if (user != null)
-            if (user.isAccountNonLocked() && user.isAccountEnabled())
-                sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REMINDER_PASSWORD_MESSAGE + user.getPassword());
+            sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REMINDER_PASSWORD_MESSAGE + user.getPassword());
     }
 
     public void remindLogin(RemindInformer informer) {
         User user = userService.findByEmail(informer.email);
 
         if (user != null)
-            if (user.isAccountNonLocked() && user.isAccountEnabled())
             sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REMINDER_LOGIN_MESSAGE + user.getLogin());
     }
 }
