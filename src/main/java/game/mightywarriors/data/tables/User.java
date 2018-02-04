@@ -22,6 +22,9 @@ public class User {
     @Column(name = "id")
     private long id;
 
+    @Transient
+    public static final boolean isPicked = false;
+
     @JsonIgnore
     @Transient
     private boolean newToken;
@@ -53,6 +56,11 @@ public class User {
     private int arenaPoints;
     @Column(name = "mission_points")
     private int missionPoints;
+
+    @JsonIgnore
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<AuthorizationCode> authorizationCodes;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -192,7 +200,7 @@ public class User {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
+    public void setEMail(String eMail) {
         this.eMail = eMail;
     }
 
@@ -368,6 +376,14 @@ public class User {
 
     public void setAccountEnabled(boolean accountEnabled) {
         isAccountEnabled = accountEnabled;
+    }
+
+    public Set<AuthorizationCode> getAuthorizationCodes() {
+        return authorizationCodes;
+    }
+
+    public void setAuthorizationCodes(Set<AuthorizationCode> authorizationCodes) {
+        this.authorizationCodes = authorizationCodes;
     }
 
     private class MissionCollection extends HashSet<Mission> {
