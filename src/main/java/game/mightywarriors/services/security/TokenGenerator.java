@@ -27,7 +27,7 @@ public class TokenGenerator {
             code = SystemVariablesManager.DECO4DER_DB.decode(tokenCode);
             code = SystemVariablesManager.ENCODER_JSON.encode(code);
         } else {
-            String uniqueCode = randomCodeFactory.getUniqueCode();
+            String uniqueCode = randomCodeFactory.getUniqueToken();
             user.setTokenCode(uniqueCode);
             user.setNewToken(true);
             userService.save(user);

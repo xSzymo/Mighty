@@ -12,7 +12,7 @@ public class RandomCodeFactory {
     @Autowired
     private UserService userService;
 
-    public String getUniqueCode() {
+    public String getUniqueToken() {
         boolean is = true;
         String code;
 
@@ -59,7 +59,7 @@ public class RandomCodeFactory {
     private static String[] tab() {
         String[] tab = new String[32];
         for (int i = 0; i < tab.length; i++)
-            tab[i] = getUniqueCode(randomNumber(1, 60));
+            tab[i] = getUniqueToken(randomNumber(1, 60));
         return tab;
     }
 
@@ -69,7 +69,7 @@ public class RandomCodeFactory {
         return randomNum;
     }
 
-    private static String getUniqueCode(int number) {
+    private static String getUniqueToken(int number) {
         if (number == 1)
             return "a";
         if (number == 2)

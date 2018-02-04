@@ -13,7 +13,7 @@ public class RandomCodeFactoryTest {
         RandomCodeFactory objectUnderTest = new RandomCodeFactory();
 
         for (int i = 1; i < 5000; i++) {
-            String uniqueCode = objectUnderTest.getUniqueCode();
+            String uniqueCode = objectUnderTest.getUniqueToken();
             if (!SystemVariablesManager.JWTTokenCollection.contains(uniqueCode))
                 fail("fail");
 

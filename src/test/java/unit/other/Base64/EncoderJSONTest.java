@@ -19,7 +19,7 @@ public class EncoderJSONTest {
     @Test
     public void encode() {
         RandomCodeFactory randomCodeFactory = new RandomCodeFactory();
-        uniqueCode = randomCodeFactory.getUniqueCode();
+        uniqueCode = randomCodeFactory.getUniqueToken();
 
         String jsonCode = SystemVariablesManager.ENCODER_JSON.encode(uniqueCode);
         String dbCode = SystemVariablesManager.ENCODER_DB.encode(uniqueCode);
