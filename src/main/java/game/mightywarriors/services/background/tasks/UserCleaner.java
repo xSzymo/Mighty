@@ -25,7 +25,7 @@ public class UserCleaner {
 
         for (String code : codes) {
             User user = userService.findByCodeToEnableAccount(code);
-            if (((new Timestamp(System.currentTimeMillis()).getTime() - user.getCreatedDate().getTime()) / 1000 / 60) > SystemVariablesManager.EMAIL_CODE_EXPIRATION_TIME)
+            if (((new Timestamp(System.currentTimeMillis()).getTime() - user.getCreatedDate().getTime()) / 1000 / 60) > SystemVariablesManager.EMAIL_REGISTRATION_CODE_EXPIRATION_TIME)
                 userService.delete(user.getId());
         }
     }

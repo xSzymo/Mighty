@@ -46,7 +46,7 @@ public class RegistrationManager {
         user.setCodeToEnableAccount(code);
         userService.save(user);
 
-        sender.sendMail(informer.email, SystemVariablesManager.EMAIL_SUBJECT, SystemVariablesManager.EMAIL_MESSAGE + code);
+        sender.sendMail(informer.email, SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REGISTRATION_MESSAGE + code);
     }
 
     private void throwExceptionIf_LoginIsAlreadyTaken(String login) throws Exception {

@@ -32,7 +32,7 @@ public class AccountEnabler {
     }
 
     private void throwExceptionIf_CodeToEnableAccExpired(User user) throws LockedAccountException {
-        if (((new Timestamp(System.currentTimeMillis()).getTime() - user.getCreatedDate().getTime()) / 1000 / 60) > SystemVariablesManager.EMAIL_CODE_EXPIRATION_TIME) {
+        if (((new Timestamp(System.currentTimeMillis()).getTime() - user.getCreatedDate().getTime()) / 1000 / 60) > SystemVariablesManager.EMAIL_REGISTRATION_CODE_EXPIRATION_TIME) {
             userService.delete(user.getId());
             throw new LockedAccountException("It already expired");
         }

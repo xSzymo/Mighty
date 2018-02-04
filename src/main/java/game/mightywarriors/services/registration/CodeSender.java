@@ -20,7 +20,7 @@ public class CodeSender {
 
         throwExceptionIf_UserIsNullOrIsNotLocked(user);
 
-        sender.sendMail(informer.email, SystemVariablesManager.EMAIL_SUBJECT, SystemVariablesManager.EMAIL_MESSAGE + user.getCodeToEnableAccount());
+        sender.sendMail(informer.email, SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REGISTRATION_MESSAGE + user.getCodeToEnableAccount());
     }
 
     private void throwExceptionIf_UserIsNullOrIsNotLocked(User user) throws Exception {
