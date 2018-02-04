@@ -46,6 +46,9 @@ public final class SystemVariablesManager {
     public static final String EMAIL_EMAIL_SUBJECT = "Mighty authentication code";
     public static final String EMAIL_EMAIL_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
 
+    public static final String EMAIL_REMINDER_LOGIN_MESSAGE = "Hello, welcome warrior ! Here is your password: ";
+    public static final String EMAIL_REMINDER_PASSWORD_MESSAGE = "Hello, welcome warrior ! Here is your login: ";
+
     public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
 
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
