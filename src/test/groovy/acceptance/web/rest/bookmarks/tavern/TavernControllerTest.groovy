@@ -51,16 +51,16 @@ class TavernControllerTest extends GroovyTestCase {
 
         def checkLeftTimeResponseSecond = checkChampion(myJson)
 
-        myJson = 'set up json to fight requesst'(sendChampionResponse)
+        myJson = 'set up json to fight requesst'(parser(usersMissionFight)[0])
         String fightJSON = fight(myJson).getInputStream().getText()
 
         assertTrue(parser(checkLeftTimeResponseSecond).leftTime <= 0)
         assertEquals(parser(usersMissionFight).champions[0].size(), howManyChampions)
-        assertEquals(parser(usersMissionFight).id[0], parser(sendChampionResponse).id)
-        for (def x : parser(sendChampionResponse).champions)
+        assertEquals(parser(usersMissionFight).id[0], parser(usersMissionFight)[0].id)
+        for (def x : parser(usersMissionFight)[0].champions)
             assertTrue(x.id in parser(usersMissionFight).champions[0].id)
 
-        assertEquals(parser(usersMissionFight).mission[0].id, parser(sendChampionResponse).mission.id)
+        assertEquals(parser(usersMissionFight).mission[0].id, parser(usersMissionFight)[0].mission.id)
         assertEquals(parser(fightJSON).winner.id, parser(currentUser).id)
         assertNotEquals(parser(currentUser).gold, parser('log in and set champion & mission id'(loginJSON)).gold)
     }

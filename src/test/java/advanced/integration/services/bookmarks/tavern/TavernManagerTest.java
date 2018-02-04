@@ -14,6 +14,7 @@ import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
+import game.mightywarriors.web.rest.api.data.user.MissionFightController;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     private MissionService missionService;
     @Autowired
     private ChampionService championService;
+    @Autowired
+    private MissionFightController missionFightController;
 
     private int howManyRolls = 3;
     private User user;
@@ -83,9 +86,9 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     private void tavern_process() throws Exception {
         setUpVariables();
 
-        MissionFight missionFight = objectUnderTest.sendChampionOnMission(token, informer);
-        checkAfterSendChampion(missionFight);
+        objectUnderTest.sendChampionOnMission(token, informer);
 
+        checkAfterSendChampion(missionFightController.getMissionFights(token).get(0));
         FightResult fightResult = objectUnderTest.performFight(token, informer);
         checkAfterPerformFight(fightResult);
     }
