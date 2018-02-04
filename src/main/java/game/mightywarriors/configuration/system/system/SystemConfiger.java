@@ -6,10 +6,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.League;
-import game.mightywarriors.services.background.tasks.ArenaPointsRefresher;
-import game.mightywarriors.services.background.tasks.DivisionAssigner;
-import game.mightywarriors.services.background.tasks.ItemDrawer;
-import game.mightywarriors.services.background.tasks.MissionPointsRefresher;
+import game.mightywarriors.services.background.tasks.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +22,8 @@ public class SystemConfiger {
     private UserService userService;
     @Autowired
     private ItemDrawer itemDrawer;
+    @Autowired
+    private UserCleaner userCleaner;
     @Autowired
     private DivisionService divisionService;
     @Autowired
@@ -68,7 +67,7 @@ public class SystemConfiger {
 
     private void deleteAllUsersWithExpiredTokens() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-        exec.scheduleAtFixedRate(() -> itemDrawer.drawItemsForUser(), 0, SystemVariablesManager.HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS, TimeUnit.HOURS);
+        exec.scheduleAtFixedRate(() -> userCleaner.deleteAllUsersWithExpiredTokens(), 0, SystemVariablesManager.HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS, TimeUnit.HOURS);
     }
 
     private void addAllTokensFromDataBaseToCollectionInSystemVariableManager() {
