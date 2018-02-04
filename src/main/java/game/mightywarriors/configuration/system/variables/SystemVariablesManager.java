@@ -31,10 +31,20 @@ public final class SystemVariablesManager {
     public static final int REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE = 4;
     public static final int REGISTRATION_MINIMUM_PASSWORD_DIGIT_CHARS = 1;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    public static final int EMAIL_CODE_EXPIRATION_TIME = 15;
-    public static final String EMAIL_SUBJECT = "Mighty authentication code";
-    public static final String EMAIL_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
-    public static final int HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS = 1;
+
+    public static final int EMAIL_REGISTRATION_CODE_EXPIRATION_TIME = 15;
+    public static final int EMAIL_LOGIN_CODE_EXPIRATION_TIME = 15;
+    public static final int EMAIL_PASSWORD_CODE_EXPIRATION_TIME = 15;
+    public static final int EMAIL_EMAIL_CODE_EXPIRATION_TIME = 15;
+
+    public static final String EMAIL_REGISTRATION_SUBJECT = "Mighty authentication code";
+    public static final String EMAIL_REGISTRATION_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
+    public static final String EMAIL_LOGIN_SUBJECT = "Mighty authentication code";
+    public static final String EMAIL_LOGIN_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
+    public static final String EMAIL_PASSWORD_SUBJECT = "Mighty authentication code";
+    public static final String EMAIL_PASSWORD_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
+    public static final String EMAIL_EMAIL_SUBJECT = "Mighty authentication code";
+    public static final String EMAIL_EMAIL_MESSAGE = "Hello, welcome warrior ! Here is your authentication code : ";
 
     public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
 
@@ -53,6 +63,8 @@ public final class SystemVariablesManager {
     public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
     public static final int ARENA_POINTS = 3;
     public static final int GOLD_FROM_WORK = 10;
+
+    public static final int HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS = 1;
 
     public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
