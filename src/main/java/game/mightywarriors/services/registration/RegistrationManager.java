@@ -1,11 +1,11 @@
-package game.mightywarriors.services.bookmarks.registration;
+package game.mightywarriors.services.registration;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.generators.RandomCodeFactory;
-import game.mightywarriors.services.bookmarks.registration.validators.EmailValidator;
-import game.mightywarriors.services.bookmarks.registration.validators.PasswordValidator;
+import game.mightywarriors.services.registration.validators.EmailValidator;
+import game.mightywarriors.services.registration.validators.PasswordValidator;
 import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
 import org.springframework.beans.factory.annotation.Autowired;

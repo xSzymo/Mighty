@@ -1,8 +1,8 @@
 package game.mightywarriors.web.rest.api.security.registration;
 
-import game.mightywarriors.services.bookmarks.registration.AccountEnabler;
-import game.mightywarriors.services.bookmarks.registration.CodeSender;
-import game.mightywarriors.services.bookmarks.registration.RegistrationManager;
+import game.mightywarriors.services.registration.AccountEnabler;
+import game.mightywarriors.services.registration.CodeSender;
+import game.mightywarriors.services.registration.RegistrationManager;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,6 @@
 package unit.services.bookmarks.registration;
 
-import game.mightywarriors.services.bookmarks.registration.validators.PasswordValidator;
+import game.mightywarriors.services.registration.validators.PasswordValidator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

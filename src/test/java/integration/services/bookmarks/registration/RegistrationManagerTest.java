@@ -2,7 +2,7 @@ package integration.services.bookmarks.registration;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.services.bookmarks.registration.RegistrationManager;
+import game.mightywarriors.services.registration.RegistrationManager;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Test;

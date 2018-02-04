@@ -1,4 +1,4 @@
-package game.mightywarriors.services.bookmarks.registration.validators;
+package game.mightywarriors.services.registration.validators;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import org.springframework.stereotype.Service;

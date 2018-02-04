@@ -1,4 +1,4 @@
-package game.mightywarriors.services.bookmarks.registration;
+package game.mightywarriors.services.registration;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
