@@ -21,7 +21,7 @@ public class MissionsApiController {
     private UsersRetriever retriever;
 
     @GetMapping("secure/missions")
-    public Set<Mission> getMissionFights(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+    public Set<Mission> getUsersMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);
         return user.getMissions();
     }
