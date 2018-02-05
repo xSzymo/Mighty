@@ -20,8 +20,9 @@ public class RandomCodeFactory {
         do {
             code = coder();
             for (String x : SystemVariablesManager.JWTTokenCollection)
-                if (x.equals(code))
-                    is = false;
+                if (x != null)
+                    if (x.equals(code))
+                        is = false;
         } while (!is);
 
         SystemVariablesManager.JWTTokenCollection.add(code);
