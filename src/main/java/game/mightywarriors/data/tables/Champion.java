@@ -140,4 +140,8 @@ public class Champion implements IFighter {
     public Timestamp getCreatedDate() {
         return createdDate;
     }
+
+    public boolean isIsPicked() {
+        return true;
+    }
 }

@@ -22,9 +22,6 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Transient
-    private static final boolean picked = false;
-
     @JsonIgnore
     @Transient
     private boolean newToken;
@@ -384,10 +381,6 @@ public class User {
 
     public void setAuthorizationCodes(Set<AuthorizationCode> authorizationCodes) {
         this.authorizationCodes = authorizationCodes;
-    }
-
-    public boolean isPicked() {
-        return picked;
     }
 
     private class MissionCollection extends HashSet<Mission> {
