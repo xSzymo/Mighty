@@ -40,8 +40,10 @@ public class User {
     @Column(name = "e_mail")
     private String eMail;
 
+    @JsonIgnore
     @Column(name = "is_account_enabled")
     private boolean isAccountEnabled = false;
+    @JsonIgnore
     @Column(name = "is_account_non_locked")
     private boolean isAccountNonLocked = true;
 
