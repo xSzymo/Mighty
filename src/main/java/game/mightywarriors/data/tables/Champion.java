@@ -142,6 +142,6 @@ public class Champion implements IFighter {
     }
 
     public boolean isIsPicked() {
-        return true;
+        return false;
     }
 }
