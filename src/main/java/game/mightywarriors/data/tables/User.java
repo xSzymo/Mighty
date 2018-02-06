@@ -69,6 +69,9 @@ public class User {
     private Shop shop;
 
     @OneToOne(fetch = FetchType.EAGER)
+    private UserDungeon dungeon;
+
+    @OneToOne(fetch = FetchType.EAGER)
     private Inventory inventory;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -383,6 +386,14 @@ public class User {
 
     public void setAuthorizationCodes(Set<AuthorizationCode> authorizationCodes) {
         this.authorizationCodes = authorizationCodes;
+    }
+
+    public UserDungeon getDungeon() {
+        return dungeon;
+    }
+
+    public void setDungeon(UserDungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     private class MissionCollection extends HashSet<Mission> {
