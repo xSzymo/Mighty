@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authorization_codess")
+@Table(name = "authorization_codes")
 public class AuthorizationCode {
 
     @Id

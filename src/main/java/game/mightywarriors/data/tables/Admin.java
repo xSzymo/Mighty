@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "chat_role")
+@Table(name = "chat_roles")
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

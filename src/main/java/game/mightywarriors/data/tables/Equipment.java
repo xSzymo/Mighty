@@ -8,7 +8,7 @@ import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "equipment")
+@Table(name = "equipments")
 public class Equipment {
 
     @Id
