@@ -29,6 +29,8 @@ public class UserServiceUtility {
     private UserRoleService userRoleService;
     @Autowired
     private ChatService chatService;
+    @Autowired
+    private UserDungeonService userDungeonService;
 
     public User setToken(User user, User foundUser) throws Exception {
         if (user.isNewToken()) {
@@ -122,6 +124,9 @@ public class UserServiceUtility {
 
         if (user.getShop() != null)
             shopService.save(user.getShop());
+
+        if (user.getDungeon() != null)
+            userDungeonService.save(user.getDungeon());
 
         if (user.getImage() != null) {
             try {
