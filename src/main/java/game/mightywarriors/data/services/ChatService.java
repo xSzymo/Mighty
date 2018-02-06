@@ -74,6 +74,14 @@ public class ChatService {
         delete(findAll());
     }
 
+    private void deleteOperation(Chat chat) {
+        if (chat.getId() == null || find(chat.getId()) == null)
+            return;
+
+        removeChatsFromUsers(chat);
+        repository.deleteById(chat.getId());
+    }
+
     private void removeChatsFromUsers(Chat chat) {
         Iterator<User> iterator = find(chat.getId()).getUsers().iterator();
         LinkedList<Long> integers = new LinkedList<>();
@@ -95,13 +103,5 @@ public class ChatService {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void deleteOperation(Chat chat) {
-        if (chat.getId() == null || find(chat.getId()) == null)
-            return;
-
-        removeChatsFromUsers(chat);
-        repository.deleteById(chat.getId());
     }
 }
