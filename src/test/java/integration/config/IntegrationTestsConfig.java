@@ -39,6 +39,9 @@ public abstract class IntegrationTestsConfig {
     private static StatisticService statisticService;
     private static UserRoleService userRoleService;
     private static MissionFightService missionFightService;
+    private static FloorService floorService;
+    private static DungeonService dungeonService;
+    private static UserDungeonService userDungeonService;
     private static boolean run = true;
 
     @BeforeClass
@@ -64,6 +67,10 @@ public abstract class IntegrationTestsConfig {
         missionFightService.deleteAll();
         shopService.deleteAll();
         itemService.deleteAll();
+
+        floorService.deleteAll();
+        dungeonService.deleteAll();
+        userDungeonService.deleteAll();
 
         userRoleService.deleteAll();
         statisticService.deleteAll();
@@ -175,5 +182,20 @@ public abstract class IntegrationTestsConfig {
     @Autowired
     public void setPreparedFightService(MissionFightService missionFightService) {
         IntegrationTestsConfig.missionFightService = missionFightService;
+    }
+
+    @Autowired
+    public void setDungeonService(DungeonService dungeonService) {
+        IntegrationTestsConfig.dungeonService = dungeonService;
+    }
+
+    @Autowired
+    public void setUserDungeonService(UserDungeonService userDungeonService) {
+        IntegrationTestsConfig.userDungeonService = userDungeonService;
+    }
+
+    @Autowired
+    public void setFloorService(FloorService floorService) {
+        IntegrationTestsConfig.floorService = floorService;
     }
 }
