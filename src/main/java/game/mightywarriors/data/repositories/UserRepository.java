@@ -25,6 +25,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByEMail(String email);
 
+    User findByDungeonId(long id);
+
     User findByShop(Shop shop);
 
     User findByCodeToEnableAccount(String code);

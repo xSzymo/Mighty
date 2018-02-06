@@ -144,6 +144,14 @@ public class UserService {
         }
     }
 
+    public User findByUserDungeonId(long id) {
+        try {
+            return repository.findByDungeonId(id);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public HashSet<User> findAll() {
         return repository.findAll();
     }
