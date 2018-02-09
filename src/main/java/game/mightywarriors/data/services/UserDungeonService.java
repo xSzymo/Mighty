@@ -55,7 +55,7 @@ public class UserDungeonService {
         return repository.findAll();
     }
 
-    public UserDungeon findByDungeonId(long id) {
+    public Set<UserDungeon> findByDungeonId(long id) {
         try {
             return repository.findByDungeonId(id);
         } catch (NullPointerException e) {

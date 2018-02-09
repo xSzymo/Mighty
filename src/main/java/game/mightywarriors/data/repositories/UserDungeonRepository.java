@@ -6,13 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 @Transactional
 public interface UserDungeonRepository extends CrudRepository<UserDungeon, Long> {
     UserDungeon findById(long id);
 
-    UserDungeon findByDungeonId(long id);
+    Set<UserDungeon> findByDungeonId(long id);
 
     HashSet<UserDungeon> findAll();
 
