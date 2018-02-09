@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -35,6 +32,8 @@ public class UserService {
     private ChatService chatService;
     @Autowired
     private ItemDrawer itemDrawer;
+    @Autowired
+    private UserDungeonService userDungeonService;
 
     public void save(User user) {
         if (user != null) {
@@ -47,7 +46,7 @@ public class UserService {
     }
 
     public void save(Set<User> users) {
-        users.stream().filter(x -> x != null).forEach(this::saveOperation);
+        users.stream().filter(Objects::nonNull).forEach(this::saveOperation);
     }
 
     private void saveOperation(User user) {
@@ -57,6 +56,7 @@ public class UserService {
             user = userServiceUtility.updateObjectsFromRelations(user);
             user = userServiceUtility.setToken(user, foundUserWithSameLogin);
             user = userServiceUtility.initializeBasicVariablesForNewUser(user, foundUserWithSameLogin);
+            user = userServiceUtility.setDungeonIfAnyOfChampionsHaveEnoughLevel(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -186,6 +186,8 @@ public class UserService {
             shopService.delete(user.getShop());
         if (user.getInventory() != null)
             inventoryService.delete(user.getInventory());
+        if(user.getDungeon() != null)
+            userDungeonService.delete(user.getDungeon());
 
         user.getChampions().forEach(championService::delete);
         rankingService.delete(user.getLogin());

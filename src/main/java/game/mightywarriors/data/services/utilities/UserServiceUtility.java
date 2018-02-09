@@ -31,6 +31,8 @@ public class UserServiceUtility {
     private ChatService chatService;
     @Autowired
     private UserDungeonService userDungeonService;
+    @Autowired
+    private DungeonService dungeonService;
 
     public User setToken(User user, User foundUser) throws Exception {
         if (user.isNewToken()) {
@@ -69,6 +71,7 @@ public class UserServiceUtility {
 
             user.setArenaPoints(SystemVariablesManager.ARENA_POINTS);
             user.setMissionPoints(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10);
+            user.setDungeonPoints(SystemVariablesManager.DUNGEON_POINTS);
 
             if (user.getUserRole() == null) {
                 user.setUserRole(userRoleService.find("user"));
@@ -142,6 +145,22 @@ public class UserServiceUtility {
             chatService.save(x);
         });
 
+        return user;
+    }
+
+    public User setDungeonIfAnyOfChampionsHaveEnoughLevel(User user) {
+        if (user.getDungeon() == null) {
+                if (user.getUserChampionHighestLevel() >= SystemVariablesManager.CHAMPION_LEVEL_FOR_FIRST_DUNGEON) {
+                    Dungeon dungeon = dungeonService.findByNumber(1);
+
+                    UserDungeon userDungeon = new UserDungeon();
+                    userDungeon.setDungeon(dungeon);
+                    userDungeon.setCurrentFloor(SystemVariablesManager.MAX_FLOORS_PER_DUNGEON);
+                    userDungeonService.save(userDungeon);
+
+                    user.setDungeon(userDungeon);
+                }
+            }
         return user;
     }
 }
