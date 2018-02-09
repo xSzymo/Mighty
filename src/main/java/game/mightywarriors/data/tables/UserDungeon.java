@@ -12,7 +12,7 @@ public class UserDungeon {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "floor")
+    @Column(name = "current_floor")
     private long currentFloor = 10;
 
     @Column(name = "created_date")
