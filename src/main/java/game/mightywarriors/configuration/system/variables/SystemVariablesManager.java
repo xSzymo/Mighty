@@ -63,16 +63,22 @@ public final class SystemVariablesManager {
 
     public static final int NUMBER_ABOVE_ITEM = 5;
     public static final int MISSION_MONSTER_LEVEL_UNDER_CHAMPION_LEVEL = 3;
+
     public static final int HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT = 1;
     public static final int ARENA_POINTS = 3;
+    public static final int DUNGEON_POINTS = 1;
+
     public static final int GOLD_FROM_WORK = 10;
 
-    public static final int HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS = 1;
+    public static final int MAX_FLOORS_PER_DUNGEON = 10;
+    public static final int CHAMPION_LEVEL_FOR_FIRST_DUNGEON = 3;
 
+    public static final int HOW_MANY_HOURS_TO_DELETE_USERS_WITH_EXPIRED_TOKENS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_NEXT_DRAW_ITEMS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_UPDATE_DIVISIONS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_MISSION_POINTS = 1;
     public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_ARENA_POINTS = 1;
+    public static final int HOW_MANY_HOURS_BETWEEN_REFRESH_DUNGEON_POINT = 1;
 
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10 = 15;
     public static final int POINTS_MISSIONS_BETWEEN_LEVEL_11_AND_20 = 14;
