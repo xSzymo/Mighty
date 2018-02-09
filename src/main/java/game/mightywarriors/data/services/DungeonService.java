@@ -45,6 +45,7 @@ public class DungeonService {
                 e.printStackTrace();
             }
 
+
         dungeon.getFloors().forEach(floorService::save);
         repository.save(dungeon);
     }
@@ -60,6 +61,14 @@ public class DungeonService {
     public Dungeon find(Dungeon dungeon) {
         try {
             return find(dungeon.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public Dungeon findByNumber(int number) {
+        try {
+            return repository.findByNumber(number);
         } catch (NullPointerException e) {
             return null;
         }
@@ -97,10 +106,10 @@ public class DungeonService {
         if (dungeon.getId() == null || find(dungeon.getId()) == null)
             return;
 
-        UserDungeon userDungeon = userDungeonService.findByDungeonId(dungeon.getId());
-        if (userDungeon != null) {
-            userDungeon.setDungeon(null);
-            userDungeonService.save(userDungeon);
+        Set<UserDungeon> usersDungeons = userDungeonService.findByDungeonId(dungeon.getId());
+        for (UserDungeon x : usersDungeons) {
+            x.setDungeon(null);
+            userDungeonService.save(x);
         }
 
         dungeon.getFloors().forEach(floorService::delete);

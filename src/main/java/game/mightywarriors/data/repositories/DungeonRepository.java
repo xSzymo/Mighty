@@ -12,6 +12,8 @@ import java.util.HashSet;
 public interface DungeonRepository extends CrudRepository<Dungeon, Long> {
     Dungeon findById(long id);
 
+    Dungeon findByNumber(int id);
+
     HashSet<Dungeon> findAll();
 
     void deleteById(long id);
