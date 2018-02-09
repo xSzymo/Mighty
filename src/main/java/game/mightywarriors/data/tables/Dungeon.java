@@ -19,6 +19,10 @@ public class Dungeon {
 
     @Column(name = "created_date")
     private Timestamp createdDate;
+    @Column(name = "name", unique = true)
+    private String name;
+    @Column(name = "number", unique = true)
+    private int number = 0;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -32,7 +36,9 @@ public class Dungeon {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Dungeon(Image image, Set<Floor> floors) {
+    public Dungeon(String name, int number, Image image, Set<Floor> floors) {
+        this.name = name;
+        this.number = number;
         this.image = image;
         this.floors = floors;
     }
@@ -42,15 +48,15 @@ public class Dungeon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dungeon dungeon = (Dungeon) o;
-        return Objects.equals(id, dungeon.id) &&
-                Objects.equals(createdDate, dungeon.createdDate) &&
-                Objects.equals(floors, dungeon.floors);
+        return number == dungeon.number &&
+                Objects.equals(name, dungeon.name) &&
+                Objects.equals(image, dungeon.image);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, createdDate, floors);
+        return Objects.hash(name, number, image);
     }
 
     public Long getId() {
@@ -83,5 +89,21 @@ public class Dungeon {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
