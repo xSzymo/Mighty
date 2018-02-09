@@ -12,12 +12,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class Helper {
+public class FightHelper {
     protected static final int ONE_SECOND = 1000;
 
     @Autowired
     private MissionFightService missionFightService;
 
+    public boolean isAnyOfChampionsBlocked(Set<Champion> champions) {
+        for (Champion champion : champions)
+            if (champion.getBlockUntil() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockUntil()))
+                return true;
+
+        return false;
+    }
+
+
+    @Deprecated
     public boolean isChampionOnMission(Set<Champion> champions, boolean mustBeNull) {
         for (Champion champion : champions) {
             if (champion.getBlockUntil() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockUntil()))
@@ -63,7 +73,7 @@ public class Helper {
     public Set<Long> getSetOfChampionsIds(Set<Champion> champions) {
         Set<Long> collect = new HashSet<>();
         Iterator<Champion> iterator = champions.iterator();
-        while(iterator.hasNext())
+        while (iterator.hasNext())
             collect.add(iterator.next().getId());
 
         return collect;
