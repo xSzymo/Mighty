@@ -21,8 +21,6 @@ public class TestController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UsersRetriever usersRetriever;
-    @Autowired
     private LoginController login;
 
     private String user1 = "bober";

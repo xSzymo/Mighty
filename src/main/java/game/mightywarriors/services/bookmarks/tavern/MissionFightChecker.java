@@ -3,7 +3,7 @@ package game.mightywarriors.services.bookmarks.tavern;
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ public class MissionFightChecker {
     @Autowired
     private MissionFightService missionFightService;
     @Autowired
-    private Helper helper;
+    private FightHelper fightHelper;
 
     public long checkBiggestLeftTimeForChampions(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        return helper.getBiggestBlockTimeForEnteredChampions(user, informer.championId);
+        return fightHelper.getBiggestBlockTimeForEnteredChampions(user, informer.championId);
     }
 
     public long checkLeftTimeForMissionFight(String authorization, Informer informer) throws Exception {

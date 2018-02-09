@@ -6,7 +6,7 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.exceptions.BusyChampionException;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,28 +19,28 @@ import java.util.stream.Stream;
 
 @Service
 public class WorkerManager {
-    private Helper helper;
+    private FightHelper fightHelper;
     private UserService userService;
     private WorkService workService;
     private WorkerUtility workerUtility;
     private UsersRetriever usersRetriever;
 
     @Autowired
-    public WorkerManager(UserService userService, UsersRetriever usersRetriever, WorkService workService, Helper helper, WorkerUtility workerUtility) {
+    public WorkerManager(UserService userService, UsersRetriever usersRetriever, WorkService workService, FightHelper fightHelper, WorkerUtility workerUtility) {
         this.userService = userService;
         this.usersRetriever = usersRetriever;
         this.workService = workService;
-        this.helper = helper;
+        this.fightHelper = fightHelper;
         this.workerUtility = workerUtility;
     }
 
     public void setWorkForUser(String authorization, Informer workJSON) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        if (helper.getBiggestBlockTimeForEnteredChampions(user, helper.getChampionsId(user.getChampions())) > 0)
+        if (fightHelper.getBiggestBlockTimeForEnteredChampions(user, fightHelper.getChampionsId(user.getChampions())) > 0)
             throw new BusyChampionException("Some one is already busy");
 
-        workerUtility.createWork(user, workJSON.hours, helper.getChampions(user, workJSON.championId));
+        workerUtility.createWork(user, workJSON.hours, fightHelper.getChampions(user, workJSON.championId));
     }
 
     public void getPayment(String authorization) throws Exception {
@@ -57,7 +57,7 @@ public class WorkerManager {
         Set<Work> works = workService.find(user.getLogin());
 
         for (Work work : works) {
-            for (Champion champion : helper.getChampions(user, informer.championId)) {
+            for (Champion champion : fightHelper.getChampions(user, informer.championId)) {
                 if (work.getChampion().getId().equals(champion.getId())) {
                     user = workerUtility.setDate(user, Stream.of(work.getChampion()).collect(Collectors.toSet()), null);
 

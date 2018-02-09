@@ -8,7 +8,7 @@ import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.exceptions.BusyChampionException;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.bookmarks.work.WorkerManager;
 import game.mightywarriors.services.bookmarks.work.WorkerUtility;
 import game.mightywarriors.services.security.UsersRetriever;
@@ -39,9 +39,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     @Autowired
     private UserService userService;
     @Autowired
-    private Helper helper;
-    @Autowired
-    private UsersRetriever usersRetriever;
+    private FightHelper fightHelper;
 
     private User user;
     private Informer informer;
@@ -53,7 +51,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     @Before
     public void setUp() throws Exception {
         workerUtility = spy(workerUtility);
-        objectUnderTests = new WorkerManager(userService, retriever, workService, helper, workerUtility);
+        objectUnderTests = new WorkerManager(userService, retriever, workService, fightHelper, workerUtility);
 
         user = retriever.retrieveUser(token);
 

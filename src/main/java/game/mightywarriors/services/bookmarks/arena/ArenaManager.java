@@ -10,7 +10,7 @@ import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.other.exceptions.IllegalFightException;
 import game.mightywarriors.other.exceptions.NotProperlyChampionsException;
 import game.mightywarriors.other.exceptions.UsedPointsException;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
@@ -35,7 +35,7 @@ public class ArenaManager {
     @Autowired
     private RankingService rankingService;
     @Autowired
-    private Helper helper;
+    private FightHelper fightHelper;
 
     private int ONE_SECOND = 1000;
     private int ONE_MINUTE = 60 * ONE_SECOND;
@@ -55,7 +55,7 @@ public class ArenaManager {
         Set<Champion> champions = user.getChampions();
         check(user, opponent, champions);
 
-        FightResult fight = fightCoordinator.fight(user, opponent, helper.getChampionsId(champions));
+        FightResult fight = fightCoordinator.fight(user, opponent, fightHelper.getChampionsId(champions));
         getThingsDoneAfterFight(user, opponent, fight, champions);
 
         return fight;
@@ -90,7 +90,7 @@ public class ArenaManager {
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
             throw new UsedPointsException("Arena points already used");
-        if (helper.isChampionOnMission(new HashSet<>(champions), true))
+        if (fightHelper.isChampionOnMission(new HashSet<>(champions), true))
             throw new BusyChampionException("Someone is already busy");
         if (opponent == null)
             throw new NotProperlyChampionsException("Wrong champions id");

@@ -9,7 +9,7 @@ import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class TavernUtility {
     @Autowired
     private MissionAssigner missionAssigner;
     @Autowired
-    private Helper helper;
+    private FightHelper fightHelper;
 
     private static final int ONE_SECOND = 1000;
 
@@ -47,7 +47,7 @@ public class TavernUtility {
         championService.save(champions);
         missionFightService.save(missionFight);
 
-        missionAssigner.assignNewMissionForUsers(userRepository.findByChampionsIdIn(helper.getSetOfChampionsIds(champions)).getId());
+        missionAssigner.assignNewMissionForUsers(userRepository.findByChampionsIdIn(fightHelper.getSetOfChampionsIds(champions)).getId());
     }
 
     public void getThingsDoneAfterFight(User user, MissionFight missionFight, Set<Champion> champions, FightResult fight, boolean wonFight) {
@@ -55,7 +55,7 @@ public class TavernUtility {
             long missionExperience = missionFight.getMission().getExperience();
             BigDecimal missionGold = missionFight.getMission().getGold();
 
-            champions = helper.getChampions(user, helper.getChampionsId(champions));
+            champions = fightHelper.getChampions(user, fightHelper.getChampionsId(champions));
 
             long exp = missionExperience / champions.size();
             champions.forEach(x -> x.addExperience(exp));
