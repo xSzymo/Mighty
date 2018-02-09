@@ -55,6 +55,8 @@ public class User {
     private int arenaPoints;
     @Column(name = "mission_points")
     private int missionPoints;
+    @Column(name = "dungeon_points")
+    private int dungeonPoints;
 
     @JsonIgnore
     @NotFound(action = NotFoundAction.IGNORE)
@@ -394,6 +396,14 @@ public class User {
 
     public void setDungeon(UserDungeon dungeon) {
         this.dungeon = dungeon;
+    }
+
+    public int getDungeonPoints() {
+        return dungeonPoints;
+    }
+
+    public void setDungeonPoints(int dungeonPoints) {
+        this.dungeonPoints = dungeonPoints;
     }
 
     private class MissionCollection extends HashSet<Mission> {
