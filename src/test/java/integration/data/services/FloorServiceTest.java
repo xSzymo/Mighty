@@ -132,6 +132,8 @@ public class FloorServiceTest extends IntegrationTestsConfig {
         objectUnderTest.save(floors.getFirst());
 
         Dungeon dungeon = new Dungeon();
+        dungeon.setNumber(24);
+        dungeon.setName("nam1");
         dungeon.getFloors().add(floors.getFirst());
         dungeonService.save(dungeon);
 

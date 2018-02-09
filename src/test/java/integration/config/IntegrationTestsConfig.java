@@ -3,10 +3,7 @@ package integration.config;
 import game.mightywarriors.MightyWarriorsApplication;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.*;
-import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.data.tables.Mission;
-import game.mightywarriors.data.tables.Monster;
-import game.mightywarriors.data.tables.Statistic;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -117,6 +114,11 @@ public abstract class IntegrationTestsConfig {
         itemService.save(new Item("name" + 8, ItemType.NECKLACE, new Statistic(1, 1, 1, 1, 1, 1), 1));
         itemService.save(new Item("name" + 9, ItemType.OFFHAND, new Statistic(1, 1, 1, 1, 1, 1), 1));
         itemService.save(new Item("name" + 10, ItemType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
+
+        Dungeon dungeon = new Dungeon();
+        dungeon.setNumber(1);
+        dungeon.getFloors().add(new Floor());
+        dungeonService.save(dungeon);
     }
 
     @Autowired
