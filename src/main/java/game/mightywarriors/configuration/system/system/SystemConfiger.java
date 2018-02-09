@@ -32,6 +32,8 @@ public class SystemConfiger {
     private MissionPointsRefresher missionPointsRefresher;
     @Autowired
     private ArenaPointsRefresher arenaPointsRefresher;
+    @Autowired
+    private DungeonPointsRefresher dungeonPointsRefresher;
 
     @PostConstruct
     public void configSystemAtStartApp() {
@@ -41,6 +43,7 @@ public class SystemConfiger {
         updateDivisionForUsers();
         refreshMissionPoints();
         refreshArenaPoints();
+        refreshDungeonPoints();
         drawingItemsForUserEveryDay();
         deleteAllUsersWithExpiredTokens();
     }
@@ -58,6 +61,11 @@ public class SystemConfiger {
     private void refreshArenaPoints() {
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         exec.scheduleAtFixedRate(() -> arenaPointsRefresher.refreshArenaPointsForAllUsers(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_REFRESH_ARENA_POINTS, TimeUnit.HOURS);
+    }
+
+    private void refreshDungeonPoints() {
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(() -> dungeonPointsRefresher.refreshDungeonPointsForAllUsers(), 0, SystemVariablesManager.HOW_MANY_HOURS_BETWEEN_REFRESH_DUNGEON_POINT, TimeUnit.HOURS);
     }
 
     private void drawingItemsForUserEveryDay() {
