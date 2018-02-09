@@ -274,6 +274,18 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertEquals("user", one.getUserRole().getRole());
     }
 
+    @Test
+    public void userGetsNewDungeonWith3LevelChampion() {
+        User user = new User("testing", "testing", "testing");
+        user.getChampions().add(new Champion(new Statistic()).setLevel(3));
+        objectUnderTest.save(user);
+        users.add(user);
+
+        assertNotNull(user.getDungeon());
+        assertNotNull(user.getDungeon().getDungeon());
+        assertEquals(10, user.getDungeon().getCurrentFloor());
+    }
+
 
     private void addExampleDataToEquipments() {
         Statistic statistic;
