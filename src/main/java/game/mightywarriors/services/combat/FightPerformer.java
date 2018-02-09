@@ -41,7 +41,7 @@ public class FightPerformer {
 
             round = (roundNr == 1) ? setUpRound(round, user, opponent) : setUpRound(round, fightResult, roundNr);
             round = roundFightPerformer.performSingleRound(round, userChampionTurn, opponentChampionTurn, isUserTurn);
-            fightResult = endFightIfAllFightersFromAnyTeamsAreDead(fightResult, round, user, opponent, firstRound);
+            fightResult = endFightIfAllFightersFromOneSideDied(fightResult, round, user, opponent, firstRound);
         }
 
         return fightResult;
@@ -100,7 +100,7 @@ public class FightPerformer {
         return round;
     }
 
-    private FightResult endFightIfAllFightersFromAnyTeamsAreDead(FightResult fightResult, RoundProcess round, User user, Object opponent, RoundProcess firstRound) {
+    private FightResult endFightIfAllFightersFromOneSideDied(FightResult fightResult, RoundProcess round, User user, Object opponent, RoundProcess firstRound) {
         if (round == null)
             throw new RuntimeException("Something went wrong");
 
@@ -125,6 +125,8 @@ public class FightPerformer {
                 fightResult.setLooser(user);
                 if (opponent instanceof User)
                     fightResult.setWinner((User) opponent);
+                if (opponent instanceof Collection<?>)
+                    fightResult.getMonsters().addAll((LinkedList<Monster>) opponent);
             }
         }
         if (endFight)

@@ -1,6 +1,7 @@
 package game.mightywarriors.web.json.objects.fights;
 
 import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.tables.Monster;
 import game.mightywarriors.data.tables.User;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.List;
 public class FightResult {
     private User winner;
     private User looser;
+    private List<Monster> monsters = new LinkedList<>();
     private List<RoundProcess> rounds = new LinkedList<>();
     private BigDecimal gold;
     private long experience;
@@ -61,5 +63,13 @@ public class FightResult {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public List<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(List<Monster> monsters) {
+        this.monsters = monsters;
     }
 }
