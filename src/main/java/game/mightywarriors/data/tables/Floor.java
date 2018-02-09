@@ -24,7 +24,7 @@ public class Floor {
     @Column(name = "time_duration")
     private long duration;
     @Column(name = "floor")
-    private long floor;
+    private int floor;
     @Column(name = "gold")
     private BigDecimal gold = new BigDecimal("0");
     @Column(name = "created_date")
@@ -45,7 +45,7 @@ public class Floor {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Floor(long experience, long duration, long floor, BigDecimal gold, Set<Monster> monster, Item item, Image image) {
+    public Floor(long experience, long duration, int floor, BigDecimal gold, Set<Monster> monster, Item item, Image image) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
         this.duration = duration;
@@ -140,11 +140,11 @@ public class Floor {
         this.item = item;
     }
 
-    public long getFloor() {
+    public int getFloor() {
         return floor;
     }
 
-    public void setFloor(long floor) {
+    public void setFloor(int floor) {
         this.floor = floor;
     }
 }
