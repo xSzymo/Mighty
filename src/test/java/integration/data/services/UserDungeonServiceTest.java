@@ -1,5 +1,6 @@
 package integration.data.services;
 
+import game.mightywarriors.data.services.DungeonService;
 import game.mightywarriors.data.services.UserDungeonService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -22,6 +24,8 @@ public class UserDungeonServiceTest extends IntegrationTestsConfig {
     private UserDungeonService objectUnderTest;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DungeonService dungeonService;
 
     private LinkedList<UserDungeon> userDungeons;
     private LinkedList<Dungeon> dungeons;
@@ -44,7 +48,7 @@ public class UserDungeonServiceTest extends IntegrationTestsConfig {
             images.add(new Image("http://www.url" + i + ".com"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
             floors.add(new Floor(i, i, i, new BigDecimal("1"), new HashSet<>(Collections.singleton(monsters.get(i))), new Item(), new Image()));
-            dungeons.add(new Dungeon(new Image(), new HashSet<>(Collections.singletonList(floors.get(i)))));
+            dungeons.add(new Dungeon("name : " + i, i + 10, new Image(), new HashSet(Arrays.asList(floors.get(i)))));
             userDungeons.add(new UserDungeon(dungeons.get(i)));
         }
     }
@@ -52,6 +56,7 @@ public class UserDungeonServiceTest extends IntegrationTestsConfig {
     @After
     public void afterEachTest() {
         userDungeons.forEach(objectUnderTest::delete);
+        dungeons.forEach(dungeonService::delete);
     }
 
     @Test

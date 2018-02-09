@@ -48,7 +48,7 @@ public class DungeonServiceTest extends IntegrationTestsConfig {
             images.add(new Image("http://www.url" + i + ".com"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
             floors.add(new Floor(i, i, i, new BigDecimal("1"), new HashSet<>(Collections.singleton(monsters.get(i))), new Item(), new Image()));
-            dungeons.add(new Dungeon(new Image(), new HashSet<>(Collections.singletonList(floors.get(i)))));
+            dungeons.add(new Dungeon("name : " + i + 5, i + 5, new Image(), new HashSet(Collections.singletonList(floors.get(i)))));
         }
     }
 
