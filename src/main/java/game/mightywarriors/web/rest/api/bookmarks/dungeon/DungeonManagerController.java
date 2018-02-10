@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+
 @RestController
 public class DungeonManagerController {
     @Autowired
@@ -20,6 +22,8 @@ public class DungeonManagerController {
     private UsersRetriever usersRetriever;
     @Autowired
     private DungeonFightService dungeonFightService;
+
+    private static final int ONE_SECOND = 1000;
 
     @PostMapping("secure/dungeon/send")
     public void sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
@@ -33,10 +37,14 @@ public class DungeonManagerController {
         return dungeonManager.performFightDungeonFight(authorization);
     }
 
-    @PostMapping("secure/dungeon/check")
-    public DungeonFight checkMissionFightBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+    @PostMapping("secure/dungeon/check/mission")
+    public long checkMissionFightBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        return dungeonFightService.findByUserId(user.getId());
+        DungeonFight dungeonFight = dungeonFightService.findByUserId(user.getId());
+        if (dungeonFight == null)
+            throw new Exception("User is not in dungeon");
+
+        return (dungeonFight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }
 }
