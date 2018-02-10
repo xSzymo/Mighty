@@ -104,7 +104,7 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         Champion two = missionFight.getChampions().stream().filter(x -> x.getId().equals(secondChampionId)).findFirst().get();
         Champion next;
 
-        long blockTime = new Timestamp(System.currentTimeMillis() + SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * 60 * 1000).getTime() / 60 / 1000;
+        long blockTime = new Timestamp(System.currentTimeMillis() + missionFight.getMission().getDuration() * 60 * 1000).getTime() / 60 / 1000;
         assertEquals(2, missionFight.getChampions().size());
 
         next = championService.find(firstChampionId);
