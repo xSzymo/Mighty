@@ -6,7 +6,7 @@ import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.BusyChampionException;
-import game.mightywarriors.services.bookmarks.utilities.Helper;
+import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
@@ -28,7 +28,7 @@ public class TavernManager {
     @Autowired
     private TavernUtility tavernUtility;
     @Autowired
-    private Helper helper;
+    private FightHelper fightHelper;
 
     public void sendChampionOnMission(String authorization, Informer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
@@ -36,10 +36,10 @@ public class TavernManager {
         if (user.getMissionPoints() < 1)
             throw new Exception("Mission points already used");
 
-        Set<Champion> champions = helper.getChampions(user, informer.championId);
-        Mission mission = helper.getMission(user, informer.missionId);
+        Set<Champion> champions = fightHelper.getChampions(user, informer.championId);
+        Mission mission = fightHelper.getMission(user, informer.missionId);
 
-        if (helper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
+        if (fightHelper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
             throw new BusyChampionException("Someone is already busy");
 
         tavernUtility.prepareNewMissionFight(champions, mission);
@@ -50,11 +50,15 @@ public class TavernManager {
 
         MissionFight missionFight = missionFightService.find(informer.missionFightId);
 
+        if(missionFight == null)
+            throw new Exception("Mission Fight not found");
+
         Set<Champion> champions = missionFight.getChampions();
-        if (helper.isChampionOnMission(new HashSet<>(champions), false))
+
+        if (fightHelper.isChampionOnMission(new HashSet<>(champions), false))
             throw new BusyChampionException("Someone is already busy");
 
-        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), helper.getChampionsId(missionFight.getChampions()));
+        FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), fightHelper.getChampionsId(missionFight.getChampions()));
         tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
 
         return fight;
