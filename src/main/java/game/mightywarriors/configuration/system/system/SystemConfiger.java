@@ -2,9 +2,12 @@ package game.mightywarriors.configuration.system.system;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.DivisionService;
+import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Division;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.UserRole;
+import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.enums.League;
 import game.mightywarriors.services.background.tasks.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class SystemConfiger {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRoleService userRoleService;
     @Autowired
     private ItemDrawer itemDrawer;
     @Autowired
@@ -38,6 +43,7 @@ public class SystemConfiger {
     @PostConstruct
     public void configSystemAtStartApp() {
         createStandardDivisionsIfNotExist();
+        createStandardRolesIfNotExist();
         addAllTokensFromDataBaseToCollectionInSystemVariableManager();
 
         updateDivisionForUsers();
@@ -93,5 +99,15 @@ public class SystemConfiger {
         divisionService.save(new Division(League.SILVER));
         divisionService.save(new Division(League.BRONZE));
         divisionService.save(new Division(League.WOOD));
+    }
+
+    private void createStandardRolesIfNotExist() {
+        if (userRoleService.findAll().size() > 0)
+            return;
+
+        userRoleService.save(new UserRole(GuildRole.OWNER.getRole()));
+        userRoleService.save(new UserRole(GuildRole.MEMBER.getRole()));
+        userRoleService.save(new UserRole("admin"));
+        userRoleService.save(new UserRole("user"));
     }
 }
