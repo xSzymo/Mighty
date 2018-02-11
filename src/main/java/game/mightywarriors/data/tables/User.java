@@ -96,6 +96,10 @@ public class User {
     private UserRole userRole;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Guild guild;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "division_id", referencedColumnName = "id")
     @JsonBackReference
     private Division division;
@@ -154,6 +158,7 @@ public class User {
         this.missionPoints = user.missionPoints;
         this.arenaPoints = user.arenaPoints;
         this.division = user.division;
+        this.guild = user.guild;
     }
 
     @Override
@@ -404,6 +409,14 @@ public class User {
 
     public void setDungeonPoints(int dungeonPoints) {
         this.dungeonPoints = dungeonPoints;
+    }
+
+    public Guild getGuild() {
+        return guild;
+    }
+
+    public void setGuild(Guild guild) {
+        this.guild = guild;
     }
 
     private class MissionCollection extends HashSet<Mission> {

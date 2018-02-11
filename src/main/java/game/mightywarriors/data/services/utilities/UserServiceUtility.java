@@ -12,8 +12,6 @@ import java.util.HashSet;
 @Service
 public class UserServiceUtility {
     @Autowired
-    private UserRepository repository;
-    @Autowired
     private MissionService missionService;
     @Autowired
     private ImageService imageService;
@@ -27,6 +25,8 @@ public class UserServiceUtility {
     private RankingService rankingService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private GuildService guildService;
     @Autowired
     private ChatService chatService;
     @Autowired
@@ -127,6 +127,12 @@ public class UserServiceUtility {
 
         if (user.getShop() != null)
             shopService.save(user.getShop());
+
+        if(user.getUserRole() != null)
+            userRoleService.save(user.getUserRole());
+
+        if(user.getGuild() != null)
+            guildService.save(user.getGuild());
 
         if (user.getDungeon() != null)
             userDungeonService.save(user.getDungeon());
