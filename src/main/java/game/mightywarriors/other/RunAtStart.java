@@ -38,8 +38,8 @@ public class RunAtStart {
         if (!SystemVariablesManager.INSERT_EXAMPLE_DATA)
             return;
 
-        UserRole admin_role = new UserRole("admin");
-        UserRole user_role = new UserRole("user");
+        UserRole admin_role = userRoleService.find("admin");
+        UserRole user_role = userRoleService.find("user");
         userRoleService.save(admin_role);
         userRoleService.save(user_role);
 
