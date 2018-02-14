@@ -107,6 +107,28 @@ public class FightCoordinator {
         return fight(user, opponent);
     }
 
+    /**
+     * This method is not final version for guild wars
+     * The current system don't consider fights between guilds
+     * Here's a little hack :)
+     */
+    public FightResult fight(Set<User> users, Set<User> opponents) {
+        User user = new User()
+                .setLogin(users.iterator().next().getGuild().getName());
+        User opponent = new User()
+                .setLogin(opponents.iterator().next().getGuild().getName());
+
+        for (User x : users)
+            for (Champion champion : x.getChampions())
+                user.addChampion(champion);
+        for (User x : opponents)
+            for (Champion champion : x.getChampions())
+                opponent.addChampion(champion);
+
+
+        return fight(user, opponent);
+    }
+
     private long[] getChampionsId(Set<Champion> champion) {
         return getChampionsId(new LinkedList<>(champion));
     }
