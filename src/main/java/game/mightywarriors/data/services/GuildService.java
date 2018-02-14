@@ -18,9 +18,14 @@ public class GuildService {
     private RequestService requestService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ChatService chatService;
 
     public void save(Guild guild) {
         if (guild != null) {
+            if(guild.getChat() != null)
+                chatService.save(guild.getChat());
+
             guild.getInvites().forEach(requestService::save);
             repository.save(guild);
         }
@@ -65,10 +70,19 @@ public class GuildService {
     public void delete(long id) {
         Guild guild = repository.findById(id);
         if (guild != null) {
+            chatService.delete(guild.getChat());
             guild.getUsers().forEach(user -> user.setGuild(null));
             guild.getUsers().forEach(userService::save);
 
             repository.deleteById(id);
+        }
+    }
+
+    public void delete(String name) {
+        try {
+            delete(find(name));
+        } catch (NullPointerException e) {
+
         }
     }
 
