@@ -154,6 +154,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
+    @Transactional
     public void delete2() {
         objectUnderTest.save(users);
 
