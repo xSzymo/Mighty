@@ -24,6 +24,9 @@ public class Guild {
     @Column(name = "created_date")
     private Timestamp createdDate;
 
+    @OneToOne
+    private Chat chat;
+
     @OneToMany(mappedBy = "guild", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<User> users = new HashSet<>();
@@ -105,5 +108,13 @@ public class Guild {
 
     public void setMinimumLevel(int minimumLevel) {
         this.minimumLevel = minimumLevel;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }
