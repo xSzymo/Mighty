@@ -185,8 +185,9 @@ public class User {
         return login;
     }
 
-    public void setLogin(String login) {
+    public User setLogin(String login) {
         this.login = login;
+        return this;
     }
 
     public String getPassword() {
@@ -429,7 +430,7 @@ public class User {
     private class ChampionCollection extends HashSet<Champion> {
         @Override
         public final boolean add(Champion a) {
-            return this.size() <= 3 && super.add(a);
+            return this.size() <= 90 && super.add(a);
         }
     }
 }
