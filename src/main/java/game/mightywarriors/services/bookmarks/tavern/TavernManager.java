@@ -50,7 +50,7 @@ public class TavernManager {
 
         MissionFight missionFight = missionFightService.find(informer.missionFightId);
 
-        if(missionFight == null)
+        if (missionFight == null)
             throw new Exception("Mission Fight not found");
 
         Set<Champion> champions = missionFight.getChampions();

@@ -3,7 +3,6 @@ package game.mightywarriors.web.rest.api.test;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.combat.FightCoordinator;
-import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
 import game.mightywarriors.web.json.objects.security.JSONTokenObject;
 import game.mightywarriors.web.rest.api.security.authorization.LoginController;

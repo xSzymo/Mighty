@@ -53,7 +53,7 @@ public class LoginChanger {
     }
 
     private void throwExceptionIf_LoginIsAlreadyTaken(String login) throws Exception {
-        if(login == null)
+        if (login == null)
             throw new Exception("Wrong login");
 
         if (userService.find(login) != null)

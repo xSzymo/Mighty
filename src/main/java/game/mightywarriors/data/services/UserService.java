@@ -186,7 +186,7 @@ public class UserService {
             shopService.delete(user.getShop());
         if (user.getInventory() != null)
             inventoryService.delete(user.getInventory());
-        if(user.getDungeon() != null)
+        if (user.getDungeon() != null)
             userDungeonService.delete(user.getDungeon());
 
         user.getChampions().forEach(championService::delete);

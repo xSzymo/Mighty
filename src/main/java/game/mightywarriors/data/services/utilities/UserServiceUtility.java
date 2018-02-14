@@ -1,7 +1,6 @@
 package game.mightywarriors.data.services.utilities;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
-import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,10 +127,10 @@ public class UserServiceUtility {
         if (user.getShop() != null)
             shopService.save(user.getShop());
 
-        if(user.getUserRole() != null)
+        if (user.getUserRole() != null)
             userRoleService.save(user.getUserRole());
 
-        if(user.getGuild() != null)
+        if (user.getGuild() != null)
             guildService.save(user.getGuild());
 
         if (user.getDungeon() != null)
@@ -156,17 +155,17 @@ public class UserServiceUtility {
 
     public User setDungeonIfAnyOfChampionsHaveEnoughLevel(User user) {
         if (user.getDungeon() == null) {
-                if (user.getUserChampionHighestLevel() >= SystemVariablesManager.CHAMPION_LEVEL_FOR_FIRST_DUNGEON) {
-                    Dungeon dungeon = dungeonService.findByNumber(1);
+            if (user.getUserChampionHighestLevel() >= SystemVariablesManager.CHAMPION_LEVEL_FOR_FIRST_DUNGEON) {
+                Dungeon dungeon = dungeonService.findByNumber(1);
 
-                    UserDungeon userDungeon = new UserDungeon();
-                    userDungeon.setDungeon(dungeon);
-                    userDungeon.setCurrentFloor(SystemVariablesManager.MAX_FLOORS_PER_DUNGEON);
-                    userDungeonService.save(userDungeon);
+                UserDungeon userDungeon = new UserDungeon();
+                userDungeon.setDungeon(dungeon);
+                userDungeon.setCurrentFloor(SystemVariablesManager.MAX_FLOORS_PER_DUNGEON);
+                userDungeonService.save(userDungeon);
 
-                    user.setDungeon(userDungeon);
-                }
+                user.setDungeon(userDungeon);
             }
+        }
         return user;
     }
 }

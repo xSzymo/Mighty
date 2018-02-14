@@ -46,7 +46,7 @@ public class GuildController {
     }
 
     @GetMapping("guilds/{id}")
-    public Guild getGuild(@PathVariable("id") String id)  {
+    public Guild getGuild(@PathVariable("id") String id) {
 
         return guildService.find(Integer.parseInt(id));
     }

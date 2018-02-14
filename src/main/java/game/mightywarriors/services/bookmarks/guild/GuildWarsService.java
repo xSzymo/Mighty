@@ -22,13 +22,12 @@ public class GuildWarsService {
     private GuildHelper helper;
 
     /**
-     *
      * This is not final system for guild wars
      * The current environment don't consider fights between guilds
      * Here's a little hack :)
      *
      * @param authorization - authorization token
-     * @param informer - needs info about enemy guild
+     * @param informer      - needs info about enemy guild
      * @return FightResult
      * @throws Exception
      */

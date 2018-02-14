@@ -68,7 +68,7 @@ public class GuildRequestManager {
     }
 
     private void throwExceptionIf_UserIsAlreadyInGuild(User user, Guild guild) throws Exception {
-        if(guild.getUsers().stream().anyMatch(x -> x.getLogin().equals(user.getLogin())))
+        if (guild.getUsers().stream().anyMatch(x -> x.getLogin().equals(user.getLogin())))
             throw new Exception("You are already in this guild");
     }
 

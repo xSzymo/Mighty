@@ -62,7 +62,7 @@ public class EmailChanger {
     }
 
     private void throwExceptionIf_EmailIsNotValid(String email) throws Exception {
-        if(email == null)
+        if (email == null)
             throw new Exception("Wrong email");
         if (!emailValidator.isValidEmail(email))
             throw new Exception("Email is not valid");

@@ -23,7 +23,7 @@ public class GuildService {
 
     public void save(Guild guild) {
         if (guild != null) {
-            if(guild.getChat() != null)
+            if (guild.getChat() != null)
                 chatService.save(guild.getChat());
 
             guild.getInvites().forEach(requestService::save);

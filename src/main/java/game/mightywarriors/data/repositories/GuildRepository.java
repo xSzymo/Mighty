@@ -1,7 +1,6 @@
 package game.mightywarriors.data.repositories;
 
 import game.mightywarriors.data.tables.Guild;
-import game.mightywarriors.data.tables.Request;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
