@@ -1,5 +1,6 @@
 package game.mightywarriors.data.tables;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Guild {
     @Column(name = "created_date")
     private Timestamp createdDate;
 
+    @JsonIgnore
     @OneToOne
     private Chat chat;
 
@@ -31,6 +33,7 @@ public class Guild {
     @JsonManagedReference
     private Set<User> users = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "guild_id", referencedColumnName = "id")
     private Set<Request> invites = new HashSet<>();
