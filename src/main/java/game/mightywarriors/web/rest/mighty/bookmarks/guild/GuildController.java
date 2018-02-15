@@ -29,6 +29,12 @@ public class GuildController {
         guildManager.deleteGuild(authorization);
     }
 
+    @PostMapping("secure/guild/leave")
+    public void leaveGuild(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
+
+        guildManager.leaveGuild(authorization);
+    }
+
     @PostMapping("secure/guild/new/master")
     public void addNewGuildMaster(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody GuildInformer informer) throws Exception {
 
