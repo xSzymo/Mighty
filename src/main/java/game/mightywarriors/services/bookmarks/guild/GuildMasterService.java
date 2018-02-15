@@ -2,8 +2,11 @@ package game.mightywarriors.services.bookmarks.guild;
 
 import game.mightywarriors.data.services.UserRoleService;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Admin;
+import game.mightywarriors.data.tables.Chat;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.bookmarks.utilities.GuildHelper;
@@ -34,6 +37,9 @@ public class GuildMasterService {
 
         user.setUserRole(userRoleService.find(GuildRole.MEMBER.getRole()));
         newMaster.setUserRole(userRoleService.find(GuildRole.OWNER.getRole()));
+        Chat chat = newMaster.getGuild().getChat();
+        chat.getAdmins().remove(chat.getAdmins().stream().filter(x -> x.getLogin().equals(user.getLogin())).findFirst().get());
+        chat.getAdmins().add(new Admin(ChatRole.OWNER, newMaster.getLogin()));
 
         userService.save(user);
         userService.save(newMaster);
@@ -52,6 +58,7 @@ public class GuildMasterService {
         memberToRemove.setUserRole(userRoleService.find("user"));
         memberToRemove.setGuild(null);
         userService.save(memberToRemove);
+        userService.removeChat(memberToRemove.getId(), user.getGuild().getChat().getId());
     }
 
     private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {

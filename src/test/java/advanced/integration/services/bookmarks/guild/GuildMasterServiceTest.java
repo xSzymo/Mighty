@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.GuildService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.User;
+import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.bookmarks.guild.GuildMasterService;
 import game.mightywarriors.services.security.UsersRetriever;
@@ -54,10 +55,19 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         objectUnderTest.addNewGuildMaster(token, informer);
 
         Guild guild = usersRetriever.retrieveUser(token).getGuild();
-        Optional<User> user = guild.getUsers().stream().filter(x -> x.getLogin().equals("user1")).findFirst();
-        assertTrue(user.isPresent());
-        assertEquals("owner", user.get().getUserRole().getRole());
-        assertEquals("member", userService.find(this.user).getUserRole().getRole());
+        Optional<User> newMaster = guild.getUsers().stream().filter(x -> x.getLogin().equals("user1")).findFirst();
+        User oldMaster = userService.find(this.user);
+
+        assertTrue(newMaster.isPresent());
+        assertEquals("owner", newMaster.get().getUserRole().getRole());
+        assertEquals(1, newMaster.get().getChats().size());
+        assertEquals(newMaster.get().getLogin(), newMaster.get().getChats().iterator().next().getAdmins().iterator().next().getLogin());
+        assertEquals(ChatRole.OWNER, newMaster.get().getChats().iterator().next().getAdmins().iterator().next().getChatRole());
+
+        assertEquals("member", oldMaster.getUserRole().getRole());
+        assertEquals(1, oldMaster.getChats().size());
+        assertEquals(1, oldMaster.getChats().iterator().next().getAdmins().size());
+        assertNotEquals(oldMaster.getLogin(), oldMaster.getChats().iterator().next().getAdmins().iterator().next().getLogin());
     }
 
     @Test(expected = Exception.class)
@@ -98,6 +108,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         User user = userService.find("user1");
         assertNull(user.getGuild());
         assertEquals("user", user.getUserRole().getRole());
+        assertEquals(0, user.getChats().size());
     }
 
     @Test(expected = Exception.class)
@@ -154,6 +165,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         if (addUser) {
             User user = userService.find("user1");
             user.setGuild(guild);
+            user.getChats().add(this.user.getGuild().getChat());
             userService.save(user);
         }
     }
