@@ -53,6 +53,18 @@ public class GuildManager {
         guildService.delete(user.getGuild());
     }
 
+    public void leaveGuild(String authorization) throws Exception {
+        User user = usersRetriever.retrieveUser(authorization);
+
+        throwExceptionIf_guildIsNotPresent(user);
+        throwExceptionIf_userIsGuildOwner(user);
+
+        userService.removeChat(user.getId(), user.getGuild().getChat().getId());
+        user.setUserRole(userRoleService.find("user"));
+        user.setGuild(null);
+        userService.save(user);
+    }
+
     private Chat createChat(User user) {
         Chat chat = new Chat();
         chat.getAdmins().add(new Admin(ChatRole.OWNER, user.getLogin()));
@@ -71,6 +83,11 @@ public class GuildManager {
 
     private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
         if (!user.getUserRole().getRole().equals(GuildRole.OWNER.getRole()))
+            throw new NoAccessException("user have no access to do that");
+    }
+
+    private void throwExceptionIf_userIsGuildOwner(User user) throws NoAccessException {
+        if (user.getUserRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 

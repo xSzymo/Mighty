@@ -38,8 +38,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
 
     @After
     public void cleanUp() {
-        if (user.getGuild() != null)
-            guildService.delete("name of guild");
+        guildService.delete("name of guild");
     }
 
     @Test
@@ -104,5 +103,45 @@ public class GuildManagerTest extends AuthorizationConfiguration {
         userService.save(user);
 
         objectUnderTest.deleteGuild(token);
+    }
+
+    @Test
+    public void leaveGuild() throws Exception {
+        createGuild(true);
+        User user = userService.find("user1");
+        authorize(user.getLogin());
+        assertNotNull(user.getGuild());
+        assertEquals(1, user.getChats().size());
+
+        objectUnderTest.leaveGuild(token);
+
+        user = userService.find("user1");
+        assertNull(user.getGuild());
+        assertEquals(0, user.getChats().size());
+    }
+
+    @Test(expected = Exception.class)
+    public void leaveGuild_as_owner() throws Exception {
+        createGuild();
+
+        objectUnderTest.leaveGuild(token);
+    }
+
+    private void createGuild(boolean addUser) throws Exception {
+        objectUnderTest.createGuild(token, informer);
+
+        user = usersRetriever.retrieveUser(token);
+        Guild guild = user.getGuild();
+        assertNotNull(guild);
+        assertEquals(informer.guildName, guild.getName());
+        assertEquals(informer.minimumLevel, guild.getMinimumLevel());
+        assertEquals("owner", user.getUserRole().getRole());
+
+        if (addUser) {
+            User user = userService.find("user1");
+            user.setGuild(guild);
+            user.getChats().add(this.user.getGuild().getChat());
+            userService.save(user);
+        }
     }
 }
