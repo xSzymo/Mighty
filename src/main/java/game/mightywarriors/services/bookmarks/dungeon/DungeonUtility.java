@@ -66,7 +66,7 @@ public class DungeonUtility {
                     dungeonHelper.throwExceptionIf_DungeonsFloorsAreNotSetProperly(user);
                 } catch (Exception e) {
                     e.printStackTrace();//what should program do when user get dungeon with not properly floors?
-                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getStage() + 2));
+                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getStage()));
                 }
             } else {
                 user.getDungeon().setCurrentFloor(user.getDungeon().getCurrentFloor() - 1);
