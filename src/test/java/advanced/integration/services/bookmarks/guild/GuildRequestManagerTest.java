@@ -8,7 +8,6 @@ import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.Request;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
-import game.mightywarriors.services.bookmarks.guild.GuildMasterService;
 import game.mightywarriors.services.bookmarks.guild.GuildRequestManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
@@ -76,6 +75,14 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         objectUnderTest.sendRequest(token, informer);
     }
 
+    @Test(expected = Exception.class)
+    public void sendRequest_not_enough_level() throws Exception {
+        informer.minimumLevel = 1000;
+        createGuild();
+        authorize(user2.getLogin());
+
+        objectUnderTest.sendRequest(token, informer);
+    }
 
     @Test(expected = Exception.class)
     public void sendRequest_user_already_is_in_guild() throws Exception {
@@ -124,6 +131,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         Optional<User> user = guild.getUsers().stream().filter(x -> x.getLogin().equals(user2.getLogin())).findFirst();
         assertFalse(request.isPresent());
         assertTrue(user.isPresent());
+        assertEquals(1, user.get().getChats().size());
     }
 
     @Test(expected = Exception.class)

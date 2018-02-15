@@ -30,6 +30,7 @@ public class GuildRequestManager {
         Guild guild = helper.retrieveGuild(informer);
 
         throwExceptionIf_UserAlreadySentInvite(user, guild);
+        throwExceptionIf_UserHaveNotEnoughLevel(user, guild);
         throwExceptionIf_UserIsAlreadyInGuild(user, guild);
 
         Request request = new Request(user, informer.description);
@@ -39,14 +40,16 @@ public class GuildRequestManager {
 
     public void acceptRequest(String authorization, GuildInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
+        User invitedUser = helper.retrieveUserFromGuildRequests(user, informer);
 
+        throwExceptionIf_userIsNotPresent(invitedUser);
         throwExceptionIf_userIsNotGuildOwner(user);
         throwExceptionIf_guildHaveAlreadyMaxUsers(user);
 
-        User invitedUser = helper.retrieveUserFromGuildRequests(user, informer);
         Guild guild = user.getGuild();
 
         invitedUser.setGuild(guild);
+        invitedUser.getChats().add(user.getGuild().getChat());
         guild.addUser(invitedUser);
         guild.getInvites().remove(guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(invitedUser.getLogin())).findFirst().get());
 
@@ -82,5 +85,15 @@ public class GuildRequestManager {
     private void throwExceptionIf_UserAlreadySentInvite(User user, Guild guild) throws Exception {
         if (guild.getInvites().stream().anyMatch(x -> x.getUser().getLogin().equals(user.getLogin())))
             throw new Exception("You already sent a request");
+    }
+
+    private void throwExceptionIf_UserHaveNotEnoughLevel(User user, Guild guild) throws Exception {
+        if (guild.getMinimumLevel() > user.getUserChampionHighestLevel())
+            throw new Exception("You have not enough level");
+    }
+
+    private void throwExceptionIf_userIsNotPresent(User user) throws Exception {
+        if (user == null)
+            throw new Exception("User not found");
     }
 }
