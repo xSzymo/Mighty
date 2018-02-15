@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Entity
-@Table(name = "user_roles")
-public class UserRole {
+@Table(name = "guild_roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +21,15 @@ public class UserRole {
     @Column(name = "created_date")
     private Timestamp createdDate;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<User> user = new HashSet<>();
 
-    public UserRole() {
+    public Role() {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public UserRole(String role) {
+    public Role(String role) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.role = role;
     }

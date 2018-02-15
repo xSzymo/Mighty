@@ -1,6 +1,6 @@
 package game.mightywarriors.data.repositories;
 
-import game.mightywarriors.data.tables.UserRole;
+import game.mightywarriors.data.tables.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,12 +9,12 @@ import java.util.HashSet;
 
 @Repository
 @Transactional
-public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
-    HashSet<UserRole> findAll();
+public interface RoleRepository extends CrudRepository<Role, Long> {
+    HashSet<Role> findAll();
 
-    UserRole findById(long id);
+    Role findById(long id);
 
-    UserRole findByRole(String role);
+    Role findByRole(String role);
 
     void deleteById(long id);
 }

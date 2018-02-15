@@ -34,7 +34,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
     @Autowired
     private ChampionService championService;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     private HashSet<User> users;
     private LinkedList<Mission> missions;
@@ -223,11 +223,11 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromRole() {
-        UserRole userRole = new UserRole("Admino");
-        userRoleService.save(userRole);
+        Role role = new Role("Admino");
+        roleService.save(role);
 
         User user = new User("simple login" + System.currentTimeMillis());
-        user.setUserRole(userRole);
+        user.setRole(role);
         objectUnderTest.save(user);
 
         User one = objectUnderTest.find(user);
@@ -236,14 +236,14 @@ public class UserServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(user);
 
         assertNull(objectUnderTest.find(user));
-        assertNotNull(userRoleService.find(userRole));
+        assertNotNull(roleService.find(role));
     }
 
     @Test
     @Transactional
     public void save_check_basic_variables() {
-        if (userRoleService.find("user") == null)
-            userRoleService.save(new UserRole("user"));
+        if (roleService.find("user") == null)
+            roleService.save(new Role("user"));
 
         user = new User("halu", "halu", "halu@gmail.com");
 
@@ -272,7 +272,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertNotNull(one.getShop());
         assertEquals(10, one.getShop().getItems().size());
 
-        assertEquals("user", one.getUserRole().getRole());
+        assertEquals("user", one.getRole().getRole());
     }
 
     @Test

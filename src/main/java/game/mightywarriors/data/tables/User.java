@@ -93,7 +93,7 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
-    private UserRole userRole;
+    private Role role;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
@@ -120,22 +120,22 @@ public class User {
         this.eMail = eMail;
     }
 
-    public User(String login, String password, String eMail, UserRole userRole) {
+    public User(String login, String password, String eMail, Role role) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
-        this.userRole = userRole;
+        this.role = role;
     }
 
-    public User(String login, String password, String eMail, Image image, Champion champion, UserRole userRole) {
+    public User(String login, String password, String eMail, Image image, Champion champion, Role role) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.login = login;
         this.password = password;
         this.eMail = eMail;
         this.image = image;
         this.champions.add(champion);
-        this.userRole = userRole;
+        this.role = role;
     }
 
     public User(User user) {
@@ -149,7 +149,7 @@ public class User {
         this.gold = user.gold;
         this.champions = user.champions;
         this.missions = user.missions;
-        this.userRole = user.userRole;
+        this.role = user.role;
         this.chats = user.chats;
         this.createdDate = user.createdDate;
         this.tokenCode = user.tokenCode;
@@ -214,12 +214,12 @@ public class User {
         this.eMail = eMail;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Set<Champion> getChampions() {

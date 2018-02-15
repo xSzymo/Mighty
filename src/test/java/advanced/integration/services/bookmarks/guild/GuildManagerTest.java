@@ -51,7 +51,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
         assertNotNull(guild);
         assertEquals(informer.guildName, guild.getName());
         assertEquals(informer.minimumLevel, guild.getMinimumLevel());
-        assertEquals("owner", user.getUserRole().getRole());
+        assertEquals("owner", user.getRole().getRole());
         assertEquals(1, user.getChats().size());
         assertEquals(guild.getChat(), user.getChats().stream().findFirst().get());
         assertEquals(guild.getChat().getAdmins().iterator().next().getLogin(), user.getLogin());
@@ -87,7 +87,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
 
         user = usersRetriever.retrieveUser(token);
         assertNull(user.getGuild());
-        assertEquals("user", user.getUserRole().getRole());
+        assertEquals("user", user.getRole().getRole());
         assertEquals(0, user.getChats().size());
     }
 
@@ -135,7 +135,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
         assertNotNull(guild);
         assertEquals(informer.guildName, guild.getName());
         assertEquals(informer.minimumLevel, guild.getMinimumLevel());
-        assertEquals("owner", user.getUserRole().getRole());
+        assertEquals("owner", user.getRole().getRole());
 
         if (addUser) {
             User user = userService.find("user1");

@@ -23,7 +23,7 @@ public class UserServiceUtility {
     @Autowired
     private RankingService rankingService;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
     @Autowired
     private GuildService guildService;
     @Autowired
@@ -72,8 +72,8 @@ public class UserServiceUtility {
             user.setMissionPoints(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10);
             user.setDungeonPoints(SystemVariablesManager.DUNGEON_POINTS);
 
-            if (user.getUserRole() == null) {
-                user.setUserRole(userRoleService.find("user"));
+            if (user.getRole() == null) {
+                user.setRole(roleService.find("user"));
             }
         }
 
@@ -127,8 +127,8 @@ public class UserServiceUtility {
         if (user.getShop() != null)
             shopService.save(user.getShop());
 
-        if (user.getUserRole() != null)
-            userRoleService.save(user.getUserRole());
+        if (user.getRole() != null)
+            roleService.save(user.getRole());
 
         if (user.getGuild() != null)
             guildService.save(user.getGuild());

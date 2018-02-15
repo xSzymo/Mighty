@@ -2,7 +2,7 @@ package advanced.integration.services.bookmarks.guild;
 
 import advanced.integration.config.AuthorizationConfiguration;
 import game.mightywarriors.data.services.GuildService;
-import game.mightywarriors.data.services.UserRoleService;
+import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.Request;
@@ -24,7 +24,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
     @Autowired
     private GuildRequestManager objectUnderTest;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
     @Autowired
     private GuildManager guildManager;
     @Autowired
@@ -110,7 +110,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
     @Test(expected = Exception.class)
     public void removeMember_user_is_not_owner() throws Exception {
         sendRequest();
-        user.setUserRole(userRoleService.find("user"));
+        user.setRole(roleService.find("user"));
         userService.save(user);
         authorize(user.getLogin());
         informer.userName = user2.getLogin();
@@ -138,7 +138,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
     public void acceptRequest_user_is_not_owner() throws Exception {
         sendRequest();
         informer.userName = user2.getLogin();
-        user.setUserRole(userRoleService.find("user"));
+        user.setRole(roleService.find("user"));
         userService.save(user);
         authorize(user.getLogin());
 
@@ -159,6 +159,6 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         assertNotNull(guild);
         assertEquals(informer.guildName, guild.getName());
         assertEquals(informer.minimumLevel, guild.getMinimumLevel());
-        assertEquals("owner", user.getUserRole().getRole());
+        assertEquals("owner", user.getRole().getRole());
     }
 }

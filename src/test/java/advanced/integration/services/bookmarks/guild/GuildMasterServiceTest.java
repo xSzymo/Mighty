@@ -59,12 +59,12 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         User oldMaster = userService.find(this.user);
 
         assertTrue(newMaster.isPresent());
-        assertEquals("owner", newMaster.get().getUserRole().getRole());
+        assertEquals("owner", newMaster.get().getRole().getRole());
         assertEquals(1, newMaster.get().getChats().size());
         assertEquals(newMaster.get().getLogin(), newMaster.get().getChats().iterator().next().getAdmins().iterator().next().getLogin());
         assertEquals(ChatRole.OWNER, newMaster.get().getChats().iterator().next().getAdmins().iterator().next().getChatRole());
 
-        assertEquals("member", oldMaster.getUserRole().getRole());
+        assertEquals("member", oldMaster.getRole().getRole());
         assertEquals(1, oldMaster.getChats().size());
         assertEquals(1, oldMaster.getChats().iterator().next().getAdmins().size());
         assertNotEquals(oldMaster.getLogin(), oldMaster.getChats().iterator().next().getAdmins().iterator().next().getLogin());
@@ -107,7 +107,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
 
         User user = userService.find("user1");
         assertNull(user.getGuild());
-        assertEquals("user", user.getUserRole().getRole());
+        assertEquals("user", user.getRole().getRole());
         assertEquals(0, user.getChats().size());
     }
 
@@ -120,7 +120,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
 
         User user = userService.find("user1");
         assertNull(user.getGuild());
-        assertEquals("user", user.getUserRole().getRole());
+        assertEquals("user", user.getRole().getRole());
     }
 
     @Test(expected = Exception.class)
@@ -160,7 +160,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         assertNotNull(guild);
         assertEquals(informer.guildName, guild.getName());
         assertEquals(informer.minimumLevel, guild.getMinimumLevel());
-        assertEquals("owner", user.getUserRole().getRole());
+        assertEquals("owner", user.getRole().getRole());
 
         if (addUser) {
             User user = userService.find("user1");

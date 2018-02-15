@@ -1,7 +1,7 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.data.repositories.UserRoleRepository;
-import game.mightywarriors.data.tables.UserRole;
+import game.mightywarriors.data.repositories.RoleRepository;
+import game.mightywarriors.data.tables.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +11,16 @@ import java.util.HashSet;
 
 @Service
 @Transactional
-public class UserRoleService {
+public class RoleService {
     @Autowired
-    private UserRoleRepository repository;
+    private RoleRepository repository;
 
-    public void save(UserRole image) {
+    public void save(Role image) {
         if (image != null)
             repository.save(image);
     }
 
-    public void save(Collection<UserRole> images) {
+    public void save(Collection<Role> images) {
         images.forEach(
                 x -> {
                     if (x != null)
@@ -28,7 +28,7 @@ public class UserRoleService {
                 });
     }
 
-    public UserRole find(long id) {
+    public Role find(long id) {
         try {
             return repository.findById(id);
         } catch (NullPointerException e) {
@@ -36,7 +36,7 @@ public class UserRoleService {
         }
     }
 
-    public UserRole find(String role) {
+    public Role find(String role) {
         try {
             return repository.findByRole(role);
         } catch (NullPointerException e) {
@@ -44,7 +44,7 @@ public class UserRoleService {
         }
     }
 
-    public UserRole find(UserRole image) {
+    public Role find(Role image) {
         try {
             return find(image.getId());
         } catch (NullPointerException e) {
@@ -52,7 +52,7 @@ public class UserRoleService {
         }
     }
 
-    public HashSet<UserRole> findAll() {
+    public HashSet<Role> findAll() {
         return repository.findAll();
     }
 
@@ -61,7 +61,7 @@ public class UserRoleService {
             repository.deleteById(id);
     }
 
-    public void delete(UserRole image) {
+    public void delete(Role image) {
         try {
             delete(image.getId());
         } catch (NullPointerException e) {
@@ -73,7 +73,7 @@ public class UserRoleService {
         delete(findAll());
     }
 
-    public void delete(Collection<UserRole> addresses) {
+    public void delete(Collection<Role> addresses) {
         addresses.forEach(
                 x -> {
                     if (x != null)

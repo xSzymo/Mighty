@@ -73,7 +73,7 @@ public class GuildRequestManager {
     }
 
     private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
-        if (!user.getUserRole().getRole().equals(GuildRole.OWNER.getRole()))
+        if (!user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 

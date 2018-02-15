@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 import static junit.framework.TestCase.assertEquals;
@@ -34,7 +33,7 @@ public abstract class IntegrationTestsConfig {
     private static MonsterService monsterService;
     private static ShopService shopService;
     private static StatisticService statisticService;
-    private static UserRoleService userRoleService;
+    private static RoleService roleService;
     private static MissionFightService missionFightService;
     private static FloorService floorService;
     private static DungeonService dungeonService;
@@ -69,7 +68,7 @@ public abstract class IntegrationTestsConfig {
         dungeonService.deleteAll();
         userDungeonService.deleteAll();
 
-        userRoleService.deleteAll();
+        roleService.deleteAll();
         statisticService.deleteAll();
         imageService.deleteAll();
 
@@ -83,7 +82,7 @@ public abstract class IntegrationTestsConfig {
         assertEquals(0, monsterService.findAll().size());
         assertEquals(0, shopService.findAll().size());
         assertEquals(0, statisticService.findAll().size());
-        assertEquals(0, userRoleService.findAll().size());
+        assertEquals(0, roleService.findAll().size());
         assertEquals(6, divisionService.findAll().size());
     }
 
@@ -177,8 +176,8 @@ public abstract class IntegrationTestsConfig {
     }
 
     @Autowired
-    public void setUserService(UserRoleService userRoleService) {
-        IntegrationTestsConfig.userRoleService = userRoleService;
+    public void setUserService(RoleService roleService) {
+        IntegrationTestsConfig.roleService = roleService;
     }
 
     @Autowired

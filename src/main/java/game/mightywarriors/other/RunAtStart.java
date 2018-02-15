@@ -2,7 +2,7 @@ package game.mightywarriors.other;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
-import game.mightywarriors.data.services.UserRoleService;
+import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
@@ -21,7 +21,7 @@ public class RunAtStart {
     @Autowired
     private ItemService itemService;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     private HashSet<User> users = new HashSet<>();
     private LinkedList<Mission> missions = new LinkedList<>();
@@ -38,10 +38,10 @@ public class RunAtStart {
         if (!SystemVariablesManager.INSERT_EXAMPLE_DATA)
             return;
 
-        UserRole admin_role = userRoleService.find("admin");
-        UserRole user_role = userRoleService.find("user");
-        userRoleService.save(admin_role);
-        userRoleService.save(user_role);
+        Role admin_role = roleService.find("admin");
+        Role user_role = roleService.find("user");
+        roleService.save(admin_role);
+        roleService.save(user_role);
 
 
         LinkedList<Item> myItems = new LinkedList<>();

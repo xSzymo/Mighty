@@ -1,7 +1,7 @@
 package integration.data.services;
 
 
-import game.mightywarriors.data.services.UserRoleService;
+import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
@@ -23,7 +23,7 @@ public class DataSavedChecker extends IntegrationTestsConfig {
     @Autowired
     private UserService objectUnderTest;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     private HashSet<User> users;
     private LinkedList<Mission> missions;
@@ -55,8 +55,8 @@ public class DataSavedChecker extends IntegrationTestsConfig {
     @Test
     @Transactional
     public void save_check_basic_variables() {
-        if (userRoleService.find("user") == null)
-            userRoleService.save(new UserRole("user"));
+        if (roleService.find("user") == null)
+            roleService.save(new Role("user"));
         user = new User("halu", "halu", "halu@gmail.com");
 
         objectUnderTest.save(user);
@@ -94,7 +94,7 @@ public class DataSavedChecker extends IntegrationTestsConfig {
         assertNotNull(user.getShop());
         assertEquals(10, user.getShop().getItems().size());
 
-        assertEquals("user", user.getUserRole().getRole());
+        assertEquals("user", user.getRole().getRole());
     }
 
     private void addExampleDataToEquipments() {

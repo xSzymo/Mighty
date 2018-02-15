@@ -1,7 +1,7 @@
 package game.mightywarriors.services.bookmarks.guild;
 
 import game.mightywarriors.data.services.GuildService;
-import game.mightywarriors.data.services.UserRoleService;
+import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Admin;
 import game.mightywarriors.data.tables.Chat;
@@ -22,7 +22,7 @@ public class GuildManager {
     @Autowired
     private GuildService guildService;
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
     @Autowired
     private UserService userService;
 
@@ -38,7 +38,7 @@ public class GuildManager {
 
         user.setGuild(guild);
         user.addChat(chat);
-        user.setUserRole(userRoleService.find(GuildRole.OWNER.getRole()));
+        user.setRole(roleService.find(GuildRole.OWNER.getRole()));
         userService.save(user);
     }
 
@@ -48,7 +48,7 @@ public class GuildManager {
         throwExceptionIf_guildIsNotPresent(user);
         throwExceptionIf_userIsNotGuildOwner(user);
 
-        user.setUserRole(userRoleService.find("user"));
+        user.setRole(roleService.find("user"));
         userService.save(user);
         guildService.delete(user.getGuild());
     }
@@ -60,7 +60,7 @@ public class GuildManager {
         throwExceptionIf_userIsGuildOwner(user);
 
         userService.removeChat(user.getId(), user.getGuild().getChat().getId());
-        user.setUserRole(userRoleService.find("user"));
+        user.setRole(roleService.find("user"));
         user.setGuild(null);
         userService.save(user);
     }
@@ -82,12 +82,12 @@ public class GuildManager {
     }
 
     private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
-        if (!user.getUserRole().getRole().equals(GuildRole.OWNER.getRole()))
+        if (!user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 
     private void throwExceptionIf_userIsGuildOwner(User user) throws NoAccessException {
-        if (user.getUserRole().getRole().equals(GuildRole.OWNER.getRole()))
+        if (user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 

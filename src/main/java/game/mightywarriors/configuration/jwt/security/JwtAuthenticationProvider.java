@@ -49,7 +49,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         }
 
         List<GrantedAuthority> grantedAuthorities = new LinkedList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getUserRole().getRole()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
         return new JwtUserDetails(user, grantedAuthorities);
     }
 
