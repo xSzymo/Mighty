@@ -61,12 +61,12 @@ public class DungeonUtility {
 
             if (floor.getFloor() == 1) {
                 try {
-                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getNumber() + 1));
+                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getStage() + 1));
                     user.getDungeon().setCurrentFloor(SystemVariablesManager.MAX_FLOORS_PER_DUNGEON);
                     dungeonHelper.throwExceptionIf_DungeonsFloorsAreNotSetProperly(user);
                 } catch (Exception e) {
                     e.printStackTrace();//what should program do when user get dungeon with not properly floors?
-                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getNumber() + 2));
+                    user.getDungeon().setDungeon(dungeonService.findByNumber(dungeon.getStage() + 2));
                 }
             } else {
                 user.getDungeon().setCurrentFloor(user.getDungeon().getCurrentFloor() - 1);

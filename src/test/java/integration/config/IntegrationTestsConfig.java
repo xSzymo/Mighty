@@ -115,7 +115,7 @@ public abstract class IntegrationTestsConfig {
         itemService.save(new Item("name" + 10, ItemType.RING, new Statistic(1, 1, 1, 1, 1, 1), 1));
 
         Dungeon dungeon = new Dungeon();
-        dungeon.setNumber(1);
+        dungeon.setStage(1);
         dungeon.getFloors().add(new Floor());
         dungeonService.save(dungeon);
     }

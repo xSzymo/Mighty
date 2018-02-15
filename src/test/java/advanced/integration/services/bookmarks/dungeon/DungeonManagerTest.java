@@ -106,14 +106,14 @@ public class DungeonManagerTest extends AuthorizationConfiguration {
         assertEquals(champExperience + floor.getExperience(), champion.getExperience());
         assertNull(champion.getBlockUntil());
 
-        assertEquals(newDungeon ? dungeonNumber + 1 : dungeonNumber, user.getDungeon().getDungeon().getNumber());
+        assertEquals(newDungeon ? dungeonNumber + 1 : dungeonNumber, user.getDungeon().getDungeon().getStage());
         assertNull(dungeonFightService.findByUserId(user.getId()));
     }
 
     private void setUpVariables() throws Exception {
         Champion champion = user.getChampions().stream().findFirst().get();
         floor = dungeonController.getCurrentFloor(token);
-        dungeonNumber = user.getDungeon().getDungeon().getNumber();
+        dungeonNumber = user.getDungeon().getDungeon().getStage();
 
         userGold = user.getGold().intValue();
         dungeonPoints = user.getDungeonPoints();

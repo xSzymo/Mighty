@@ -57,7 +57,7 @@ public abstract class AdvancedIntegrationTestsConfig {
 
 
         Dungeon dungeon = new Dungeon();
-        dungeon.setNumber(1);
+        dungeon.setStage(1);
         dungeon.setName("dungeon 1");
         for(int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
             monster = new Monster(new Statistic(1 + i, 1 + i, 1, 1, 1, 1));
@@ -66,7 +66,7 @@ public abstract class AdvancedIntegrationTestsConfig {
         dungeonService.save(dungeon);
 
         dungeon = new Dungeon();
-        dungeon.setNumber(2);
+        dungeon.setStage(2);
         dungeon.setName("dungeon 2");
         for(int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
             monster = new Monster(new Statistic(1 + i, 1, 1 + i, 1, 1, 1));

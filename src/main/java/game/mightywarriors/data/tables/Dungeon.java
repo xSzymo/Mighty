@@ -21,8 +21,8 @@ public class Dungeon {
     private Timestamp createdDate;
     @Column(name = "name", unique = true)
     private String name;
-    @Column(name = "number", unique = true)
-    private int number = 0;
+    @Column(name = "stage", unique = true)
+    private int stage = 0;
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -36,9 +36,9 @@ public class Dungeon {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Dungeon(String name, int number, Image image, Set<Floor> floors) {
+    public Dungeon(String name, int stage, Image image, Set<Floor> floors) {
         this.name = name;
-        this.number = number;
+        this.stage = stage;
         this.image = image;
         this.floors = floors;
     }
@@ -48,7 +48,7 @@ public class Dungeon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dungeon dungeon = (Dungeon) o;
-        return number == dungeon.number &&
+        return stage == dungeon.stage &&
                 Objects.equals(name, dungeon.name) &&
                 Objects.equals(image, dungeon.image);
     }
@@ -56,7 +56,7 @@ public class Dungeon {
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, number, image);
+        return Objects.hash(name, stage, image);
     }
 
     public Long getId() {
@@ -99,11 +99,11 @@ public class Dungeon {
         this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public int getStage() {
+        return stage;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setStage(int stage) {
+        this.stage = stage;
     }
 }
