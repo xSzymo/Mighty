@@ -68,7 +68,7 @@ public class DungeonService {
 
     public Dungeon findByNumber(int number) {
         try {
-            return repository.findByNumber(number);
+            return repository.findByStage(number);
         } catch (NullPointerException e) {
             return null;
         }
