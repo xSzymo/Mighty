@@ -1,5 +1,6 @@
 package game.mightywarriors.services.bookmarks.guild;
 
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.GuildService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
@@ -40,6 +41,7 @@ public class GuildRequestManager {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_userIsNotGuildOwner(user);
+        throwExceptionIf_guildHaveAlreadyMaxUsers(user);
 
         User invitedUser = helper.retrieveUserFromGuildRequests(user, informer);
         Guild guild = user.getGuild();
@@ -60,6 +62,11 @@ public class GuildRequestManager {
         Guild guild = user.getGuild();
         guild.getInvites().remove(request);
         guildService.save(guild);
+    }
+
+    private void throwExceptionIf_guildHaveAlreadyMaxUsers(User user) throws Exception {
+        if (user.getGuild().getUsers().size() >= SystemVariablesManager.MAX_USERS_IN_GUILD)
+            throw new Exception("Guild has reached the limit of users");
     }
 
     private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
