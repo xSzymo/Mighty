@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
-public class GuildWarTestTest {
+public class GuildWarTest {
     private FightCoordinator fightCoordinator;
     private User user1;
     private User user2;
@@ -42,12 +42,12 @@ public class GuildWarTestTest {
     }
 
     @Test
-    public void fightBetweenPlayerAndMonster() {
+    public void fightBetweenGuilds() {
         FightResult fightResult = fightCoordinator.fight(users, opponents);
 
         assertEquals(6, fightResult.getWinner().getChampions().size());
         assertEquals(6, fightResult.getLooser().getChampions().size());
-        assertTrue(fightResult.getRounds().size() == 18 || fightResult.getRounds().size() == 20 || fightResult.getRounds().size() == 16);
+        assertTrue(fightResult.getRounds().size() == 18 || fightResult.getRounds().size() == 20 || fightResult.getRounds().size() == 16 || fightResult.getRounds().size() == 15);
     }
 
     private User setUpUser1() throws Exception {
