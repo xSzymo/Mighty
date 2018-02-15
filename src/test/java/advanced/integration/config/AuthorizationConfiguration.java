@@ -4,7 +4,7 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.web.json.objects.security.JSONLoginObject;
-import game.mightywarriors.web.rest.api.security.authorization.LoginController;
+import game.mightywarriors.web.rest.mighty.security.authorization.LoginController;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

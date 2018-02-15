@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.bookmarks.dungeon.DungeonManager;
 import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.rest.api.data.user.DungeonController;
+import game.mightywarriors.web.rest.mighty.data.user.DungeonController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

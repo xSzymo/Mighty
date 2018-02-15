@@ -32,6 +32,8 @@ public final class SystemVariablesManager {
     public static final int REGISTRATION_MINIMUM_PASSWORD_DIGIT_CHARS = 1;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    public static final int MAX_USERS_IN_GUILD = 30;
+
     public static final int EMAIL_REGISTRATION_CODE_EXPIRATION_TIME = 15;
     public static final int EMAIL_LOGIN_CODE_EXPIRATION_TIME = 15;
     public static final int EMAIL_PASSWORD_CODE_EXPIRATION_TIME = 15;

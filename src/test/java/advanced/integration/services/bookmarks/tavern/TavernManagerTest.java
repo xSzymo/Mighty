@@ -1,7 +1,6 @@
 package advanced.integration.services.bookmarks.tavern;
 
 import advanced.integration.config.AuthorizationConfiguration;
-import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.services.MissionService;
@@ -14,7 +13,7 @@ import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.rest.api.data.user.MissionFightController;
+import game.mightywarriors.web.rest.mighty.data.user.MissionFightController;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
