@@ -36,7 +36,11 @@ public class Item {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image image;
+    private Image imageLight;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Image imageDark;
 
     public Item() {
         createdDate = new Timestamp(System.currentTimeMillis());
@@ -62,13 +66,13 @@ public class Item {
         this.level = level;
     }
 
-    public Item(String name, String description, ItemType itemType, Statistic statistic, Image image, long level) {
+    public Item(String name, String description, ItemType itemType, Statistic statistic, Image imageLight, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
         this.description = description;
         this.itemType = itemType;
         this.statistic = statistic;
-        this.image = image;
+        this.imageLight = imageLight;
         this.level = level;
     }
 
@@ -126,12 +130,12 @@ public class Item {
         this.statistic = statistic;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImageLight() {
+        return imageLight;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageLight(Image imageLight) {
+        this.imageLight = imageLight;
     }
 
     public long getLevel() {
@@ -152,5 +156,13 @@ public class Item {
 
     public Timestamp getCreatedDate() {
         return createdDate;
+    }
+
+    public Image getImageDark() {
+        return imageDark;
+    }
+
+    public void setImageDark(Image imageDark) {
+        this.imageDark = imageDark;
     }
 }

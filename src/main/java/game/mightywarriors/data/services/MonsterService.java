@@ -42,10 +42,10 @@ public class MonsterService {
     private void saveOperation(Monster monster) {
         if (monster.getStatistic() != null)
             statisticService.save(monster.getStatistic());
-        if (monster.getImage() != null)
+        if (monster.getImageLight() != null)
             try {
-                if (monster.getImage() != null)
-                    imageService.save(monster.getImage());
+                if (monster.getImageLight() != null)
+                    imageService.save(monster.getImageLight());
 
             } catch (Exception e) {
                 e.printStackTrace();

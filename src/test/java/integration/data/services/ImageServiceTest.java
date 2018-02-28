@@ -164,7 +164,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
     @Test
     public void deleteFromItem() {
         item = new Item();
-        item.setImage(images.iterator().next());
+        item.setImageLight(images.iterator().next());
 
         itemService.save(item);
 
@@ -174,13 +174,13 @@ public class ImageServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(itemService.find(item));
-        assertNull(itemService.find(item).getImage());
+        assertNull(itemService.find(item).getImageLight());
     }
 
     @Test
     public void deleteFromChampion() {
         champion = new Champion();
-        champion.setImage(images.iterator().next());
+        champion.setImageLight(images.iterator().next());
 
         championService.save(champion);
 
@@ -190,13 +190,13 @@ public class ImageServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(championService.find(champion));
-        assertNull(championService.find(champion).getImage());
+        assertNull(championService.find(champion).getImageLight());
     }
 
     @Test
     public void deleteFromMonster() {
         monster = new Monster();
-        monster.setImage(images.iterator().next());
+        monster.setImageLight(images.iterator().next());
 
         monsterService.save(monster);
 
@@ -206,7 +206,7 @@ public class ImageServiceTest extends IntegrationTestsConfig {
         objectUnderTest.delete(images.iterator().next());
 
         assertNotNull(monsterService.find(monster));
-        assertNull(monsterService.find(monster).getImage());
+        assertNull(monsterService.find(monster).getImageLight());
 
     }
 }

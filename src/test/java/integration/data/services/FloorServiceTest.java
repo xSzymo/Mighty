@@ -147,7 +147,7 @@ public class FloorServiceTest extends IntegrationTestsConfig {
         assertNotNull(objectUnderTest.find(floor));
 
         floor.getMonsters().forEach(x -> assertNotNull(monsterService.find(x)));
-        assertNotNull(imageService.find(floor.getImage()));
+        assertNotNull(imageService.find(floor.getImageLight()));
     }
 
     private void checkerNulls(Floor floor) {

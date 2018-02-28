@@ -47,9 +47,9 @@ public class ChampionService {
     private void saveOperation(Champion champion) {
         Champion foundChampion = find(champion);
 
-        if (champion.getImage() != null)
+        if (champion.getImageLight() != null)
             try {
-                imageService.save(champion.getImage());
+                imageService.save(champion.getImageLight());
             } catch (Exception e) {
                 e.printStackTrace();
             }

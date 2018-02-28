@@ -41,9 +41,9 @@ public class ItemService {
             item.setStatistic(statistic);
             statisticService.save(statistic);
         }
-        if (item.getImage() != null)
+        if (item.getImageLight() != null)
             try {
-                imageService.save(item.getImage());
+                imageService.save(item.getImageLight());
             } catch (Exception e) {
                 e.printStackTrace();
             }

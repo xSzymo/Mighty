@@ -39,13 +39,17 @@ public class Floor {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image image;
+    private Image imageLight;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Image imageDark;
 
     public Floor() {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Floor(long experience, long duration, int floor, BigDecimal gold, Set<Monster> monster, Item item, Image image) {
+    public Floor(long experience, long duration, int floor, BigDecimal gold, Set<Monster> monster, Item item, Image imageLight) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
         this.duration = duration;
@@ -53,7 +57,7 @@ public class Floor {
         this.gold = gold;
         this.monsters = monster;
         this.item = item;
-        this.image = image;
+        this.imageLight = imageLight;
     }
 
     public Long getId() {
@@ -115,12 +119,12 @@ public class Floor {
         return createdDate;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImageLight() {
+        return imageLight;
     }
 
-    public Floor setImage(Image image) {
-        this.image = image;
+    public Floor setImageLight(Image imageLight) {
+        this.imageLight = imageLight;
         return this;
     }
 
@@ -146,5 +150,13 @@ public class Floor {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+
+    public Image getImageDark() {
+        return imageDark;
+    }
+
+    public void setImageDark(Image imageDark) {
+        this.imageDark = imageDark;
     }
 }

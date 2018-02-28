@@ -158,7 +158,7 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
 
         assertNull(objectUnderTest.find(monster.getId()));
         assertNull(statisticService.find(monster.getStatistic().getId()));
-        assertNull(imageService.find(monster.getImage()));
+        assertNull(imageService.find(monster.getImageLight()));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class MonsterServiceTest extends IntegrationTestsConfig {
 
         assertNull(objectUnderTest.find(monster));
         assertNull(statisticService.find(monster.getStatistic()));
-        assertNull(imageService.find(monster.getImage()));
+        assertNull(imageService.find(monster.getImageLight()));
         assertNotNull(missionService.find(mission.getId()));
         assertNull(missionService.find(mission.getId()).getMonster());
     }

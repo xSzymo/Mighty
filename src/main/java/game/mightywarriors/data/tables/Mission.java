@@ -33,7 +33,11 @@ public class Mission {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image image;
+    private Image imageLight;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Image imageDark;
 
     public Mission() {
         createdDate = new Timestamp(System.currentTimeMillis());
@@ -114,12 +118,20 @@ public class Mission {
         return createdDate;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImageLight() {
+        return imageLight;
     }
 
-    public Mission setImage(Image image) {
-        this.image = image;
+    public Mission setImageLight(Image imageLight) {
+        this.imageLight = imageLight;
         return this;
+    }
+
+    public Image getImageDark() {
+        return imageDark;
+    }
+
+    public void setImageDark(Image imageDark) {
+        this.imageDark = imageDark;
     }
 }

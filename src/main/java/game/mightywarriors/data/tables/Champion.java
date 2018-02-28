@@ -33,7 +33,11 @@ public class Champion implements IFighter {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image image;
+    private Image imageLight;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Image imageDark;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Equipment equipment;
@@ -53,16 +57,16 @@ public class Champion implements IFighter {
         this.equipment = equipment;
     }
 
-    public Champion(Statistic statistic, Image image) {
+    public Champion(Statistic statistic, Image imageLight) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
-        this.image = image;
+        this.imageLight = imageLight;
     }
 
-    public Champion(Statistic statistic, Image image, Equipment equipment) {
+    public Champion(Statistic statistic, Image imageLight, Equipment equipment) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
-        this.image = image;
+        this.imageLight = imageLight;
         this.equipment = equipment;
     }
 
@@ -112,12 +116,12 @@ public class Champion implements IFighter {
         return this;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImageLight() {
+        return imageLight;
     }
 
-    public Champion setImage(Image image) {
-        this.image = image;
+    public Champion setImageLight(Image imageLight) {
+        this.imageLight = imageLight;
         return this;
     }
 
@@ -143,5 +147,13 @@ public class Champion implements IFighter {
 
     public boolean isIsPicked() {
         return false;
+    }
+
+    public Image getImageDark() {
+        return imageDark;
+    }
+
+    public void setImageDark(Image imageDark) {
+        this.imageDark = imageDark;
     }
 }

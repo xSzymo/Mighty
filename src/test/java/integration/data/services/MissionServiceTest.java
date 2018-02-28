@@ -162,7 +162,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
 
         assertNotNull(monster);
         assertNotNull(objectUnderTest.find(mission));
-        assertNotNull(imageService.find(monster.getImage()));
+        assertNotNull(imageService.find(monster.getImageLight()));
         assertNotNull(statisticService.find(monster.getStatistic()));
     }
 

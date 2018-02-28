@@ -38,9 +38,9 @@ public class DungeonService {
 
     private void saveOperation(Dungeon dungeon) {
 
-        if (dungeon.getImage() != null)
+        if (dungeon.getImageLight() != null)
             try {
-                imageService.save(dungeon.getImage());
+                imageService.save(dungeon.getImageLight());
             } catch (Exception e) {
                 e.printStackTrace();
             }

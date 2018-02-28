@@ -44,9 +44,9 @@ public class FloorService {
             monsterService.save(floor.getMonsters());
         if (floor.getItem() != null)
             itemService.save(floor.getItem());
-        if (floor.getImage() != null)
+        if (floor.getImageLight() != null)
             try {
-                imageService.save(floor.getImage());
+                imageService.save(floor.getImageLight());
             } catch (Exception e) {
                 e.printStackTrace();
             }
