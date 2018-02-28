@@ -2,6 +2,7 @@ package game.mightywarriors.data.tables;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import game.mightywarriors.other.enums.Kingdom;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -39,6 +40,8 @@ public class User {
     private String password;
     @Column(name = "e_mail")
     private String eMail;
+    @Column(name = "kingdom")
+    private Kingdom kingdom;
 
     @JsonIgnore
     @Column(name = "is_account_enabled")
@@ -418,6 +421,15 @@ public class User {
 
     public void setGuild(Guild guild) {
         this.guild = guild;
+    }
+
+    public Kingdom getKingdom() {
+        return kingdom;
+    }
+
+    public User setKingdom(Kingdom kingdom) {
+        this.kingdom = kingdom;
+        return this;
     }
 
     private class MissionCollection extends HashSet<Mission> {
