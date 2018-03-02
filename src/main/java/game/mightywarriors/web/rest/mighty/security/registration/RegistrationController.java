@@ -3,7 +3,9 @@ package game.mightywarriors.web.rest.mighty.security.registration;
 import game.mightywarriors.services.registration.AccountEnabler;
 import game.mightywarriors.services.registration.CodeSender;
 import game.mightywarriors.services.registration.RegistrationManager;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
+import game.mightywarriors.web.json.objects.bookmarks.RemindInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,12 +26,12 @@ public class RegistrationController {
     }
 
     @PostMapping("registration/enable")
-    public void enable(@RequestBody RegistrationInformer informer) throws Exception {
+    public void enable(@RequestBody CodeInformer informer) throws Exception {
         accountEnabler.enableAccount(informer);
     }
 
     @PostMapping("registration/send")
-    public void sendCode(@RequestBody RegistrationInformer informer) throws Exception {
+    public void sendCode(@RequestBody RemindInformer informer) throws Exception {
         codeSender.sendCodeToEnableAccount(informer);
     }
 }

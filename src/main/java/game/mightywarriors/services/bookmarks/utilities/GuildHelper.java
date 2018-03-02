@@ -5,7 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.Request;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,11 @@ public class GuildHelper {
     @Autowired
     private UserService userService;
 
-    public Guild retrieveGuild(GuildInformer informer) {
+    public Guild retrieveGuild(GuildWarInformer guildWarInformer) {
+        return retrieveGuild(new GuildRequestInformer(guildWarInformer.guildId, guildWarInformer.guildName));
+    }
+
+    public Guild retrieveGuild(GuildRequestInformer informer) {
         if (informer.guildName != null)
             return guildService.find(informer.guildName);
         else if (informer.guildId != 0)
@@ -25,7 +29,7 @@ public class GuildHelper {
             return null;
     }
 
-    public User retrieveUser(GuildInformer informer) {
+    public User retrieveUser(GuildMasterInformer informer) {
         if (informer.userName != null)
             return userService.find(informer.userName);
         else if (informer.userId != 0)
@@ -34,7 +38,7 @@ public class GuildHelper {
             return null;
     }
 
-    public User retrieveUserFromGuildRequests(User user, GuildInformer informer) {
+    public User retrieveUserFromGuildRequests(User user, AcceptGuildRequestInformer informer) {
         if (informer.userName != null)
             return userService.find(informer.userName);
 
@@ -46,7 +50,7 @@ public class GuildHelper {
         return null;
     }
 
-    public Request retrieveRequestFromGuildRequests(User user, GuildInformer informer) {
+    public Request retrieveRequestFromGuildRequests(User user, AcceptGuildRequestInformer informer) {
         for (Request request : user.getGuild().getInvites())
             if (request.getId() == informer.requestId)
                 return request;

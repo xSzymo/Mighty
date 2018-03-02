@@ -11,7 +11,9 @@ import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +28,9 @@ public class RoomsAccessManager {
     @Autowired
     private ChatService chatService;
     @Autowired
-    private MessageService messageService;
-    @Autowired
     private MessageHelper helper;
 
-    public void addUserToRoom(String authorization, MessageInformer informer) throws Exception {
+    public void addUserToRoom(String authorization, PrivilegesWithOutAdminInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         User invitedUser = helper.getUserFromInformer(informer);
@@ -44,7 +44,7 @@ public class RoomsAccessManager {
         userService.save(invitedUser);
     }
 
-    public void removeUserFromRoom(String authorization, MessageInformer informer) throws Exception {
+    public void removeUserFromRoom(String authorization, PrivilegesWithOutAdminInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         User userToRemove = helper.getUserFromInformer(informer);
@@ -59,7 +59,7 @@ public class RoomsAccessManager {
         userService.removeChat(userToRemove.getId(), chat.getId());
     }
 
-    public void leaveChat(String authorization, MessageInformer informer) throws Exception {
+    public void leaveChat(String authorization, ChatInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
 
         userService.removeChat(user.getId(), informer.chatId);

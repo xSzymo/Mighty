@@ -10,7 +10,9 @@ import game.mightywarriors.services.bookmarks.utilities.OptionsHelper;
 import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.services.registration.validators.PasswordValidator;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
 import game.mightywarriors.web.json.objects.bookmarks.OptionInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PasswordInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +37,7 @@ public class PasswordChanger {
     private static final int minimumUpperCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_UPPER_CASE;
     private static final int minimumLowerCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE;
 
-    public void prepareChangePassword(String authorization, OptionInformer informer) throws Exception {
+    public void prepareChangePassword(String authorization, PasswordInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_PasswordIsNotValid(informer.password);
@@ -46,7 +48,7 @@ public class PasswordChanger {
         sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_PASSWORD_SUBJECT, SystemVariablesManager.EMAIL_PASSWORD_MESSAGE + authorizationCode.getAuthorizationCode());
     }
 
-    public void changePassword(String authorization, OptionInformer informer) throws Exception {
+    public void changePassword(String authorization, CodeInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         AuthorizationCode authorizationCode = helper.getUserAuthorizationCodeWithSpecificType(user, AuthorizationType.PASSWORD);
@@ -57,7 +59,7 @@ public class PasswordChanger {
         userService.save(user);
     }
 
-    private AuthorizationCode getNewEmailAuthorizationCode(OptionInformer informer) {
+    private AuthorizationCode getNewEmailAuthorizationCode(PasswordInformer informer) {
         return new AuthorizationCode(randomCodeFactory.getUniqueCodeToAuthorizeChangeUserOperation(), AuthorizationType.PASSWORD, informer.password);
     }
 

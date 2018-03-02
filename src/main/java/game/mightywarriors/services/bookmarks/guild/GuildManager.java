@@ -11,6 +11,7 @@ import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class GuildManager {
     @Autowired
     private UserService userService;
 
-    public void createGuild(String authorization, GuildInformer informer) throws Exception {
+    public void createGuild(String authorization, CreateGuildInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_guildIsPresent(user);
@@ -72,7 +73,7 @@ public class GuildManager {
         return chat;
     }
 
-    private Guild createGuild(User user, GuildInformer informer, Chat chat) {
+    private Guild createGuild(User user, CreateGuildInformer informer, Chat chat) {
         Guild guild = new Guild(informer.guildName);
         guild.setMinimumLevel(informer.minimumLevel);
         guild.addUser(user);
@@ -91,12 +92,12 @@ public class GuildManager {
             throw new NoAccessException("user have no access to do that");
     }
 
-    private void throwExceptionIf_guildNameIsNotPresent(GuildInformer informer) throws Exception {
+    private void throwExceptionIf_guildNameIsNotPresent(CreateGuildInformer informer) throws Exception {
         if (informer.guildName == null)
             throw new Exception("Wrong guild name");
     }
 
-    private void throwExceptionIf_guildNameAlreadyExist(GuildInformer informer) throws Exception {
+    private void throwExceptionIf_guildNameAlreadyExist(CreateGuildInformer informer) throws Exception {
         if (guildService.find(informer.guildName) != null)
             throw new Exception("Guild already exist");
     }

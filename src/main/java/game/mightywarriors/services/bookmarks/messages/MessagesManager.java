@@ -10,6 +10,8 @@ import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.AddMessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.DeleteMessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,8 @@ public class MessagesManager {
     private ChatService chatService;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private MessageHelper helper;
 
-    public void addMessage(String authorization, MessageInformer informer) throws Exception {
+    public void addMessage(String authorization, AddMessageInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
 
@@ -37,7 +37,7 @@ public class MessagesManager {
         chatService.save(chat);
     }
 
-    public void deleteMessage(String authorization, MessageInformer informer) throws Exception {
+    public void deleteMessage(String authorization, DeleteMessageInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         Message message = messageService.find(informer.messageId);
@@ -57,7 +57,7 @@ public class MessagesManager {
         return chat;
     }
 
-    private void throwExceptionIf_MessageIsNotPresent(MessageInformer informer) throws Exception {
+    private void throwExceptionIf_MessageIsNotPresent(AddMessageInformer informer) throws Exception {
         if (informer.message == null)
             throw new NotFoundException("Message is not present");
     }

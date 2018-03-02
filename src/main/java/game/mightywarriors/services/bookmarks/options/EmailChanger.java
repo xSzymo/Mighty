@@ -10,7 +10,9 @@ import game.mightywarriors.services.bookmarks.utilities.OptionsHelper;
 import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.services.registration.validators.EmailValidator;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
 import game.mightywarriors.web.json.objects.bookmarks.OptionInformer;
+import game.mightywarriors.web.json.objects.bookmarks.RemindInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class EmailChanger {
     @Autowired
     private OptionsHelper helper;
 
-    public void prepareChangeEmail(String authorization, OptionInformer informer) throws Exception {
+    public void prepareChangeEmail(String authorization, RemindInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_EmailIsNotValid(informer.email);
@@ -41,7 +43,7 @@ public class EmailChanger {
         sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_EMAIL_SUBJECT, SystemVariablesManager.EMAIL_EMAIL_MESSAGE + authorizationCode.getAuthorizationCode());
     }
 
-    public void changeEmail(String authorization, OptionInformer informer) throws Exception {
+    public void changeEmail(String authorization, CodeInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         AuthorizationCode authorizationCode = helper.getUserAuthorizationCodeWithSpecificType(user, AuthorizationType.EMAIL);
@@ -52,7 +54,7 @@ public class EmailChanger {
         userService.save(user);
     }
 
-    private AuthorizationCode getNewEmailAuthorizationCode(OptionInformer informer) {
+    private AuthorizationCode getNewEmailAuthorizationCode(RemindInformer informer) {
         return new AuthorizationCode(randomCodeFactory.getUniqueCodeToAuthorizeChangeUserOperation(), AuthorizationType.EMAIL, informer.email);
     }
 

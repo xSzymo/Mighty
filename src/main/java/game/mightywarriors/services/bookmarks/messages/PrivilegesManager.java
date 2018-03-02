@@ -12,6 +12,8 @@ import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +22,13 @@ import java.util.Optional;
 @Service
 public class PrivilegesManager {
     @Autowired
-    private UserService userService;
-    @Autowired
     private UsersRetriever retriever;
     @Autowired
     private ChatService chatService;
     @Autowired
-    private MessageService messageService;
-    @Autowired
     private MessageHelper helper;
 
-    public void addPrivileges(String authorization, MessageInformer informer) throws Exception {
+    public void addPrivileges(String authorization, PrivilegesInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         User userToAddPrivileges = helper.getUserFromInformer(informer);
@@ -45,7 +43,7 @@ public class PrivilegesManager {
         chatService.save(chat);
     }
 
-    public void removePrivileges(String authorization, MessageInformer informer) throws Exception {
+    public void removePrivileges(String authorization, PrivilegesWithOutAdminInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
         User userToRemovePrivileges = helper.getUserFromInformer(informer);

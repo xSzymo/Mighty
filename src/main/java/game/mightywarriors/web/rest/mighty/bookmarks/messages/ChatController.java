@@ -3,7 +3,9 @@ package game.mightywarriors.web.rest.mighty.bookmarks.messages;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.UserMessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,13 +20,13 @@ public class ChatController {
     private RoomManager roomManager;
 
     @PostMapping("secure/chat/leave")
-    public void removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
+    public void removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody ChatInformer informer) throws Exception {
 
         roomsAccessManager.leaveChat(authorization, informer);
     }
 
     @PostMapping("secure/chat/create")
-    public long createChat(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
+    public long createChat(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody UserMessageInformer informer) throws Exception {
 
         return roomManager.createChat(authorization, informer);
     }

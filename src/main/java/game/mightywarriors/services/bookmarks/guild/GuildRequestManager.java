@@ -10,7 +10,9 @@ import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.bookmarks.utilities.GuildHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.AcceptGuildRequestInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildRequestInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class GuildRequestManager {
     @Autowired
     private GuildHelper helper;
 
-    public void sendRequest(String authorization, GuildInformer informer) throws Exception {
+    public void sendRequest(String authorization, GuildRequestInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         Guild guild = helper.retrieveGuild(informer);
 
@@ -39,7 +41,7 @@ public class GuildRequestManager {
         guildService.save(guild);
     }
 
-    public void acceptRequest(String authorization, GuildInformer informer) throws Exception {
+    public void acceptRequest(String authorization, AcceptGuildRequestInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User invitedUser = helper.retrieveUserFromGuildRequests(user, informer);
 
@@ -58,7 +60,7 @@ public class GuildRequestManager {
         userService.save(invitedUser);
     }
 
-    public void deleteRequest(String authorization, GuildInformer informer) throws Exception {
+    public void deleteRequest(String authorization, AcceptGuildRequestInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_userIsNotGuildOwner(user);

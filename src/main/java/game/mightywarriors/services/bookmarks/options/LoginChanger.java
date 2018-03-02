@@ -9,6 +9,8 @@ import game.mightywarriors.other.generators.RandomCodeFactory;
 import game.mightywarriors.services.bookmarks.utilities.OptionsHelper;
 import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
+import game.mightywarriors.web.json.objects.bookmarks.LoginInformer;
 import game.mightywarriors.web.json.objects.bookmarks.OptionInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class LoginChanger {
     @Autowired
     private OptionsHelper helper;
 
-    public void prepareChangeLogin(String authorization, OptionInformer informer) throws Exception {
+    public void prepareChangeLogin(String authorization, LoginInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         throwExceptionIf_LoginIsAlreadyTaken(informer.login);
@@ -37,7 +39,7 @@ public class LoginChanger {
         sender.sendMail(user.geteMail(), SystemVariablesManager.EMAIL_LOGIN_SUBJECT, SystemVariablesManager.EMAIL_LOGIN_MESSAGE + authorizationCode.getAuthorizationCode());
     }
 
-    public void changeLogin(String authorization, OptionInformer informer) throws Exception {
+    public void changeLogin(String authorization, CodeInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         AuthorizationCode authorizationCode = helper.getUserAuthorizationCodeWithSpecificType(user, AuthorizationType.LOGIN);
@@ -48,7 +50,7 @@ public class LoginChanger {
         userService.save(user);
     }
 
-    private AuthorizationCode getNewEmailAuthorizationCode(OptionInformer informer) {
+    private AuthorizationCode getNewEmailAuthorizationCode(LoginInformer informer) {
         return new AuthorizationCode(randomCodeFactory.getUniqueCodeToAuthorizeChangeUserOperation(), AuthorizationType.LOGIN, informer.login);
     }
 

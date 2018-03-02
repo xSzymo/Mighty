@@ -13,6 +13,7 @@ import game.mightywarriors.other.exceptions.UsedPointsException;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ArenaInformer;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,14 @@ public class ArenaManager {
     private int ONE_MINUTE = 60 * ONE_SECOND;
 
     @Transactional
-    public FightResult fightUser(String authorization, Informer userFightInformer) throws Exception {
+    public FightResult fightUser(String authorization, ArenaInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User opponent;
 
-        if (userFightInformer.opponentId != 0)
-            opponent = userService.find(userFightInformer.opponentId);
-        else if (userFightInformer.opponentName != null)
-            opponent = userService.find(userFightInformer.opponentName);
+        if (informer.opponentId != 0)
+            opponent = userService.find(informer.opponentId);
+        else if (informer.opponentName != null)
+            opponent = userService.find(informer.opponentName);
         else
             throw new NotProperlyChampionsException("Wrong champions id");
 

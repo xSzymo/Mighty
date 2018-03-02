@@ -3,6 +3,7 @@ package game.mightywarriors.web.rest.mighty.bookmarks.guild;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.guild.GuildWarsService;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildWarInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class GuildWarController {
     private GuildWarsService guildWarsService;
 
     @PostMapping("secure/guild/war")
-    public FightResult removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody GuildInformer informer) throws Exception {
+    public FightResult removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody GuildWarInformer informer) throws Exception {
 
         return guildWarsService.performGuildWar(authorization, informer);
     }

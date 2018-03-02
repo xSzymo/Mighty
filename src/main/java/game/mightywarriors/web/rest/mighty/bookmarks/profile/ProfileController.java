@@ -4,6 +4,7 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.bookmarks.profile.ChampionPointsManager;
 import game.mightywarriors.services.bookmarks.profile.ItemManager;
+import game.mightywarriors.web.json.objects.bookmarks.ItemInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PlaceInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PointsInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ProfileController {
     private ItemManager itemManager;
 
     @PostMapping("secure/profile/statistic")
-    public void fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PointsInformer informer) throws Exception {
+    public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PointsInformer informer) throws Exception {
         for (StatisticType type : StatisticType.values()) {
             if (type.getType().equals(informer.statisticName)) {
                 championPointsManager.addPoints(authorization, type, informer.championId);
@@ -30,7 +31,7 @@ public class ProfileController {
     }
 
     @PostMapping("secure/profile/equipmentToInventory")
-    public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
+    public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody ItemInformer informer) throws Exception {
         itemManager.moveEquipmentItemToInventory(authorization, informer.itemId);
     }
 

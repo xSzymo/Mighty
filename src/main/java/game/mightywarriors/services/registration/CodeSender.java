@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
+import game.mightywarriors.web.json.objects.bookmarks.RemindInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class CodeSender {
     @Autowired
     private MailSenderImpl sender;
 
-    public void sendCodeToEnableAccount(RegistrationInformer informer) throws Exception {
+    public void sendCodeToEnableAccount(RemindInformer informer) throws Exception {
         User user = userService.findByEmail(informer.email);
 
         throwExceptionIf_UserIsNullOrIsNotLocked(user);

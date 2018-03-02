@@ -9,7 +9,8 @@ import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.TavernInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class TavernManager {
     @Autowired
     private FightHelper fightHelper;
 
-    public void sendChampionOnMission(String authorization, Informer informer) throws Exception {
+    public void sendChampionOnMission(String authorization, TavernInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         if (user.getMissionPoints() < 1)
@@ -45,7 +46,7 @@ public class TavernManager {
         tavernUtility.prepareNewMissionFight(champions, mission);
     }
 
-    public FightResult performFight(String authorization, Informer informer) throws Exception {
+    public FightResult performFight(String authorization, MissionFightInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         MissionFight missionFight = missionFightService.find(informer.missionFightId);

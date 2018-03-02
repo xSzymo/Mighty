@@ -2,6 +2,7 @@ package game.mightywarriors.web.rest.mighty.bookmarks.messages;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class RoomController {
     }
 
     @PostMapping("secure/chat/room/delete")
-    public void deleteRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MessageInformer informer) throws Exception {
+    public void deleteRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody ChatInformer informer) throws Exception {
 
         roomManager.deleteRoom(authorization, informer);
     }

@@ -4,7 +4,7 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.LockedAccountException;
-import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class AccountEnabler {
     @Autowired
     private UserService userService;
 
-    public void enableAccount(RegistrationInformer informer) throws Exception {
+    public void enableAccount(CodeInformer informer) throws Exception {
         User user = userService.findByCodeToEnableAccount(informer.code);
 
         throwExceptionIf_UserIsNull(user);

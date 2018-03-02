@@ -10,7 +10,9 @@ import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.UserMessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class RoomManager {
     @Autowired
     private MessageHelper helper;
 
-    public long createChat(String authorization, MessageInformer informer) throws Exception {
+    public long createChat(String authorization, UserMessageInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         User friend = helper.getUserFromInformer(informer);
 
@@ -42,7 +44,7 @@ public class RoomManager {
         return chat.getId();
     }
 
-    public void deleteRoom(String authorization, MessageInformer informer) throws Exception {
+    public void deleteRoom(String authorization, ChatInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
         Chat chat = chatService.find(informer.chatId);
 

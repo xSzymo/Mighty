@@ -12,6 +12,7 @@ import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.bookmarks.utilities.GuildHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildMasterInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class GuildMasterService {
     @Autowired
     private GuildHelper helper;
 
-    public void addNewGuildMaster(String authorization, GuildInformer informer) throws Exception {
+    public void addNewGuildMaster(String authorization, GuildMasterInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User newMaster = helper.retrieveUser(informer);
 
@@ -45,7 +46,7 @@ public class GuildMasterService {
         userService.save(newMaster);
     }
 
-    public void removeMember(String authorization, GuildInformer informer) throws Exception {
+    public void removeMember(String authorization, GuildMasterInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         User memberToRemove = helper.retrieveUser(informer);
 

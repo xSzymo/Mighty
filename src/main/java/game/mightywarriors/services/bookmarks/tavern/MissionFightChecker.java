@@ -5,7 +5,9 @@ import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChampionInformer;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +23,13 @@ public class MissionFightChecker {
     @Autowired
     private FightHelper fightHelper;
 
-    public long checkBiggestLeftTimeForChampions(String authorization, Informer informer) throws Exception {
+    public long checkBiggestLeftTimeForChampions(String authorization, ChampionInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         return fightHelper.getBiggestBlockTimeForEnteredChampions(user, informer.championId);
     }
 
-    public long checkLeftTimeForMissionFight(String authorization, Informer informer) throws Exception {
+    public long checkLeftTimeForMissionFight(String authorization, MissionFightInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         MissionFight fight = missionFightService.find(informer.missionFightId);

@@ -4,6 +4,8 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;
 import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.TavernInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,19 +21,19 @@ public class TavernController {
     private MissionFightChecker missionFightChecker;
 
     @PostMapping("secure/tavern/send")
-    public void sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
+    public void sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody TavernInformer informer) throws Exception {
 
         tavernManager.sendChampionOnMission(authorization, informer);
     }
 
     @PostMapping("secure/tavern/fight")
-    public FightResult fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
+    public FightResult fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer informer) throws Exception {
 
         return tavernManager.performFight(authorization, informer);
     }
 
     @PostMapping("secure/tavern/check/mission")
-    public long checkMissionFightBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Informer informer) throws Exception {
+    public long checkMissionFightBlockTime(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer informer) throws Exception {
 
         return missionFightChecker.checkLeftTimeForMissionFight(authorization, informer);
     }

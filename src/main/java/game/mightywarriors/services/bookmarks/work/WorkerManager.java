@@ -8,7 +8,9 @@ import game.mightywarriors.data.tables.Work;
 import game.mightywarriors.other.exceptions.BusyChampionException;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChampionInformer;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.WorkInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +36,13 @@ public class WorkerManager {
         this.workerUtility = workerUtility;
     }
 
-    public void setWorkForUser(String authorization, Informer workJSON) throws Exception {
+    public void setWorkForUser(String authorization, WorkInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
         if (fightHelper.getBiggestBlockTimeForEnteredChampions(user, fightHelper.getChampionsId(user.getChampions())) > 0)
             throw new BusyChampionException("Some one is already busy");
 
-        workerUtility.createWork(user, workJSON.hours, fightHelper.getChampions(user, workJSON.championId));
+        workerUtility.createWork(user, informer.hours, fightHelper.getChampions(user, informer.championId));
     }
 
     public void getPayment(String authorization) throws Exception {
@@ -52,7 +54,7 @@ public class WorkerManager {
                 workerUtility.getPayment(user, work);
     }
 
-    public void cancelWork(String authorization, Informer informer) throws Exception {
+    public void cancelWork(String authorization, ChampionInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         Set<Work> works = workService.find(user.getLogin());
 

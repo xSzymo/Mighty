@@ -6,6 +6,7 @@ import game.mightywarriors.data.tables.Message;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.messages.ChatRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserDataChatProvider {
         return chats;
     }
 
-    public ChatRepresentation getChat(String authorization, MessageInformer informer) throws Exception {
+    public ChatRepresentation getChat(String authorization, ChatInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
 
         Chat chat = getUserChat_IfChatIsNotPresentThrowException(user, informer.chatId);
@@ -37,7 +38,7 @@ public class UserDataChatProvider {
         return new ChatRepresentation(chat);
     }
 
-    public List<Message> getAllMessages(String authorization, MessageInformer informer) throws Exception {
+    public List<Message> getAllMessages(String authorization, ChatInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
 
         Chat userChat = getUserChat_IfChatIsNotPresentThrowException(user, informer.chatId);
@@ -46,7 +47,7 @@ public class UserDataChatProvider {
         return chat.messages;
     }
 
-    public List<Message> getLastMessages(String authorization, MessageInformer informer) throws Exception {
+    public List<Message> getLastMessages(String authorization, ChatInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);
 
         Chat userChat = getUserChat_IfChatIsNotPresentThrowException(user, informer.chatId);
