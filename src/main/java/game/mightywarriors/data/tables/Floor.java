@@ -19,8 +19,10 @@ public class Floor {
 
     @Column(name = "experience")
     private long experience = 1;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "descriptionLight")
+    private String descriptionLight;
+    @Column(name = "descriptionDark")
+    private String descriptionDark;
     @Column(name = "time_duration")
     private long duration;
     @Column(name = "floor")
@@ -72,12 +74,12 @@ public class Floor {
         this.experience = experience;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionLight() {
+        return descriptionLight;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionLight(String descriptionLight) {
+        this.descriptionLight = descriptionLight;
     }
 
     public BigDecimal getGold() {
@@ -105,14 +107,14 @@ public class Floor {
         return experience == mission.experience &&
                 duration == mission.duration &&
                 Objects.equals(id, mission.id) &&
-                Objects.equals(description, mission.description) &&
+                Objects.equals(descriptionLight, mission.descriptionLight) &&
                 Objects.equals(gold, mission.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, experience, description, duration, gold);
+        return Objects.hash(id, experience, descriptionLight, duration, gold);
     }
 
     public Timestamp getCreatedDate() {
@@ -158,5 +160,13 @@ public class Floor {
 
     public void setImageDark(Image imageDark) {
         this.imageDark = imageDark;
+    }
+
+    public String getDescriptionDark() {
+        return descriptionDark;
+    }
+
+    public void setDescriptionDark(String descriptionDark) {
+        this.descriptionDark = descriptionDark;
     }
 }

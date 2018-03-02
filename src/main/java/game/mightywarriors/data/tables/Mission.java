@@ -19,8 +19,10 @@ public class Mission {
 
     @Column(name = "experience")
     private long experience = 1;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "descriptionDark")
+    private String descriptionDark;
+    @Column(name = "descriptionLight")
+    private String descriptionLight;
     @Column(name = "time_duration")
     private long duration;
     @Column(name = "gold")
@@ -43,10 +45,10 @@ public class Mission {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Mission(long experience, String description, BigDecimal gold, Monster monster) {
+    public Mission(long experience, String descriptionDark, BigDecimal gold, Monster monster) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
-        this.description = description;
+        this.descriptionDark = descriptionDark;
         this.gold = gold;
         this.monster = monster;
     }
@@ -63,12 +65,12 @@ public class Mission {
         this.experience = experience;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionDark() {
+        return descriptionDark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionDark(String descriptionDark) {
+        this.descriptionDark = descriptionDark;
     }
 
     public BigDecimal getGold() {
@@ -104,14 +106,14 @@ public class Mission {
         return experience == mission.experience &&
                 duration == mission.duration &&
                 Objects.equals(id, mission.id) &&
-                Objects.equals(description, mission.description) &&
+                Objects.equals(descriptionDark, mission.descriptionDark) &&
                 Objects.equals(gold, mission.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, experience, description, duration, gold);
+        return Objects.hash(id, experience, descriptionDark, duration, gold);
     }
 
     public Timestamp getCreatedDate() {
@@ -133,5 +135,13 @@ public class Mission {
 
     public void setImageDark(Image imageDark) {
         this.imageDark = imageDark;
+    }
+
+    public String getDescriptionLight() {
+        return descriptionLight;
+    }
+
+    public void setDescriptionLight(String descriptionLight) {
+        this.descriptionLight = descriptionLight;
     }
 }
