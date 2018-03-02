@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 public class ChampionPointsManager {
@@ -22,48 +23,48 @@ public class ChampionPointsManager {
 
     public void addPoints(String authorization, StatisticType type, long id) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Champion champion = user.getChampions().stream().filter(x -> x.getId().equals(id)).findFirst().get();
+        Optional<Champion> champion = user.getChampions().stream().filter(x -> x.getId().equals(id)).findFirst();
         double gold = 0;
 
-        if (champion == null)
+        if (!champion.isPresent())
             throw new Exception("Champion not found");
 
         if (type.getType().equals(StatisticType.ARMOR.getType())) {
-            long armor = champion.getStatistic().getArmor() + ONE;
+            long armor = champion.get().getStatistic().getArmor() + ONE;
             gold = armor * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setArmor(armor);
+            champion.get().getStatistic().setArmor(armor);
         } else if (type.getType().equals(StatisticType.MAGIC_RESIST.getType())) {
-            long magicResist = champion.getStatistic().getMagicResist() + ONE;
+            long magicResist = champion.get().getStatistic().getMagicResist() + ONE;
             gold = magicResist * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setMagicResist(magicResist);
+            champion.get().getStatistic().setMagicResist(magicResist);
         } else if (type.getType().equals(StatisticType.INTELLIGENCE.getType())) {
-            long intelligence = champion.getStatistic().getIntelligence() + ONE;
+            long intelligence = champion.get().getStatistic().getIntelligence() + ONE;
             gold = intelligence * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setIntelligence(intelligence);
+            champion.get().getStatistic().setIntelligence(intelligence);
         } else if (type.getType().equals(StatisticType.STRENGTH.getType())) {
-            long strength = champion.getStatistic().getStrength() + ONE;
+            long strength = champion.get().getStatistic().getStrength() + ONE;
             gold = strength * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setStrength(strength);
+            champion.get().getStatistic().setStrength(strength);
         } else if (type.getType().equals(StatisticType.CRITICAL_CHANCE.getType())) {
-            long criticChance = champion.getStatistic().getCriticalChance() + ONE;
+            long criticChance = champion.get().getStatistic().getCriticalChance() + ONE;
             gold = criticChance * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setCriticalChance(criticChance);
+            champion.get().getStatistic().setCriticalChance(criticChance);
         } else if (type.getType().equals(StatisticType.VITALITY.getType())) {
-            long vitality = champion.getStatistic().getVitality() + ONE;
+            long vitality = champion.get().getStatistic().getVitality() + ONE;
             gold = vitality * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
             checkUserGotEnoughGold(user, gold);
 
-            champion.getStatistic().setVitality(vitality);
+            champion.get().getStatistic().setVitality(vitality);
         }
 
         user.subtractGold(new BigDecimal(gold));
