@@ -145,10 +145,6 @@ public class Champion implements IFighter {
         return createdDate;
     }
 
-    public boolean isIsPicked() {
-        return false;
-    }
-
     public Image getImageDark() {
         return imageDark;
     }
