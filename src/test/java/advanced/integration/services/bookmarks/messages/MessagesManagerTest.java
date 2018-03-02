@@ -13,7 +13,7 @@ import game.mightywarriors.services.bookmarks.messages.PrivilegesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
 import game.mightywarriors.services.security.UsersRetriever;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         prepareNewRoom();
         informer.message = message;
 
-        objectUnderTest.addMessage(token, informer);
+        objectUnderTest.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(message, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
@@ -81,11 +81,11 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         prepareNewRoom();
         informer.message = message;
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         authorize(user1.getLogin());
 
-        objectUnderTest.addMessage(token, informer);
+        objectUnderTest.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(message, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
@@ -99,7 +99,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         informer.message = message;
         authorize(user1.getLogin());
 
-        objectUnderTest.addMessage(token, informer);
+        objectUnderTest.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
     }
 
     @Test(expected = NotFoundException.class)
@@ -107,7 +107,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         prepareNewRoom();
         authorize(user1.getLogin());
 
-        objectUnderTest.addMessage(token, informer);
+        objectUnderTest.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         addMessage();
         informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
 
-        objectUnderTest.deleteMessage(token, informer);
+        objectUnderTest.deleteMessage(token, new DeleteMessageInformer(informer.chatId, informer.messageId));
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(deleteMessage, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
@@ -128,13 +128,13 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         addMessage();
         informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
-        privilegesManager.addPrivileges(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
+        privilegesManager.addPrivileges(token, new PrivilegesInformer(informer.userId, informer.userLogin, informer.chatId, informer.admin));
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         assertEquals(2, chatService.find(informer.chatId).getAdmins().size());
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteMessage(token, informer);
+        objectUnderTest.deleteMessage(token, new DeleteMessageInformer(informer.chatId, informer.messageId));
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(deleteMessage, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
@@ -147,14 +147,14 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         addMessage();
         informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
-        privilegesManager.addPrivileges(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
+        privilegesManager.addPrivileges(token, new PrivilegesInformer(informer.userId, informer.userLogin, informer.chatId, informer.admin));
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         assertEquals(2, chatService.find(informer.chatId).getAdmins().size());
         assertTrue(chatService.find(informer.chatId).getAdmins().stream().anyMatch(x -> x.getChatRole().getRole().equals(ChatRole.MODIFIER.getRole())));
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteMessage(token, informer);
+        objectUnderTest.deleteMessage(token, new DeleteMessageInformer(informer.chatId, informer.messageId));
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(deleteMessage, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
@@ -167,12 +167,12 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         addMessage();
         informer.messageId = chatService.find(informer.chatId).getMessages().iterator().next().getId();
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteMessage(token, informer);
+        objectUnderTest.deleteMessage(token, new DeleteMessageInformer(informer.chatId, informer.messageId));
     }
 
     @Test(expected = NotFoundException.class)
@@ -180,12 +180,12 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
         addMessage();
         informer.messageId = 151251231;
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteMessage(token, informer);
+        objectUnderTest.deleteMessage(token, new DeleteMessageInformer(informer.userId, informer.messageId));
     }
 
     private void prepareNewRoom() throws Exception {

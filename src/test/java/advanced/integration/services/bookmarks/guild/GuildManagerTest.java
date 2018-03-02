@@ -7,6 +7,7 @@ import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import org.junit.After;
 import org.junit.Before;
@@ -39,12 +40,13 @@ public class GuildManagerTest extends AuthorizationConfiguration {
     @After
     public void cleanUp() {
         guildService.delete("name of guild");
+        guildService.delete("abc");
     }
 
     @Test
     public void createGuild() throws Exception {
 
-        objectUnderTest.createGuild(token, informer);
+        objectUnderTest.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
 
         user = usersRetriever.retrieveUser(token);
         Guild guild = user.getGuild();
@@ -61,7 +63,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
     public void createGuild_user_have_already_guild() throws Exception {
         createGuild();
 
-        objectUnderTest.createGuild(token, informer);
+        objectUnderTest.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
     }
 
     @Test(expected = Exception.class)
@@ -69,14 +71,14 @@ public class GuildManagerTest extends AuthorizationConfiguration {
         guildService.save(new Guild("abc", 1));
         informer.guildName = "abc";
 
-        objectUnderTest.createGuild(token, informer);
+        objectUnderTest.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
     }
 
     @Test(expected = Exception.class)
     public void createGuild_guild_name_already_exist() throws Exception {
         informer.guildName = null;
 
-        objectUnderTest.createGuild(token, informer);
+        objectUnderTest.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
     }
 
     @Test
@@ -128,7 +130,7 @@ public class GuildManagerTest extends AuthorizationConfiguration {
     }
 
     private void createGuild(boolean addUser) throws Exception {
-        objectUnderTest.createGuild(token, informer);
+        objectUnderTest.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
 
         user = usersRetriever.retrieveUser(token);
         Guild guild = user.getGuild();

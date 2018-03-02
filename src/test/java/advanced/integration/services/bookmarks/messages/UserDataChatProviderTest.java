@@ -10,6 +10,8 @@ import game.mightywarriors.services.bookmarks.messages.MessagesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.UserDataChatProvider;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.AddMessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.messages.ChatRepresentation;
 import org.junit.After;
@@ -67,7 +69,7 @@ public class UserDataChatProviderTest extends AuthorizationConfiguration {
     @Test
     public void getChat() throws Exception {
 
-        ChatRepresentation chat = objectUnderTest.getChat(token, informer);
+        ChatRepresentation chat = objectUnderTest.getChat(token, new ChatInformer(informer.chatId));
 
         assertEquals(user.getLogin(), chat.users.iterator().next().getLogin());
     }
@@ -76,10 +78,10 @@ public class UserDataChatProviderTest extends AuthorizationConfiguration {
     public void getAllMessages() throws Exception {
         for (int i = 0; i < 20; i++) {
             informer.message = message;
-            messagesManager.addMessage(token, informer);
+            messagesManager.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
         }
 
-        List<Message> allMessages = objectUnderTest.getAllMessages(token, informer);
+        List<Message> allMessages = objectUnderTest.getAllMessages(token, new ChatInformer(informer.chatId));
 
         assertEquals(20, allMessages.size());
         for (int i = 0; i < 20; i++)
@@ -90,10 +92,10 @@ public class UserDataChatProviderTest extends AuthorizationConfiguration {
     public void getLastMessages() throws Exception {
         for (int i = 0; i < 20; i++) {
             informer.message = message;
-            messagesManager.addMessage(token, informer);
+            messagesManager.addMessage(token, new AddMessageInformer(informer.chatId, informer.message));
         }
 
-        List<Message> allMessages = objectUnderTest.getLastMessages(token, informer);
+        List<Message> allMessages = objectUnderTest.getLastMessages(token, new ChatInformer(informer.chatId));
 
         assertEquals(10, allMessages.size());
         for (int i = 0; i < 10; i++)

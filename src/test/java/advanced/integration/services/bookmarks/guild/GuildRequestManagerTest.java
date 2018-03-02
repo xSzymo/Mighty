@@ -10,7 +10,10 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.bookmarks.guild.GuildRequestManager;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.AcceptGuildRequestInformer;
+import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildRequestInformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +61,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         createGuild();
         authorize(user2.getLogin());
 
-        objectUnderTest.sendRequest(token, informer);
+        objectUnderTest.sendRequest(token, new GuildRequestInformer(informer.guildId, informer.guildName));
 
         Guild guild = userService.find(user).getGuild();
         Optional<Request> request = guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(user2.getLogin())).findFirst();
@@ -71,8 +74,8 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         createGuild();
         authorize(user2.getLogin());
 
-        objectUnderTest.sendRequest(token, informer);
-        objectUnderTest.sendRequest(token, informer);
+        objectUnderTest.sendRequest(token, new GuildRequestInformer(informer.guildId, informer.guildName));
+        objectUnderTest.sendRequest(token, new GuildRequestInformer(informer.guildId, informer.guildName));
     }
 
     @Test(expected = Exception.class)
@@ -81,7 +84,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         createGuild();
         authorize(user2.getLogin());
 
-        objectUnderTest.sendRequest(token, informer);
+        objectUnderTest.sendRequest(token, new GuildRequestInformer(informer.guildId, informer.guildName));
     }
 
     @Test(expected = Exception.class)
@@ -91,7 +94,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         userService.save(user2);
         authorize(user2.getLogin());
 
-        objectUnderTest.sendRequest(token, informer);
+        objectUnderTest.sendRequest(token, new GuildRequestInformer(informer.guildId, informer.guildName));
     }
 
     @Test
@@ -100,7 +103,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         authorize(user.getLogin());
         informer.userName = user2.getLogin();
 
-        objectUnderTest.deleteRequest(token, informer);
+        objectUnderTest.deleteRequest(token, new AcceptGuildRequestInformer(informer.requestId, informer.userName));
 
         Guild guild = userService.find(user).getGuild();
         Optional<Request> request = guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(user2.getLogin())).findFirst();
@@ -115,7 +118,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         authorize(user.getLogin());
         informer.userName = user2.getLogin();
 
-        objectUnderTest.deleteRequest(token, informer);
+        objectUnderTest.deleteRequest(token, new AcceptGuildRequestInformer(informer.requestId, informer.userName));
     }
 
     @Test
@@ -124,7 +127,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         authorize(user.getLogin());
         informer.userName = user2.getLogin();
 
-        objectUnderTest.acceptRequest(token, informer);
+        objectUnderTest.acceptRequest(token, new AcceptGuildRequestInformer(informer.requestId, informer.userName));
 
         Guild guild = userService.find(user).getGuild();
         Optional<Request> request = guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(user2.getLogin())).findFirst();
@@ -142,7 +145,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
         userService.save(user);
         authorize(user.getLogin());
 
-        objectUnderTest.acceptRequest(token, informer);
+        objectUnderTest.acceptRequest(token, new AcceptGuildRequestInformer(informer.requestId, informer.userName));
 
         Guild guild = userService.find(user).getGuild();
         Optional<Request> request = guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(user2.getLogin())).findFirst();
@@ -152,7 +155,7 @@ public class GuildRequestManagerTest extends AuthorizationConfiguration {
     }
 
     private void createGuild() throws Exception {
-        guildManager.createGuild(token, informer);
+        guildManager.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
 
         user = usersRetriever.retrieveUser(token);
         Guild guild = user.getGuild();

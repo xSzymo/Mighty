@@ -12,7 +12,9 @@ import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.bookmarks.work.WorkerManager;
 import game.mightywarriors.services.bookmarks.work.WorkerUtility;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChampionInformer;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.WorkInformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +74,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
 
     @Test
     public void setWorkForUser() throws Exception {
-        objectUnderTests.setWorkForUser(token, informer);
+        objectUnderTests.setWorkForUser(token, new WorkInformer(informer.hours, informer.championId));
 
         user = userService.find(user.getId());
         List<Work> works = new ArrayList<>(workService.find(user.getLogin()));
@@ -85,8 +87,8 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
 
     @Test(expected = BusyChampionException.class)
     public void setWorkForUser_throw_BusyChampionException() throws Exception {
-        objectUnderTests.setWorkForUser(token, informer);
-        objectUnderTests.setWorkForUser(token, informer);
+        objectUnderTests.setWorkForUser(token, new WorkInformer(informer.hours, informer.championId));
+        objectUnderTests.setWorkForUser(token, new WorkInformer(informer.hours, informer.championId));
     }
 
     @Test
@@ -102,7 +104,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         this.howManyHours = howManyHours;
         when(workerUtility.getHours(howManyHours)).thenReturn(1000L);
 
-        objectUnderTests.setWorkForUser(token, informer);
+        objectUnderTests.setWorkForUser(token, new WorkInformer(informer.hours, informer.championId));
         Thread.sleep(2000);
         objectUnderTests.getPayment(token);
 
@@ -116,7 +118,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
     public void cancelWork_all() throws Exception {
         setWorkForUser();
 
-        objectUnderTests.cancelWork(token, informer);
+        objectUnderTests.cancelWork(token, new ChampionInformer(informer.championId));
 
         user = userService.find(user.getId());
         assertEquals(0, workService.find(user.getLogin()).size());
@@ -128,7 +130,7 @@ public class WorkerManagerTest extends AuthorizationConfiguration {
         setWorkForUser();
         informer.championId = new long[]{firstChampionId};
 
-        objectUnderTests.cancelWork(token, informer);
+        objectUnderTests.cancelWork(token, new ChampionInformer(informer.championId));
 
         user = userService.find(user.getId());
         List<Champion> champions = new ArrayList<>(user.getChampions());

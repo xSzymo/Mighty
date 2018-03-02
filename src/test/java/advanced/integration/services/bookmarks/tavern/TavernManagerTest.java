@@ -12,6 +12,8 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
+import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
+import game.mightywarriors.web.json.objects.bookmarks.TavernInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import game.mightywarriors.web.rest.mighty.data.user.MissionFightController;
 import org.junit.Before;
@@ -85,10 +87,10 @@ public class TavernManagerTest extends AuthorizationConfiguration {
     private void tavern_process() throws Exception {
         setUpVariables();
 
-        objectUnderTest.sendChampionOnMission(token, informer);
+        objectUnderTest.sendChampionOnMission(token, new TavernInformer(informer.missionId, informer.championId));
 
         checkAfterSendChampion(missionFightController.getMissionFights(token).get(0));
-        FightResult fightResult = objectUnderTest.performFight(token, informer);
+        FightResult fightResult = objectUnderTest.performFight(token, new MissionFightInformer(informer.missionFightId));
         checkAfterPerformFight(fightResult);
     }
 

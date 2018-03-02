@@ -22,6 +22,7 @@ class ArenaControllerTest extends GroovyTestCase {
     private long championId2
     private String myToken
     private String myJson
+    private String myJson1
     private String opponentName
     private int ONE_SECOND = 1000
 
@@ -37,7 +38,7 @@ class ArenaControllerTest extends GroovyTestCase {
 
         long opponentRanking = parser(getRanking(opponentName)).ranking
 
-        def checkLeftTimeResponseFirst = checkChampion(myJson)
+        def checkLeftTimeResponseFirst = checkChampion(myJson1)
 
         if (parser(checkLeftTimeResponseFirst).leftTime > 0)
             sleep(parser(checkLeftTimeResponseFirst).leftTime * ONE_SECOND + ONE_SECOND)
@@ -57,13 +58,16 @@ class ArenaControllerTest extends GroovyTestCase {
     }
 
     private 'set up json to send champions request'(long howManyChamps) {
-        if (howManyChamps == 1)
+        if (howManyChamps == 1) {
             myJson = '{ "championId":[' + championId + '], "opponentName": ' + "\"" + opponentName + "\"" + '}'
-        else if (howManyChamps == 2)
+            myJson1 = '{ "championId":[' + championId + '] }'
+        } else if (howManyChamps == 2) {
             myJson = '{ "championId":[' + championId + ', ' + championId1 + '], "opponentName": ' + "\"" + opponentName + "\"" + '}'
-        else if (howManyChamps == 3)
+            myJson1 = '{ "championId":[' + championId + ', ' + championId1 + '] }'
+        } else if (howManyChamps == 3) {
             myJson = '{ "championId":[' + championId + ', ' + championId1 + ', ' + championId2 + '], "opponentName": ' + "\"" + opponentName + "\"" + '}'
-        else
+            myJson1 = '{ "championId":[' + championId + ', ' + championId1 + ', ' + championId2 + '] }'
+        } else
             throw new Exception("choose number of champion between 1-3")
     }
 

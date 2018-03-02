@@ -9,7 +9,9 @@ import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.bookmarks.guild.GuildMasterService;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildMasterInformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +54,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
     public void addNewGuildMaster() throws Exception {
         createGuild(true);
 
-        objectUnderTest.addNewGuildMaster(token, informer);
+        objectUnderTest.addNewGuildMaster(token, new GuildMasterInformer(informer.userName, informer.userId));
 
         Guild guild = usersRetriever.retrieveUser(token).getGuild();
         Optional<User> newMaster = guild.getUsers().stream().filter(x -> x.getLogin().equals("user1")).findFirst();
@@ -72,7 +74,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
 
     @Test(expected = Exception.class)
     public void addNewGuildMaster_no_guild() throws Exception {
-        objectUnderTest.addNewGuildMaster(token, informer);
+        objectUnderTest.addNewGuildMaster(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
@@ -81,7 +83,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         user.setGuild(null);
         userService.save(user);
 
-        objectUnderTest.addNewGuildMaster(token, informer);
+        objectUnderTest.addNewGuildMaster(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
@@ -89,21 +91,21 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         createGuild(true);
         informer.userName = "bla";
 
-        objectUnderTest.addNewGuildMaster(token, informer);
+        objectUnderTest.addNewGuildMaster(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
     public void addNewGuildMaster_with_no_member_1() throws Exception {
         createGuild(false);
 
-        objectUnderTest.addNewGuildMaster(token, informer);
+        objectUnderTest.addNewGuildMaster(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test
     public void removeMember() throws Exception {
         createGuild(true);
 
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
 
         User user = userService.find("user1");
         assertNull(user.getGuild());
@@ -116,7 +118,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         createGuild(true);
         informer.userName = user.getLogin();
 
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
 
         User user = userService.find("user1");
         assertNull(user.getGuild());
@@ -125,7 +127,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
 
     @Test(expected = Exception.class)
     public void removeMember_no_guild() throws Exception {
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
@@ -134,7 +136,7 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         user.setGuild(null);
         userService.save(user);
 
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
@@ -142,18 +144,18 @@ public class GuildMasterServiceTest extends AuthorizationConfiguration {
         createGuild(true);
         informer.userName = "bla";
 
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     @Test(expected = Exception.class)
     public void removeMember_with_no_member_1() throws Exception {
         createGuild(false);
 
-        objectUnderTest.removeMember(token, informer);
+        objectUnderTest.removeMember(token, new GuildMasterInformer(informer.userName, informer.userId));
     }
 
     private void createGuild(boolean addUser) throws Exception {
-        guildManager.createGuild(token, informer);
+        guildManager.createGuild(token, new CreateGuildInformer(informer.guildName, informer.minimumLevel));
 
         user = usersRetriever.retrieveUser(token);
         Guild guild = user.getGuild();

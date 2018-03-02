@@ -4,6 +4,8 @@ import advanced.integration.config.ChangerTestConfig;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.AuthorizationType;
 import game.mightywarriors.services.bookmarks.options.LoginChanger;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
+import game.mightywarriors.web.json.objects.bookmarks.LoginInformer;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +19,7 @@ public class LoginChangerTest extends ChangerTestConfig {
     @Test
     public void prepareChangeLogin() throws Exception {
 
-        objectUnderTest.prepareChangeLogin(token, informer);
+        objectUnderTest.prepareChangeLogin(token, new LoginInformer(informer.login));
 
         User user = userService.find(this.user.getId());
         assertEquals(1, user.getAuthorizationCodes().size());
@@ -29,7 +31,7 @@ public class LoginChangerTest extends ChangerTestConfig {
         prepareChangeLogin();
         informer.code = userService.find(user).getAuthorizationCodes().iterator().next().getAuthorizationCode();
 
-        objectUnderTest.changeLogin(token, informer);
+        objectUnderTest.changeLogin(token, new CodeInformer(informer.code));
 
         user = userService.find(user);
         assertTrue(user.getAuthorizationCodes().stream().anyMatch(x -> x.getType().getType().equals(AuthorizationType.LOGIN.getType())));
@@ -38,15 +40,13 @@ public class LoginChangerTest extends ChangerTestConfig {
 
     @Test(expected = Exception.class)
     public void prepareChangePassword_null_login() throws Exception {
-        informer.login = null;
-
-        objectUnderTest.prepareChangeLogin(token, informer);
+        objectUnderTest.prepareChangeLogin(token, new LoginInformer(null));
     }
 
     @Test(expected = Exception.class)
     public void prepareChangePassword_existing_login() throws Exception {
         informer.login = "admin0";
 
-        objectUnderTest.prepareChangeLogin(token, informer);
+        objectUnderTest.prepareChangeLogin(token, new LoginInformer(informer.login));
     }
 }

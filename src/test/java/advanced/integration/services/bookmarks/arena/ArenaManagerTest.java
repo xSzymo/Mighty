@@ -14,6 +14,7 @@ import game.mightywarriors.other.exceptions.NotProperlyChampionsException;
 import game.mightywarriors.services.bookmarks.arena.ArenaManager;
 import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ArenaInformer;
 import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.junit.After;
@@ -38,8 +39,6 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     private RankingService rankingService;
     @Autowired
     private ChampionService championService;
-    @Autowired
-    private PointsForDivisionCounter pointsForDivisionCounter;
 
     private User user;
     private Ranking userRanking;
@@ -89,7 +88,7 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
         int arenaPoints = user.getArenaPoints();
         long oldOpponentRanking = rankingService.find(informer.opponentName).getRanking();
 
-        FightResult fightResult = objectUnderTest.fightUser(token, informer);
+        FightResult fightResult = objectUnderTest.fightUser(token, new ArenaInformer(informer.opponentId, informer.opponentName));
 
         user = userService.find(user.getId());
         assertEquals(user.getLogin(), fightResult.getWinner().getLogin());
@@ -106,14 +105,14 @@ public class ArenaManagerTest extends AuthorizationConfiguration {
     public void fightUser_opponentWithLowerRanking() throws Exception {
         informer.opponentName = opponentWithLowerRanking.getLogin();
 
-        objectUnderTest.fightUser(token, informer);
+        objectUnderTest.fightUser(token, new ArenaInformer(informer.opponentId, informer.opponentName));
     }
 
     @Test(expected = NotProperlyChampionsException.class)
     public void fightUser_wrong_champions_id() throws Exception {
         informer.championId = new long[]{abstractComicalNumber};
 
-        objectUnderTest.fightUser(token, informer);
+        objectUnderTest.fightUser(token, new ArenaInformer(informer.opponentId, informer.opponentName));
     }
 
     public User getOpponentWithHigherRanking(Set<Ranking> allBelowRanking) {

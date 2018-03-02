@@ -4,6 +4,8 @@ import advanced.integration.config.ChangerTestConfig;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.AuthorizationType;
 import game.mightywarriors.services.bookmarks.options.PasswordChanger;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PasswordInformer;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +19,7 @@ public class PasswordChangerTest extends ChangerTestConfig {
     @Test
     public void prepareChangePassword() throws Exception {
 
-        objectUnderTest.prepareChangePassword(token, informer);
+        objectUnderTest.prepareChangePassword(token, new PasswordInformer(informer.password, informer.code));
 
         User user = userService.find(this.user.getId());
         assertEquals(1, user.getAuthorizationCodes().size());
@@ -29,7 +31,7 @@ public class PasswordChangerTest extends ChangerTestConfig {
         prepareChangePassword();
         informer.code = userService.find(user).getAuthorizationCodes().iterator().next().getAuthorizationCode();
 
-        objectUnderTest.changePassword(token, informer);
+        objectUnderTest.changePassword(token, new CodeInformer(informer.code));
 
         user = userService.find(user);
         assertTrue(user.getAuthorizationCodes().stream().anyMatch(x -> x.getType().getType().equals(AuthorizationType.PASSWORD.getType())));

@@ -14,6 +14,8 @@ import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +72,7 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
     public void addPrivileges() throws Exception {
         addUser();
 
-        objectUnderTest.addPrivileges(token, informer);
+        objectUnderTest.addPrivileges(token, new PrivilegesInformer(informer.userId, informer.userLogin, informer.chatId, informer.admin));
 
         assertEquals(2, chatService.find(informer.chatId).getAdmins().size());
         Iterator<Admin> iterator = chatService.find(informer.chatId).getAdmins().iterator();
@@ -86,7 +88,7 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
         informer.userId = user1.getId();
         authorize(user1.getLogin());
 
-        objectUnderTest.addPrivileges(token, informer);
+        objectUnderTest.addPrivileges(token, new PrivilegesInformer(informer.userId, informer.userLogin, informer.chatId, informer.admin));
     }
 
     @Test(expected = NotFoundException.class)
@@ -94,14 +96,14 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
         addUser();
         informer.userId = comicalNumber;
 
-        objectUnderTest.addPrivileges(token, informer);
+        objectUnderTest.addPrivileges(token, new PrivilegesInformer(informer.userId, informer.userLogin, informer.chatId, informer.admin));
     }
 
     @Test
     public void removePrivileges() throws Exception {
         addPrivileges();
 
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
     }
@@ -110,10 +112,10 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
     public void removePrivileges_with_no_access() throws Exception {
         addPrivileges();
         informer.userId = user1.getId();
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
         authorize(user1.getLogin());
 
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
     }
@@ -124,7 +126,7 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
         informer.userId = user2.getId();
         authorize(user1.getLogin());
 
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
     }
@@ -134,9 +136,9 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
         addPrivileges();
         informer.userId = user1.getId();
         authorize(user.getLogin());
-        roomsAccessManager.removeUserFromRoom(token, informer);
+        roomsAccessManager.removeUserFromRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());
     }
@@ -146,14 +148,14 @@ public class PrivilegesManagerTest extends AuthorizationConfiguration {
         addPrivileges();
         informer.userId = comicalNumber;
 
-        objectUnderTest.removePrivileges(token, informer);
+        objectUnderTest.removePrivileges(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
     }
 
     private void addUser() throws Exception {
         prepareNewRoom();
         informer.userId = user1.getId();
 
-        roomsAccessManager.addUserToRoom(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
 
         assertEquals(2, chatService.find(informer.chatId).getUsers().size());
         assertEquals(1, chatService.find(informer.chatId).getAdmins().size());

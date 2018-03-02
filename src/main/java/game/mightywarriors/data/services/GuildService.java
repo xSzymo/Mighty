@@ -20,6 +20,8 @@ public class GuildService {
     private UserService userService;
     @Autowired
     private ChatService chatService;
+    @Autowired
+    private RoleService roleService;
 
     public void save(Guild guild) {
         if (guild != null) {
@@ -71,6 +73,7 @@ public class GuildService {
         Guild guild = repository.findById(id);
         if (guild != null) {
             chatService.delete(guild.getChat());
+            guild.getUsers().forEach(user -> user.setRole(roleService.find("user")));
             guild.getUsers().forEach(user -> user.setGuild(null));
             guild.getUsers().forEach(userService::save);
 

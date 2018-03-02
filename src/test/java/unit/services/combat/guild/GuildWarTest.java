@@ -20,8 +20,8 @@ public class GuildWarTest {
     private User user2;
     private Guild guild;
     private Guild guild1;
-    HashSet<User> users;
-    HashSet<User> opponents;
+    private HashSet<User> users;
+    private HashSet<User> opponents;
 
     @Before
     public void setUp() throws Exception {

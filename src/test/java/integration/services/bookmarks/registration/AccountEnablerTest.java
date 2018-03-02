@@ -5,6 +5,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.registration.AccountEnabler;
 import game.mightywarriors.services.registration.RegistrationManager;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
 import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Test;
@@ -29,9 +30,8 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
     public void enableUser() throws Exception {
         RegistrationInformer informer = setUp();
         User user = userService.find(informer.login);
-        informer.code = user.getCodeToEnableAccount();
 
-        objectUnderTest.enableAccount(informer);
+        objectUnderTest.enableAccount(new CodeInformer(user.getCodeToEnableAccount()));
 
         assertEquals(null, userService.find(informer.login).getCodeToEnableAccount());
         assertEquals(true, userService.find(informer.login).isAccountEnabled());
@@ -40,9 +40,8 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
     @Test(expected = Exception.class)
     public void enableUser_with_wrong_code() throws Exception {
         RegistrationInformer informer = new RegistrationInformer();
-        informer.code = "";
 
-        objectUnderTest.enableAccount(informer);
+        objectUnderTest.enableAccount(new CodeInformer(""));
     }
 
     private RegistrationInformer setUp() throws Exception {

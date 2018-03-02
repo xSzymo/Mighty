@@ -11,7 +11,10 @@ import game.mightywarriors.services.bookmarks.messages.PrivilegesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
 import game.mightywarriors.services.security.UsersRetriever;
+import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
+import game.mightywarriors.web.json.objects.bookmarks.UserMessageInformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,15 +28,11 @@ public class RoomManagerTest extends AuthorizationConfiguration {
     @Autowired
     private RoomManager objectUnderTest;
     @Autowired
-    private MessagesManager messagesManager;
-    @Autowired
     private UsersRetriever retriever;
     @Autowired
     private UserService userService;
     @Autowired
     private ChatService chatService;
-    @Autowired
-    private PrivilegesManager privilegesManager;
     @Autowired
     private RoomsAccessManager roomsAccessManager;
 
@@ -64,7 +63,7 @@ public class RoomManagerTest extends AuthorizationConfiguration {
     public void createChat() throws Exception {
         informer.userId = user1.getId();
 
-        Long room = objectUnderTest.createChat(token, informer);
+        Long room = objectUnderTest.createChat(token, new UserMessageInformer(informer.userId, informer.userLogin));
 
         Iterator<User> iterator = chatService.find(room).getUsers().iterator();
         assertEquals(1, userService.find(user).getChats().size());
@@ -91,7 +90,7 @@ public class RoomManagerTest extends AuthorizationConfiguration {
     public void deleteRoom() throws Exception {
         prepareNewRoom();
 
-        objectUnderTest.deleteRoom(token, informer);
+        objectUnderTest.deleteRoom(token, new ChatInformer(informer.chatId));
 
         assertNull(chatService.find(informer.chatId));
         assertEquals(0, userService.find(user).getChats().size());
@@ -102,7 +101,7 @@ public class RoomManagerTest extends AuthorizationConfiguration {
         prepareNewRoom();
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteRoom(token, informer);
+        objectUnderTest.deleteRoom(token, new ChatInformer(informer.chatId));
 
         assertNull(chatService.find(informer.chatId));
         assertEquals(0, userService.find(user).getChats().size());
@@ -112,10 +111,10 @@ public class RoomManagerTest extends AuthorizationConfiguration {
     public void deleteRoom_with_no_access_1() throws Exception {
         prepareNewRoom();
         informer.userId = user1.getId();
-        roomsAccessManager.addUserToRoom(token, informer);
+        roomsAccessManager.addUserToRoom(token, new PrivilegesWithOutAdminInformer(informer.userId, informer.userLogin, informer.chatId));
         authorize(user1.getLogin());
 
-        objectUnderTest.deleteRoom(token, informer);
+        objectUnderTest.deleteRoom(token, new ChatInformer(informer.chatId));
 
         assertNull(chatService.find(informer.chatId));
         assertEquals(0, userService.find(user).getChats().size());
