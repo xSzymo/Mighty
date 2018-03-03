@@ -33,7 +33,7 @@ public class LoginController {
         if (!myUser.getPassword().equals(loginData.password))
             throw new NoAccessException("Wrong login or password");
 
-        if (!myUser.isAccountEnabled() || !myUser.isAccountNonLocked())
+        if (!myUser.isAccountEnabled())
             throw new LockedAccountException("Account is locked");
 
         return new JSONTokenObject(tokenGenerator.generateToken(myUser), myUser.getId());

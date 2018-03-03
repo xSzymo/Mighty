@@ -43,6 +43,7 @@ public class RegistrationManager {
 
         User user = new User(informer.login, informer.password, informer.email);
         user.setAccountEnabled(false);
+        user.setAccountNonLocked(false);
         user.setCodeToEnableAccount(code);
         userService.save(user);
 
