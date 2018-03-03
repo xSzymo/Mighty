@@ -130,7 +130,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
 
     @Test
     public void deleteFromUser() {
-        user = new User("", "", "");
+        user = new User("", "", "").addChampion(new Champion());
         userService.save(user);
         objectUnderTest.save(missions.getFirst());
 

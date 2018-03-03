@@ -2,6 +2,7 @@ package integration.services.background.tasks;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.background.tasks.ArenaPointsRefresher;
 import integration.config.IntegrationTestsConfig;
@@ -22,7 +23,7 @@ public class ArenaPointsRefresherTest extends IntegrationTestsConfig {
     @Before
     public void setUp() {
         for (int i = 0; i < 10; i++) {
-            userService.save(new User("" + i, "", ""));
+            userService.save(new User("" + i, "", "").addChampion(new Champion()));
         }
     }
 

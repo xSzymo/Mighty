@@ -2,10 +2,7 @@ package integration.services.background.tasks;
 
 import game.mightywarriors.data.services.MissionService;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.data.tables.Mission;
-import game.mightywarriors.data.tables.Monster;
-import game.mightywarriors.data.tables.Statistic;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.background.tasks.MissionAssigner;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
@@ -38,7 +35,7 @@ public class MissionAssignerTest extends IntegrationTestsConfig {
                 if (i == level)
                     level += 10;
 
-                User user = new User("a" + i, "", "");
+                User user = new User("a" + i, "", "").addChampion(new Champion());
                 userService.save(user);
                 user.getChampions().iterator().next().setLevel(level / 10);
                 userService.save(user);

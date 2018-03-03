@@ -35,7 +35,7 @@ public class ItemDrawerTest extends IntegrationTestsConfig {
                     if (i == level)
                         level += 10;
 
-                    User user = new User(j + "" + i, "", "");
+                    User user = new User(j + "" + i, "", "").addChampion(new Champion());
                     userService.save(user);
                     user.getChampions().iterator().next().setLevel(level / 10);
                     userService.save(user);

@@ -57,7 +57,7 @@ public class DataSavedChecker extends IntegrationTestsConfig {
     public void save_check_basic_variables() {
         if (roleService.find("user") == null)
             roleService.save(new Role("user"));
-        user = new User("halu", "halu", "halu@gmail.com");
+        user = new User("halu", "halu", "halu@gmail.com").addChampion(new Champion());
 
         objectUnderTest.save(user);
         User one = objectUnderTest.find(user);

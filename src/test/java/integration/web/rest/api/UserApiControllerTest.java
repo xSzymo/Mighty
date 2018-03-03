@@ -1,6 +1,7 @@
 package integration.web.rest.api;
 
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.web.rest.mighty.data.user.UserApiController;
 import integration.config.IntegrationTestsConfig;
@@ -25,10 +26,10 @@ public class UserApiControllerTest extends IntegrationTestsConfig {
 
     @Before
     public void setUp() {
-        User user = new User(login, "", "");
+        User user = new User(login, "", "").addChampion(new Champion());
         userService.save(user);
         id = user.getId();
-        userService.save(new User(login1, "", ""));
+        userService.save(new User(login1, "", "").addChampion(new Champion()));
     }
 
     @Test
