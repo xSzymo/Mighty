@@ -59,7 +59,7 @@ public abstract class AdvancedIntegrationTestsConfig {
         Dungeon dungeon = new Dungeon();
         dungeon.setStage(1);
         dungeon.setName("dungeon 1");
-        for(int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
+        for (int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
             monster = new Monster(new Statistic(1 + i, 1 + i, 1, 1, 1, 1));
             dungeon.getFloors().add(new Floor(5 + i, 1, i, new BigDecimal("5"), new HashSet<>(Collections.singleton(monster)), itemService.find(i), new Image()));
         }
@@ -68,7 +68,7 @@ public abstract class AdvancedIntegrationTestsConfig {
         dungeon = new Dungeon();
         dungeon.setStage(2);
         dungeon.setName("dungeon 2");
-        for(int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
+        for (int i = 1; i <= SystemVariablesManager.MAX_FLOORS_PER_DUNGEON; i++) {
             monster = new Monster(new Statistic(1 + i, 1, 1 + i, 1, 1, 1));
             dungeon.getFloors().add(new Floor(20 + i, 1, i, new BigDecimal("10"), new HashSet<>(Collections.singleton(monster)), null, new Image()));
         }

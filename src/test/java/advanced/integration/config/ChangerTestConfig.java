@@ -12,13 +12,13 @@ public abstract class ChangerTestConfig extends AuthorizationConfiguration {
     @Autowired
     protected UserService userService;
 
-    protected  User user;
-    protected  OptionInformer informer;
-    protected  String login = "testing" + System.currentTimeMillis();
-    protected  String password = "Admino12345";
-    protected  String newLogin = "testing1" + System.currentTimeMillis();
-    protected  String newPassword = "Admino123456";
-    protected  String newEmail = "testtest630@wp.pl";
+    protected User user;
+    protected OptionInformer informer;
+    protected String login = "testing" + System.currentTimeMillis();
+    protected String password = "Admino12345";
+    protected String newLogin = "testing1" + System.currentTimeMillis();
+    protected String newPassword = "Admino123456";
+    protected String newEmail = "testtest630@wp.pl";
 
     @Before
     public void setUp() throws Exception {
