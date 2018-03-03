@@ -57,7 +57,7 @@ public class AccountEnablerTest extends IntegrationTestsConfig {
         assertEquals(email, userService.find(login).geteMail());
         assertNotEquals(null, userService.find(login).getCodeToEnableAccount());
         assertEquals(false, userService.find(login).isAccountEnabled());
-        assertEquals(true, userService.find(login).isAccountNonLocked());
+        assertEquals(false, userService.find(login).isAccountNonLocked());
 
         return informer;
     }

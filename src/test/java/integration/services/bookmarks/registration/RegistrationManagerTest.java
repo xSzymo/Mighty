@@ -35,7 +35,7 @@ public class RegistrationManagerTest extends IntegrationTestsConfig {
         assertEquals(email, userService.find(login).geteMail());
         assertNotEquals(null, userService.find(login).getCodeToEnableAccount());
         assertEquals(false, userService.find(login).isAccountEnabled());
-        assertEquals(true, userService.find(login).isAccountNonLocked());
+        assertEquals(false, userService.find(login).isAccountNonLocked());
     }
 
     @Test(expected = Exception.class)

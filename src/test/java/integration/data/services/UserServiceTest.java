@@ -245,7 +245,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
         if (roleService.find("user") == null)
             roleService.save(new Role("user"));
 
-        user = new User("halu", "halu", "halu@gmail.com");
+        user = new User("halu", "halu", "halu@gmail.com").addChampion(new Champion());
 
         objectUnderTest.save(user);
         User one = objectUnderTest.find(user);
@@ -274,6 +274,38 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
         assertEquals("user", one.getRole().getRole());
     }
+
+    @Test
+    @Transactional
+    public void save_check_basic_variables1() {
+        if (roleService.find("user") == null)
+            roleService.save(new Role("user"));
+
+        user = new User("halu", "halu", "halu@gmail.com");
+
+        objectUnderTest.save(user);
+        User one = objectUnderTest.find(user);
+
+        assertEquals(SystemVariablesManager.ARENA_POINTS, one.getArenaPoints());
+        assertEquals(SystemVariablesManager.POINTS_MISSIONS_BETWEEN_LEVEL_1_AND_10, one.getMissionPoints());
+
+        assertEquals(0, one.getChampions().size());
+
+        assertEquals(new BigDecimal("0"), one.getGold());
+        assertNull(null, one.getImage());
+
+        assertNotNull(one.getInventory());
+        assertEquals(0, one.getInventory().getItems().size());
+
+        assertNotNull(one.getMissions());
+        assertEquals(0, one.getMissions().size());
+
+        assertNotNull(one.getShop());
+        assertEquals(0, one.getShop().getItems().size());
+
+        assertEquals("user", one.getRole().getRole());
+    }
+
 
     @Test
     public void userGetsNewDungeonWith3LevelChampion() {
