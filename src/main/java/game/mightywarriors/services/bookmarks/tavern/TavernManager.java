@@ -40,7 +40,7 @@ public class TavernManager {
         Set<Champion> champions = fightHelper.getChampions(user, informer.championId);
         Mission mission = fightHelper.getMission(user, informer.missionId);
 
-        if (fightHelper.isChampionOnMission(champions, true) || champions.size() < 1 || mission == null)
+        if (fightHelper.isAnyOfChampionsBlocked(champions) || champions.size() < 1 || mission == null)
             throw new BusyChampionException("Someone is already busy");
 
         tavernUtility.prepareNewMissionFight(champions, mission);
@@ -56,7 +56,7 @@ public class TavernManager {
 
         Set<Champion> champions = missionFight.getChampions();
 
-        if (fightHelper.isChampionOnMission(new HashSet<>(champions), false))
+        if (fightHelper.isAnyOfChampionsBlocked(new HashSet<>(champions)))
             throw new BusyChampionException("Someone is already busy");
 
         FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), fightHelper.getChampionsId(missionFight.getChampions()));

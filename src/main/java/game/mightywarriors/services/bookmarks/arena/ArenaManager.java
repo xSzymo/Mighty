@@ -87,13 +87,13 @@ public class ArenaManager {
     }
 
     private void check(User user, User opponent, Set<Champion> champions) throws Exception {
+        if (opponent == null)
+            throw new NotProperlyChampionsException("Wrong champions id");
         if (rankingService.find(user.getLogin()).getRanking() < rankingService.find(opponent.getLogin()).getRanking())
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
             throw new UsedPointsException("Arena points already used");
-        if (fightHelper.isChampionOnMission(new HashSet<>(champions), true))
+        if (fightHelper.isAnyOfChampionsBlocked(new HashSet<>(champions)))
             throw new BusyChampionException("Someone is already busy");
-        if (opponent == null)
-            throw new NotProperlyChampionsException("Wrong champions id");
     }
 }

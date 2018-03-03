@@ -1,10 +1,8 @@
 package game.mightywarriors.services.bookmarks.utilities;
 
-import game.mightywarriors.data.services.MissionFightService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -15,28 +13,10 @@ import java.util.stream.Collectors;
 public class FightHelper {
     protected static final int ONE_SECOND = 1000;
 
-    @Autowired
-    private MissionFightService missionFightService;
-
     public boolean isAnyOfChampionsBlocked(Set<Champion> champions) {
         for (Champion champion : champions)
             if (champion.getBlockUntil() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockUntil()))
                 return true;
-
-        return false;
-    }
-
-
-    @Deprecated
-    public boolean isChampionOnMission(Set<Champion> champions, boolean mustBeNull) {
-        for (Champion champion : champions) {
-            if (champion.getBlockUntil() != null && new Timestamp(System.currentTimeMillis()).before(champion.getBlockUntil()))
-                return true;
-
-            if (!mustBeNull)
-                if (missionFightService.findLatestByChampionId(champion) == null)
-                    return true;
-        }
 
         return false;
     }
