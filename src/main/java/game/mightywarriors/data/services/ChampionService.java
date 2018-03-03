@@ -27,8 +27,6 @@ public class ChampionService {
     @Autowired
     private ImageService imageService;
     @Autowired
-    private UserService userService;
-    @Autowired
     private WorkService workService;
 
     public void save(Champion champion) {
