@@ -209,6 +209,7 @@ public class User {
         this.image = image;
     }
 
+    @JsonIgnore
     public String geteMail() {
         return eMail;
     }
@@ -375,6 +376,7 @@ public class User {
         this.codeToEnableAccount = codeToEnableAccount;
     }
 
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return isAccountNonLocked;
     }
@@ -383,6 +385,7 @@ public class User {
         isAccountNonLocked = accountNonLocked;
     }
 
+    @JsonIgnore
     public boolean isAccountEnabled() {
         return isAccountEnabled;
     }
