@@ -1,7 +1,7 @@
 package game.mightywarriors.other.enums;
 
 public enum Kingdom {
-    KNIGH("knight"), mercenery("merceney");
+    KNIGHT("knight"), MERCENERY("mercenary");
 
     private String kingdom;
 

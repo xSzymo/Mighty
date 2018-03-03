@@ -117,9 +117,9 @@ public class RunAtStart {
 
         for (int a = 0, b = 0, i = 0; i < 4; i++) {
             if (i % 2 == 0)
-                user = new User("admin" + i, "admin", "email@wp.pl", admin_role).setKingdom(Kingdom.KNIGH);
+                user = new User("admin" + i, "admin", "email@wp.pl", admin_role).setKingdom(Kingdom.KNIGHT);
             else
-                user = new User("user" + i, "user", "eMail").setKingdom(Kingdom.KNIGH);
+                user = new User("user" + i, "user", "eMail").setKingdom(Kingdom.KNIGHT);
             Image image = new Image("https://www.reduceimages.com/img/image-after.jpg");
             images.add(image);
             user.setImage(image);
