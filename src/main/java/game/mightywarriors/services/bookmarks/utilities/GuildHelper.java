@@ -5,7 +5,10 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.Request;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.web.json.objects.bookmarks.*;
+import game.mightywarriors.web.json.objects.bookmarks.AcceptGuildRequestInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildMasterInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildRequestInformer;
+import game.mightywarriors.web.json.objects.bookmarks.GuildWarInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

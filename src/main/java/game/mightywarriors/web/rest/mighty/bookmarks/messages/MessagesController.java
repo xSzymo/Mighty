@@ -4,7 +4,6 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.services.bookmarks.messages.MessagesManager;
 import game.mightywarriors.web.json.objects.bookmarks.AddMessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.DeleteMessageInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

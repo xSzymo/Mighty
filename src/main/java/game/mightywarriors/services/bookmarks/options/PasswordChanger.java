@@ -11,7 +11,6 @@ import game.mightywarriors.services.email.MailSenderImpl;
 import game.mightywarriors.services.registration.validators.PasswordValidator;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
-import game.mightywarriors.web.json.objects.bookmarks.OptionInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PasswordInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,6 @@ import game.mightywarriors.services.bookmarks.arena.ArenaManager;
 import game.mightywarriors.services.bookmarks.tavern.MissionFightChecker;
 import game.mightywarriors.web.json.objects.bookmarks.ArenaInformer;
 import game.mightywarriors.web.json.objects.bookmarks.ChampionInformer;
-import game.mightywarriors.web.json.objects.bookmarks.Informer;
 import game.mightywarriors.web.json.objects.bookmarks.LeftTimer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;

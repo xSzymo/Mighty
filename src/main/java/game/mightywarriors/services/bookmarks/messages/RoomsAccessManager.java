@@ -1,7 +1,6 @@
 package game.mightywarriors.services.bookmarks.messages;
 
 import game.mightywarriors.data.services.ChatService;
-import game.mightywarriors.data.services.MessageService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Admin;
 import game.mightywarriors.data.tables.Chat;
@@ -12,7 +11,6 @@ import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

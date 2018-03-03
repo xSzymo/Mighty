@@ -8,11 +8,9 @@ import game.mightywarriors.data.tables.Message;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
-import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.AddMessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.DeleteMessageInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

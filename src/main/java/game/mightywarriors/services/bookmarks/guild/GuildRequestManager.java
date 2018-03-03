@@ -11,7 +11,6 @@ import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.bookmarks.utilities.GuildHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.AcceptGuildRequestInformer;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildRequestInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -17,9 +17,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class StatisticServiceTest extends IntegrationTestsConfig {
     @Autowired

@@ -4,7 +4,10 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.services.bookmarks.options.EmailChanger;
 import game.mightywarriors.services.bookmarks.options.LoginChanger;
 import game.mightywarriors.services.bookmarks.options.PasswordChanger;
-import game.mightywarriors.web.json.objects.bookmarks.*;
+import game.mightywarriors.web.json.objects.bookmarks.CodeInformer;
+import game.mightywarriors.web.json.objects.bookmarks.LoginInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PasswordInformer;
+import game.mightywarriors.web.json.objects.bookmarks.RemindInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

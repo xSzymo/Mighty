@@ -11,7 +11,6 @@ import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.bookmarks.utilities.MessageHelper;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.UserMessageInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

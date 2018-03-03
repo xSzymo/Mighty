@@ -2,7 +2,6 @@ package game.mightywarriors.web.rest.mighty.bookmarks.guild;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.guild.GuildWarsService;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildWarInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;

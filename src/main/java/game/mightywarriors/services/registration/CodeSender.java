@@ -4,7 +4,6 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.email.MailSenderImpl;
-import game.mightywarriors.web.json.objects.bookmarks.RegistrationInformer;
 import game.mightywarriors.web.json.objects.bookmarks.RemindInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

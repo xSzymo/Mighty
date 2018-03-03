@@ -7,7 +7,6 @@ import game.mightywarriors.data.tables.Chat;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.other.exceptions.NotFoundException;
-import game.mightywarriors.services.bookmarks.messages.MessagesManager;
 import game.mightywarriors.services.bookmarks.messages.RoomManager;
 import game.mightywarriors.services.bookmarks.messages.RoomsAccessManager;
 import game.mightywarriors.services.security.UsersRetriever;

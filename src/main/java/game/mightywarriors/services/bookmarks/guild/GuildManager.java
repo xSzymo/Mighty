@@ -12,7 +12,6 @@ import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,6 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.bookmarks.guild.GuildMasterService;
 import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildMasterInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

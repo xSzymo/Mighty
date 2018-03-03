@@ -7,7 +7,6 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotFoundException;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.messages.ChatRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

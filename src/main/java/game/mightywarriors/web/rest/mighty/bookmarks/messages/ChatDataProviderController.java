@@ -4,7 +4,6 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.data.tables.Message;
 import game.mightywarriors.services.bookmarks.messages.UserDataChatProvider;
 import game.mightywarriors.web.json.objects.bookmarks.ChatInformer;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.messages.ChatRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

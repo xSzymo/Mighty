@@ -2,7 +2,6 @@ package game.mightywarriors.web.rest.mighty.bookmarks.messages;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.messages.PrivilegesManager;
-import game.mightywarriors.web.json.objects.bookmarks.MessageInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PrivilegesInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PrivilegesWithOutAdminInformer;
 import org.springframework.beans.factory.annotation.Autowired;

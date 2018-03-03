@@ -3,7 +3,6 @@ package game.mightywarriors.web.rest.mighty.bookmarks.guild;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.guild.GuildRequestManager;
 import game.mightywarriors.web.json.objects.bookmarks.AcceptGuildRequestInformer;
-import game.mightywarriors.web.json.objects.bookmarks.GuildInformer;
 import game.mightywarriors.web.json.objects.bookmarks.GuildRequestInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

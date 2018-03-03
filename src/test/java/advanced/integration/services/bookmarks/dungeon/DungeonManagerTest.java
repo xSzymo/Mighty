@@ -1,7 +1,9 @@
 package advanced.integration.services.bookmarks.dungeon;
 
 import advanced.integration.config.AuthorizationConfiguration;
-import game.mightywarriors.data.services.*;
+import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.services.DungeonFightService;
+import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.bookmarks.dungeon.DungeonManager;
 import game.mightywarriors.web.json.objects.fights.FightResult;
