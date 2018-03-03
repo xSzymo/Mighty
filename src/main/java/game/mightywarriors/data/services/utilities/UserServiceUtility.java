@@ -105,11 +105,7 @@ public class UserServiceUtility {
 
         if (user.getChampions() != null) {
             if (user.getChampions().size() == 0) {
-                Champion champion = new Champion();
-                user.addChampion(champion);
-                championService.save(champion);
                 user.setChampions(new HashSet<>());
-                user.addChampion(champion);
             } else {
                 HashSet<Champion> champions = new HashSet<>();
                 for (Champion champion : user.getChampions())

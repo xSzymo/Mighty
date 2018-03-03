@@ -64,11 +64,13 @@ public class UserService {
         repository.save(user);
 
         if (foundUserWithSameLogin == null) {
-            if (user.getMissions().size() < 3)
-                missionAssigner.assignNewMissionForUsers(user.getId());
+            if (user.getChampions().size() > 0) {
+                if (user.getMissions().size() < 3)
+                    missionAssigner.assignNewMissionForUsers(user.getId());
 
-            if (user.getShop().getItems().size() < 10)
-                itemDrawer.drawItemsForUser(user.getId());
+                if (user.getShop().getItems().size() < 10)
+                    itemDrawer.drawItemsForUser(user.getId());
+            }
         }
     }
 
