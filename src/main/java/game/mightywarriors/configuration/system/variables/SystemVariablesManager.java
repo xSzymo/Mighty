@@ -9,6 +9,16 @@ import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 public final class SystemVariablesManager {
+    /**
+     * check also ChampionTavern class and checkCanBuyChampion method which defines when user can buy champion
+     */
+    public static final long MINIMUM_GOLD_FOR_FIRST_CHAMPION = 10;
+    public static final long MINIMUM_GOLD_FOR_SECOND_CHAMPION = 300;
+    public static final long MINIMUM_GOLD_FOR_THIRD_CHAMPION = 1000;
+    public static final long MINIMUM_LEVEL_FOR_FIRST_CHAMPION = 0;
+    public static final long MINIMUM_LEVEL_FOR_SECOND_CHAMPION = 5;
+    public static final long MINIMUM_LEVEL_FOR_THIRD_CHAMPION = 10;
+
     public static final String SPECIAL_JWT_SECRET_KEY = "K00LINN3R";
     public static final String NAME_OF_JWT_HEADER_TOKEN = "authorization";
     public static final String NAME_OF_SECRET_WORD_BEFORE_TOKEN = "Bearer ";
