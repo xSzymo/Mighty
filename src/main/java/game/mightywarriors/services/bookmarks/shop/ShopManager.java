@@ -26,10 +26,8 @@ public class ShopManager {
         User user = usersRetriever.retrieveUser(authorization);
         Item item = itemService.find(shopInformer.itemId);
 
-        if (user.getShop().getItems().stream().filter(x -> x.getId().equals(item.getId())).findFirst() == null)
-            throw new Exception("Wrong item");
-        if (user.getGold().doubleValue() < item.getGold().doubleValue())
-            throw new NotEnoughGoldException("Not enough gold");
+        throwExceptionIf_ShopDoesNotHaveSpecificItem(user, item);
+        throwExceptionIf_UserHaveNotEnoughGold(user, item);
 
         user.subtractGold(item.getGold());
         user.getInventory().addItem(item);
@@ -42,12 +40,26 @@ public class ShopManager {
         User user = usersRetriever.retrieveUser(authorization);
         Item item = itemService.find(shopInformer.itemId);
 
-        if (!user.getInventory().getItems().contains(item))
-            throw new Exception("Wrong item");
+        throwExceptionIf_UserHaveNotSpecificItem(user, item);
 
         user.addGold(new BigDecimal(item.getGold().doubleValue() * SystemVariablesManager.PERCENT_FOR_SOLD_ITEM));
         user.getInventory().getItems().remove(item);
 
         userService.save(user);
+    }
+
+    private void throwExceptionIf_ShopDoesNotHaveSpecificItem(User user, Item item) throws Exception {
+        if (user.getShop().getItems().stream().noneMatch(x -> x.getId().equals(item.getId())))
+            throw new Exception("Wrong item");
+    }
+
+    private void throwExceptionIf_UserHaveNotEnoughGold(User user, Item item) throws Exception {
+        if (user.getGold().doubleValue() < item.getGold().doubleValue())
+            throw new NotEnoughGoldException("Not enough gold");
+    }
+
+    private void throwExceptionIf_UserHaveNotSpecificItem(User user, Item item) throws Exception {
+        if (!user.getInventory().getItems().contains(item))
+            throw new Exception("Wrong item");
     }
 }

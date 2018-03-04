@@ -30,7 +30,7 @@ public class ChampionTavern {
     public ChampionBuyInformer getInformationForBuyChampion(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_userIsNotPresent(user);
+        throwExceptionIf_UserIsNotPresent(user);
 
         if (user.getChampions().size() == 0)
             return new ChampionBuyInformer(SystemVariablesManager.MINIMUM_LEVEL_FOR_FIRST_CHAMPION, SystemVariablesManager.MINIMUM_GOLD_FOR_FIRST_CHAMPION);
@@ -43,7 +43,7 @@ public class ChampionTavern {
     }
 
     private void checkCanBuyChampion(User user) throws Exception {
-        throwExceptionIf_userIsNotPresent(user);
+        throwExceptionIf_UserIsNotPresent(user);
 
         if (user.getChampions().size() == 0) {
             checkUserGotEnoughLevel(user, SystemVariablesManager.MINIMUM_LEVEL_FOR_FIRST_CHAMPION);
@@ -70,7 +70,7 @@ public class ChampionTavern {
         }
     }
 
-    private void throwExceptionIf_userIsNotPresent(User user) throws Exception {
+    private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
             throw new Exception("User not found");
     }

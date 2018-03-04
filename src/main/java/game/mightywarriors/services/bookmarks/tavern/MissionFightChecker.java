@@ -30,12 +30,16 @@ public class MissionFightChecker {
 
     public long checkLeftTimeForMissionFight(String authorization, MissionFightInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-
         MissionFight fight = missionFightService.find(informer.missionFightId);
 
-        if (user.getChampions().stream().noneMatch(x -> fight.getChampions().iterator().next().getId().equals(x.getId())))
-            throw new Exception("Something went wrong");
+        throwExceptionIf_UserHaveNotSpecificMissionFight(user, fight);
 
         return (fight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
     }
+
+    private void throwExceptionIf_UserHaveNotSpecificMissionFight(User user, MissionFight fight) throws Exception {
+        if (user.getChampions().stream().noneMatch(x -> fight.getChampions().iterator().next().getId().equals(x.getId())))
+            throw new Exception("Something went wrong");
+    }
+
 }

@@ -35,20 +35,20 @@ public class GuildWarsService {
         User user = usersRetriever.retrieveUser(authorization);
         Guild guild = helper.retrieveGuild(informer);
 
-        throwExceptionIf_guildIsNotPresent(guild);
-        throwExceptionIf_guildIsNotPresent(user.getGuild());
-        throwExceptionIf_userIsNotGuildOwner(user);
+        throwExceptionIf_GuildIsNotPresent(guild);
+        throwExceptionIf_GuildIsNotPresent(user.getGuild());
+        throwExceptionIf_UserIsNotGuildOwner(user);
 
 
         return fightCoordinator.fight(user.getGuild().getUsers(), guild.getUsers());
     }
 
-    private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
+    private void throwExceptionIf_UserIsNotGuildOwner(User user) throws NoAccessException {
         if (!user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 
-    private void throwExceptionIf_guildIsNotPresent(Guild guild) throws Exception {
+    private void throwExceptionIf_GuildIsNotPresent(Guild guild) throws Exception {
         if (guild == null)
             throw new Exception("You already have guild");
     }

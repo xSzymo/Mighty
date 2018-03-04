@@ -31,9 +31,7 @@ public class RegistrationManager {
     private static final int minimumLowerCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE;
 
     public void registerUser(RegistrationInformer informer) throws Exception {
-        if (informer.email == null || informer.login == null || informer.password == null)
-            throw new Exception("Choose email, login and password");
-
+        throwExceptionIf_InformerIsNotSetProperly(informer);
         throwExceptionIf_EmailIsNotValid(informer.email);
         throwExceptionIf_EmailIsAlreadyTaken(informer.email);
         throwExceptionIf_LoginIsAlreadyTaken(informer.login);
@@ -48,6 +46,11 @@ public class RegistrationManager {
         userService.save(user);
 
         sender.sendMail(informer.email, SystemVariablesManager.EMAIL_REGISTRATION_SUBJECT, SystemVariablesManager.EMAIL_REGISTRATION_MESSAGE + code);
+    }
+
+    private void throwExceptionIf_InformerIsNotSetProperly(RegistrationInformer informer) throws Exception {
+        if (informer.email == null || informer.login == null || informer.password == null)
+            throw new Exception("Choose email, login and password");
     }
 
     private void throwExceptionIf_LoginIsAlreadyTaken(String login) throws Exception {

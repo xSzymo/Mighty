@@ -29,9 +29,9 @@ public class GuildManager {
     public void createGuild(String authorization, CreateGuildInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_guildIsPresent(user);
-        throwExceptionIf_guildNameIsNotPresent(informer);
-        throwExceptionIf_guildNameAlreadyExist(informer);
+        throwExceptionIf_GuildIsPresent(user);
+        throwExceptionIf_GuildNameIsNotPresent(informer);
+        throwExceptionIf_GuildNameAlreadyExist(informer);
 
         Chat chat = createChat(user);
         Guild guild = createGuild(user, informer, chat);
@@ -45,8 +45,8 @@ public class GuildManager {
     public void deleteGuild(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_guildIsNotPresent(user);
-        throwExceptionIf_userIsNotGuildOwner(user);
+        throwExceptionIf_GuildIsNotPresent(user);
+        throwExceptionIf_UserIsNotGuildOwner(user);
 
         user.setRole(roleService.find("user"));
         userService.save(user);
@@ -56,8 +56,8 @@ public class GuildManager {
     public void leaveGuild(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_guildIsNotPresent(user);
-        throwExceptionIf_userIsGuildOwner(user);
+        throwExceptionIf_GuildIsNotPresent(user);
+        throwExceptionIf_UserIsGuildOwner(user);
 
         userService.removeChat(user.getId(), user.getGuild().getChat().getId());
         user.setRole(roleService.find("user"));
@@ -81,32 +81,32 @@ public class GuildManager {
         return guild;
     }
 
-    private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
+    private void throwExceptionIf_UserIsNotGuildOwner(User user) throws NoAccessException {
         if (!user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 
-    private void throwExceptionIf_userIsGuildOwner(User user) throws NoAccessException {
+    private void throwExceptionIf_UserIsGuildOwner(User user) throws NoAccessException {
         if (user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
 
-    private void throwExceptionIf_guildNameIsNotPresent(CreateGuildInformer informer) throws Exception {
+    private void throwExceptionIf_GuildNameIsNotPresent(CreateGuildInformer informer) throws Exception {
         if (informer.guildName == null)
             throw new Exception("Wrong guild name");
     }
 
-    private void throwExceptionIf_guildNameAlreadyExist(CreateGuildInformer informer) throws Exception {
+    private void throwExceptionIf_GuildNameAlreadyExist(CreateGuildInformer informer) throws Exception {
         if (guildService.find(informer.guildName) != null)
             throw new Exception("Guild already exist");
     }
 
-    private void throwExceptionIf_guildIsNotPresent(User user) throws Exception {
+    private void throwExceptionIf_GuildIsNotPresent(User user) throws Exception {
         if (user.getGuild() == null)
             throw new Exception("You already have guild");
     }
 
-    private void throwExceptionIf_guildIsPresent(User user) throws Exception {
+    private void throwExceptionIf_GuildIsPresent(User user) throws Exception {
         if (user.getGuild() != null)
             throw new Exception("You already have guild");
     }

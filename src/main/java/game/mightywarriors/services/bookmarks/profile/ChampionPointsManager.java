@@ -26,10 +26,9 @@ public class ChampionPointsManager {
         Optional<Champion> champion = user.getChampions().stream().filter(x -> x.getId().equals(id)).findFirst();
         double gold = 0;
 
-        if (!champion.isPresent())
-            throw new Exception("Champion not found");
+        throwExceptionIf_championIsNotPresent(champion);
 
-        for(int i = 0; i < howMany; i++) {
+        for (int i = 0; i < howMany; i++) {
             if (type.getType().equals(StatisticType.ARMOR.getType())) {
                 long armor = champion.get().getStatistic().getArmor() + ONE;
                 gold += armor * SystemVariablesManager.GOLD_FOR_STATISTIC_RATE;
@@ -76,5 +75,10 @@ public class ChampionPointsManager {
     private static void checkUserGotEnoughGold(User user, double gold) throws NotEnoughGoldException {
         if (user.getGold().doubleValue() < gold)
             throw new NotEnoughGoldException("not enough gold");
+    }
+
+    private static void throwExceptionIf_championIsNotPresent(Optional<Champion> champion) throws Exception {
+        if (!champion.isPresent())
+            throw new Exception("Champion not found");
     }
 }

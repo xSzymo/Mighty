@@ -20,9 +20,9 @@ public class KingdomAssigner {
     public void setKingdom(String authorization, KingdomInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_userIsNotPresent(user);
-        throwExceptionIf_userAlreadyHaveKingdom(user);
-        throwExceptionIf_userIsNotEnabled(user);
+        throwExceptionIf_UserIsNotPresent(user);
+        throwExceptionIf_UserAlreadyHaveKingdom(user);
+        throwExceptionIf_UserIsNotEnabled(user);
 
         user.setKingdom(informer.knight ? Kingdom.KNIGHT : Kingdom.MERCENERY);
         user.setAccountNonLocked(true);
@@ -30,17 +30,17 @@ public class KingdomAssigner {
         userService.save(user);
     }
 
-    private void throwExceptionIf_userIsNotPresent(User user) throws Exception {
+    private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
             throw new Exception("User not found");
     }
 
-    private void throwExceptionIf_userAlreadyHaveKingdom(User user) throws Exception {
+    private void throwExceptionIf_UserAlreadyHaveKingdom(User user) throws Exception {
         if (user.getKingdom() != null)
             throw new Exception("User already have kingdom");
     }
 
-    private void throwExceptionIf_userIsNotEnabled(User user) throws Exception {
+    private void throwExceptionIf_UserIsNotEnabled(User user) throws Exception {
         if (!user.isAccountEnabled())
             throw new Exception("User account is not enabled");
     }

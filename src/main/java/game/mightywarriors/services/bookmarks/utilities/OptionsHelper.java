@@ -22,6 +22,29 @@ public class OptionsHelper {
     @Autowired
     private UserService userService;
 
+    public void saveNewAuthorizationCodeForUserAndDeleteOld(User user, AuthorizationCode authorizationCode, AuthorizationType type) {
+        long id = 0;
+
+        HashSet<AuthorizationCode> allAuthorizationCodesExceptPassword = getAllAuthorizationCodesExceptSpecificType(user, type);
+        for (AuthorizationCode x : user.getAuthorizationCodes())
+            if (!allAuthorizationCodesExceptPassword.contains(x))
+                id = x.getId();
+
+        user.setAuthorizationCodes(allAuthorizationCodesExceptPassword);
+        user.getAuthorizationCodes().add(authorizationCode);
+
+        userService.save(user);
+        if (id != 0)
+            repository.deleteById(id);
+    }
+
+    private HashSet<AuthorizationCode> getAllAuthorizationCodesExceptSpecificType(User user, AuthorizationType type) {
+        Optional<AuthorizationCode> first = user.getAuthorizationCodes().stream().filter(x -> x.getType().getType().equals(type.getType())).findFirst();
+        first.ifPresent(authorizationCode -> repository.deleteById(authorizationCode.getId()));
+
+        return user.getAuthorizationCodes().stream().filter(x -> !x.getType().getType().equals(type.getType())).collect(Collectors.toCollection(HashSet::new));
+    }
+
     public void throwExceptionIf_CodeToEnableAccExpired(AuthorizationCode authorizationCode, AuthorizationType authorizationType) throws Exception {
         int waitingTime;
 
@@ -31,7 +54,8 @@ public class OptionsHelper {
             waitingTime = SystemVariablesManager.EMAIL_LOGIN_CODE_EXPIRATION_TIME;
         else if (authorizationType.getType().equals(AuthorizationType.PASSWORD.getType()))
             waitingTime = SystemVariablesManager.EMAIL_PASSWORD_CODE_EXPIRATION_TIME;
-        else throw new Exception("Wrong authorization type");
+        else
+            throw new Exception("Wrong authorization type");
 
         if (((new Timestamp(System.currentTimeMillis()).getTime() - authorizationCode.getCreatedDate().getTime()) / 1000 / 60) > waitingTime) {
             repository.deleteById(authorizationCode.getId());
@@ -50,28 +74,5 @@ public class OptionsHelper {
     public void throwExceptionIf_CodesAreNotSame(String code, AuthorizationCode authorizationCode) throws Exception {
         if (!code.equals(authorizationCode.getAuthorizationCode()))
             throw new Exception("not same");
-    }
-
-    public void saveNewAuthorizationCodeForUserAndDeleteOld(User user, AuthorizationCode authorizationCode, AuthorizationType type) {
-        long id = 0;
-
-        HashSet<AuthorizationCode> allAuthorizationCodesExceptPassword = getAllAuthorizationCodesExceptSpecificType(user, type);
-        for (AuthorizationCode x : user.getAuthorizationCodes())
-            if (!allAuthorizationCodesExceptPassword.contains(x))
-                id = x.getId();
-
-        user.setAuthorizationCodes(allAuthorizationCodesExceptPassword);
-        user.getAuthorizationCodes().add(authorizationCode);
-
-        userService.save(user);
-        if (id != 0)
-            repository.deleteById(id);
-    }
-
-    public HashSet<AuthorizationCode> getAllAuthorizationCodesExceptSpecificType(User user, AuthorizationType type) {
-        Optional<AuthorizationCode> first = user.getAuthorizationCodes().stream().filter(x -> x.getType().getType().equals(type.getType())).findFirst();
-        first.ifPresent(authorizationCode -> repository.deleteById(authorizationCode.getId()));
-
-        return user.getAuthorizationCodes().stream().filter(x -> !x.getType().getType().equals(type.getType())).collect(Collectors.toCollection(HashSet::new));
     }
 }

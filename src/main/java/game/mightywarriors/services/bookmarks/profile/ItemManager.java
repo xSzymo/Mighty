@@ -9,6 +9,8 @@ import game.mightywarriors.services.security.UsersRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ItemManager {
     @Autowired
@@ -95,41 +97,41 @@ public class ItemManager {
 
     public void moveInventoryToEquipmentItem(String authorization, long itemId, long championId) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Item item = user.getInventory().getItems().stream().filter(x -> x.getId().equals(itemId)).findFirst().get();
+        Optional<Item> item = user.getInventory().getItems().stream().filter(x -> x.getId().equals(itemId)).findFirst();
 
-        if (item != null) {
+        if (item.isPresent()) {
             for (Champion champion : user.getChampions()) {
                 if (champion.getId().equals(championId)) {
-                    if (item.getItemType().getType().equals(ItemType.WEAPON.getType())) {
-                        champion.getEquipment().setWeapon(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.OFFHAND.getType())) {
-                        champion.getEquipment().setOffhand(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.HELMET.getType())) {
-                        champion.getEquipment().setHelmet(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.ARMOR.getType())) {
-                        champion.getEquipment().setArmor(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.GLOVES.getType())) {
-                        champion.getEquipment().setGloves(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.LEGS.getType())) {
-                        champion.getEquipment().setLegs(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.BOOTS.getType())) {
-                        champion.getEquipment().setBoots(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.RING.getType())) {
-                        champion.getEquipment().setRing(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.NECKLACE.getType())) {
-                        champion.getEquipment().setNecklace(item);
-                        user.getInventory().getItems().remove(item);
-                    } else if (item.getItemType().getType().equals(ItemType.BRACELET.getType())) {
-                        champion.getEquipment().setBracelet(item);
-                        user.getInventory().getItems().remove(item);
+                    if (item.get().getItemType().getType().equals(ItemType.WEAPON.getType())) {
+                        champion.getEquipment().setWeapon(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.OFFHAND.getType())) {
+                        champion.getEquipment().setOffhand(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.HELMET.getType())) {
+                        champion.getEquipment().setHelmet(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.ARMOR.getType())) {
+                        champion.getEquipment().setArmor(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.GLOVES.getType())) {
+                        champion.getEquipment().setGloves(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.LEGS.getType())) {
+                        champion.getEquipment().setLegs(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.BOOTS.getType())) {
+                        champion.getEquipment().setBoots(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.RING.getType())) {
+                        champion.getEquipment().setRing(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.NECKLACE.getType())) {
+                        champion.getEquipment().setNecklace(item.get());
+                        user.getInventory().getItems().remove(item.get());
+                    } else if (item.get().getItemType().getType().equals(ItemType.BRACELET.getType())) {
+                        champion.getEquipment().setBracelet(item.get());
+                        user.getInventory().getItems().remove(item.get());
                     }
                 }
             }

@@ -43,14 +43,7 @@ public class ArenaManager {
     @Transactional
     public FightResult fightUser(String authorization, ArenaInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        User opponent;
-
-        if (informer.opponentId != 0)
-            opponent = userService.find(informer.opponentId);
-        else if (informer.opponentName != null)
-            opponent = userService.find(informer.opponentName);
-        else
-            throw new NotProperlyChampionsException("Wrong champions id");
+        User opponent = getOpponentFromInformer(informer);
 
         Set<Champion> champions = user.getChampions();
         check(user, opponent, champions);
@@ -79,10 +72,19 @@ public class ArenaManager {
         }
 
         Timestamp blockDate = new Timestamp(System.currentTimeMillis() + (SystemVariablesManager.HOW_MANY_MINUTES_BLOCK_ARENA_FIGHT * ONE_MINUTE));
-        user.getChampions().stream().filter(x -> champions.contains(x)).forEach(x -> x.setBlockUntil(blockDate));
+        user.getChampions().stream().filter(champions::contains).forEach(x -> x.setBlockUntil(blockDate));
 
         user.setArenaPoints(user.getArenaPoints() - 1);
         userService.save(user);
+    }
+
+    private User getOpponentFromInformer(ArenaInformer informer) throws NotProperlyChampionsException {
+        if (informer.opponentId != 0)
+            return userService.find(informer.opponentId);
+        else if (informer.opponentName != null)
+            return userService.find(informer.opponentName);
+        else
+            throw new NotProperlyChampionsException("Wrong champions id");
     }
 
     private void check(User user, User opponent, Set<Champion> champions) throws Exception {

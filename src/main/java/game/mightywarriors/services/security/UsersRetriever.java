@@ -27,7 +27,6 @@ public class UsersRetriever {
         if (authorization == null || authorization.equals(""))
             throw new Exception("Wrong token");
 
-        UserDetails userDetails = jwtAuthenticationProvider.retrieveUser("NONE_PROVIDED", new JwtAuthenticationToken(authorization));
-        return userDetails;
+        return jwtAuthenticationProvider.retrieveUser("NONE_PROVIDED", new JwtAuthenticationToken(authorization));
     }
 }

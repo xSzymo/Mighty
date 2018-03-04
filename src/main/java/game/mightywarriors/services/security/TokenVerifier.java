@@ -19,9 +19,7 @@ public class TokenVerifier {
                 .parseClaimsJws(token)
                 .getBody();
 
-        User user = verifyToken(body);
-
-        return user;
+        return verifyToken(body);
     }
 
     private User verifyToken(Claims body) {

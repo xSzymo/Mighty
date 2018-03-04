@@ -38,8 +38,7 @@ public class WorkerManager {
     public void setWorkForUser(String authorization, WorkInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        if (fightHelper.getBiggestBlockTimeForEnteredChampions(user, fightHelper.getChampionsId(user.getChampions())) > 0)
-            throw new BusyChampionException("Some one is already busy");
+        throwExceptionIf_AnyChampionIsBusy(user);
 
         workerUtility.createWork(user, informer.hours, fightHelper.getChampions(user, informer.championId));
     }
@@ -67,5 +66,10 @@ public class WorkerManager {
                 }
             }
         }
+    }
+
+    private void throwExceptionIf_AnyChampionIsBusy(User user) throws BusyChampionException {
+        if (fightHelper.getBiggestBlockTimeForEnteredChampions(user, fightHelper.getChampionsId(user.getChampions())) > 0)
+            throw new BusyChampionException("Some one is already busy");
     }
 }

@@ -33,7 +33,7 @@ public class GuildRequestManager {
         throwExceptionIf_UserAlreadySentInvite(user, guild);
         throwExceptionIf_UserHaveNotEnoughLevel(user, guild);
         throwExceptionIf_UserIsAlreadyInGuild(user, guild);
-        throwExceptionIf_guildIsFromDifferentKingdom(guild.getUsers().iterator().next(), user);
+        throwExceptionIf_GuildIsFromDifferentKingdom(guild.getUsers().iterator().next(), user);
 
         Request request = new Request(user, informer.description);
         guild.getInvites().add(request);
@@ -44,10 +44,10 @@ public class GuildRequestManager {
         User user = usersRetriever.retrieveUser(authorization);
         User invitedUser = helper.retrieveUserFromGuildRequests(user, informer);
 
-        throwExceptionIf_userIsNotPresent(invitedUser);
-        throwExceptionIf_userIsNotGuildOwner(user);
-        throwExceptionIf_guildHaveAlreadyMaxUsers(user);
-        throwExceptionIf_guildIsFromDifferentKingdom(user, invitedUser);
+        throwExceptionIf_UserIsNotPresent(invitedUser);
+        throwExceptionIf_UserIsNotGuildOwner(user);
+        throwExceptionIf_GuildHaveAlreadyMaxUsers(user);
+        throwExceptionIf_GuildIsFromDifferentKingdom(user, invitedUser);
 
         Guild guild = user.getGuild();
 
@@ -62,7 +62,7 @@ public class GuildRequestManager {
     public void deleteRequest(String authorization, AcceptGuildRequestInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
 
-        throwExceptionIf_userIsNotGuildOwner(user);
+        throwExceptionIf_UserIsNotGuildOwner(user);
 
         Request request = helper.retrieveRequestFromGuildRequests(user, informer);
         Guild guild = user.getGuild();
@@ -70,17 +70,17 @@ public class GuildRequestManager {
         guildService.save(guild);
     }
 
-    private void throwExceptionIf_guildHaveAlreadyMaxUsers(User user) throws Exception {
+    private void throwExceptionIf_GuildHaveAlreadyMaxUsers(User user) throws Exception {
         if (user.getGuild().getUsers().size() >= SystemVariablesManager.MAX_USERS_IN_GUILD)
             throw new Exception("Guild has reached the limit of users");
     }
 
-    private void throwExceptionIf_guildIsFromDifferentKingdom(User user, User invitedUser) throws Exception {
+    private void throwExceptionIf_GuildIsFromDifferentKingdom(User user, User invitedUser) throws Exception {
         if (!user.getKingdom().getKingdom().equals(invitedUser.getKingdom().getKingdom()))
             throw new Exception("User is from different kingdom");
     }
 
-    private void throwExceptionIf_userIsNotGuildOwner(User user) throws NoAccessException {
+    private void throwExceptionIf_UserIsNotGuildOwner(User user) throws NoAccessException {
         if (!user.getRole().getRole().equals(GuildRole.OWNER.getRole()))
             throw new NoAccessException("user have no access to do that");
     }
@@ -100,7 +100,7 @@ public class GuildRequestManager {
             throw new Exception("You have not enough level");
     }
 
-    private void throwExceptionIf_userIsNotPresent(User user) throws Exception {
+    private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
             throw new Exception("User not found");
     }
