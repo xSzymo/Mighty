@@ -3,10 +3,7 @@ package integration.data.services;
 import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.data.tables.Inventory;
-import game.mightywarriors.data.tables.Item;
-import game.mightywarriors.data.tables.Statistic;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
@@ -38,7 +35,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
     private User user;
 
     @Before
-    public void beforeEachTest() {
+    public void beforeEachTest() throws Exception {
         inventories = new HashSet<>();
         items = new HashSet<>();
         addExampleDataToEquipments();
@@ -170,7 +167,7 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
         inventory.getItems().forEach(Assert::assertNotNull);
     }
 
-    private void addExampleDataToEquipments() {
+    private void addExampleDataToEquipments() throws Exception {
         Statistic statistic;
         Inventory inventory;
         HashSet<Item> myItems = new HashSet<>();
@@ -192,7 +189,9 @@ public class InventoryServiceTest extends IntegrationTestsConfig {
             myItems.add(new Item("name" + i, ItemType.RING, statistic, i));
 
             items.addAll(myItems);
-            inventory.setItems(myItems);
+            HashSet<InventoryItem> inventoryItems = new HashSet<>();
+            myItems.forEach(x -> inventoryItems.add(new InventoryItem(x)));
+            inventory.setItems(inventoryItems);
             inventories.add(inventory);
         }
     }

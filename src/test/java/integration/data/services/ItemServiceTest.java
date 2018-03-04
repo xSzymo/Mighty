@@ -165,9 +165,11 @@ public class ItemServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    public void deleteFromInventory() {
+    public void deleteFromInventory() throws Exception {
         inventory = new Inventory();
-        inventory.setItems(items);
+        HashSet<InventoryItem> inventoryItems = new HashSet<>();
+        items.forEach(x -> inventoryItems.add(new InventoryItem(x)));
+        inventory.setItems(inventoryItems);
 
         inventoryService.save(inventory);
 

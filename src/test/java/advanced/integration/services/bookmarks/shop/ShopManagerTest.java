@@ -62,7 +62,7 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         User user = userService.find(this.user.getLogin());
         assertEquals(userGold.subtract(itemGold), user.getGold());
         assertFalse(user.getShop().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
-        assertTrue(user.getInventory().getItems().stream().anyMatch(x -> x.getId().equals(item.getId())));
+        assertTrue(user.getInventory().getItems().stream().anyMatch(x -> x.getItem().getId().equals(item.getId())));
     }
 
     @Test(expected = NotEnoughGoldException.class)
