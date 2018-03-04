@@ -20,21 +20,21 @@ public class ChatRepresentationTest {
             message = new Message();
             message.setMessage("m" + i);
             message.setNumber(i);
-            message.setUserLogin("anonymous");
+            message.setLogin("anonymous");
             chat.addMessage(message);
         }
         for (int i = 16; i <= 25; i++) {
             message = new Message();
             message.setMessage("m" + i);
             message.setNumber(i);
-            message.setUserLogin("anonymous");
+            message.setLogin("anonymous");
             chat.addMessage(message);
         }
 
         message = new Message();
         message.setMessage("m" + 6);
         message.setNumber(6);
-        message.setUserLogin("anonymous");
+        message.setLogin("anonymous");
         chat.addMessage(message);
 
 
@@ -43,7 +43,7 @@ public class ChatRepresentationTest {
         for (int a = 0, i = 0; i <= 25; i++, a++) {
             assertEquals(i, chatRepresentation.messages.get(a).getNumber());
             assertEquals("m" + i, chatRepresentation.messages.get(a).getMessage());
-            assertEquals("anonymous", chatRepresentation.messages.get(a).getUserLogin());
+            assertEquals("anonymous", chatRepresentation.messages.get(a).getLogin());
 
             if (i == 6)
                 i = 15;

@@ -72,7 +72,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(message, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
-        assertEquals(user.getLogin(), chatService.find(informer.chatId).getMessages().iterator().next().getUserLogin());
+        assertEquals(user.getLogin(), chatService.find(informer.chatId).getMessages().iterator().next().getLogin());
         assertEquals(0, chatService.find(informer.chatId).getMessages().iterator().next().getNumber());
     }
 
@@ -89,7 +89,7 @@ public class MessagesManagerTest extends AuthorizationConfiguration {
 
         assertEquals(1, chatService.find(informer.chatId).getMessages().size());
         assertEquals(message, chatService.find(informer.chatId).getMessages().iterator().next().getMessage());
-        assertEquals(user1.getLogin(), chatService.find(informer.chatId).getMessages().iterator().next().getUserLogin());
+        assertEquals(user1.getLogin(), chatService.find(informer.chatId).getMessages().iterator().next().getLogin());
         assertEquals(0, chatService.find(informer.chatId).getMessages().iterator().next().getNumber());
     }
 

@@ -80,7 +80,7 @@ public class MessagesManager {
     }
 
     private void throwExceptionIf_UserIsNotOwnerOfMessageOrHaveNotRights(User user, Chat chat, Message message) throws Exception {
-        if (!message.getUserLogin().equals(user.getLogin()) && chat.getAdmins().stream().noneMatch(x -> x.getLogin().equals(user.getLogin())))
+        if (!message.getLogin().equals(user.getLogin()) && chat.getAdmins().stream().noneMatch(x -> x.getLogin().equals(user.getLogin())))
             throw new NoAccessException("You haven't permission");
     }
 }

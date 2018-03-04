@@ -15,7 +15,7 @@ public class Message {
     @Column(name = "message")
     private String message;
     @Column(name = "user_login")
-    private String userLogin;
+    private String login;
     @Column(name = "number")
     private long number;
     @Column(name = "created_date")
@@ -25,10 +25,10 @@ public class Message {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Message(String message, String userLogin) {
+    public Message(String message, String login) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.message = message;
-        this.userLogin = userLogin;
+        this.login = login;
     }
 
     @Override
@@ -62,12 +62,12 @@ public class Message {
         this.message = message;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public long getNumber() {
