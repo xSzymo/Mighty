@@ -96,6 +96,7 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @JsonBackReference
+    @NotFound(action = NotFoundAction.IGNORE)
     private Role role;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -145,12 +146,17 @@ public class User {
         this.id = user.id;
         this.login = user.login;
         this.password = user.password;
+        this.kingdom = user.kingdom;
+        this.isAccountEnabled = user.isAccountEnabled;
+        this.isAccountNonLocked = user.isAccountNonLocked;
         this.eMail = user.eMail;
         this.shop = user.shop;
         this.image = user.image;
         this.tokenCode = user.tokenCode;
+        this.codeToEnableAccount = user.codeToEnableAccount;
         this.gold = user.gold;
         this.champions = user.champions;
+        this.dungeon = user.dungeon;
         this.missions = user.missions;
         this.role = user.role;
         this.chats = user.chats;
@@ -160,6 +166,8 @@ public class User {
         this.newToken = user.newToken;
         this.missionPoints = user.missionPoints;
         this.arenaPoints = user.arenaPoints;
+        this.dungeonPoints = user.dungeonPoints;
+        this.authorizationCodes = user.authorizationCodes;
         this.division = user.division;
         this.guild = user.guild;
     }
