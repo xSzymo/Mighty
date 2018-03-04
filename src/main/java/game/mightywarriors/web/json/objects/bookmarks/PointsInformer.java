@@ -13,4 +13,9 @@ public class PointsInformer {
      */
     public long championId;
 
+    /**
+     * howMany : howMany points
+     */
+    public long howMany;
+
 }
