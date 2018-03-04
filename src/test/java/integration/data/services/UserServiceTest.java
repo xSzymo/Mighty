@@ -2,8 +2,10 @@ package integration.data.services;
 
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
+import game.mightywarriors.data.repositories.RankingRepository;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.other.enums.ItemType;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
@@ -35,6 +37,10 @@ public class UserServiceTest extends IntegrationTestsConfig {
     private ChampionService championService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private RankingService rankingService;
+    @Autowired
+    private RankingRepository rankingRepository;
 
     private HashSet<User> users;
     private LinkedList<Mission> missions;
@@ -240,6 +246,37 @@ public class UserServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
+    public void changeNick() throws Exception {
+        String newLogin = "justfortest";
+        String oldLogin = "justfortestbefore";
+        user = new User(oldLogin);
+        Chat chat = new Chat();
+        chat.getAdmins().add(new Admin(ChatRole.OWNER, user.getLogin()));
+        chat.getMessages().add(new Message("halo", user.getLogin()));
+        user.addChat(chat);
+        objectUnderTest.save(user);
+        assertEquals(user.getLogin(), user.getChats().iterator().next().getAdmins().iterator().next().getLogin());
+        assertEquals(user.getLogin(), user.getChats().iterator().next().getMessages().iterator().next().getLogin());
+        assertNotNull(rankingService.find(user.getLogin()));
+
+        objectUnderTest.changeNick(user.getId(), newLogin);
+        Ranking ranking = rankingService.find(oldLogin);
+        long rankon = ranking.getRanking();
+        rankingService.delete(ranking.getNickname());
+
+        Ranking newRanking = new Ranking(newLogin);
+        newRanking.setRanking(rankon);
+        rankingRepository.save(newRanking);
+
+        user = objectUnderTest.find(newLogin);
+        assertNotNull(user);
+        assertEquals(newLogin, user.getLogin());
+        assertNotNull(rankingService.find(newLogin));
+        assertEquals(newLogin, user.getChats().iterator().next().getAdmins().iterator().next().getLogin());
+        assertEquals(newLogin, user.getChats().iterator().next().getMessages().iterator().next().getLogin());
+    }
+
+    @Test
     @Transactional
     public void save_check_basic_variables() {
         if (roleService.find("user") == null)
@@ -276,7 +313,6 @@ public class UserServiceTest extends IntegrationTestsConfig {
     }
 
     @Test
-    @Transactional
     public void save_check_basic_variables1() {
         if (roleService.find("user") == null)
             roleService.save(new Role("user"));
@@ -291,7 +327,7 @@ public class UserServiceTest extends IntegrationTestsConfig {
 
         assertEquals(0, one.getChampions().size());
 
-        assertEquals(new BigDecimal("0"), one.getGold());
+        assertEquals(new BigDecimal("0").longValue(), one.getGold().longValue());
         assertNull(null, one.getImage());
 
         assertNotNull(one.getInventory());
