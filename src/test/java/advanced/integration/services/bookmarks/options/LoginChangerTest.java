@@ -1,6 +1,7 @@
 package advanced.integration.services.bookmarks.options;
 
 import advanced.integration.config.ChangerTestConfig;
+import game.mightywarriors.data.services.RankingService;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.AuthorizationType;
 import game.mightywarriors.services.bookmarks.options.LoginChanger;
@@ -10,11 +11,14 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class LoginChangerTest extends ChangerTestConfig {
     @Autowired
     private LoginChanger objectUnderTest;
+    @Autowired
+    private RankingService rankingService;
 
     @Test
     public void prepareChangeLogin() throws Exception {
@@ -36,6 +40,7 @@ public class LoginChangerTest extends ChangerTestConfig {
         user = userService.find(user);
         assertTrue(user.getAuthorizationCodes().stream().anyMatch(x -> x.getType().getType().equals(AuthorizationType.LOGIN.getType())));
         assertEquals(newLogin, user.getLogin());
+        assertNotNull(rankingService.find(newLogin));
     }
 
     @Test(expected = Exception.class)
