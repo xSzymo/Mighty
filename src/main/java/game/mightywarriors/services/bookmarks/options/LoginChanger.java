@@ -1,8 +1,10 @@
 package game.mightywarriors.services.bookmarks.options;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
+import game.mightywarriors.data.repositories.RankingRepository;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.AuthorizationCode;
+import game.mightywarriors.data.tables.Ranking;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.AuthorizationType;
 import game.mightywarriors.other.generators.RandomCodeFactory;
@@ -21,14 +23,16 @@ public class LoginChanger {
     private MailSenderImpl sender;
     private RandomCodeFactory randomCodeFactory;
     private OptionsHelper helper;
+    private RankingRepository rankingService;
 
     @Autowired
-    public LoginChanger(UserService userService, UsersRetriever usersRetriever, MailSenderImpl mailSender, RandomCodeFactory randomCodeFactory, OptionsHelper optionsHelper) {
+    public LoginChanger(UserService userService, UsersRetriever usersRetriever, MailSenderImpl mailSender, RandomCodeFactory randomCodeFactory, OptionsHelper optionsHelper, RankingRepository rankingService) {
         this.userService = userService;
         this.usersRetriever = usersRetriever;
         this.sender = mailSender;
         this.randomCodeFactory = randomCodeFactory;
         this.helper = optionsHelper;
+        this.rankingService = rankingService;
     }
 
     public void prepareChangeLogin(String authorization, LoginInformer informer) throws Exception {
@@ -49,8 +53,19 @@ public class LoginChanger {
         helper.throwExceptionIf_CodeToEnableAccExpired(authorizationCode, AuthorizationType.LOGIN);
         helper.throwExceptionIf_CodesAreNotSame(informer.code, authorizationCode);
 
-        user.setLogin(authorizationCode.getNewValue());
-        userService.save(user);
+        changeNick(user, authorizationCode.getNewValue());
+    }
+
+    private void changeNick(User user, String newLogin) throws Exception {
+        userService.changeNick(user.getId(), newLogin);
+
+        Ranking ranking = rankingService.findByNickname(user.getLogin());
+        long oldRanking = ranking.getRanking();
+        rankingService.deleteByNickname(ranking.getNickname());
+
+        Ranking newRanking = new Ranking(newLogin);
+        newRanking.setRanking(oldRanking);
+        rankingService.save(newRanking);
     }
 
     private AuthorizationCode getNewEmailAuthorizationCode(LoginInformer informer) {
