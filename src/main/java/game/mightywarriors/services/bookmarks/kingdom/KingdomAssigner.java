@@ -12,10 +12,14 @@ import java.math.BigDecimal;
 
 @Service
 public class KingdomAssigner {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public KingdomAssigner(UsersRetriever usersRetriever, UserService userService) {
+        this.usersRetriever = usersRetriever;
+        this.userService = userService;
+    }
 
     public void setKingdom(String authorization, KingdomInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

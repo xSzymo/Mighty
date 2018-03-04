@@ -15,12 +15,16 @@ import java.math.BigDecimal;
 
 @Service
 public class ShopManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private ItemService itemService;
+
+    @Autowired
+    public ShopManager(UserService userService, UsersRetriever usersRetriever, ItemService itemService) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+        this.itemService = itemService;
+    }
 
     public void buyItem(String authorization, ShopInformer shopInformer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

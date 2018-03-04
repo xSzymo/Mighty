@@ -17,17 +17,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PasswordChanger {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private MailSenderImpl sender;
-    @Autowired
     private PasswordValidator passwordValidator;
-    @Autowired
     private RandomCodeFactory randomCodeFactory;
-    @Autowired
     private OptionsHelper helper;
 
     private static final int minimumPasswordChars = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_CHARS;
@@ -35,6 +29,16 @@ public class PasswordChanger {
     private static final int minimumDigitChars = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_DIGIT_CHARS;
     private static final int minimumUpperCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_UPPER_CASE;
     private static final int minimumLowerCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE;
+
+    @Autowired
+    public PasswordChanger(UserService userService, UsersRetriever usersRetriever, MailSenderImpl mailSender, PasswordValidator passwordValidator, RandomCodeFactory randomCodeFactory, OptionsHelper optionsHelper) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+        this.sender = mailSender;
+        this.passwordValidator = passwordValidator;
+        this.randomCodeFactory = randomCodeFactory;
+        this.helper = optionsHelper;
+    }
 
     public void prepareChangePassword(String authorization, PasswordInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

@@ -18,18 +18,22 @@ import java.util.LinkedList;
 
 @Service
 public class DungeonManager {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private FightCoordinator fightCoordinator;
-    @Autowired
     private DungeonUtility dungeonUtility;
-    @Autowired
     private DungeonFightService dungeonFightService;
-    @Autowired
     private FightHelper fightHelper;
-    @Autowired
     private DungeonHelper dungeonHelper;
+
+    @Autowired
+    public DungeonManager(UsersRetriever usersRetriever, FightCoordinator fightCoordinator, DungeonUtility dungeonUtility, DungeonFightService dungeonFightService, FightHelper fightHelper, DungeonHelper dungeonHelper) {
+        this.usersRetriever = usersRetriever;
+        this.fightCoordinator = fightCoordinator;
+        this.dungeonUtility = dungeonUtility;
+        this.dungeonFightService = dungeonFightService;
+        this.fightHelper = fightHelper;
+        this.dungeonHelper = dungeonHelper;
+    }
 
     public void sendChampionsToDungeon(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

@@ -14,10 +14,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GuildHelper {
-    @Autowired
     private GuildService guildService;
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public GuildHelper(GuildService guildService, UserService userService) {
+        this.guildService = guildService;
+        this.userService = userService;
+    }
 
     public Guild retrieveGuild(GuildWarInformer guildWarInformer) {
         return retrieveGuild(new GuildRequestInformer(guildWarInformer.guildId, guildWarInformer.guildName));

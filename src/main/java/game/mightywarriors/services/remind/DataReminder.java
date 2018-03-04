@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DataReminder {
-    @Autowired
     private UserService userService;
-    @Autowired
     private MailSenderImpl sender;
+
+    @Autowired
+    public DataReminder(UserService userService, MailSenderImpl sender) {
+        this.sender = sender;
+        this.userService = userService;
+    }
 
     public void remindPassword(RemindInformer informer) {
         User user = userService.findByEmail(informer.email);

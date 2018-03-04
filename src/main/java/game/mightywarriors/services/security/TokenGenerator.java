@@ -14,10 +14,14 @@ import java.sql.Timestamp;
 
 @Service
 public class TokenGenerator {
-    @Autowired
     private UserService userService;
-    @Autowired
     private RandomCodeFactory randomCodeFactory;
+
+    @Autowired
+    public TokenGenerator(UserService userService, RandomCodeFactory randomCodeFactory) {
+        this.userService = userService;
+        this.randomCodeFactory = randomCodeFactory;
+    }
 
     public String generateToken(User user) {
         String tokenCode = userService.find(user).getTokenCode();

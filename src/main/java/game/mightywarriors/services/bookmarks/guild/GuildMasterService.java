@@ -17,14 +17,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GuildMasterService {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private RoleService roleService;
-    @Autowired
     private UserService userService;
-    @Autowired
     private GuildHelper helper;
+
+    @Autowired
+    public GuildMasterService(UsersRetriever usersRetriever, RoleService roleService, UserService userService, GuildHelper guildHelper) {
+        this.usersRetriever = usersRetriever;
+        this.roleService = roleService;
+        this.userService = userService;
+        this.helper = guildHelper;
+    }
 
     public void addNewGuildMaster(String authorization, GuildMasterInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

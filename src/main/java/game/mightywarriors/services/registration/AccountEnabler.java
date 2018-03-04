@@ -12,8 +12,12 @@ import java.sql.Timestamp;
 
 @Service
 public class AccountEnabler {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public AccountEnabler(UserService userService) {
+        this.userService = userService;
+    }
 
     public void enableAccount(CodeInformer informer) throws Exception {
         User user = userService.findByCodeToEnableAccount(informer.code);

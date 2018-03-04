@@ -13,15 +13,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RegistrationManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private MailSenderImpl sender;
-    @Autowired
     private EmailValidator emailValidator;
-    @Autowired
     private PasswordValidator passwordValidator;
-    @Autowired
     private RandomCodeFactory codeFactory;
 
     private static final int minimumPasswordChars = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_CHARS;
@@ -29,6 +24,15 @@ public class RegistrationManager {
     private static final int minimumDigitChars = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_DIGIT_CHARS;
     private static final int minimumUpperCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_UPPER_CASE;
     private static final int minimumLowerCase = SystemVariablesManager.REGISTRATION_MINIMUM_PASSWORD_LOWER_CASE;
+
+    @Autowired
+    public RegistrationManager(UserService userService, MailSenderImpl sender, EmailValidator emailValidator, PasswordValidator passwordValidator, RandomCodeFactory codeFactory) {
+        this.userService = userService;
+        this.sender = sender;
+        this.emailValidator = emailValidator;
+        this.passwordValidator = passwordValidator;
+        this.codeFactory = codeFactory;
+    }
 
     public void registerUser(RegistrationInformer informer) throws Exception {
         throwExceptionIf_InformerIsNotSetProperly(informer);

@@ -5,13 +5,15 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TokenVerifier {
-    @Autowired
     private UserService userService;
+
+    public TokenVerifier(UserService userService) {
+        this.userService = userService;
+    }
 
     public User validate(String token) {
         Claims body = Jwts.parser()

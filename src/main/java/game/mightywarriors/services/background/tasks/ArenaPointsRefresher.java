@@ -11,8 +11,12 @@ import java.util.HashSet;
 
 @Service
 public class ArenaPointsRefresher {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public ArenaPointsRefresher(UserService userService) {
+        this.userService = userService;
+    }
 
     @Transactional
     public synchronized void refreshArenaPointsForAllUsers() {

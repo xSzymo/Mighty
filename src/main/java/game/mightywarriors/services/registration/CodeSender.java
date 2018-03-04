@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CodeSender {
-    @Autowired
     private UserService userService;
-    @Autowired
     private MailSenderImpl sender;
+
+    @Autowired
+    public CodeSender(UserService userService, MailSenderImpl sender) {
+        this.userService = userService;
+        this.sender = sender;
+    }
 
     public void sendCodeToEnableAccount(RemindInformer informer) throws Exception {
         User user = userService.findByEmail(informer.email);

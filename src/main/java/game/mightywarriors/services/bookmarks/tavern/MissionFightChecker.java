@@ -14,13 +14,18 @@ import java.sql.Timestamp;
 
 @Service
 public class MissionFightChecker {
-    private static final int ONE_SECOND = 1000;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private MissionFightService missionFightService;
-    @Autowired
     private FightHelper fightHelper;
+
+    private static final int ONE_SECOND = 1000;
+
+    @Autowired
+    public MissionFightChecker(UsersRetriever usersRetriever, MissionFightService missionFightService, FightHelper fightHelper) {
+        this.usersRetriever = usersRetriever;
+        this.missionFightService = missionFightService;
+        this.fightHelper = fightHelper;
+    }
 
     public long checkBiggestLeftTimeForChampions(String authorization, ChampionInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

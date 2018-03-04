@@ -18,12 +18,16 @@ import java.util.Optional;
 
 @Service
 public class PrivilegesManager {
-    @Autowired
     private UsersRetriever retriever;
-    @Autowired
     private ChatService chatService;
-    @Autowired
     private MessageHelper helper;
+
+    @Autowired
+    public PrivilegesManager(UsersRetriever usersRetriever, ChatService chatService, MessageHelper messageHelper) {
+        this.retriever = usersRetriever;
+        this.chatService = chatService;
+        this.helper = messageHelper;
+    }
 
     public void addPrivileges(String authorization, PrivilegesInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);

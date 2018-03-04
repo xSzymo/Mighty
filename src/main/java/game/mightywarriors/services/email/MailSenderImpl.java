@@ -1,14 +1,16 @@
 package game.mightywarriors.services.email;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MailSenderImpl {
-    @Autowired
     private MailSender mailSender;
+
+    public MailSenderImpl(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     public void sendMail(String to, String subject, String msg) {
         SimpleMailMessage message = new SimpleMailMessage();

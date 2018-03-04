@@ -17,10 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class OptionsHelper {
-    @Autowired
     private AuthorizationCodeRepository repository;
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public OptionsHelper(UserService userService, AuthorizationCodeRepository repository) {
+        this.userService = userService;
+        this.repository = repository;
+    }
 
     public void saveNewAuthorizationCodeForUserAndDeleteOld(User user, AuthorizationCode authorizationCode, AuthorizationType type) {
         long id = 0;

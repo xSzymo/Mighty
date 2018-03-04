@@ -20,20 +20,24 @@ import java.util.Set;
 
 @Service
 public class TavernUtility {
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private MissionFightService missionFightService;
-    @Autowired
     private ChampionService championService;
-    @Autowired
     private UserService userService;
-    @Autowired
     private MissionAssigner missionAssigner;
-    @Autowired
     private FightHelper fightHelper;
 
     private static final int ONE_SECOND = 1000;
+
+    @Autowired
+    public TavernUtility(UserRepository userRepository, MissionFightService missionFightService, ChampionService championService, UserService userService, MissionAssigner missionAssigner, FightHelper fightHelper) {
+        this.userRepository = userRepository;
+        this.missionFightService = missionFightService;
+        this.championService = championService;
+        this.userService = userService;
+        this.missionAssigner = missionAssigner;
+        this.fightHelper = fightHelper;
+    }
 
     public void prepareNewMissionFight(Set<Champion> champions, Mission mission) {
         MissionFight missionFight = new MissionFight();

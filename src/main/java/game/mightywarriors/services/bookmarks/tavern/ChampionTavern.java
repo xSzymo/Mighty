@@ -14,10 +14,14 @@ import java.math.BigDecimal;
 
 @Service
 public class ChampionTavern {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public ChampionTavern(UsersRetriever usersRetriever, UserService userService) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+    }
 
     public void buyChampion(String authorization) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

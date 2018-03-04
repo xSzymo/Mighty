@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsersRetriever {
-    @Autowired
     private UserService userService;
-    @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;
+
+    @Autowired
+    public UsersRetriever(UserService userService, JwtAuthenticationProvider jwtAuthenticationProvider) {
+        this.userService = userService;
+        this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+    }
 
     public User retrieveUser(String authorization) throws Exception {
         if (authorization == null || authorization.equals(""))

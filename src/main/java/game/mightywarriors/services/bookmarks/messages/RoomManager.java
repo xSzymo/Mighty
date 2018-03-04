@@ -17,14 +17,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RoomManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever retriever;
-    @Autowired
     private ChatService chatService;
-    @Autowired
     private MessageHelper helper;
+
+    @Autowired
+    public RoomManager(UserService userService, UsersRetriever usersRetriever, ChatService chatService, MessageHelper messageHelper) {
+        this.userService = userService;
+        this.retriever = usersRetriever;
+        this.chatService = chatService;
+        this.helper = messageHelper;
+    }
 
     public long createChat(String authorization, UserMessageInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);

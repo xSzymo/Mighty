@@ -26,19 +26,23 @@ import java.util.Set;
 
 @Service
 public class ArenaManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private FightCoordinator fightCoordinator;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private RankingService rankingService;
-    @Autowired
     private FightHelper fightHelper;
 
     private int ONE_SECOND = 1000;
     private int ONE_MINUTE = 60 * ONE_SECOND;
+
+    @Autowired
+    public ArenaManager(UserService userService, FightCoordinator fightCoordinator, UsersRetriever usersRetriever, RankingService rankingService, FightHelper fightHelper) {
+        this.userService = userService;
+        this.fightCoordinator = fightCoordinator;
+        this.usersRetriever = usersRetriever;
+        this.rankingService = rankingService;
+        this.fightHelper = fightHelper;
+    }
 
     @Transactional
     public FightResult fightUser(String authorization, ArenaInformer informer) throws Exception {

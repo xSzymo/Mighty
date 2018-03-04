@@ -13,10 +13,14 @@ import java.util.Optional;
 
 @Service
 public class ItemManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
+
+    @Autowired
+    public ItemManager(UserService userService, UsersRetriever usersRetriever) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+    }
 
     public void moveEquipmentItemToInventory(String authorization, long itemId) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

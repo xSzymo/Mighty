@@ -8,7 +8,6 @@ import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.comparators.UsersDivisionComparator;
 import game.mightywarriors.other.enums.League;
 import game.mightywarriors.services.bookmarks.league.PointsForDivisionCounter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,13 +16,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class DivisionAssigner {
-    private static final double PERCENT = 0.01;
-    private final PointsForDivisionCounter pointsForDivisionCounter = new PointsForDivisionCounter();
-
-    @Autowired
     private DivisionService divisionService;
-    @Autowired
     private UserService userService;
+
+    private final PointsForDivisionCounter pointsForDivisionCounter = new PointsForDivisionCounter();
+    private static final double PERCENT = 0.01;
+
+    public DivisionAssigner(UserService userService, DivisionService divisionService) {
+        this.userService = userService;
+        this.divisionService = divisionService;
+    }
 
     @Transactional
     public synchronized void assignUsersDivisions() {

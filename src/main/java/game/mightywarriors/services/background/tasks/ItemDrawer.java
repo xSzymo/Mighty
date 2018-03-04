@@ -16,17 +16,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class ItemDrawer {
-    private static Random rand;
-
-    @Autowired
     private UserService userService;
-    @Autowired
     private ItemService itemService;
 
-    private static long howManyItemsForOneChampion = SystemVariablesManager.HOW_MANY_ITEMS_FOR_ONE_CHAMPION;
+    private static Random rand;
+    private static final long howManyItemsForOneChampion = SystemVariablesManager.HOW_MANY_ITEMS_FOR_ONE_CHAMPION;
 
     public ItemDrawer() {
         rand = new Random();
+    }
+
+    @Autowired
+    public ItemDrawer(UserService userService, ItemService itemService) {
+        rand = new Random();
+        this.userService = userService;
+        this.itemService = itemService;
     }
 
     @Transactional

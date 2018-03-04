@@ -17,8 +17,12 @@ import java.util.Optional;
 
 @Service
 public class UserDataChatProvider {
-    @Autowired
     private UsersRetriever retriever;
+
+    @Autowired
+    public UserDataChatProvider(UsersRetriever usersRetriever) {
+        this.retriever = usersRetriever;
+    }
 
     public LinkedList<ChatRepresentation> getAllChats(String authorization) throws Exception {
         User user = retriever.retrieveUser(authorization);

@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GuildWarsService {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private FightCoordinator fightCoordinator;
-    @Autowired
     private GuildHelper helper;
+
+    @Autowired
+    public GuildWarsService(UsersRetriever usersRetriever, FightCoordinator fightCoordinator, GuildHelper guildHelper) {
+        this.usersRetriever = usersRetriever;
+        this.fightCoordinator = fightCoordinator;
+        this.helper = guildHelper;
+    }
 
     /**
      * This is not final system for guild wars

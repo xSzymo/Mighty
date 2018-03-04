@@ -11,8 +11,12 @@ import java.util.HashSet;
 
 @Service
 public class MissionPointsRefresher {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public MissionPointsRefresher(UserService userService) {
+        this.userService = userService;
+    }
 
     @Transactional
     public synchronized void refreshMissionPointsForAllMission() {

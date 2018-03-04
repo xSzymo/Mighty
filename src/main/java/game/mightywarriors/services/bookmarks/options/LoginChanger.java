@@ -16,16 +16,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginChanger {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private MailSenderImpl sender;
-    @Autowired
     private RandomCodeFactory randomCodeFactory;
-    @Autowired
     private OptionsHelper helper;
+
+    @Autowired
+    public LoginChanger(UserService userService, UsersRetriever usersRetriever, MailSenderImpl mailSender, RandomCodeFactory randomCodeFactory, OptionsHelper optionsHelper) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+        this.sender = mailSender;
+        this.randomCodeFactory = randomCodeFactory;
+        this.helper = optionsHelper;
+    }
 
     public void prepareChangeLogin(String authorization, LoginInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

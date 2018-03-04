@@ -16,12 +16,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessagesManager {
-    @Autowired
     private UsersRetriever retriever;
-    @Autowired
     private ChatService chatService;
-    @Autowired
     private MessageService messageService;
+
+    @Autowired
+    public MessagesManager(UsersRetriever usersRetriever, ChatService chatService, MessageService messageService) {
+        this.retriever = usersRetriever;
+        this.chatService = chatService;
+        this.messageService = messageService;
+    }
 
     public void addMessage(String authorization, AddMessageInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);

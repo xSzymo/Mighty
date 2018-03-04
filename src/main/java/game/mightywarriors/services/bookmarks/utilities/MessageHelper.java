@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageHelper {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public MessageHelper(UserService userService) {
+        this.userService = userService;
+    }
 
     public User getUserFromInformer(PrivilegesInformer informer) {
         return getUserFromInformer(new UserMessageInformer(informer.userId, informer.userLogin));

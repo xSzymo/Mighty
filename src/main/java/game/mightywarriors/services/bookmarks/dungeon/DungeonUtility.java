@@ -18,16 +18,20 @@ import java.sql.Timestamp;
 
 @Service
 public class DungeonUtility {
-    @Autowired
     private UserService userService;
-    @Autowired
     private DungeonFightService dungeonFightService;
-    @Autowired
     private DungeonService dungeonService;
-    @Autowired
     private DungeonHelper dungeonHelper;
 
     private static final int ONE_SECOND = 1000;
+
+    @Autowired
+    public DungeonUtility(DungeonFightService dungeonFightService, DungeonHelper dungeonHelper, UserService userService, DungeonService dungeonService) {
+        this.dungeonFightService = dungeonFightService;
+        this.dungeonHelper = dungeonHelper;
+        this.dungeonService = dungeonService;
+        this.userService = userService;
+    }
 
     public void prepareNewDungeonFight(User user) throws Exception {
         DungeonFight dungeonFight = new DungeonFight();

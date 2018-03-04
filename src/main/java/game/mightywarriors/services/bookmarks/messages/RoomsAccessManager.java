@@ -19,14 +19,18 @@ import java.util.Optional;
 
 @Service
 public class RoomsAccessManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever retriever;
-    @Autowired
     private ChatService chatService;
-    @Autowired
     private MessageHelper helper;
+
+    @Autowired
+    public RoomsAccessManager(UserService userService, UsersRetriever usersRetriever, ChatService chatService, MessageHelper messageHelper) {
+        this.userService = userService;
+        this.retriever = usersRetriever;
+        this.chatService = chatService;
+        this.helper = messageHelper;
+    }
 
     public void addUserToRoom(String authorization, PrivilegesWithOutAdminInformer informer) throws Exception {
         User user = retriever.retrieveUser(authorization);

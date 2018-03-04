@@ -14,15 +14,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class MissionAssigner {
-    private static Random rand;
-
-    @Autowired
     private UserService userService;
-    @Autowired
     private MissionService missionService;
+    private static Random rand;
 
     public MissionAssigner() {
         rand = new Random();
+    }
+
+    @Autowired
+    public MissionAssigner(UserService userService, MissionService missionService) {
+        rand = new Random();
+        this.userService = userService;
+        this.missionService = missionService;
     }
 
     @Transactional

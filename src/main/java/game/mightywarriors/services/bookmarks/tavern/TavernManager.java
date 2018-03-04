@@ -19,16 +19,20 @@ import java.util.Set;
 
 @Service
 public class TavernManager {
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private MissionFightService missionFightService;
-    @Autowired
     private FightCoordinator fightCoordinator;
-    @Autowired
     private TavernUtility tavernUtility;
-    @Autowired
     private FightHelper fightHelper;
+
+    @Autowired
+    public TavernManager(UsersRetriever usersRetriever, MissionFightService missionFightService, FightCoordinator fightCoordinator, TavernUtility tavernUtility, FightHelper fightHelper) {
+        this.usersRetriever = usersRetriever;
+        this.missionFightService = missionFightService;
+        this.fightCoordinator = fightCoordinator;
+        this.tavernUtility = tavernUtility;
+        this.fightHelper = fightHelper;
+    }
 
     public void sendChampionOnMission(String authorization, TavernInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

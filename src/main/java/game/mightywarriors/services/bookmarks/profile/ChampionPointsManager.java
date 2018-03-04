@@ -15,11 +15,16 @@ import java.util.Optional;
 
 @Service
 public class ChampionPointsManager {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
+
     private static final int ONE = 1;
+
+    @Autowired
+    public ChampionPointsManager(UserService userService, UsersRetriever usersRetriever) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+    }
 
     public void addPoints(String authorization, StatisticType type, long id, long howMany) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

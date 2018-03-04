@@ -17,18 +17,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailChanger {
-    @Autowired
     private UserService userService;
-    @Autowired
     private UsersRetriever usersRetriever;
-    @Autowired
     private MailSenderImpl sender;
-    @Autowired
     private EmailValidator emailValidator;
-    @Autowired
     private RandomCodeFactory randomCodeFactory;
-    @Autowired
     private OptionsHelper helper;
+
+    @Autowired
+    public EmailChanger(UserService userService, UsersRetriever usersRetriever, MailSenderImpl mailSender, EmailValidator emailValidator, RandomCodeFactory randomCodeFactory, OptionsHelper optionsHelper) {
+        this.userService = userService;
+        this.usersRetriever = usersRetriever;
+        this.sender = mailSender;
+        this.emailValidator = emailValidator;
+        this.randomCodeFactory = randomCodeFactory;
+        this.helper = optionsHelper;
+    }
 
     public void prepareChangeEmail(String authorization, RemindInformer informer) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);

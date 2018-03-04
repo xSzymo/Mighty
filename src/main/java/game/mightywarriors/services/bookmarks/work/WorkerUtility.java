@@ -18,10 +18,14 @@ import java.util.stream.Stream;
 
 @Service
 public class WorkerUtility {
-    @Autowired
     private UserService userService;
-    @Autowired
     private WorkService workService;
+
+    @Autowired
+    public WorkerUtility(UserService userService, WorkService workService) {
+        this.userService = userService;
+        this.workService = workService;
+    }
 
     public void createWork(User user, int hours, Set<Champion> champions) {
         Timestamp blockTime = new Timestamp(System.currentTimeMillis() + getHours(hours));
