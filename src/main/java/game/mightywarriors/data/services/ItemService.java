@@ -20,9 +20,7 @@ public class ItemService {
     @Autowired
     private ImageService imageService;
     @Autowired
-    private ShopService shopService;
-    @Autowired
-    private EquipmentService equipmentService;
+    private InventoryItemService inventoryItemService;
 
     public void save(Item item) {
         if (item != null)
@@ -95,7 +93,9 @@ public class ItemService {
     }
 
     private void deleteOperation(Item item) {
-        if (item.getId() != null)
+        if (item.getId() != null) {
+            inventoryItemService.delete(inventoryItemService.findByItemId(item.getId()));
             repository.deleteById(item.getId());
+        }
     }
 }

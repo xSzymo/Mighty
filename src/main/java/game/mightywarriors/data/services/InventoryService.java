@@ -20,6 +20,8 @@ public class InventoryService {
     private ItemService itemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private InventoryItemService inventoryItemService;
 
     public void save(Inventory inventory) {
         if (inventory != null)
@@ -34,7 +36,8 @@ public class InventoryService {
     private void saveOperation(Inventory inventory) {
         inventory.getItems().forEach(x -> {
             try {
-                itemService.save(x);
+                itemService.save(x.getItem());
+                inventoryItemService.save(x);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -106,6 +109,7 @@ public class InventoryService {
                 }
             }
 
+        inventoryItemService.delete(inventory.getItems());
         repository.deleteById(inventory.getId());
     }
 }

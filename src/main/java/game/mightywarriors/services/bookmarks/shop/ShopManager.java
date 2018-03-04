@@ -47,7 +47,7 @@ public class ShopManager {
         throwExceptionIf_UserHaveNotSpecificItem(user, item);
 
         user.addGold(new BigDecimal(item.getGold().doubleValue() * SystemVariablesManager.PERCENT_FOR_SOLD_ITEM));
-        user.getInventory().getItems().remove(item);
+        user.getInventory().getItems().remove(user.getInventory().getItems().stream().filter(x -> x.getItem().getId().equals(item.getId())).findFirst().get());
 
         userService.save(user);
     }
@@ -63,7 +63,7 @@ public class ShopManager {
     }
 
     private void throwExceptionIf_UserHaveNotSpecificItem(User user, Item item) throws Exception {
-        if (!user.getInventory().getItems().contains(item))
+        if (user.getInventory().getItems().stream().noneMatch(x ->  x.getItem().getId().equals(item.getId())))
             throw new Exception("Wrong item");
     }
 }

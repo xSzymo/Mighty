@@ -58,6 +58,13 @@ public class Item {
         this.level = level;
     }
 
+    public Item(String name, ItemType itemType, long level) {
+        createdDate = new Timestamp(System.currentTimeMillis());
+        this.itemType = itemType;
+        this.name = name;
+        this.level = level;
+    }
+
     public Item(String name, ItemType itemType, Statistic statistic, long level) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
