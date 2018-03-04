@@ -24,7 +24,7 @@ public class ProfileController {
     public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PointsInformer informer) throws Exception {
         for (StatisticType type : StatisticType.values()) {
             if (type.getType().equals(informer.statisticName)) {
-                championPointsManager.addPoints(authorization, type, informer.championId);
+                championPointsManager.addPoints(authorization, type, informer.championId, informer.howMany);
                 return;
             }
         }
