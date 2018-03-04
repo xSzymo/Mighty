@@ -29,7 +29,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     @Override
     public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
-
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
         if (!token.contains(SystemVariablesManager.NAME_OF_SECRET_WORD_BEFORE_TOKEN))
@@ -49,7 +48,13 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         }
 
         List<GrantedAuthority> grantedAuthorities = new LinkedList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
+        if (user.getRole() == null) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("user"));
+            System.out.println("USER DOES NOT HAVE ROLE");
+        } else {
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
+        }
+
         return new JwtUserDetails(user, grantedAuthorities);
     }
 
