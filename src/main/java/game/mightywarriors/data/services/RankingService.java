@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -22,7 +23,7 @@ public class RankingService {
     }
 
     public void save(Collection<Ranking> rankings) {
-        rankings.stream().filter(x -> x != null).forEach(this::saveOperation);
+        rankings.stream().filter(Objects::nonNull).forEach(this::saveOperation);
     }
 
     private void saveOperation(Ranking ranking) {
