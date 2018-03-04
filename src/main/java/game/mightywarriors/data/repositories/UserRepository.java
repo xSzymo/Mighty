@@ -4,8 +4,10 @@ import game.mightywarriors.data.tables.AuthorizationCode;
 import game.mightywarriors.data.tables.Inventory;
 import game.mightywarriors.data.tables.Shop;
 import game.mightywarriors.data.tables.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -34,6 +36,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByInventory(Inventory inventory);
 
     User findByChampionsIdIn(Set<Long> ids);
+
+    @Modifying
+    @Query(value = "UPDATE User u SET u.login = :login WHERE u.id = :id")
+    void updateLogin(@Param("login")String login, @Param("id")long id);
 
     @Query(value = "SELECT u.codeToEnableAccount FROM User u")
     Set<String> findAllCodesToEnableAccount();

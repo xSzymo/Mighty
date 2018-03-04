@@ -1,5 +1,6 @@
 package game.mightywarriors.data.services;
 
+import game.mightywarriors.data.repositories.RankingRepository;
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
 import game.mightywarriors.data.tables.*;
@@ -34,6 +35,13 @@ public class UserService {
     private ItemDrawer itemDrawer;
     @Autowired
     private UserDungeonService userDungeonService;
+    @Autowired
+    private AdminService adminService;
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private RoleService roleService;
+
 
     public void save(User user) {
         if (user != null) {
@@ -162,6 +170,10 @@ public class UserService {
         deleteOperation(find(id));
     }
 
+    public void delete(String login) {
+        deleteOperation(find(login));
+    }
+
     public void delete(User user) {
         try {
             deleteOperation(user);
@@ -190,11 +202,36 @@ public class UserService {
             inventoryService.delete(user.getInventory());
         if (user.getDungeon() != null)
             userDungeonService.delete(user.getDungeon());
+        if (user.getChats() != null)
+            chatService.delete(user.getChats());
+        if (user.getRole() != null) {
+            Role role = roleService.find(user.getRole());
+            role.getUsers().remove(repository.findByLogin(user.getLogin()));
+            roleService.save(role);
+        }
 
+        messageService.find(user.getLogin()).forEach(messageService::delete);
+        adminService.find(user.getLogin()).forEach(adminService::delete);
         user.getChampions().forEach(championService::delete);
-        rankingService.delete(user.getLogin());
 
         repository.deleteById(user.getId());
+        rankingService.delete(user.getLogin());
+    }
+
+    public void changeNick(long userId, String newLogin) throws Exception {
+        User user = find(userId);
+        if (find(newLogin) != null)
+            throw new Exception("login already taken");
+
+        HashSet<Admin> admins = adminService.find(user.getLogin());
+        admins.forEach(admin -> admin.setLogin(newLogin));
+        adminService.save(admins);
+
+        LinkedList<Message> messages = messageService.find(user.getLogin());
+        messages.forEach(message -> message.setLogin(newLogin));
+        messageService.save(messages);
+
+        repository.updateLogin(newLogin, user.getId());
     }
 
     @Transactional
