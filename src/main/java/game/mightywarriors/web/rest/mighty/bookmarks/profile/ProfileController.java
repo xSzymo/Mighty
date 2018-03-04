@@ -4,7 +4,9 @@ import game.mightywarriors.configuration.system.variables.SystemVariablesManager
 import game.mightywarriors.other.enums.StatisticType;
 import game.mightywarriors.services.bookmarks.profile.ChampionPointsManager;
 import game.mightywarriors.services.bookmarks.profile.ItemManager;
+import game.mightywarriors.services.bookmarks.profile.ItemPlaceChanger;
 import game.mightywarriors.web.json.objects.bookmarks.ItemInformer;
+import game.mightywarriors.web.json.objects.bookmarks.PlaceChangerInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PlaceInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PointsInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class ProfileController {
     private ChampionPointsManager championPointsManager;
     @Autowired
     private ItemManager itemManager;
+    @Autowired
+    private ItemPlaceChanger itemPlaceChanger;
 
     @PostMapping("secure/profile/statistic")
     public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PointsInformer informer) throws Exception {
@@ -38,5 +42,10 @@ public class ProfileController {
     @PostMapping("secure/profile/inventoryToEquipment")
     public void moveInventoryToEquipmentItem(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
         itemManager.moveInventoryToEquipmentItem(authorization, informer.itemId, informer.championId);
+    }
+
+    @PostMapping("secure/profile/item/change/place")
+    public void changeItemPlace(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceChangerInformer informer) throws Exception {
+        itemPlaceChanger.changePlace(authorization, informer.oldPosition, informer.newPosition);
     }
 }
