@@ -12,6 +12,8 @@ import java.util.LinkedList;
 public interface MessageRepository extends CrudRepository<Message, Long> {
     Message findById(long id);
 
+    LinkedList<Message> findByLogin(String login);
+
     LinkedList<Message> findAll();
 
     void deleteById(Long id);

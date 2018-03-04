@@ -15,8 +15,6 @@ import java.util.List;
 public class MessageService {
     @Autowired
     private MessageRepository repository;
-    @Autowired
-    private ChatService chatService;
 
     public void save(Message message) {
         if (message != null)
@@ -34,6 +32,14 @@ public class MessageService {
     public Message find(long id) {
         try {
             return repository.findById(id);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public LinkedList<Message> find(String login) {
+        try {
+            return repository.findByLogin(login);
         } catch (NullPointerException e) {
             return null;
         }

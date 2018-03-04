@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -15,8 +16,6 @@ import java.util.Set;
 public class AdminService {
     @Autowired
     private AdminRepository repository;
-    @Autowired
-    private ChatService chatService;
 
     public void save(Admin admin) {
         if (admin != null)
@@ -34,6 +33,14 @@ public class AdminService {
     public Admin find(long id) {
         try {
             return repository.findById(id);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public HashSet<Admin> find(String login) {
+        try {
+            return repository.findByLogin(login);
         } catch (NullPointerException e) {
             return null;
         }
