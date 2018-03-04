@@ -124,7 +124,7 @@ public class ChampionPointsManagerTest_1 extends AuthorizationConfiguration {
 
     @Test
     public void addPoints_strength_three_time() throws Exception {
-        long armor = champion.getStatistic().getArmor();
+        long armor = champion.getStatistic().getStrength();
         user.setGold(new BigDecimal("1000"));
         userService.save(user);
 
