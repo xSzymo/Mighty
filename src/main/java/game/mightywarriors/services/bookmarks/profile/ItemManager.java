@@ -112,6 +112,8 @@ public class ItemManager {
             if (inventoryItem.get().getItem() != null) {
                 for (Champion champion : user.getChampions()) {
                     if (champion.getId().equals(championId)) {
+                        throwExceptionIf_ChampionHaveNotEnoughLevel(champion, item);
+
                         if (item.getItemType().getType().equals(ItemType.WEAPON.getType())) {
                             if (champion.getEquipment().getWeapon() != null)
                                 throw new Exception("Take off current item");
@@ -187,5 +189,10 @@ public class ItemManager {
             userService.save(user);
             inventoryItemService.delete(inventoryItem.get());
         }
+    }
+
+    private void throwExceptionIf_ChampionHaveNotEnoughLevel(Champion champion, Item item) throws Exception {
+        if (champion.getLevel() < item.getLevel())
+            throw new Exception("Champion have not enough level");
     }
 }
