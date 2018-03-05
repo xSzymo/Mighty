@@ -8,7 +8,6 @@ import game.mightywarriors.data.tables.InventoryItem;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.ItemType;
-import game.mightywarriors.services.bookmarks.profile.ItemManager;
 import game.mightywarriors.services.bookmarks.profile.ItemPlaceChanger;
 import game.mightywarriors.services.security.UsersRetriever;
 import org.junit.After;
@@ -16,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ItemPlaceChangerTest extends AuthorizationConfiguration {
     @Autowired

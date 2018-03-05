@@ -1,6 +1,5 @@
 package game.mightywarriors.data.services;
 
-import game.mightywarriors.data.repositories.RankingRepository;
 import game.mightywarriors.data.repositories.UserRepository;
 import game.mightywarriors.data.services.utilities.UserServiceUtility;
 import game.mightywarriors.data.tables.*;
