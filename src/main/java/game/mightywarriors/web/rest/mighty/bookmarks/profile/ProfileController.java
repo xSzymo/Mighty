@@ -31,7 +31,7 @@ public class ProfileController {
 
     @CrossOrigin
     @PatchMapping("statistics/{id}")
-    public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Statistic statistic, @RequestParam String id) throws Exception {
+    public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Statistic statistic, @PathVariable("id") String id) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
         Champion champ = championService.findByStatisticId(Long.parseLong(id));
         if (user.getChampions().stream().noneMatch(x -> x.getId().equals(champ.getId())))
