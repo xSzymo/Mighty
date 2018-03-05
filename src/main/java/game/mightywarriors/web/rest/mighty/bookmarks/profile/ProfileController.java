@@ -30,11 +30,11 @@ public class ProfileController {
     private UsersRetriever usersRetriever;
 
     @CrossOrigin
-    @PatchMapping("champions/{id}")
+    @PatchMapping("statistics/{id}")
     public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Statistic statistic, @RequestParam String id) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Champion champ = championService.findByStatisticId(statistic.getId());
-        if (user.getChampions().stream().noneMatch(x -> x.getId() == Long.parseLong(id)) || user.getChampions().stream().noneMatch(x -> x.getId().equals(champ.getId())))
+        Champion champ = championService.findByStatisticId(Long.parseLong(id));
+        if (user.getChampions().stream().noneMatch(x -> x.getId().equals(champ.getId())))
             throw new Exception("User have no access to this champion");
 
         if (statistic.getStrength() > champ.getStatistic().getStrength())
