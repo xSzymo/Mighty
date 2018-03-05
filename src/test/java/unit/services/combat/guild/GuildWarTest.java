@@ -47,7 +47,7 @@ public class GuildWarTest {
 
         assertEquals(6, fightResult.getWinner().getChampions().size());
         assertEquals(6, fightResult.getLooser().getChampions().size());
-        assertTrue(fightResult.getRounds().size() == 18 || fightResult.getRounds().size() == 20 || fightResult.getRounds().size() == 16 || fightResult.getRounds().size() == 15);
+        assertTrue(fightResult.getRounds().size() > 15 && fightResult.getRounds().size() < 25);
     }
 
     private User setUpUser1() throws Exception {
