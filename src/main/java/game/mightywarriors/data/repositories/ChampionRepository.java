@@ -12,5 +12,7 @@ public interface ChampionRepository extends CrudRepository<Champion, Long> {
 
     Champion findById(long id);
 
+    Champion findByStatisticId(long id);
+
     void deleteById(long id);
 }

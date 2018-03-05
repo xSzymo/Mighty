@@ -92,6 +92,14 @@ public class ChampionService {
         }
     }
 
+    public Champion findByStatisticId(long id) {
+        try {
+            return repository.findByStatisticId(id);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public HashSet<Champion> findAll() {
         return repository.findAll();
     }
