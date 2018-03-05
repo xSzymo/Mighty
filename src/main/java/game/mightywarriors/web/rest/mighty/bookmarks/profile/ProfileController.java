@@ -29,6 +29,7 @@ public class ProfileController {
     @Autowired
     private UsersRetriever usersRetriever;
 
+    @CrossOrigin
     @PatchMapping("champions/{id}")
     public void addPoints(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody Statistic statistic, @RequestParam String id) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
