@@ -132,6 +132,8 @@ public class RunAtStart {
             user.getMissions().add(missions.get(b++));
 
             user.setAccountEnabled(true);
+            user.setAccountNonLocked(true);
+            user.addGold(new BigDecimal("100"));
             users.add(user);
         }
         userService.save(users);
