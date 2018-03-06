@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 @Component
@@ -136,6 +137,12 @@ public class RunAtStart {
             user.addGold(new BigDecimal("100"));
             users.add(user);
         }
+        userService.save(users);
+
+        users = userService.findAll();
+        Iterator<User> iterator = users.iterator();
+        for (int i = 0; i < 4; i++)
+            iterator.next().getInventory().addItem(itemService.find(i));
         userService.save(users);
     }
 }
