@@ -2,7 +2,9 @@ package game.mightywarriors.web.rest.mighty.bookmarks.profile;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.services.InventoryItemService;
 import game.mightywarriors.data.tables.Champion;
+import game.mightywarriors.data.tables.InventoryItem;
 import game.mightywarriors.data.tables.Statistic;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.enums.StatisticType;
@@ -11,7 +13,6 @@ import game.mightywarriors.services.bookmarks.profile.ItemManager;
 import game.mightywarriors.services.bookmarks.profile.ItemPlaceChanger;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ItemInformer;
-import game.mightywarriors.web.json.objects.bookmarks.PlaceChangerInformer;
 import game.mightywarriors.web.json.objects.bookmarks.PlaceInformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,8 @@ public class ProfileController {
     private ChampionService championService;
     @Autowired
     private UsersRetriever usersRetriever;
+    @Autowired
+    private InventoryItemService inventoryItemService;
 
     @CrossOrigin
     @PatchMapping("statistics/{id}")
@@ -51,6 +54,16 @@ public class ProfileController {
             championPointsManager.addPoints(authorization, StatisticType.MAGIC_RESIST, champ.getId(), statistic.getMagicResist() - champ.getStatistic().getMagicResist());
     }
 
+    @CrossOrigin
+    @PatchMapping("inventoryItems/{id}")
+    public void changeItemPlace(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody InventoryItem inventoryItem, @PathVariable("id") String id) throws Exception {
+        User user = usersRetriever.retrieveUser(authorization);
+        if (user.getInventory().getItems().stream().noneMatch(x -> x.getId().equals(Long.parseLong(id))))
+            throw new Exception("User have no access to this item");
+
+        itemPlaceChanger.changePlace(authorization, inventoryItemService.find(Long.parseLong(id)).getPosition(), inventoryItem.getPosition());
+    }
+
     @PostMapping("secure/profile/equipmentToInventory")
     public void moveEquipmentItemToInventory(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody ItemInformer informer) throws Exception {
         itemManager.moveEquipmentItemToInventory(authorization, informer.itemId);
@@ -59,10 +72,5 @@ public class ProfileController {
     @PostMapping("secure/profile/inventoryToEquipment")
     public void moveInventoryToEquipmentItem(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceInformer informer) throws Exception {
         itemManager.moveInventoryToEquipmentItem(authorization, informer.itemId, informer.championId);
-    }
-
-    @PostMapping("secure/profile/item/change/place")
-    public void changeItemPlace(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody PlaceChangerInformer informer) throws Exception {
-        itemPlaceChanger.changePlace(authorization, informer.oldPosition, informer.newPosition);
     }
 }
