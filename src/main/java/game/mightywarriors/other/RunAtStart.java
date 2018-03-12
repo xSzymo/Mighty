@@ -52,7 +52,9 @@ public class RunAtStart {
         User user;
         Equipment equipment;
 
-        for (int a, i = 3; i < 15; i++) {
+        for (int a, b, i = 3; i < 15; i++) {
+            b = i;
+            i /= 2.5;
             itemService.save(new Item("weapon " + i, ItemType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
             itemService.save(new Item("weapon " + i, ItemType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
             itemService.save(new Item("weapon " + i, ItemType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
@@ -96,6 +98,8 @@ public class RunAtStart {
             items.addAll(myItems);
             shop.setItems(new HashSet<>(myItems));
             shops.add(shop);
+
+            i = b;
         }
 
         for (int i = 0; i < 12; i++) {
