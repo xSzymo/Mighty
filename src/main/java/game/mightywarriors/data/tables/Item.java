@@ -157,8 +157,9 @@ public class Item {
         return gold;
     }
 
-    public void setGold(BigDecimal gold) {
+    public Item setGold(BigDecimal gold) {
         this.gold = gold;
+	    return this;
     }
 
     public Timestamp getCreatedDate() {

@@ -53,31 +53,31 @@ public class RunAtStart {
         Equipment equipment;
 
         for (int a, i = 3; i < 15; i++) {
-            itemService.save(new Item("weapon " + i, ItemType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
-            itemService.save(new Item("weapon " + i, ItemType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1));
+            itemService.save(new Item("weapon " + i, ItemType.WEAPON, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.BOOTS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.BRACELET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.GLOVES, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.HELMET, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.LEGS, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.NECKLACE, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.OFFHAND, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.RING, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
+            itemService.save(new Item("weapon " + i, ItemType.ARMOR, new Statistic(i * i, i * i, i * i, i * i, i * i, i * i), 1).setGold(new BigDecimal("1")));
 
             myItems.clear();
             shop = new Shop();
             statistic = new Statistic(i * i, i * i, i * i, i * i, i * i, i * i);
 
-            myItems.add(new Item("name" + i, ItemType.WEAPON, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.ARMOR, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.BOOTS, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.BRACELET, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.GLOVES, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.HELMET, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.LEGS, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.NECKLACE, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.OFFHAND, statistic, i));
-            myItems.add(new Item("name" + i, ItemType.RING, statistic, i));
+            myItems.add(new Item("name" + i, ItemType.WEAPON, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.ARMOR, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.BOOTS, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.BRACELET, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.GLOVES, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.HELMET, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.LEGS, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.NECKLACE, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.OFFHAND, statistic, i).setGold(new BigDecimal("1")));
+            myItems.add(new Item("name" + i, ItemType.RING, statistic, i).setGold(new BigDecimal("1")));
 
             a = 0;
             equipment = new Equipment();
@@ -134,15 +134,19 @@ public class RunAtStart {
 
             user.setAccountEnabled(true);
             user.setAccountNonLocked(true);
-            user.addGold(new BigDecimal("100"));
+            user.addGold(new BigDecimal("10000"));
             users.add(user);
         }
         userService.save(users);
 
         users = userService.findAll();
         Iterator<User> iterator = users.iterator();
-        for (int i = 0; i < 4; i++)
-            iterator.next().getInventory().addItem(itemService.find(i));
+        for (int i = 0; i < 4; i++) {
+            User next = iterator.next();
+            next.getInventory().addItem(itemService.find(i));
+            next.getInventory().addItem(itemService.find(i + 1));
+            next.getInventory().addItem(itemService.find(i + 2));
+        }
         userService.save(users);
     }
 }
