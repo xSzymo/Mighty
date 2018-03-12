@@ -65,7 +65,7 @@ public final class SystemVariablesManager {
 
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
 
-    public static final int MAX_ITEMS_IN_INVENTORY = 16;
+    public static int MAX_ITEMS_IN_INVENTORY = 16;
 
     public static final int HOW_MANY_ITEMS_FOR_ONE_CHAMPION = 10;
     public static final int LAST_MESSAGES = 10;

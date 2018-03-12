@@ -75,7 +75,7 @@ public class UserService {
                 if (user.getMissions().size() < 3)
                     missionAssigner.assignNewMissionForUsers(user.getId());
 
-                if (user.getShop().getItems().size() < 10)
+                if (user.getShop().getItems().size() < 1)
                     itemDrawer.drawItemsForUser(user.getId());
             }
         }
@@ -93,6 +93,7 @@ public class UserService {
         try {
             return repository.findByLogin(login);
         } catch (NullPointerException e) {
+            e.printStackTrace();
             return null;
         }
     }
