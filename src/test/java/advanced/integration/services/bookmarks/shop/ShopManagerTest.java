@@ -1,6 +1,7 @@
 package advanced.integration.services.bookmarks.shop;
 
 import advanced.integration.config.AuthorizationConfiguration;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Item;
@@ -9,6 +10,7 @@ import game.mightywarriors.other.exceptions.NotEnoughGoldException;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ShopInformer;
 import game.mightywarriors.web.rest.mighty.bookmarks.shop.ShopController;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,13 @@ public class ShopManagerTest extends AuthorizationConfiguration {
     private Item item;
     private Item item1;
     private ShopInformer informer;
+    private static int last_max_items_in_inventory;
 
     @Before
     public void setUp() throws Exception {
+        last_max_items_in_inventory = SystemVariablesManager.MAX_ITEMS_IN_INVENTORY;
+        SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = 30;
+
         informer = new ShopInformer();
         user = usersRetriever.retrieveUser(token);
         item = user.getShop().getItems().iterator().next();
@@ -48,6 +54,11 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         item1.setGold(new BigDecimal("10"));
         itemService.save(item1);
         itemService.save(item);
+    }
+
+    @After
+    public void cleanUp() {
+        SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = last_max_items_in_inventory;
     }
 
     @Test
