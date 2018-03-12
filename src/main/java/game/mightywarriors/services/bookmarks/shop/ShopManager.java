@@ -1,8 +1,10 @@
 package game.mightywarriors.services.bookmarks.shop;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
+import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
+import game.mightywarriors.data.tables.Inventory;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotEnoughGoldException;
@@ -18,12 +20,14 @@ public class ShopManager {
     private UserService userService;
     private UsersRetriever usersRetriever;
     private ItemService itemService;
+    private InventoryService inventoryService;
 
     @Autowired
-    public ShopManager(UserService userService, UsersRetriever usersRetriever, ItemService itemService) {
+    public ShopManager(UserService userService, UsersRetriever usersRetriever, ItemService itemService, InventoryService inventoryService) {
         this.userService = userService;
         this.usersRetriever = usersRetriever;
         this.itemService = itemService;
+        this.inventoryService = inventoryService;
     }
 
     public void buyItem(String authorization, ShopInformer shopInformer) throws Exception {
@@ -33,8 +37,11 @@ public class ShopManager {
         throwExceptionIf_ShopDoesNotHaveSpecificItem(user, item);
         throwExceptionIf_UserHaveNotEnoughGold(user, item);
 
+        Inventory inventory = inventoryService.find(user.getInventory());
+        inventory.addItem(item);
+        inventoryService.save(inventory);
+
         user.subtractGold(item.getGold());
-        user.getInventory().addItem(item);
         user.getShop().getItems().remove(user.getShop().getItems().stream().filter(x -> x.getId().equals(item.getId())).findFirst().get());
 
         userService.save(user);
@@ -63,7 +70,7 @@ public class ShopManager {
     }
 
     private void throwExceptionIf_UserHaveNotSpecificItem(User user, Item item) throws Exception {
-        if (user.getInventory().getItems().stream().noneMatch(x ->  x.getItem().getId().equals(item.getId())))
+        if (user.getInventory().getItems().stream().noneMatch(x -> x.getItem().getId().equals(item.getId())))
             throw new Exception("Wrong item");
     }
 }
