@@ -88,9 +88,9 @@ public class TavernManagerTest extends AuthorizationConfiguration {
         setUpVariables();
 
         objectUnderTest.sendChampionOnMission(token, new TavernInformer(informer.missionId, informer.championId));
-
         checkAfterSendChampion(missionFightController.getMissionFights(token).get(0));
         FightResult fightResult = objectUnderTest.performFight(token, new MissionFightInformer(informer.missionFightId));
+
         checkAfterPerformFight(fightResult);
     }
 

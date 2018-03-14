@@ -114,6 +114,8 @@ public class FightPerformer {
             fightResult.setWinner(user);
             if (opponent instanceof User)
                 fightResult.setLooser((User) opponent);
+            if (opponent instanceof Collection<?>)
+                fightResult.getMonsters().addAll((LinkedList<Monster>) opponent);
         } else {
             endFight = true;
 
