@@ -41,6 +41,7 @@ public class DungeonManager {
         throwExceptionIf_DungeonIsNull(user.getDungeon());
         throwExceptionIf_UserHaveNotEnoughDungeonPoints(user);
         throwExceptionIf_AnyOfChampionsIsBlocked(user);
+        throwExceptionIf_UserIsInDungeon(user);
         dungeonHelper.throwExceptionIf_DungeonsFloorsAreNotSetProperly(user);
 
         dungeonUtility.prepareNewDungeonFight(user);
@@ -60,6 +61,11 @@ public class DungeonManager {
     private void throwExceptionIf_AnyOfChampionsIsBlocked(User user) throws BusyChampionException {
         if (fightHelper.isAnyOfChampionsBlocked(new HashSet<>(user.getChampions())))
             throw new BusyChampionException("Someone is already busy");
+    }
+
+    private void throwExceptionIf_UserIsInDungeon(User user) throws BusyChampionException {
+        if (dungeonFightService.findByUserId(user.getId()) != null)
+            throw new BusyChampionException("He is already in dungeon !");
     }
 
     private void throwExceptionIf_DungeonFightIsNull(DungeonFight dungeonFight) throws Exception {
