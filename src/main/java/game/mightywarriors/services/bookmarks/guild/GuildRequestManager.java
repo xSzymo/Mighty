@@ -37,6 +37,7 @@ public class GuildRequestManager {
         User user = usersRetriever.retrieveUser(authorization);
         Guild guild = helper.retrieveGuild(informer);
 
+        throwExceptionIf_GuildIsNotPresent(guild);
         throwExceptionIf_UserAlreadySentInvite(user, guild);
         throwExceptionIf_UserHaveNotEnoughLevel(user, guild);
         throwExceptionIf_UserIsAlreadyInGuild(user, guild);
@@ -113,5 +114,10 @@ public class GuildRequestManager {
     private void throwExceptionIf_UserIsNotPresent(User user) throws Exception {
         if (user == null)
             throw new Exception("User not found");
+    }
+
+    private void throwExceptionIf_GuildIsNotPresent(Guild guild) throws Exception {
+        if (guild == null)
+            throw new Exception("Guild not found");
     }
 }
