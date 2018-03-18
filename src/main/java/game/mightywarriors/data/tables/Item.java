@@ -113,8 +113,9 @@ public class Item {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Item setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public ItemType getItemType() {
@@ -145,8 +146,9 @@ public class Item {
         return level;
     }
 
-    public void setLevel(long level) {
+    public Item setLevel(long level) {
         this.level = level;
+        return this;
     }
 
     public BigDecimal getGold() {
