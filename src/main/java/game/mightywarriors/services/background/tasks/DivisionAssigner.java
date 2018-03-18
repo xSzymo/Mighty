@@ -50,7 +50,7 @@ public class DivisionAssigner {
         for (User user : users) {
             long level = user.getUserChampionHighestLevel();
 
-            if (level < 30)
+            if (level < SystemFightsVariablesManager.MIN_LEVEL_FOR_WOOD)
                 continue;
             double points = pointsForDivisionCounter.getPointsOfFighterPower(user);
 
