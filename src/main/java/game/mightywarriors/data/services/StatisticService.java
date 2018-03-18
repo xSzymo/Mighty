@@ -22,13 +22,26 @@ public class StatisticService {
     @Autowired
     private ItemService itemService;
 
-    public void save(Statistic image) {
-        if (image != null)
-            repository.save(image);
+    public void save(Statistic statistic) {
+        if (statistic != null) {
+            if (statistic.getArmor() == 0)
+                statistic.setArmor(1);
+            if (statistic.getCriticalChance() == 0)
+                statistic.setCriticalChance(1);
+            if (statistic.getIntelligence() == 0)
+                statistic.setIntelligence(1);
+            if (statistic.getMagicResist() == 0)
+                statistic.setMagicResist(1);
+            if (statistic.getStrength() == 0)
+                statistic.setStrength(1);
+            if (statistic.getVitality() == 0)
+                statistic.setVitality(1);
+            repository.save(statistic);
+        }
     }
 
-    public void save(Set<Statistic> images) {
-        images.forEach(
+    public void save(Set<Statistic> statistics) {
+        statistics.forEach(
                 x -> {
                     if (x != null)
                         repository.save(x);
@@ -43,9 +56,9 @@ public class StatisticService {
         }
     }
 
-    public Statistic find(Statistic image) {
+    public Statistic find(Statistic statistic) {
         try {
-            return find(image.getId());
+            return find(statistic.getId());
         } catch (NullPointerException e) {
             return null;
         }
@@ -61,17 +74,17 @@ public class StatisticService {
     }
 
     @Deprecated
-    public void delete(Statistic image) {
+    public void delete(Statistic statistic) {
         try {
-            deleteOperation(image);
+            deleteOperation(statistic);
         } catch (NullPointerException e) {
 
         }
     }
 
     @Deprecated
-    public void delete(Collection<Statistic> addresses) {
-        addresses.forEach(
+    public void delete(Collection<Statistic> statistics) {
+        statistics.forEach(
                 x -> {
                     if (x != null)
                         deleteOperation(x);
