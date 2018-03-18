@@ -87,6 +87,7 @@ public class User {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Set<Mission> missions = new MissionCollection();
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "user_chats",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -360,6 +361,7 @@ public class User {
         this.division = division;
     }
 
+    @JsonIgnore
     public Set<Chat> getChats() {
         return chats;
     }
