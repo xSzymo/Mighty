@@ -3,11 +3,9 @@ package game.mightywarriors.services.bookmarks.dungeon;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.DungeonFightService;
 import game.mightywarriors.data.services.DungeonService;
+import game.mightywarriors.data.services.InventoryService;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.data.tables.Dungeon;
-import game.mightywarriors.data.tables.DungeonFight;
-import game.mightywarriors.data.tables.Floor;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.bookmarks.utilities.DungeonHelper;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +20,17 @@ public class DungeonUtility {
     private DungeonFightService dungeonFightService;
     private DungeonService dungeonService;
     private DungeonHelper dungeonHelper;
+    private InventoryService inventoryService;
 
     private static final int ONE_SECOND = 1000;
 
     @Autowired
-    public DungeonUtility(DungeonFightService dungeonFightService, DungeonHelper dungeonHelper, UserService userService, DungeonService dungeonService) {
+    public DungeonUtility(DungeonFightService dungeonFightService, DungeonHelper dungeonHelper, UserService userService, DungeonService dungeonService, InventoryService inventoryService) {
         this.dungeonFightService = dungeonFightService;
         this.dungeonHelper = dungeonHelper;
         this.dungeonService = dungeonService;
         this.userService = userService;
+        this.inventoryService = inventoryService;
     }
 
     public void prepareNewDungeonFight(User user) throws Exception {
@@ -53,7 +53,10 @@ public class DungeonUtility {
         if (wonFight) {
             long missionExperience = floor.getExperience();
             BigDecimal missionGold = floor.getGold();
-            user.getInventory().addItem(floor.getItem());
+
+            Inventory inventory = inventoryService.find(user.getInventory());
+            inventory.addItem(floor.getItem());
+            inventoryService.save(inventory);
 
             long exp = missionExperience / user.getChampions().size();
             user.getChampions().forEach(x -> x.addExperience(exp));
