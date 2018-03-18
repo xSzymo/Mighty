@@ -37,9 +37,10 @@ public class MissionFightChecker {
         User user = usersRetriever.retrieveUser(authorization);
         MissionFight fight = missionFightService.find(informer.missionFightId);
 
+        throwExceptionIf_MissionFightIsNotPresent(fight, informer.missionFightId);
         throwExceptionIf_UserHaveNotSpecificMissionFight(user, fight);
 
-        return (fight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
+        return (fight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime())) / ONE_SECOND;
     }
 
     private void throwExceptionIf_UserHaveNotSpecificMissionFight(User user, MissionFight fight) throws Exception {
@@ -47,4 +48,8 @@ public class MissionFightChecker {
             throw new Exception("Something went wrong");
     }
 
+    private void throwExceptionIf_MissionFightIsNotPresent(MissionFight missionFight, long id) throws Exception {
+        if(missionFight == null)
+            throw new Exception("Mission fight not found id : " + id);
+    }
 }

@@ -45,6 +45,6 @@ public class DungeonManagerController {
         if (dungeonFight == null)
             throw new Exception("User is not in dungeon");
 
-        return (dungeonFight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime()) / ONE_SECOND);
+        return ((dungeonFight.getBlockUntil().getTime() - (new Timestamp(System.currentTimeMillis()).getTime())) / ONE_SECOND);
     }
 }
