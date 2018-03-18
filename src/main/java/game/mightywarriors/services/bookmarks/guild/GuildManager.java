@@ -3,10 +3,7 @@ package game.mightywarriors.services.bookmarks.guild;
 import game.mightywarriors.data.services.GuildService;
 import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
-import game.mightywarriors.data.tables.Admin;
-import game.mightywarriors.data.tables.Chat;
-import game.mightywarriors.data.tables.Guild;
-import game.mightywarriors.data.tables.User;
+import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ChatRole;
 import game.mightywarriors.other.enums.GuildRole;
 import game.mightywarriors.other.exceptions.NoAccessException;
@@ -37,12 +34,17 @@ public class GuildManager {
         throwExceptionIf_GuildNameIsNotPresent(informer);
         throwExceptionIf_GuildNameAlreadyExist(informer);
 
+        Role role = roleService.find(GuildRole.OWNER.getRole());
+        role.getUsers().add(user);
+        roleService.save(role);
+
         Chat chat = createChat(user);
         Guild guild = createGuild(user, informer, chat);
+        guildService.save(guild);
 
+        user.setRole(roleService.find(role));
         user.setGuild(guild);
         user.addChat(chat);
-        user.setRole(roleService.find(GuildRole.OWNER.getRole()));
         userService.save(user);
     }
 
