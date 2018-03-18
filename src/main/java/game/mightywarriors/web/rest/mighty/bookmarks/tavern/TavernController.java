@@ -9,10 +9,7 @@ import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
 import game.mightywarriors.web.json.objects.bookmarks.TavernInformer;
 import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TavernController {
@@ -47,7 +44,7 @@ public class TavernController {
         buyer.buyChampion(authorization);
     }
 
-    @PostMapping("secure/tavern/champion/buy/information")
+    @GetMapping("secure/tavern/champion/buy/information")
     public ChampionBuyInformer getInformationForBuyChampion(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization) throws Exception {
 
         return buyer.getInformationForBuyChampion(authorization);
