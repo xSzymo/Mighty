@@ -93,7 +93,7 @@ public class ArenaManager {
 
     private void check(User user, User opponent, Set<Champion> champions) throws Exception {
         if (opponent == null)
-            throw new NotProperlyChampionsException("Wrong champions id");
+            throw new NotProperlyChampionsException("Wrong user id");
         if (rankingService.find(user.getLogin()).getRanking() < rankingService.find(opponent.getLogin()).getRanking())
             throw new IllegalFightException("User can't fight with user below his ranking");
         if (user.getArenaPoints() < 1)
