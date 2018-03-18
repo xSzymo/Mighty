@@ -2,6 +2,7 @@ package game.mightywarriors.services.bookmarks.guild;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.GuildService;
+import game.mightywarriors.data.services.RequestService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Guild;
 import game.mightywarriors.data.tables.Request;
@@ -21,13 +22,15 @@ public class GuildRequestManager {
     private GuildService guildService;
     private UserService userService;
     private GuildHelper helper;
+    private RequestService requestService;
 
     @Autowired
-    public GuildRequestManager(UsersRetriever usersRetriever, GuildService guildService, UserService userService, GuildHelper guildHelper) {
+    public GuildRequestManager(UsersRetriever usersRetriever, GuildService guildService, UserService userService, GuildHelper guildHelper, RequestService requestService) {
         this.usersRetriever = usersRetriever;
         this.userService = userService;
         this.helper = guildHelper;
         this.guildService = guildService;
+        this.requestService = requestService;
     }
 
     public void sendRequest(String authorization, GuildRequestInformer informer) throws Exception {
@@ -58,9 +61,11 @@ public class GuildRequestManager {
         invitedUser.setGuild(guild);
         invitedUser.getChats().add(user.getGuild().getChat());
         guild.addUser(invitedUser);
-        guild.getInvites().remove(guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(invitedUser.getLogin())).findFirst().get());
+        Request request = guild.getInvites().stream().filter(x -> x.getUser().getLogin().equals(invitedUser.getLogin())).findFirst().get();
+        guild.getInvites().remove(request);
 
         userService.save(invitedUser);
+        requestService.delete(request);
     }
 
     public void deleteRequest(String authorization, AcceptGuildRequestInformer informer) throws Exception {
@@ -72,6 +77,7 @@ public class GuildRequestManager {
         Guild guild = user.getGuild();
         guild.getInvites().remove(request);
         guildService.save(guild);
+        requestService.delete(request);
     }
 
     private void throwExceptionIf_GuildHaveAlreadyMaxUsers(User user) throws Exception {
