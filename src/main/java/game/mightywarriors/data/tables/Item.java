@@ -31,7 +31,7 @@ public class Item {
     private BigDecimal gold = new BigDecimal("0");
 
     @NotFound(action = NotFoundAction.IGNORE)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Statistic statistic;
 
     @NotFound(action = NotFoundAction.IGNORE)
