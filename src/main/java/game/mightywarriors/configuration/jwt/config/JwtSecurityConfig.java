@@ -42,14 +42,12 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/secure/**").hasAnyAuthority("admin", "user").and()
+                .authorizeRequests().antMatchers("/secure/**").fullyAuthenticated().and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .headers().cacheControl();
-
     }
 }
