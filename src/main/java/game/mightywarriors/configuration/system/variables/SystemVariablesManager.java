@@ -23,10 +23,10 @@ public final class SystemVariablesManager {
     public static final String NAME_OF_JWT_HEADER_TOKEN = "authorization";
     public static final String NAME_OF_SECRET_WORD_BEFORE_TOKEN = "Bearer ";
 
-    public static final String EMAIL_HOST = "smtp.gmail.com";
+    public static final String EMAIL_HOST = "mail.poczta.pl";
     public static final int EMAIL_PORT = 587;
-    public static final String EMAIL_USERNAME = "MightyWarriorsGame@gmail.com";
-    public static final String EMAIL_PASSWORD = "Admin1234";
+    public static final String EMAIL_USERNAME = "mighty@poczta.pl";
+    public static final String EMAIL_PASSWORD = "Admin123";
     public static final String EMAIL_TRANSPORT_PROTOCOL = "smtp";
     public static final String EMAIL_SMTP_AUTH = "true";
     public static final String EMAIL_SMTP_START_TLS_ENABLE = "true";
