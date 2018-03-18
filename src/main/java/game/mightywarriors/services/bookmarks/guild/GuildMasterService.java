@@ -55,8 +55,8 @@ public class GuildMasterService {
 
         throwExceptionIf_GuildIsNotPresent(user);
         throwExceptionIf_UserIsNotGuildOwner(user);
-        throwExceptionIf_MemberToRemoveIsOwner(memberToRemove);
         throwExceptionIf_UserIsNotPresent(memberToRemove);
+        throwExceptionIf_MemberToRemoveIsOwner(memberToRemove);
         throwExceptionIf_UserIsNotPartOfGuild(user.getGuild(), memberToRemove);
 
         memberToRemove.setRole(roleService.find("user"));
