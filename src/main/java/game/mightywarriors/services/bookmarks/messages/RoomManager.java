@@ -34,7 +34,7 @@ public class RoomManager {
         User user = retriever.retrieveUser(authorization);
         User friend = helper.getUserFromInformer(informer);
 
-        throwExceptionIf_UserIsNotPresent(user);
+        throwExceptionIf_UserIsNotPresent(friend);
 
         Chat chat = createNewChatForUsers(user, friend);
         return chat.getId();
