@@ -21,7 +21,6 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-
 public class ShopManagerTest extends AuthorizationConfiguration {
     @Autowired
     private ShopController objectUnderTest;
@@ -36,7 +35,6 @@ public class ShopManagerTest extends AuthorizationConfiguration {
     private Item item;
     private Item item1;
     private ShopInformer informer;
-    private static int last_max_items_in_inventory;
 
     private static int last_max_items_in_inventory;
 
@@ -65,11 +63,6 @@ public class ShopManagerTest extends AuthorizationConfiguration {
         item1.setGold(new BigDecimal("10"));
         itemService.save(item1);
         itemService.save(item);
-    }
-
-    @After
-    public void cleanUp() {
-        SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = last_max_items_in_inventory;
     }
 
     @Test
