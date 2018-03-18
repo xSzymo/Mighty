@@ -105,7 +105,7 @@ public class ItemManager {
 
     public void moveInventoryToEquipmentItem(String authorization, long itemId, long championId) throws Exception {
         User user = usersRetriever.retrieveUser(authorization);
-        Optional<InventoryItem> inventoryItem = user.getInventory().getItems().stream().filter(x -> x.getItem().getId().equals(itemId)).findFirst();
+        Optional<InventoryItem> inventoryItem = user.getInventory().getItems().stream().filter(x -> x.getItem() != null && x.getItem().getId().equals(itemId)).findFirst();
 
         if (inventoryItem.isPresent()) {
             Item item = inventoryItem.get().getItem();
