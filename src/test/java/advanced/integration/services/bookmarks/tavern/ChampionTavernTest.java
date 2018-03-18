@@ -40,7 +40,7 @@ public class ChampionTavernTest extends AuthorizationConfiguration {
 
     @Test
     public void runFirst() throws Exception {
-        check(10, 0);
+        check(1, 0);
 
         run(SystemVariablesManager.MINIMUM_GOLD_FOR_FIRST_CHAMPION);
         check(300, 5);
@@ -48,7 +48,7 @@ public class ChampionTavernTest extends AuthorizationConfiguration {
 
     @Test
     public void runFirst1() throws Exception {
-        check(10, 0);
+        check(1, 0);
 
         run(SystemVariablesManager.MINIMUM_GOLD_FOR_FIRST_CHAMPION);
         check(300, 5);
@@ -61,7 +61,7 @@ public class ChampionTavernTest extends AuthorizationConfiguration {
 
     @Test
     public void runFirst2() throws Exception {
-        check(10, 0);
+        check(1, 0);
 
         run(SystemVariablesManager.MINIMUM_GOLD_FOR_FIRST_CHAMPION);
         check(300, 5);
@@ -78,7 +78,7 @@ public class ChampionTavernTest extends AuthorizationConfiguration {
 
     @Test
     public void runFirst3() throws Exception {
-        check(10, 0);
+        check(1, 0);
 
         run(SystemVariablesManager.MINIMUM_GOLD_FOR_FIRST_CHAMPION);
         check(300, 5);

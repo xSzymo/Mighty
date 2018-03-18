@@ -12,7 +12,7 @@ public final class SystemVariablesManager {
     /**
      * check also ChampionTavern class and checkCanBuyChampion method which defines when user can buy champion
      */
-    public static final long MINIMUM_GOLD_FOR_FIRST_CHAMPION = 10;
+    public static final long MINIMUM_GOLD_FOR_FIRST_CHAMPION = 1;
     public static final long MINIMUM_GOLD_FOR_SECOND_CHAMPION = 300;
     public static final long MINIMUM_GOLD_FOR_THIRD_CHAMPION = 1000;
     public static final long MINIMUM_LEVEL_FOR_FIRST_CHAMPION = 0;
@@ -64,6 +64,8 @@ public final class SystemVariablesManager {
     public static final String INFORMATION_OF_DELETED_MESSAGE = "Message was deleted";
 
     public static LinkedList<String> JWTTokenCollection = new LinkedList<>();
+
+    public static boolean ADD_SAMPLE_DUNGEONS = true;
 
     public static int MAX_ITEMS_IN_INVENTORY = 16;
 

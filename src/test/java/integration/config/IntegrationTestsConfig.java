@@ -40,6 +40,10 @@ public abstract class IntegrationTestsConfig {
     private static UserDungeonService userDungeonService;
     private static boolean run = true;
 
+    static {
+        SystemVariablesManager.ADD_SAMPLE_DUNGEONS = false;
+    }
+
     @BeforeClass
     public static void setUpBefore() {
         SystemVariablesManager.JWTTokenCollection.clear();

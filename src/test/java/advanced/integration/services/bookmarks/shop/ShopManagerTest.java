@@ -38,6 +38,17 @@ public class ShopManagerTest extends AuthorizationConfiguration {
     private ShopInformer informer;
     private static int last_max_items_in_inventory;
 
+    private static int last_max_items_in_inventory;
+
+    @After
+    public void cleanUp() {
+        try {
+            SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = last_max_items_in_inventory;
+            userService.delete("justForTest");
+        } catch (Exception e) {
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
         last_max_items_in_inventory = SystemVariablesManager.MAX_ITEMS_IN_INVENTORY;
