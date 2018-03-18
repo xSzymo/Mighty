@@ -39,6 +39,7 @@ public class PrivilegesManager {
         throwExceptionIf_UserHaveNotAccessToChat(user, chat);
         throwExceptionIf_UserHaveNotAccessToChat(userToAddPrivileges, chat);
         throwExceptionIf_UserIsNotOwnerOfChat(user, chat);
+        throwExceptionIf_UserAlreadyHaveRole(userToAddPrivileges, chat);
 
         chat.getAdmins().add(new Admin((informer.admin ? ChatRole.ADMIN : ChatRole.MODIFIER), userToAddPrivileges.getLogin()));
         chatService.save(chat);
@@ -88,6 +89,11 @@ public class PrivilegesManager {
     private void throwExceptionIf_UserIsNotOwnerOfChat(User user, Chat chat) throws Exception {
         if (chat.getAdmins().stream().noneMatch(x -> x.getLogin().equals(user.getLogin()) && x.getChatRole().getRole().equals(ChatRole.OWNER.getRole())))
             throw new NoAccessException("You haven't permission");
+    }
+
+    private void throwExceptionIf_UserAlreadyHaveRole(User user, Chat chat) throws Exception {
+        if (chat.getAdmins().stream().anyMatch(x -> x.getLogin().equals(user.getLogin())))
+            throw new Exception("You already have role !");
     }
 
     private void throwExceptionIf_UserIsOwnerOfRoom(Admin admin) throws Exception {

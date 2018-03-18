@@ -16,6 +16,9 @@ public class PrivilegesInformer {
      */
     public boolean admin;
 
+    public PrivilegesInformer() {
+    }
+
     public PrivilegesInformer(long userId, String userLogin, long chatId, boolean admin) {
         this.userId = userId;
         this.userLogin = userLogin;
