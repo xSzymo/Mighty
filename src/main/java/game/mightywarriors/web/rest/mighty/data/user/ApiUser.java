@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-public class UserApiController {
+public class ApiUser {
     @Autowired
     private PointsInFightCounter pointsInFightCounter;
     @Autowired

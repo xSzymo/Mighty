@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 
-
 @RestController
-public class TimeController {
+public class ApiTime {
 
     @GetMapping("time")
     public Timer getServerTime() {

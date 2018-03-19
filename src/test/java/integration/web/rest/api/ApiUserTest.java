@@ -3,7 +3,7 @@ package integration.web.rest.api;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
-import game.mightywarriors.web.rest.mighty.data.user.UserApiController;
+import game.mightywarriors.web.rest.mighty.data.user.ApiUser;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +14,9 @@ import java.util.Set;
 import static junit.framework.TestCase.assertEquals;
 
 
-public class UserApiControllerTest extends IntegrationTestsConfig {
+public class ApiUserTest extends IntegrationTestsConfig {
     @Autowired
-    private UserApiController userApiController;
+    private ApiUser apiUser;
     @Autowired
     private UserService userService;
 
@@ -34,20 +34,20 @@ public class UserApiControllerTest extends IntegrationTestsConfig {
 
     @Test
     public void getUserWithValidStatistics_test() {
-        User userWithValidStatistics = userApiController.getUserWithValidStatistics(String.valueOf(id));
+        User userWithValidStatistics = apiUser.getUserWithValidStatistics(String.valueOf(id));
         assertEquals(1, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
 
-        userWithValidStatistics = userApiController.getUser(String.valueOf(id));
+        userWithValidStatistics = apiUser.getUser(String.valueOf(id));
         assertEquals(3, userWithValidStatistics.getChampions().iterator().next().getStatistic().getVitality());
     }
 
     @Test
     public void getUsersWithValidStatistics_test() {
-        Set<User> usersWithValidStatistics = userApiController.getUsersWithValidStatistics();
+        Set<User> usersWithValidStatistics = apiUser.getUsersWithValidStatistics();
         assertEquals(1, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
         assertEquals(1, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
 
-        usersWithValidStatistics = userApiController.getUsers();
+        usersWithValidStatistics = apiUser.getUsers();
         assertEquals(3, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
         assertEquals(3, usersWithValidStatistics.stream().filter(x -> x.getLogin().equals(login1)).findFirst().get().getChampions().iterator().next().getStatistic().getVitality());
     }

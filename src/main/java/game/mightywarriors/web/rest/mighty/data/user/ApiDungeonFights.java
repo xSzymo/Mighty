@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DungeonFightsController {
+public class ApiDungeonFights {
     @Autowired
     private UsersRetriever usersRetriever;
     @Autowired

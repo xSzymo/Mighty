@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 
 @RestController
-public class DivisionsApiController {
+public class ApiDivisions {
     @Autowired
     private DivisionService service;
 

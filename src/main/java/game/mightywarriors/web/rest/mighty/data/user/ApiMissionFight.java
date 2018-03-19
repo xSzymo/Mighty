@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class MissionFightController {
+public class ApiMissionFight {
     @Autowired
     private MissionFightService service;
     @Autowired

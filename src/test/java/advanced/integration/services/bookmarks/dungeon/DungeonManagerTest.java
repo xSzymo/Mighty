@@ -7,7 +7,7 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.services.bookmarks.dungeon.DungeonManager;
 import game.mightywarriors.web.json.objects.fights.FightResult;
-import game.mightywarriors.web.rest.mighty.data.user.DungeonController;
+import game.mightywarriors.web.rest.mighty.data.user.ApiDungeon;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class DungeonManagerTest extends AuthorizationConfiguration {
     @Autowired
     private ChampionService championService;
     @Autowired
-    private DungeonController dungeonController;
+    private ApiDungeon apiDungeon;
     @Autowired
     private DungeonFightService dungeonFightService;
 
@@ -114,7 +114,7 @@ public class DungeonManagerTest extends AuthorizationConfiguration {
 
     private void setUpVariables() throws Exception {
         Champion champion = user.getChampions().stream().findFirst().get();
-        floor = dungeonController.getCurrentFloor(token);
+        floor = apiDungeon.getCurrentFloor(token);
         dungeonNumber = user.getDungeon().getDungeon().getStage();
 
         userGold = user.getGold().intValue();

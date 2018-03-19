@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @RestController
-public class InventoryItemApiController {
+public class ApiInventoryItem {
     @Autowired
     private InventoryItemService inventoryItemService;
     @Autowired

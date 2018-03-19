@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController("guildDataController")
-public class GuildController {
+public class ApiGuild {
     @Autowired
     private GuildService guildService;
     @Autowired

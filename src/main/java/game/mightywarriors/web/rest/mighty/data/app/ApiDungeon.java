@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 
 @RestController("dungeonsController")
-public class DungeonController {
+public class ApiDungeon {
     @Autowired
     private DungeonService dungeonService;
 

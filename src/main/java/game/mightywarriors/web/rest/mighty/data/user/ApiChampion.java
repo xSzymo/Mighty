@@ -1,8 +1,8 @@
-package game.mightywarriors.web.rest.mighty.data.app;
+package game.mightywarriors.web.rest.mighty.data.user;
 
 
-import game.mightywarriors.data.services.ItemService;
-import game.mightywarriors.data.tables.Item;
+import game.mightywarriors.data.services.ChampionService;
+import game.mightywarriors.data.tables.Champion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-public class ItemsApiController {
+public class ApiChampion {
     @Autowired
-    private ItemService service;
+    private ChampionService service;
 
-    @GetMapping("items")
-    public Set<Item> getItems() {
+    @GetMapping("champions")
+    public Set<Champion> getChampions() {
         return service.findAll();
     }
 
-    @GetMapping("items/{id}")
-    public Item getItem(@PathVariable("id") String id) {
+    @GetMapping("champions/{id}")
+    public Champion getChampion(@PathVariable("id") String id) {
         return service.find(Long.parseLong(id));
     }
 }

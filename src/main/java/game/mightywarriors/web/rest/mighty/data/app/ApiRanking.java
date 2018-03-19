@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-public class RankingController {
+public class ApiRanking {
     @Autowired
     private RankingService service;
 
