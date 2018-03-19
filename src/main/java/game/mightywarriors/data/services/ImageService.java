@@ -114,10 +114,10 @@ public class ImageService {
         try {
             itemService.findAll().forEach(
                     x -> {
-                        if (x.getImageLight() != null) {
-                            if (x.getImageLight().getId().equals(image.getId())) {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
                                 System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM ITEM");
-                                x.setImageLight(null);
+                                x.setImage(null);
                                 itemService.save(x);
                             }
                         }
@@ -125,10 +125,10 @@ public class ImageService {
             );
             monsterService.findAll().forEach(
                     x -> {
-                        if (x.getImageLight() != null) {
-                            if (x.getImageLight().getId().equals(image.getId())) {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
                                 System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM MONSTER");
-                                x.setImageLight(null);
+                                x.setImage(null);
                                 monsterService.save(x);
                             }
                         }
@@ -136,10 +136,10 @@ public class ImageService {
             );
             championService.findAll().forEach(
                     x -> {
-                        if (x.getImageLight() != null) {
-                            if (x.getImageLight().getId().equals(image.getId())) {
+                        if (x.getImage() != null) {
+                            if (x.getImage().getId().equals(image.getId())) {
                                 System.out.println("YOU SHOULD NOT DELETE STATISTIC FROM CHAMPION");
-                                x.setImageLight(null);
+                                x.setImage(null);
                                 championService.save(x);
                             }
                         }

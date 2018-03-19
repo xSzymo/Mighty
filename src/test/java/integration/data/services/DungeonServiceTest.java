@@ -150,7 +150,7 @@ public class DungeonServiceTest extends IntegrationTestsConfig {
         assertNotNull(objectUnderTest.find(dungeon));
 
         dungeon.getFloors().forEach(x -> assertNotNull(floorService.find(x)));
-        assertNotNull(imageService.find(dungeon.getImageLight()));
+        assertNotNull(imageService.find(dungeon.getImage()));
     }
 
     private void checkerNulls(Dungeon dungeon) {

@@ -19,10 +19,8 @@ public class Floor {
 
     @Column(name = "experience")
     private long experience = 1;
-    @Column(name = "descriptionLight")
-    private String descriptionLight;
-    @Column(name = "descriptionDark")
-    private String descriptionDark;
+    @Column(name = "description")
+    private String description;
     @Column(name = "time_duration")
     private long duration;
     @Column(name = "floor")
@@ -41,17 +39,14 @@ public class Floor {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageLight;
+    private Image image;
 
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageDark;
 
     public Floor() {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Floor(long experience, long duration, int floor, BigDecimal gold, Set<Monster> monster, Item item, Image imageLight) {
+    public Floor(long experience, long duration, int floor, BigDecimal gold, Set<Monster> monster, Item item, Image image) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
         this.duration = duration;
@@ -59,7 +54,7 @@ public class Floor {
         this.gold = gold;
         this.monsters = monster;
         this.item = item;
-        this.imageLight = imageLight;
+        this.image = image;
     }
 
     public Long getId() {
@@ -74,12 +69,12 @@ public class Floor {
         this.experience = experience;
     }
 
-    public String getDescriptionLight() {
-        return descriptionLight;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionLight(String descriptionLight) {
-        this.descriptionLight = descriptionLight;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getGold() {
@@ -107,26 +102,26 @@ public class Floor {
         return experience == mission.experience &&
                 duration == mission.duration &&
                 Objects.equals(id, mission.id) &&
-                Objects.equals(descriptionLight, mission.descriptionLight) &&
+                Objects.equals(description, mission.description) &&
                 Objects.equals(gold, mission.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, experience, descriptionLight, duration, gold);
+        return Objects.hash(id, experience, description, duration, gold);
     }
 
     public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public Image getImageLight() {
-        return imageLight;
+    public Image getImage() {
+        return image;
     }
 
-    public Floor setImageLight(Image imageLight) {
-        this.imageLight = imageLight;
+    public Floor setImage(Image image) {
+        this.image = image;
         return this;
     }
 
@@ -152,21 +147,5 @@ public class Floor {
 
     public void setFloor(int floor) {
         this.floor = floor;
-    }
-
-    public Image getImageDark() {
-        return imageDark;
-    }
-
-    public void setImageDark(Image imageDark) {
-        this.imageDark = imageDark;
-    }
-
-    public String getDescriptionDark() {
-        return descriptionDark;
-    }
-
-    public void setDescriptionDark(String descriptionDark) {
-        this.descriptionDark = descriptionDark;
     }
 }

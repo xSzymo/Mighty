@@ -26,21 +26,17 @@ public class Monster implements IFighter {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageLight;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageDark;
+    private Image image;
 
     public Monster() {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.level = 1;
     }
 
-    public Monster(Statistic statistic, Image imageLight) {
+    public Monster(Statistic statistic, Image image) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.statistic = statistic;
-        this.imageLight = imageLight;
+        this.image = image;
         this.level = 1;
     }
 
@@ -50,12 +46,12 @@ public class Monster implements IFighter {
         this.level = 1;
     }
 
-    public Image getImageLight() {
-        return imageLight;
+    public Image getImage() {
+        return image;
     }
 
-    public Monster setImageLight(Image imageLight) {
-        this.imageLight = imageLight;
+    public Monster setImage(Image image) {
+        this.image = image;
         return this;
     }
 
@@ -84,13 +80,5 @@ public class Monster implements IFighter {
 
     public Timestamp getCreatedDate() {
         return createdDate;
-    }
-
-    public Image getImageDark() {
-        return imageDark;
-    }
-
-    public void setImageDark(Image imageDark) {
-        this.imageDark = imageDark;
     }
 }

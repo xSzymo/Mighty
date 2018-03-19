@@ -232,7 +232,7 @@ public class ChampionServiceTest extends IntegrationTestsConfig {
         Statistic statistic = new Statistic();
         Image image = new Image();
         champion.setStatistic(statistic);
-        champion.setImageLight(image);
+        champion.setImage(image);
 
         objectUnderTest.save(champion);
 

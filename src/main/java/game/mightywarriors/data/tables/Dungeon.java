@@ -26,11 +26,7 @@ public class Dungeon {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageLight;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageDark;
+    private Image image;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "dungeon_id", referencedColumnName = "id")
@@ -40,10 +36,10 @@ public class Dungeon {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Dungeon(String name, int stage, Image imageLight, Set<Floor> floors) {
+    public Dungeon(String name, int stage, Image image, Set<Floor> floors) {
         this.name = name;
         this.stage = stage;
-        this.imageLight = imageLight;
+        this.image = image;
         this.floors = floors;
     }
 
@@ -54,13 +50,13 @@ public class Dungeon {
         Dungeon dungeon = (Dungeon) o;
         return stage == dungeon.stage &&
                 Objects.equals(name, dungeon.name) &&
-                Objects.equals(imageLight, dungeon.imageLight);
+                Objects.equals(image, dungeon.image);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, stage, imageLight);
+        return Objects.hash(name, stage, image);
     }
 
     public Long getId() {
@@ -87,12 +83,12 @@ public class Dungeon {
         this.floors = floors;
     }
 
-    public Image getImageLight() {
-        return imageLight;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImageLight(Image imageLight) {
-        this.imageLight = imageLight;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -109,13 +105,5 @@ public class Dungeon {
 
     public void setStage(int stage) {
         this.stage = stage;
-    }
-
-    public Image getImageDark() {
-        return imageDark;
-    }
-
-    public void setImageDark(Image imageDark) {
-        this.imageDark = imageDark;
     }
 }

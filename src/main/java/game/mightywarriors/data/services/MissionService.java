@@ -38,9 +38,9 @@ public class MissionService {
     private void saveOperation(Mission mission) {
         if (mission.getMonster() != null)
             monsterService.save(mission.getMonster());
-        if (mission.getImageLight() != null)
+        if (mission.getImage() != null)
             try {
-                imageService.save(mission.getImageLight());
+                imageService.save(mission.getImage());
             } catch (Exception e) {
                 e.printStackTrace();
             }

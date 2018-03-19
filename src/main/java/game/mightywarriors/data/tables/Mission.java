@@ -19,10 +19,8 @@ public class Mission {
 
     @Column(name = "experience")
     private long experience = 1;
-    @Column(name = "descriptionDark")
-    private String descriptionDark;
-    @Column(name = "descriptionLight")
-    private String descriptionLight;
+    @Column(name = "description")
+    private String description;
     @Column(name = "time_duration")
     private long duration;
     @Column(name = "gold")
@@ -35,20 +33,16 @@ public class Mission {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageLight;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Image imageDark;
+    private Image image;
 
     public Mission() {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public Mission(long experience, String descriptionDark, BigDecimal gold, Monster monster) {
+    public Mission(long experience, String description, BigDecimal gold, Monster monster) {
         createdDate = new Timestamp(System.currentTimeMillis());
         this.experience = experience;
-        this.descriptionDark = descriptionDark;
+        this.description = description;
         this.gold = gold;
         this.monster = monster;
     }
@@ -65,12 +59,12 @@ public class Mission {
         this.experience = experience;
     }
 
-    public String getDescriptionDark() {
-        return descriptionDark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionDark(String descriptionDark) {
-        this.descriptionDark = descriptionDark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getGold() {
@@ -106,42 +100,26 @@ public class Mission {
         return experience == mission.experience &&
                 duration == mission.duration &&
                 Objects.equals(id, mission.id) &&
-                Objects.equals(descriptionDark, mission.descriptionDark) &&
+                Objects.equals(description, mission.description) &&
                 Objects.equals(gold, mission.gold);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, experience, descriptionDark, duration, gold);
+        return Objects.hash(id, experience, description, duration, gold);
     }
 
     public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public Image getImageLight() {
-        return imageLight;
+    public Image getImage() {
+        return image;
     }
 
-    public Mission setImageLight(Image imageLight) {
-        this.imageLight = imageLight;
+    public Mission setImage(Image image) {
+        this.image = image;
         return this;
-    }
-
-    public Image getImageDark() {
-        return imageDark;
-    }
-
-    public void setImageDark(Image imageDark) {
-        this.imageDark = imageDark;
-    }
-
-    public String getDescriptionLight() {
-        return descriptionLight;
-    }
-
-    public void setDescriptionLight(String descriptionLight) {
-        this.descriptionLight = descriptionLight;
     }
 }

@@ -170,11 +170,11 @@ public abstract class AdvancedIntegrationTestsConfig {
             images.add(new Image("https://cdn.orkin.com/images/rodents/norway-rat-illustration_360x236.jpg"));
             monsters.add(new Monster(statistics.get(i), images.get(i)));
             if (i <= 5 && i > 0)
-                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImageLight(new Image("https://www.ufopaedia.org/images/6/62/XCOM_Base_Defense_Mission_Screen_(EU2012).png")).setDuration((10 + i * 3)));
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("https://www.ufopaedia.org/images/6/62/XCOM_Base_Defense_Mission_Screen_(EU2012).png")).setDuration((10 + i * 3)));
             else if (i <= 9 && i > 5)
-                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImageLight(new Image("https://c1.staticflickr.com/5/4059/4485522732_f73ce8d7f7_b.jpg")).setDuration((10 + i * 3)));
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("https://c1.staticflickr.com/5/4059/4485522732_f73ce8d7f7_b.jpg")).setDuration((10 + i * 3)));
             else
-                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((10 + i * 3)));
+                missions.add(new Mission(1 + i, "", new BigDecimal("1"), monsters.get(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((10 + i * 3)));
         }
 
         for (int i = 0; i < 12; i++) {
