@@ -46,8 +46,6 @@ public class ProfileController {
             championPointsManager.addPoints(authorization, StatisticType.INTELLIGENCE, champ.getId(), statistic.getIntelligence() - champ.getStatistic().getIntelligence());
         if (statistic.getVitality() > champ.getStatistic().getVitality())
             championPointsManager.addPoints(authorization, StatisticType.VITALITY, champ.getId(), statistic.getVitality() - champ.getStatistic().getVitality());
-        if (statistic.getCriticalChance() > champ.getStatistic().getCriticalChance())
-            championPointsManager.addPoints(authorization, StatisticType.CRITICAL_CHANCE, champ.getId(), statistic.getCriticalChance() - champ.getStatistic().getCriticalChance());
         if (statistic.getArmor() > champ.getStatistic().getArmor())
             championPointsManager.addPoints(authorization, StatisticType.ARMOR, champ.getId(), statistic.getArmor() - champ.getStatistic().getArmor());
         if (statistic.getMagicResist() > champ.getStatistic().getMagicResist())
