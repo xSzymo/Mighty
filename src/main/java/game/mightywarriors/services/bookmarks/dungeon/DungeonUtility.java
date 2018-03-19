@@ -43,6 +43,7 @@ public class DungeonUtility {
         dungeonFight.setUser(user);
 
         dungeonFightService.save(dungeonFight);
+        user.setDungeonPoints(user.getDungeonPoints() - 1);
         userService.save(user);
     }
 
@@ -80,7 +81,6 @@ public class DungeonUtility {
             }
         }
 
-        user.setDungeonPoints(user.getDungeonPoints() - 1);
         user.getChampions().forEach(x -> x.setBlockUntil(null));
 
         dungeonFightService.delete(dungeonFight);

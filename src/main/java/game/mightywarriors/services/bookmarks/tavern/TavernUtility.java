@@ -69,7 +69,6 @@ public class TavernUtility {
             fight.setGold(missionGold);
         }
 
-        user.setMissionPoints(user.getMissionPoints() - 1);
         champions.forEach(x -> x.setBlockUntil(null));
 
         missionFightService.delete(missionFight);

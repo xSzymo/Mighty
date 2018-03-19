@@ -1,6 +1,7 @@
 package game.mightywarriors.services.bookmarks.tavern;
 
 import game.mightywarriors.data.services.MissionFightService;
+import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
@@ -24,14 +25,16 @@ public class TavernManager {
     private FightCoordinator fightCoordinator;
     private TavernUtility tavernUtility;
     private FightHelper fightHelper;
+    private UserService userService;
 
     @Autowired
-    public TavernManager(UsersRetriever usersRetriever, MissionFightService missionFightService, FightCoordinator fightCoordinator, TavernUtility tavernUtility, FightHelper fightHelper) {
+    public TavernManager(UsersRetriever usersRetriever, MissionFightService missionFightService, FightCoordinator fightCoordinator, TavernUtility tavernUtility, FightHelper fightHelper, UserService userService) {
         this.usersRetriever = usersRetriever;
         this.missionFightService = missionFightService;
         this.fightCoordinator = fightCoordinator;
         this.tavernUtility = tavernUtility;
         this.fightHelper = fightHelper;
+        this.userService = userService;
     }
 
     public void sendChampionOnMission(String authorization, TavernInformer informer) throws Exception {
@@ -45,6 +48,8 @@ public class TavernManager {
         throwExceptionIf_AnyOfChampionsIsBusy(champions);
 
         tavernUtility.prepareNewMissionFight(champions, mission);
+        user.setMissionPoints(user.getMissionPoints() - 1);
+        userService.save(user);
     }
 
     public FightResult performFight(String authorization, MissionFightInformer informer) throws Exception {
@@ -56,9 +61,13 @@ public class TavernManager {
         throwExceptionIf_AnyOfChampionsIsBusy(champions);
 
         FightResult fight = fightCoordinator.fight(user, missionFight.getMission().getMonster(), fightHelper.getChampionsId(missionFight.getChampions()));
-        tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, fight.getWinner().getLogin().equals(user.getLogin()));
+        tavernUtility.getThingsDoneAfterFight(user, missionFight, champions, fight, didUserWon(fight, user));
 
         return fight;
+    }
+
+    private boolean didUserWon(FightResult fight, User user) {
+        return fight.getWinner().getLogin() != null && fight.getWinner().getLogin().equals(user.getLogin());
     }
 
     private void throwExceptionIf_MissionFightIsNotPresent(MissionFight missionFight) throws Exception {
