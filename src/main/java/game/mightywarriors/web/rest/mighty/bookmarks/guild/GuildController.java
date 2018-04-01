@@ -3,8 +3,10 @@ package game.mightywarriors.web.rest.mighty.bookmarks.guild;
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.services.bookmarks.guild.GuildManager;
 import game.mightywarriors.services.bookmarks.guild.GuildMasterService;
-import game.mightywarriors.web.json.objects.bookmarks.CreateGuildInformer;
-import game.mightywarriors.web.json.objects.bookmarks.GuildMasterInformer;
+import game.mightywarriors.services.bookmarks.guild.GuildRequestManager;
+import game.mightywarriors.services.bookmarks.guild.GuildWarsService;
+import game.mightywarriors.web.json.objects.bookmarks.*;
+import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,36 @@ public class GuildController {
     private GuildManager guildManager;
     @Autowired
     private GuildMasterService guildMasterService;
+    @Autowired
+    private GuildRequestManager guildRequestManager;
+    @Autowired
+    private GuildWarsService guildWarsService;
+
+    @PostMapping("secure/guild/war")
+    public FightResult removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody GuildWarInformer informer) throws Exception {
+
+        return guildWarsService.performGuildWar(authorization, informer);
+    }
+
+
+    @PostMapping("secure/request/send")
+    public void sendRequest(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody GuildRequestInformer informer) throws Exception {
+
+        guildRequestManager.sendRequest(authorization, informer);
+    }
+
+    @PostMapping("secure/request/accept")
+    public void acceptRequest(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody AcceptGuildRequestInformer informer) throws Exception {
+
+        guildRequestManager.acceptRequest(authorization, informer);
+    }
+
+    @PostMapping("secure/request/delete")
+    public void deleteRequest(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody AcceptGuildRequestInformer informer) throws Exception {
+
+        guildRequestManager.deleteRequest(authorization, informer);
+    }
+
 
     @PostMapping("secure/guild/create")
     public void removeCurrentUserFromRoom(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody CreateGuildInformer informer) throws Exception {

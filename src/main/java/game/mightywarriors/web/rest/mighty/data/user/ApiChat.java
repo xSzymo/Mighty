@@ -1,4 +1,4 @@
-package game.mightywarriors.web.rest.mighty.bookmarks.messages;
+package game.mightywarriors.web.rest.mighty.data.user;
 
 import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.tables.Message;
@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-public class ChatDataProviderController {
+public class ApiChat {
     @Autowired
     private UserDataChatProvider userDataChatProvider;
 
