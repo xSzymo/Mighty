@@ -7,8 +7,9 @@ import game.mightywarriors.services.bookmarks.tavern.TavernManager;
 import game.mightywarriors.web.json.objects.bookmarks.ChampionBuyInformer;
 import game.mightywarriors.web.json.objects.bookmarks.MissionFightInformer;
 import game.mightywarriors.web.json.objects.bookmarks.TavernInformer;
-import game.mightywarriors.web.json.objects.fights.FightResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,15 +22,25 @@ public class TavernController {
     private MissionFightChecker missionFightChecker;
 
     @PostMapping("secure/tavern/send")
-    public void sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody TavernInformer informer) throws Exception {
+    public ResponseEntity<String> sendChampionOnMission(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody TavernInformer informer) {
+        try {
+            tavernManager.sendChampionOnMission(authorization, informer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
-        tavernManager.sendChampionOnMission(authorization, informer);
+        return ResponseEntity.status(HttpStatus.OK).body("success");
     }
 
     @PostMapping("secure/tavern/fight")
-    public FightResult fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer informer) throws Exception {
+    public ResponseEntity<String> fight(@RequestHeader(value = SystemVariablesManager.NAME_OF_JWT_HEADER_TOKEN) String authorization, @RequestBody MissionFightInformer informer) {
+        try {
+            tavernManager.performFight(authorization, informer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
-        return tavernManager.performFight(authorization, informer);
+        return ResponseEntity.status(HttpStatus.OK).body("success");
     }
 
     @PostMapping("secure/tavern/check/mission")
