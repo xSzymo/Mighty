@@ -6,6 +6,8 @@ import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotEnoughGoldException;
+import game.mightywarriors.services.background.tasks.ItemDrawer;
+import game.mightywarriors.services.background.tasks.MissionAssigner;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ChampionBuyInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,16 @@ public class ChampionTavern {
     private UsersRetriever usersRetriever;
     private UserService userService;
     private ChampionService championService;
+    private ItemDrawer itemDrawer;
+    private MissionAssigner missionAssigner;
 
     @Autowired
-    public ChampionTavern(UsersRetriever usersRetriever, UserService userService, ChampionService championService) {
+    public ChampionTavern(UsersRetriever usersRetriever, UserService userService, ChampionService championService, MissionAssigner missionAssigner, ItemDrawer itemDrawer) {
         this.userService = userService;
+        this.itemDrawer = itemDrawer;
         this.usersRetriever = usersRetriever;
         this.championService = championService;
+        this.missionAssigner = missionAssigner;
     }
 
     @Transactional
@@ -34,6 +40,8 @@ public class ChampionTavern {
         buyChampion(user);
 
         userService.save(user);
+        itemDrawer.drawItemsForUser(user.getId());
+        missionAssigner.assignNewMissionForUsers(user.getId());
     }
 
     public ChampionBuyInformer getInformationForBuyChampion(String authorization) throws Exception {

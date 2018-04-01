@@ -8,6 +8,7 @@ import game.mightywarriors.data.tables.Inventory;
 import game.mightywarriors.data.tables.Item;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.NotEnoughGoldException;
+import game.mightywarriors.services.background.tasks.ItemDrawer;
 import game.mightywarriors.services.security.UsersRetriever;
 import game.mightywarriors.web.json.objects.bookmarks.ShopInformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class ShopManager {
     private UsersRetriever usersRetriever;
     private ItemService itemService;
     private InventoryService inventoryService;
+    private ItemDrawer itemDrawer;
 
     @Autowired
-    public ShopManager(UserService userService, UsersRetriever usersRetriever, ItemService itemService, InventoryService inventoryService) {
+    public ShopManager(ItemDrawer itemDrawer, UserService userService, UsersRetriever usersRetriever, ItemService itemService, InventoryService inventoryService) {
         this.userService = userService;
+        this.itemDrawer = itemDrawer;
         this.usersRetriever = usersRetriever;
         this.itemService = itemService;
         this.inventoryService = inventoryService;
@@ -45,6 +48,7 @@ public class ShopManager {
         user.getShop().getItems().remove(user.getShop().getItems().stream().filter(x -> x.getId().equals(item.getId())).findFirst().get());
 
         userService.save(user);
+        itemDrawer.drawItemsForUser(user.getId());
     }
 
     public void sellItem(String authorization, ShopInformer shopInformer) throws Exception {

@@ -7,6 +7,7 @@ import game.mightywarriors.data.tables.Mission;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.other.exceptions.BusyChampionException;
+import game.mightywarriors.services.background.tasks.MissionAssigner;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
 import game.mightywarriors.services.combat.FightCoordinator;
 import game.mightywarriors.services.security.UsersRetriever;
@@ -26,15 +27,17 @@ public class TavernManager {
     private TavernUtility tavernUtility;
     private FightHelper fightHelper;
     private UserService userService;
+    private MissionAssigner missionAssigner;
 
     @Autowired
-    public TavernManager(UsersRetriever usersRetriever, MissionFightService missionFightService, FightCoordinator fightCoordinator, TavernUtility tavernUtility, FightHelper fightHelper, UserService userService) {
+    public TavernManager(MissionAssigner missionAssigner, UsersRetriever usersRetriever, MissionFightService missionFightService, FightCoordinator fightCoordinator, TavernUtility tavernUtility, FightHelper fightHelper, UserService userService) {
         this.usersRetriever = usersRetriever;
         this.missionFightService = missionFightService;
         this.fightCoordinator = fightCoordinator;
         this.tavernUtility = tavernUtility;
         this.fightHelper = fightHelper;
         this.userService = userService;
+        this.missionAssigner = missionAssigner;
     }
 
     public void sendChampionOnMission(String authorization, TavernInformer informer) throws Exception {
@@ -50,6 +53,7 @@ public class TavernManager {
         tavernUtility.prepareNewMissionFight(champions, mission);
         user.setMissionPoints(user.getMissionPoints() - 1);
         userService.save(user);
+        missionAssigner.assignNewMissionForUsers(user.getId());
     }
 
     public FightResult performFight(String authorization, MissionFightInformer informer) throws Exception {

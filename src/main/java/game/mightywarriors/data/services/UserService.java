@@ -21,8 +21,6 @@ public class UserService {
     @Autowired
     private UserServiceUtility userServiceUtility;
     @Autowired
-    private MissionAssigner missionAssigner;
-    @Autowired
     private ShopService shopService;
     @Autowired
     private InventoryService inventoryService;
@@ -30,8 +28,6 @@ public class UserService {
     private ChampionService championService;
     @Autowired
     private ChatService chatService;
-    @Autowired
-    private ItemDrawer itemDrawer;
     @Autowired
     private UserDungeonService userDungeonService;
     @Autowired
@@ -69,13 +65,6 @@ public class UserService {
         }
 
         repository.save(user);
-
-        if (user.getChampions().size() > 0) {
-            if (user.getMissions().size() < 3)
-                missionAssigner.assignNewMissionForUsers(user.getId());
-            if (user.getShop().getItems().size() < 1)
-                itemDrawer.drawItemsForUser(user.getId());
-        }
     }
 
     public User find(long id) {
