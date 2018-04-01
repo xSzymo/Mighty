@@ -1,6 +1,7 @@
 package advanced.integration.services.bookmarks.profile;
 
 import advanced.integration.config.AuthorizationConfiguration;
+import game.mightywarriors.configuration.system.variables.SystemVariablesManager;
 import game.mightywarriors.data.services.ItemService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.Champion;
@@ -31,9 +32,13 @@ public class ItemPlaceChangerTest extends AuthorizationConfiguration {
     private Item item;
     private Champion champion;
     private static boolean addData = true;
+    private static int last_max_items_in_inventory;
 
     @Before
     public void setUp() throws Exception {
+        SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = last_max_items_in_inventory;
+        SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = 30;
+
         if (addData) {
             user = usersRetriever.retrieveUser(token);
             item = new Item(ItemType.OFFHAND);
@@ -57,6 +62,7 @@ public class ItemPlaceChangerTest extends AuthorizationConfiguration {
     @After
     public void cleanUp() {
         try {
+            SystemVariablesManager.MAX_ITEMS_IN_INVENTORY = last_max_items_in_inventory;
             userService.delete("justForTest");
         } catch (Exception e) {
         }

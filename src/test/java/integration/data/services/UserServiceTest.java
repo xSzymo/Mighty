@@ -304,10 +304,10 @@ public class UserServiceTest extends IntegrationTestsConfig {
         assertEquals(0, one.getInventory().getItems().size());
 
         assertNotNull(one.getMissions());
-        assertEquals(3, one.getMissions().size());
+        assertEquals(0, one.getMissions().size());
 
         assertNotNull(one.getShop());
-        assertEquals(10, one.getShop().getItems().size());
+        assertEquals(0, one.getShop().getItems().size());
 
         assertEquals("user", one.getRole().getRole());
     }

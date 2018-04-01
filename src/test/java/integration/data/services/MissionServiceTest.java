@@ -2,6 +2,7 @@ package integration.data.services;
 
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
+import game.mightywarriors.services.background.tasks.MissionAssigner;
 import integration.config.IntegrationTestsConfig;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +26,8 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     private MonsterService monsterService;
     @Autowired
     private StatisticService statisticService;
+    @Autowired
+    private MissionAssigner missionAssigner;
 
     private LinkedList<Mission> missions;
     private LinkedList<Statistic> statistics;
@@ -132,6 +135,7 @@ public class MissionServiceTest extends IntegrationTestsConfig {
     public void deleteFromUser() {
         user = new User("", "", "").addChampion(new Champion());
         userService.save(user);
+        missionAssigner.assignNewMissionForUsers(user.getId());
         objectUnderTest.save(missions.getFirst());
 
         Mission mission = objectUnderTest.find(missions.getFirst());

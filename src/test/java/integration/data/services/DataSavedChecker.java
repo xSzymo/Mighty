@@ -1,10 +1,12 @@
 package integration.data.services;
 
 
+import game.mightywarriors.data.services.ChampionService;
 import game.mightywarriors.data.services.RoleService;
 import game.mightywarriors.data.services.UserService;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
+import game.mightywarriors.services.bookmarks.tavern.ChampionTavern;
 import integration.config.IntegrationTestsConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,8 @@ public class DataSavedChecker extends IntegrationTestsConfig {
     private UserService objectUnderTest;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private ChampionService championService;
 
     private HashSet<User> users;
     private LinkedList<Mission> missions;
@@ -57,7 +61,10 @@ public class DataSavedChecker extends IntegrationTestsConfig {
     public void save_check_basic_variables() {
         if (roleService.find("user") == null)
             roleService.save(new Role("user"));
-        user = new User("halu", "halu", "halu@gmail.com").addChampion(new Champion());
+        user = new User("halu", "halu", "halu@gmail.com");
+        Champion champion = new Champion();
+        championService.save(champion);
+        user.addChampion(champion);
 
         objectUnderTest.save(user);
         User one = objectUnderTest.find(user);
@@ -89,10 +96,10 @@ public class DataSavedChecker extends IntegrationTestsConfig {
         assertEquals(0, user.getInventory().getItems().size());
 
         assertNotNull(user.getMissions());
-        assertEquals(3, user.getMissions().size());
+        assertEquals(0, user.getMissions().size());
 
         assertNotNull(user.getShop());
-        assertEquals(10, user.getShop().getItems().size());
+        assertEquals(0, user.getShop().getItems().size());
 
         assertEquals("user", user.getRole().getRole());
     }
