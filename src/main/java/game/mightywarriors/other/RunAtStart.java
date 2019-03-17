@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import game.mightywarriors.data.services.*;
 import game.mightywarriors.data.tables.*;
 import game.mightywarriors.other.enums.ItemType;
+import game.mightywarriors.other.enums.Kingdom;
 import game.mightywarriors.services.background.tasks.DivisionAssigner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class RunAtStart {
     @Autowired
     private GuildService guildService;
 
-    private HashSet<User> users = new HashSet<>();
+    private HashSet<User> usersz = new HashSet<>();
     private LinkedList<Mission> missions = new LinkedList<>();
     private LinkedList<Mission> missions1 = new LinkedList<>();
     private LinkedList<Champion> champions = new LinkedList<>();
@@ -89,15 +90,15 @@ public class RunAtStart {
             itemService.save(new Item(faker.harryPotter().location(), ItemType.ARMOR, new Statistic(i  , i , i, i , i, i), i).setGold(new BigDecimal(i * 10)).setDescription(faker.gameOfThrones().quote()).setLevel(i));
         }
 
-        for (int i = 0; i < 30; i++) {
-            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
-            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
-            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
-            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
-            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImageLight(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
+        for (int i = 1; i < 30; i++) {
+            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
+            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
+            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
+            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
+            missionService.save(new Mission( i + 1, faker.harryPotter().quote(), new BigDecimal("1"), new Monster(new Statistic(i + i, i + i, i + i, i + i, i + i, i + i)).setLevel(i)).setImage(new Image("http://dclegends.wiki/images/thumb/0/0e/Alliance_Missions.jpg/300px-Alliance_Missions.jpg")).setDuration((i * i )));
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             HashSet floors = new HashSet();
 
             int a = 0;
@@ -114,6 +115,17 @@ public class RunAtStart {
 
             Dungeon dungeon = new Dungeon(faker.gameOfThrones().character(), i, new Image(), floors);
             dungeonService.save(dungeon);
+        }
+
+        for(int i = 1; i < 10; i++) {
+            User user = new User("user" + i, "Password123", "non@existing.mail");
+            user.setAccountEnabled(true);
+            user.setAccountNonLocked(true);
+            user.setCodeToEnableAccount(null);
+
+            user.setKingdom(i % 2 == 0 ? Kingdom.KNIGHT : Kingdom.MERCENERY);
+            user.addGold(new BigDecimal(1));
+            userService.save(user);
         }
     }
 }

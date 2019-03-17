@@ -1,6 +1,7 @@
 package game.mightywarriors.services.bookmarks.tavern;
 
 import game.mightywarriors.data.services.MissionFightService;
+import game.mightywarriors.data.tables.Champion;
 import game.mightywarriors.data.tables.MissionFight;
 import game.mightywarriors.data.tables.User;
 import game.mightywarriors.services.bookmarks.utilities.FightHelper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 @Service
 public class MissionFightChecker {
@@ -44,7 +46,11 @@ public class MissionFightChecker {
     }
 
     private void throwExceptionIf_UserHaveNotSpecificMissionFight(User user, MissionFight fight) throws Exception {
-        if (user.getChampions().stream().noneMatch(x -> fight.getChampions().iterator().next().getId().equals(x.getId())))
+        Optional<Champion> foundChampion = fight.getChampions().stream().findFirst();
+        if(!foundChampion.isPresent())
+            throw new Exception("Something went wrong");
+
+        if (user.getChampions().stream().noneMatch(x -> foundChampion.get().getId().equals(x.getId())))
             throw new Exception("Something went wrong");
     }
 

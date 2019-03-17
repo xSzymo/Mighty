@@ -140,4 +140,19 @@ public class Champion implements IFighter {
     public Timestamp getCreatedDate() {
         return createdDate;
     }
+
+    @Override
+    public String toString() {
+        return "Champion{" +
+                "id=" + id +
+                ", experience=" + experience +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", blockUntil=" + blockUntil +
+                ", createdDate=" + createdDate +
+                ", statistic=" + statistic +
+                ", image=" + image +
+                ", equipment=" + equipment +
+                '}';
+    }
 }
