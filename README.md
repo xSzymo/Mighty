@@ -2,7 +2,7 @@
 ### Introduction
 Mirror repository from gitlab - backend part.<br>
 Browser game made by me and my dear friend @BobrImperator<br><br>
-You can check demo which sample frontend - app contains sample data<br>
+You can check demo with sample frontend - it also contains sample data<br>
 Log in by one of 9 users - <br>
 user1/Password123<br>
 user2/Password123<br>
